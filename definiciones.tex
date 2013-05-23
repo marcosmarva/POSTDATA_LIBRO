@@ -1,0 +1,695 @@
+%%%%%%%%%%%%%%%%%%%%%Carga de Packages
+%%poner \newcommand{\idioma}{spanish} o \newcommand{\idioma}{english} en el documento
+\usepackage{pdfsync}
+\usepackage{srcltx}
+\usepackage[\idioma\opcionesIdioma]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage{graphicx}
+\graphicspath{{/users/fernando/figuras/}{./}{./figuras/}{/fernando/figuras/}{/fernando/figuras/jpg/}}
+\usepackage{epsfig}
+%\usepackage{listings}
+%\usepackage{algorithm}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{fancybox}
+\usepackage{array}
+\input{xy}
+\xyoption{all}
+\usepackage[dvipsnames,usenames]{color}
+\usepackage{comment}
+\excludecomment{spanish}
+\excludecomment{english}
+\includecomment{\idioma}
+
+%\usepackage{noweb}
+%\usepackage{clrscode}
+\usepackage{eurosym}
+\usepackage{wasysym}
+\usepackage{multirow}
+%\usepackage{margins}
+\usepackage{lscape}
+\usepackage[normalem]{ulem}
+\usepackage{xr-hyper}
+
+
+
+\excludecomment{ocultar}
+
+
+% Matriz (par‚ntesis)
+\def\matr#1#2{\left(\begin{array}{#1}#2\end{array}\right)}
+% Determinante (barras)
+\def\deter#1#2{\left|\begin{array}{#1}#2\end{array}\right|}
+% Sistema de ecuaciones. (llave a la izda.)
+\def\seq#1#2{\left\{\begin{array}{#1}#2\end{array}\right.}
+% Ecuaci\'on de varias lineas (sin llave a la izda.)
+\def\evl#1#2{\begin{array}{#1}#2\end{array}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%% M\'{a}rgenes %%%%%%%%%%%%%%%%
+%
+%
+%\parindent=0mm
+%
+%\textwidth=160mm
+%\textheight=220mm
+%\hoffset=-20mm
+%\voffset=-15mm
+%\parskip=0mm
+\marginparsep=3mm
+\marginparwidth=25mm
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% Contadores para listas de problemas
+%\newcommand{\adc}{\addtocounter{enumi}{1}}
+\newcommand{\adc}{\stepcounter{enumi}}
+\newcommand{\adci}{\stepcounter{enumii}}
+\newcommand{\xadc}{\addtocounter{xcounter}{1}}
+\newcommand{\be}{\begin{enumerate}}
+\newcommand{\ee}{\end{enumerate}}
+\newcommand{\bi}{\begin{itemize}}
+\newcommand{\ei}{\end{itemize}}
+\newcounter{xcounter}
+
+
+\newcommand{\nin}{{\noindent}}
+
+%\newcounter{prob}{}
+%\def\pr{\addtocounter{prob}{1}(\theprob)\ }
+%\def\pr2{\addtocounter{prob}{2}(\theprob)\ }
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%Fin de demostraciones, ejemplos, etc.
+\newcommand{\fin}{$\square$}
+%%%%%%%%%%%%%%%%%%%%%%%%%%Notaci\'{o}n matem\'{a}ticas generales
+%\newcommand{\suc}[1]{\{#1_n\}}
+%\newcommand{\sucn}[1]{\{#1_n\}_{n\in\mathbb{N}}}
+%\newcommand{\ser}[1]{\sum #1_n}
+%\newcommand{\sern}[1]{\sum_{n\geq 1} #1_n}
+%\newcommand{\limn}{\lim_{n\rightarrow\infty}}
+%\newcommand{\limnd}{\displaystyle\lim_{n\rightarrow\infty}}
+%\newcommand{\mf}[1]{\mathbf{#1}}
+%\newcommand{\mb}[1]{\mathbb{#1}}
+%\newcommand{\D}[1]{\Dv_{\mf{#1}}}
+%\newcommand{\bsigma}{\pmb{\sigma}}
+%\newcommand{\bPhi}{\pmb{\Phi}}
+%\newcommand{\vol}{\operatorname{vol}}
+%\newcommand{\ldbr}{[\hspace{-1.5pt}[}
+%\newcommand{\rdbr}{]\hspace{-1.5pt}]}
+%\newcommand{\fpws}[2]{{#1}\ldbr{#2}\rdbr}
+%\newcommand{\leftPui}{<\hspace{-3pt}<}
+%\newcommand{\rightPui}{>\hspace{-3pt}>}
+%\newcommand{\Pui}[2]{{#1}\hspace{-6pt}\leftPui{#2}\rightPui}
+
+%%%%%%%%%%Conjuntos de n\'{u}meros
+\newcommand{\N}{\mathbb{N}} %conjunto de n\'{u}meros naturales
+\newcommand{\Z}{\mathbb{Z}} %conjunto de n\'{u}meros enteros
+\newcommand{\R}{\mathbb{R}} %conjunto de n\'{u}meros reales
+\newcommand{\C}{\mathbb{C}} %conjunto de n\'{u}meros complejos
+\newcommand{\Q}{\mathbb{Q}} %conjunto de n\'{u}meros racionales
+\newcommand{\EP}{\mathbb{P}} %espacios proyectivos
+\newcommand{\K}{\mathbb{K}} %cuerpo gen\'{e}rico
+\newcommand{\A}{\mathbb{A}} %espacios afines
+%%%%%%%%%%Funciones
+\def\arcsen{\operatorname{arcsen}}
+\def\arctg{\operatorname{arctg}}
+\def\argCosh{\operatorname{argCosh}}
+\def\argSenh{\operatorname{argSenh}}
+\def\argTgh{\operatorname{argTgh}}
+\def\cosec{\operatorname{cosec}}
+\def\Cosh{\operatorname{Cosh}}
+\def\cotg{\operatorname{cotg}}
+\def\Dv{\operatorname{D}}
+\def\discrim{\operatorname{discrim}}
+\def\dive{\operatorname{div}}
+\def\dom{\operatorname{dom}}
+\def\Ext{\operatorname{Ext}}
+\def\Fr{\operatorname{Fr}}
+\def\dder#1#2{\dfrac{d #1}{d #2} } %derivada en estilo display
+\def\gr{\operatorname{gr}}
+\def\grad{\operatorname{grad}}
+\def\Imag{\operatorname{Im}}
+\def\mcm{\operatorname{mcm}}
+\def\rang{\operatorname{rang}}
+\def\rot{\operatorname{rot}}
+\def\sen{\operatorname{sen}}
+\def\Senh{\operatorname{Senh}}
+\def\sgn{\operatorname{sgn}}
+\def\sig{\operatorname{sig}}
+\def\tg{\operatorname{tg}}
+\def\Tgh{\operatorname{Tgh}}
+\def\E{\operatorname{E}}
+\def\VAR{\operatorname{VAR}}
+\newcommand{\margWeb}[2]{\noindent{#2}\marginpar[\hspace{-18mm}\link{#1}{WEB}]{\hspace*{-18mm}\link{#1}{WEB}}}
+
+%%%%%%%%%%%%%%%%%%%%%%\'{A}lgebra conmutativa.
+\def\multideg{\operatorname{multideg}} %multidegree of a polynomial
+\def\LT{\operatorname{lt}} %leading term of a polynomial
+\def\LC{\operatorname{lc}} %leading coefficient of a polynomial
+\def\LM{\operatorname{lm}} %leading monomial of a polynomial
+\def\Mexp{\mathbb{Z}^n_{\geq 0}} %set of multiexponents of monomials
+\def\set#1{\left\{{#1}\right\}}
+\newcommand{\vlist}[2]{\mbox{${#1}_{1},\ldots,{#1}_{#2}$}}
+\def\deg{\operatorname{deg}} %grado de un polinomio
+\def\cp{\operatorname{cp}} %coeficiente principal de un polinomio
+\def\CP{\operatorname{cp}} %coeficiente principal de un polinomio
+\def\set#1{\left\{{#1}\right\}} %llaves de conjunto
+\newcommand{\V}{{\bf V}} %variedad de un conjunto de polinomios
+\newcommand{\I}{{\bf I}} %ideal de un conjunto
+\newcommand{\MCD}{\operatorname{mcd}} %m\'{a}ximo com\'{u}n divisor
+\newcommand{\MCM}{\operatorname{mcm}} %m\'{\i}nimo com\'{u}n m\'{u}ltiplo
+\newcommand{\LCM}{\operatorname{lcm}} %least common multiple
+\newcommand{\GCD}{\operatorname{gcd}} %greatest common divisor
+\newcommand{\Ker}{\operatorname{Ker}} %N\'{u}cleo
+\newcommand{\IM}{\operatorname{IM}} %Imagen
+\newcommand{\Rad}{\operatorname{Rad}} %radical de un ideal
+\newcommand{\Jac}{\operatorname{Jac}} %radical de Jacobson de un anillo
+\newcommand{\Ann}{\operatorname{Ann}} %anulador de un ideal
+\newcommand{\Res}{\operatorname{Res}} %resultante de polinomios
+\newcommand{\Mult}{\operatorname{mult}} %multiplicidad
+\newcommand{\Gen}{\operatorname{Gen}} %g\'{e}nero
+\newcommand{\Card}{\operatorname{Card}} %cardinal
+\newcommand{\ord}{\operatorname{ord}} %orden
+\newcommand{\prim}{\operatorname{prim}} %parte primitiva
+\newcommand{\NP}{\operatorname{NP}} %NP idea
+\newcommand{\cont}{\operatorname{cont}} %parte primitva
+\newcommand{\pp}{\operatorname{pp}} %parte primitva
+\newcommand{\PP}{\mathop{\mathrm{PP}}\nolimits}
+\newcommand{\Int}{\operatorname{Int}}
+\newcommand{\Ind}{\operatorname{index}}
+\newcommand{\Lcoeff}{\operatorname{lc}} %leading coefficient of a polynomial
+\newcommand{\Sqf}{\operatorname{Sqf}} %square free part of a polynomial
+
+\def\pd#1#2{\frac{\partial #1}{\partial #2}} %derivada parcial
+\def\mult{\text{mult}} %multiplicity
+\def\Sing{\text{Sing}} %multiplicity
+\def\Cl#1{\overline{#1}} %cierre topol\'{o}gico
+\def\fobox#1{\begin{center}\fbox{$\displaystyle #1 $}\end{center}}
+
+%\newcommand{\Ext}{\operatorname{Ext}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%S\'{\i}mbolos rodeados de un c\'{\i}rculo
+\def\circled#1{\xymatrix{*+[o][F]{#1}}}
+
+%%%%%%%%%%%%%%%%%%%Geometr\'{\i}a
+\newcommand{\CH}{{\cal CH}} %%cierre convexo
+
+%%%%%%%%%%%%%%%%%%%%Tipos de letra especiales
+%%Caligr\'{a}ficas
+\newcommand{\cA}{{\cal A}}
+\newcommand{\cB}{{\cal B}}
+\newcommand{\cC}{{\cal C}}
+\newcommand{\cD}{{\cal D}}
+\newcommand{\cE}{{\cal E}}
+\newcommand{\cF}{{\cal F}}
+\newcommand{\cG}{{\cal G}}
+\newcommand{\cH}{{\cal H}}
+\newcommand{\cI}{{\cal I}}
+\newcommand{\cJ}{{\cal J}}
+\newcommand{\cK}{{\cal K}}
+\newcommand{\cL}{{\cal L}}
+\newcommand{\cM}{{\cal M}}
+\newcommand{\cN}{{\cal N}}
+\newcommand{\cO}{{\cal O}}
+\newcommand{\cP}{{\cal P}}
+\newcommand{\cQ}{{\cal Q}}
+\newcommand{\cR}{{\cal R}}
+\newcommand{\cS}{{\cal S}}
+\newcommand{\cT}{{\cal T}}
+\newcommand{\cU}{{\cal U}}
+\newcommand{\cV}{{\cal V}}
+\newcommand{\cW}{{\cal W}}
+\newcommand{\cX}{{\cal X}}
+\newcommand{\cY}{{\cal Y}}
+\newcommand{\cZ}{{\cal Z}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%Notaci\'{o}n matem\'{a}ticas generales
+\newcommand{\sucn}[1]{\{#1_n\}_{n\in\mathbb{N}}}
+\newcommand{\ser}[1]{\sum #1_n}
+\newcommand{\sern}[1]{\sum_{n\geq 1} #1_n}
+\newcommand{\limn}{\lim_{n\rightarrow\infty}}
+\newcommand{\mf}[1]{\mathbf{#1}}
+\newcommand{\mb}[1]{\mathbb{#1}}
+\newcommand{\D}[1]{\Dv_{\mf{#1}}}
+\newcommand{\bsigma}{\pmb{\sigma}}
+\newcommand{\bPhi}{\pmb{\Phi}}
+\newcommand{\vol}{\operatorname{vol}}
+\newcommand{\ldbr}{[\hspace{-1.5pt}[}
+\newcommand{\rdbr}{]\hspace{-1.5pt}]}
+\newcommand{\fpws}[2]{{#1}\ldbr{#2}\rdbr}
+\newcommand{\leftPui}{<\hspace{-3pt}<}
+\newcommand{\rightPui}{>\hspace{-3pt}>}
+\newcommand{\Pui}[2]{{#1}\hspace{-6pt}\leftPui{#2}\rightPui}
+\newcommand{\pdd}[2]{\dfrac{\partial{#1}}{\partial{#2}}}
+
+
+
+
+\newcommand{\pendiente}{\textcolor{red}{PENDIENTE: }}
+%\newcommand{\link}[2]{\textcolor{blue}{{\href{#1}{#2}}}}
+\newcommand{\link}[2]{\textcolor{blue}{{\href{#1}{#2}}}}
+
+%%%%%%%%%%%%%%%%%%COLORES
+
+\DefineNamedColor{named}{Brown}{cmyk}{0,0.81,1,0.60}
+\definecolor{Gris050}{gray}{0.50}
+\definecolor{Gris025}{gray}{0.75}
+
+
+%%%%%%%%%%%%%%%%%%%%%Package Algorithms
+%\begin{spanish}
+%\renewcommand{\algorithmicrequire}{{precondici\'{o}n:}}
+%\renewcommand{\algorithmicensure}{{postcondici\'{o}n:}}
+%\renewcommand{\algorithmicend}{{fin}}
+%\renewcommand{\algorithmicif}{{si}}
+% \renewcommand{\algorithmicthen}{{entonces}}
+% \renewcommand{\algorithmicelse}{{si no}}
+% \renewcommand{\algorithmicelsif}{\algorithmicelse\ \algorithmicif}
+% \renewcommand{\algorithmicendif}{\algorithmicend\ \algorithmicif}
+% \renewcommand{\algorithmicfor}{{para}}
+% \renewcommand{\algorithmicforall}{{para todo}}
+% \renewcommand{\algorithmicdo}{{hacer}}
+% \renewcommand{\algorithmicendfor}{\algorithmicend\ \algorithmicfor}
+% \renewcommand{\algorithmicwhile}{{mientras}}
+% \renewcommand{\algorithmicendwhile}{\algorithmicend\ \algorithmicwhile}
+% \renewcommand{\algorithmicrepeat}{{repetir}}
+% \renewcommand{\algorithmicuntil}{{hasta}}
+% \end{spanish}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%Package Amsthm
+\begin{spanish}
+%\theoremstyle{definition}% default
+\theoremstyle{plain}
+\newtheorem{thm}{Teorema}[section]
+\newtheorem{teo}{Teorema}[section]
+\newtheorem{teorema}{Teorema}[section]
+\newtheorem{lem}[thm]{Lema}
+\newtheorem{lema}[thm]{Lema}
+\newtheorem{prop}[thm]{Proposici\'{o}n}
+\newtheorem{proposicion}[thm]{Proposici\'{o}n}
+\newtheorem{cor}[thm]{Corolario}
+\newtheorem{corolario}[thm]{Corolario}
+\newtheorem*{KL}{Klein's Lemma}
+%\theoremstyle{definition}
+\newtheorem{defn}[thm]{Definici\'{o}n}
+\newtheorem{definicion}[thm]{Definici\'{o}n}
+\newtheorem{conj}[thm]{Conjetura}
+\newtheorem{conjetura}[thm]{Conjetura}
+\newtheorem{definicionInformal}[thm]{Definición Informal}
+\newtheorem{exmp}[thm]{Ejemplo}
+\newtheorem{ejemplo}[thm]{Ejemplo}
+\newtheorem{Ejemplo}[thm]{Ejemplo}
+\newtheorem{ejem}[thm]{Ejemplo}
+\newtheorem{ejercicio}[thm]{Ejemplo}
+%\theoremstyle{remark}
+\newtheorem*{rem}{Observaci\'{o}n}
+\newtheorem{observacion}[thm]{Observaci\'{o}n}
+\newtheorem*{note}{Nota}
+\newtheorem{nota}[thm]{Nota}
+\newtheorem{case}[thm]{Caso}
+\newtheorem{caso}[thm]{Caso}
+\newtheorem{regla}[thm]{Regla}
+\end{spanish}
+
+\begin{english}
+\theoremstyle{plain}% default
+%\theoremstyle{definition}
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem{cor}[thm]{Corollary}
+\newtheorem*{KL}{Klein's Lemma}
+\newtheorem{defn}[thm]{Definition}
+\newtheorem{conj}[thm]{Conjecture}
+\newtheorem{exmp}[thm]{Example}
+\theoremstyle{remark}
+\newtheorem*{rem}{Remark}
+\newtheorem*{note}{Note}
+\newtheorem{case}{Case}
+\end{english}
+
+%%%%%%%%%%%%%%%Package Listings
+%\lstset{showstringspaces=false}
+%\newcommand{\PAS}[1]{\lstinline@#1@}
+%\newcommand{\CPP}[1]{\lstinline@#1@}
+
+
+%%%%%%%%%%%%Estilo para bibliograf\'{\i}a
+
+\bibliographystyle{plain}
+
+%%%%%%%%%%%%Mis anotaciones
+\newcommand{\Pendiente}{\textcolor{blue}{Pendiente: }}
+
+%%%%%%%%%%%%%%%% Enlace al indice
+%\renewcommand{\chaptermark}[1]{\markboth{\chaptername\ \thechapter.#1 \ref{index}}{}}
+
+%%%%%%%%%%%%%%%%%%Traducci\'{o}n de clrscode
+%\renewcommand{\For}{\textbf{Para} }
+%\renewcommand{\To}{\textbf{hasta} }
+%\renewcommand{\By}{\textbf{incremento} }
+%\renewcommand{\Downto}{\textbf{downto} }
+%\renewcommand{\While}{\textbf{mientras} }
+%\renewcommand{\Repeat}{\textbf{repetir}\>\>\addtocounter{indent}{1}}
+%\renewcommand{\Until}{\kill\addtocounter{indent}{-1}\liprint\>\>\textbf{hasta que}\hspace*{-0.7em}\'}
+%\renewcommand{\If}{\textbf{si} }
+%\renewcommand{\Then}{\>\textbf{entonces}\hspace{13mm}\>\addtocounter{indent}{1}}
+%\renewcommand{\Else}{\kill\addtocounter{indent}{-1}\liprint\>\textbf{sino}\>\addtocounter{indent}{1}}
+%\renewcommand{\End}{\addtocounter{indent}{-1}}
+%\renewcommand{\ElseIf}{\kill\addtocounter{indent}{-1}\liprint\textbf{sino si} }
+%\renewcommand{\ElseNoIf}{\kill\addtocounter{indent}{-1}\liprint\textbf{si no}\addtocounter{indent}{1}}
+%\renewcommand{\Do}{\>\>\textbf{hacer}\hspace*{-0.7em}\'\addtocounter{indent}{1}}
+%\renewcommand{\Return}{\textbf{devolver} }
+%\renewcommand{\Comment}{$\hspace*{-0.075em}\rhd$ }
+%\renewcommand{\RComment}{\`\Comment}
+%\renewcommand{\Goto}{\textbf{Ir a} }
+%\renewcommand{\Error}{\textbf{error} }
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Cabecera para ejercicios
+%\documentclass[11pt]{article}
+%\newcommand{\idioma}{spanish}
+%\input definiciones
+%
+%\textwidth=160mm \textheight=240mm \hoffset=-20mm \voffset=-30mm
+%%\parskip=0mm
+%%\marginparsep=-25mm \evensidemargin=82pt\evensidemargin=44pt
+%
+%
+%\includecomment{solucion}
+%%\excludecomment{solucion}
+
+%%Compatibilidad con documentos antiguos
+\newcounter{prob}{}
+\def\pr{\noindent\addtocounter{prob}{1}(\theprob)\ }
+\def\bepro{ \setcounter{prob}{0}}
+
+%%Compatibilidad con documentos antiguos
+% \def\ojo#1{
+% \noindent$\btr$#1
+% \marginpar[
+% {GeoGebra}]
+% {GeoGebra}}
+
+% \def\atencion#1{\noindent #1
+% \marginpar[
+% {\includegraphics*[scale=1,width=1.2cm,keepaspectratio=true]{hipoizda}}]
+% {\includegraphics*[scale=1,width=1.2cm,keepaspectratio=true]{hipodcha}}}
+
+
+\def\Rlogo#1{\noindent #1
+\marginpar[
+{\includegraphics*[scale=1,width=1.2cm,keepaspectratio=true]{Rlogo.jpg}}]
+{\includegraphics*[scale=1,width=1.2cm,keepaspectratio=true]{Rlogo.jpg}}}
+
+
+
+\def\atencion{
+\marginpar[
+{\includegraphics*[scale=1,width=2cm,keepaspectratio=true]{hipoizda}}]
+{\includegraphics*[scale=1,width=2cm,keepaspectratio=true]{hipodcha}}}
+
+
+\def\ojo#1{
+\noindent #1
+\marginpar[
+{\includegraphics*[scale=1,width=1.5cm,keepaspectratio=true]{hipoojoi}}]
+{\includegraphics*[scale=1,width=1.5cm,keepaspectratio=true]{hipoojod}}}
+
+\def\ojo2{
+\marginpar[
+{\includegraphics*[scale=1,width=1.5cm,keepaspectratio=true]{hipoojoi}}]
+{\includegraphics*[scale=1,width=1.5cm,keepaspectratio=true]{hipoojod}}}
+
+
+\def\lio#1{
+\noindent$\btr$#1
+\marginpar{\includegraphics*[scale=1,width=1.1cm,keepaspectratio=true]{hipolio}}}
+
+\def\cuentas{
+\marginpar{\includegraphics*[scale=1,width=1.3cm,keepaspectratio=true]{hipocuen}}}
+
+\def\pensar{
+\marginpar{\includegraphics*[scale=1,width=1.5cm,keepaspectratio=true]{hipopens}}}
+
+\def\facil{
+\marginpar{\includegraphics*[scale=1,width=2cm,keepaspectratio=true]{hipofcil}}}
+
+
+
+\newcommand{\WikipediaLogo}{\marginpar{\includegraphics*[scale=1,width=1.2cm,keepaspectratio=true]{LogoWikipedia}}}
+\newcommand{\MoodleLogo}{\marginpar{\includegraphics*[scale=1,width=1.2cm,keepaspectratio=true]{MoodleLogo}}}
+\newcommand{\WirisGeoGebraLogo}{\marginpar{\includegraphics*[scale=1,width=1.2cm,keepaspectratio=true]{WirisGeoGebraLogo}}}
+\newcommand{\WirisLogo}{\marginpar{\includegraphics*[scale=1,width=1.2cm,keepaspectratio=true]{WirisLogo}}}
+\newcommand{\GeoGebraLogo}{\marginpar{\includegraphics*[scale=1,width=1.2cm,keepaspectratio=true]{GeoGebra-Logo}}}
+
+
+\newcommand{\enObras}[1]{\includegraphics*[scale=1,width=0.5cm,keepaspectratio=true]{obras.png}\textcolor{blue}{#1}}
+
+
+
+\newcommand{\GeoGebra}[2]{\noindent #1
+\marginpar[{\link{#2}{\small Moodle}\\\includegraphics*[scale=1,width=1.2cm,keepaspectratio=true]{MoodleLogo}}]{\link{#2}{\small Moodle}\\\includegraphics*[scale=1,width=1.2cm,keepaspectratio=true]{MoodleLogo}}}
+
+\newcommand{\Moodle}[2]{\noindent #1
+\marginpar[{\link{#2}{\small Moodle}\\\includegraphics*[scale=1,width=1.2cm,keepaspectratio=true]{MoodleLogo}}]{\link{#2}{\small Moodle}\\\includegraphics*[scale=1,width=1.2cm,keepaspectratio=true]{MoodleLogo}}}
+
+\newcommand{\Wikipedia}[2]{\noindent #1
+\marginpar[{\link{#2}{\small Wikipedia}\\\includegraphics*[scale=1,width=1.2cm,keepaspectratio=true]{LogoWikipedia}}]{\link{#2}{\small Wikipedia}\\\includegraphics*[scale=1,width=1.2cm,keepaspectratio=true]{LogoWikipedia}}}
+
+
+\newcommand{\pder}[2]{\frac{\partial #1}{\partial #2}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%% M\'{a}rgenes %%%%%%%%%%%%%%%%
+%%
+%%
+%%\parindent=0mm
+%%
+%\textwidth=160mm \textheight=220mm \hoffset=-20mm \voffset=-15mm
+%\parskip=0mm
+%\marginparsep=-25mm
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Contadores para listas de problemas
+%%\newcommand{\adc}{\addtocounter{enumi}{1}}
+%\newcommand{\adc}{\stepcounter{enumi}}
+%\newcommand{\adci}{\stepcounter{enumii}}
+%\newcommand{\xadc}{\addtocounter{xcounter}{1}}
+%\newcommand{\be}{\begin{enumerate}}
+%\newcommand{\ee}{\end{enumerate}}
+%\newcommand{\bi}{\begin{itemize}}
+%\newcommand{\ei}{\end{itemize}}
+%\newcounter{xcounter}
+%\newcounter{probl}
+%\setcounter{probl}{0}
+%\newcommand{\pro}{\addtocounter{probl}{1}}
+%\newcommand{\pr}{{\pro}{(\theprobl.)}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%Fin de demostraciones, ejemplos, etc.
+%\newcommand{\fin}{$\square$}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%Notaci\'{o}n matem\'{a}ticas generales
+%\newcommand{\suc}[1]{\{#1_n\}}
+%\newcommand{\sucn}[1]{\{#1_n\}_{n\in\mathbb{N}}}
+%\newcommand{\ser}[1]{\sum #1_n}
+%\newcommand{\sern}[1]{\sum_{n\geq 1} #1_n}
+%\newcommand{\limn}{\lim_{n\rightarrow\infty}}
+%\newcommand{\mf}[1]{\mathbf{#1}}
+%\newcommand{\mb}[1]{\mathbb{#1}}
+%\newcommand{\D}[1]{\Dv_{\mf{#1}}}
+%\newcommand{\bsigma}{\pmb{\sigma}}
+%\newcommand{\bPhi}{\pmb{\Phi}}
+%\newcommand{\vol}{\operatorname{vol}}
+%\newcommand{\ldbr}{[\hspace{-1.5pt}[}
+%\newcommand{\rdbr}{]\hspace{-1.5pt}]}
+%\newcommand{\fpws}[2]{{#1}\ldbr{#2}\rdbr}
+%\newcommand{\leftPui}{<\hspace{-3pt}<}
+%\newcommand{\rightPui}{>\hspace{-3pt}>}
+%\newcommand{\Pui}[2]{{#1}\hspace{-6pt}\leftPui{#2}\rightPui}
+%\newcommand{\pdd}[2]{\dfrac{\partial{#1}}{\partial{#2}}}
+%%%%%%%%%%%Conjuntos de n\'{u}meros
+%\newcommand{\N}{\mathbb{N}} %conjunto de n\'{u}meros naturales
+%\newcommand{\Z}{\mathbb{Z}} %conjunto de n\'{u}meros enteros
+%\newcommand{\R}{\mathbb{R}} %conjunto de n\'{u}meros reales
+%\newcommand{\C}{\mathbb{C}} %conjunto de n\'{u}meros complejos
+%\newcommand{\Q}{\mathbb{Q}} %conjunto de n\'{u}meros racionales
+%\newcommand{\EP}{\mathbb{P}} %espacios proyectivos
+%\newcommand{\K}{\mathbb{K}} %cuerpo gen\'{e}rico
+%\newcommand{\A}{\mathbb{A}} %espacios afines
+%%%%%%%%%%%Funciones
+%\def\arcsen{\operatorname{arcsen}}
+%\def\arctg{\operatorname{arctg}}
+%\def\argCosh{\operatorname{argCosh}}
+%\def\argSenh{\operatorname{argSenh}}
+%\def\argTgh{\operatorname{argTgh}}
+%\def\cosec{\operatorname{cosec}}
+%\def\Cosh{\operatorname{Cosh}}
+%\def\cotg{\operatorname{cotg}}
+%\def\Dv{\operatorname{D}}
+%\def\discrim{\operatorname{discrim}}
+%\def\dive{\operatorname{div}}
+%\def\dom{\operatorname{dom}}
+%\def\Ext{\operatorname{Ext}}
+%\def\Fr{\operatorname{Fr}}
+%\def\gr{\operatorname{gr}}
+%\def\grad{\operatorname{grad}}
+%\def\Imag{\operatorname{Im}}
+%\def\mcm{\operatorname{mcm}}
+%\def\rang{\operatorname{rang}}
+%\def\rot{\operatorname{rot}}
+%\def\sen{\operatorname{sen}}
+%\def\Senh{\operatorname{Senh}}
+%\def\sgn{\operatorname{sgn}}
+%\def\sig{\operatorname{sig}}
+%\def\tg{\operatorname{tg}}
+%\def\Tgh{\operatorname{Tgh}}
+%\def\E{\operatorname{E}}
+%\def\VAR{\operatorname{VAR}}
+%
+%%%%%%%%%%%%%%%%%%%%%%%\'{A}lgebra conmutativa.
+%\def\multideg{\operatorname{multideg}} %multidegree of a polynomial
+%\def\LT{\operatorname{lt}} %leading term of a polynomial
+%\def\LC{\operatorname{lc}} %leading coefficient of a polynomial
+%\def\LM{\operatorname{lm}} %leading monomial of a polynomial
+%\def\Mexp{\mathbb{Z}^n_{\geq 0}} %set of multiexponents of monomials
+%\def\set#1{\left\{{#1}\right\}}
+%\newcommand{\vlist}[2]{\mbox{${#1}_{1},\ldots,{#1}_{#2}$}}
+%\def\deg{\operatorname{deg}} %grado de un polinomio
+%\def\cp{\operatorname{cp}} %coeficiente principal de un polinomio
+%\def\CP{\operatorname{cp}} %coeficiente principal de un polinomio
+%\def\set#1{\left\{{#1}\right\}} %llaves de conjunto
+%\newcommand{\V}{{\bf V}} %variedad de un conjunto de polinomios
+%\newcommand{\I}{{\bf I}} %ideal de un conjunto
+%\newcommand{\MCD}{\operatorname{mcd}} %m\'{a}ximo com\'{u}n divisor
+%\newcommand{\MCM}{\operatorname{mcm}} %m\'{\i}nimo com\'{u}n m\'{u}ltiplo
+%\newcommand{\LCM}{\operatorname{lcm}} %least common multiple
+%\newcommand{\GCD}{\operatorname{gcd}} %greatest common divisor
+%\newcommand{\Ker}{\operatorname{Ker}} %N\'{u}cleo
+%\newcommand{\IM}{\operatorname{IM}} %Imagen
+%\newcommand{\Rad}{\operatorname{Rad}} %radical de un ideal
+%\newcommand{\Jac}{\operatorname{Jac}} %radical de Jacobson de un anillo
+%\newcommand{\Ann}{\operatorname{Ann}} %anulador de un ideal
+%\newcommand{\Res}{\operatorname{Res}} %resultante de polinomios
+%\newcommand{\Mult}{\operatorname{mult}} %multiplicidad
+%\newcommand{\Gen}{\operatorname{Gen}} %g\'{e}nero
+%\newcommand{\Card}{\operatorname{Card}} %cardinal
+%\newcommand{\ord}{\operatorname{ord}} %orden
+%\newcommand{\prim}{\operatorname{prim}} %parte primitiva
+%\newcommand{\NP}{\operatorname{NP}} %NP idea
+%\newcommand{\cont}{\operatorname{cont}} %parte primitva
+%\newcommand{\pp}{\operatorname{pp}} %parte primitva
+%\newcommand{\PP}{\mathop{\mathrm{PP}}\nolimits}
+%\newcommand{\Int}{\operatorname{Int}}
+%\newcommand{\Ind}{\operatorname{index}}
+%\newcommand{\Lcoeff}{\operatorname{lc}} %leading coefficient of a polynomial
+%\newcommand{\Sqf}{\operatorname{Sqf}} %square free part of a polynomial
+%
+%\def\pd#1#2{\frac{\partial #1}{\partial #2}} %derivada parcial
+%\def\mult{\text{mult}} %multiplicity
+%\def\Sing{\text{Sing}} %multiplicity
+%\def\Cl#1{\overline{#1}} %cierre topol\'{o}gico
+%
+%%\newcommand{\Ext}{\operatorname{Ext}}
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%S\'{\i}mbolos rodeados de un c\'{\i}rculo
+%\def\circled#1{\xymatrix{*+[o][F]{#1}}}
+%
+%%%%%%%%%%%%%%%%%%%%Geometr\'{\i}a
+%\newcommand{\CH}{{\cal CH}} %%cierre convexo
+%
+%%%%%%%%%%%%%%%%%%%%%Tipos de letra especiales
+%%%Caligr\'{a}ficas
+%\newcommand{\cA}{{\cal A}}
+%\newcommand{\cB}{{\cal B}}
+%\newcommand{\cC}{{\cal C}}
+%\newcommand{\cD}{{\cal D}}
+%\newcommand{\cE}{{\cal E}}
+%\newcommand{\cF}{{\cal F}}
+%\newcommand{\cG}{{\cal G}}
+%\newcommand{\cH}{{\cal H}}
+%\newcommand{\cI}{{\cal I}}
+%\newcommand{\cJ}{{\cal J}}
+%\newcommand{\cK}{{\cal K}}
+%\newcommand{\cL}{{\cal L}}
+%\newcommand{\cM}{{\cal M}}
+%\newcommand{\cN}{{\cal N}}
+%\newcommand{\cO}{{\cal O}}
+%\newcommand{\cP}{{\cal P}}
+%\newcommand{\cQ}{{\cal Q}}
+%\newcommand{\cR}{{\cal R}}
+%\newcommand{\cS}{{\cal S}}
+%\newcommand{\cT}{{\cal T}}
+%\newcommand{\cU}{{\cal U}}
+%\newcommand{\cV}{{\cal V}}
+%\newcommand{\cW}{{\cal W}}
+%\newcommand{\cX}{{\cal X}}
+%\newcommand{\cY}{{\cal Y}}
+%\newcommand{\cZ}{{\cal Z}}
+%
+%
+%%%%%%%%%%%%%%%%%%%COLORES
+%
+%\DefineNamedColor{named}{Brown}{cmyk}{0,0.81,1,0.60}
+%\definecolor{Gris050}{gray}{0.50}
+%\definecolor{Gris025}{gray}{0.50}
+%
+%
+%%\theoremstyle{plain}
+%%\newtheorem{thm}{Teorema}[section]
+%%%\newtheorem{teo}{Teorema}[section]
+%%\newtheorem{lem}[thm]{Lema}
+%%\newtheorem{prop}[thm]{Proposici\'{o}n}
+%%\newtheorem{cor}[thm]{Corolario}
+%%\newtheorem*{KL}{Klein's Lemma}
+%%%\theoremstyle{definition}
+%%\newtheorem{defn}[thm]{Definici\'{o}n}
+%%\newtheorem{conj}[thm]{Conjetura}
+%%\newtheorem{exmp}[thm]{Ejemplo}
+%%\newtheorem{ejem}[thm]{Ejemplo}
+%%\theoremstyle{remark}
+%%\newtheorem*{rem}{Observaci\'{o}n}
+%%\newtheorem*{note}{Nota}
+%%\newtheorem{case}{Caso}
+%%\newtheorem{regla}[thm]{Regla}
+%
+%\theoremstyle{plain}
+%\newtheorem{thm}{Teorema}%[subsection]
+%%\newtheorem{teo}{Teorema}[section]
+%%\newtheorem{teorema}{Teorema}[section]
+%\newtheorem{lem}[thm]{Lema}
+%\newtheorem{lema}[thm]{Lema}
+%\newtheorem{prop}[thm]{Proposici\'{o}n}
+%\newtheorem{proposicion}[thm]{Proposici\'{o}n}
+%\newtheorem{cor}[thm]{Corolario}
+%\newtheorem{corolario}[thm]{Corolario}
+%\newtheorem*{KL}{Klein's Lemma}
+%%\theoremstyle{definition}
+%\newtheorem{defn}[thm]{Definici\'{o}n}
+%\newtheorem{definicion}[thm]{Definici\'{o}n}
+%\newtheorem{conj}[thm]{Conjetura}
+%\newtheorem{conjetura}[thm]{Conjetura}
+%\newtheorem{exmp}[thm]{Ejemplo}
+%\newtheorem{ejemplo}[thm]{Ejemplo}
+%\newtheorem{ejem}[thm]{Ejemplo}
+%\newtheorem{ejercicio}[thm]{Ejemplo}
+%\theoremstyle{remark}
+%\newtheorem*{rem}{Observaci\'{o}n}
+%\newtheorem*{observacion}{Observaci\'{o}n}
+%\newtheorem*{note}{Nota}
+%\newtheorem*{nota}{Nota}
+%\newtheorem{case}{Caso}
+%\newtheorem{caso}{Caso}
+%\newtheorem{regla}[thm]{Regla}
+%
+%%%%%%%%%%%%%Estilo para bibliograf\'{\i}a
+%
+%\bibliographystyle{plain}
+%
+%%%%%%%%%%%%%Mis anotaciones
+%\newcommand{\Pendiente}{\textcolor{blue}{Pendiente: }}
+
+
+\usepackage[pageanchor=true]{hyperref}
+\makeindex

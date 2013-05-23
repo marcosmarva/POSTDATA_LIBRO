@@ -1,0 +1,635 @@
+% !Mode:: "Tex:UTF-8"
+
+\section{Experimentos de Bernouilli y distribución binomial.}\label{sec:ExperimentosBernouilliDistribucionBinomial}
+
+
+\subsection{Experimento de Bernouilli}
+
+\begin{itemize}
+
+    \item En muchas situaciones, el resultado de un experimento sólo admite dos resultados posibles. Son las típicas situaciones de {\em cara o cruz, ``sí o no'', acierto o fallo, ganar o perder}.
+    Por ejemplo:
+    \begin{enumerate}
+            \item Cuando lanzamos una moneda, y apostamos a que va a salir cara, entonces sólo podemos ganar la apuesta o perderla.
+            \item Y si lanzamos un dado, y apostamos a que va a salir un seis, entonces sólo podemos ganar la apuesta o perderla.
+    \end{enumerate}
+        En ambas ocasiones sólo hay dos resultados posibles. La diferencia entre ellas es, naturalmente,  que la probabilidad de éxito o fracaso no es la misma. Al lanzar la moneda, la probabilidad de ganar la apuesta es $1/2$, mientras que en el caso del dado es $1/6$.
+
+    \item Vamos a introducir la terminología que usaremos para describir este tipo de situaciones:\\[3mm]
+        \fbox{\colorbox{Gris025}{\begin{minipage}{14cm}
+        \begin{center}
+        \vspace{2mm}
+        {\bf Experimento de Bernouilli}
+        \end{center}
+        Un {\sf experimento de Bernouilli} es un experimento aleatorio que sólo tiene dos resultados posibles, que llamamos --arbitrariamente-- {\sf éxito} y {\sf fracaso}.\\[2mm]
+        La {\sf probabilidad de éxito} se representa siempre con la letra $p$, mientras que la probabilidad de fracaso se representa con la letra $q$. Naturalmente, se tiene que cumplir que
+        \[q=1-p.\vspace{2mm}\]
+        \end{minipage}}}\\[3mm]
+        Por ejemplo, en el caso de la moneda es $p=q=\frac{1}{2}$ (a menos, naturalmente, que la moneda esté trucada). Y en el caso del dado es $p=\frac{1}{6}$, mientras $q=\frac{5}{6}$.
+
+    \item Una variable aleatoria $X$ es de tipo {\em Bernouilli$(p)$} si sólo puede tomar los valores $1$ y $0$ con probabilidades $p$ y $1-p$. En resumen, la tabla de esta variable es muy sencilla:
+        \begin{center}{\bf
+        \begin{tabular}[t]{|c|c|c|}
+            \hline
+            \rule{0cm}{0.5cm}{\em Valor de $X$:}&1&0\\
+            \hline
+            \rule{0cm}{0.7cm}{\em Probabilidad de ese valor:}&{\em p}&{\em q}\\
+            \hline
+        \end{tabular}}
+        \end{center}
+        Así que es muy fácil calcular la media y la varianza de una variable de tipo {\em Bernouilli$(p)$}:
+        \[
+        \mu=E(X)=1\cdot p+0\cdot q=p.
+        \]
+        \[
+        \sigma^2=\operatorname{Var}(X)=(1-\mu)^2\cdot p+(0-\mu)^2\cdot q=\]
+        \[=
+        (1-p)^2\cdot p+(0-p)^2\cdot q=q^2p+p^2q=pq\cdot(p+q)=pq.
+        \]
+
+        Los experimentos de Bernouilli son muy importantes, porque los usamos como bloques básicos para construir otras situaciones más complejas. En particular, es la pieza básica para construir la distribución binomial.
+
+
+\end{itemize}
+
+\subsection{Variable aleatoria binomial}
+
+\begin{itemize}
+
+        \item Supongamos que tenemos un experimento de Bernouilli, con sus dos resultados posibles, éxito y fracaso, con probabilidades $p$ y $q$ respectivamente. Pero ahora {\em vamos a repetirlo una cierta cantidad de veces}. Y vamos a llamar $n$ al número de veces que lo repetimos. ¿Qué probabilidad hay de obtener exactamente $k$ éxitos en esos $n$ experimentos?
+
+            Para fijar ideas, el experimento de Bernouilli puede ser lanzar un dado, y vamos a suponer que lo lanzamos $n=4$ veces. ¿Cuál es la probabilidad de sacar exactamente dos seises? Habrás reconocido que esta es la pregunta que habíamos dejado pendiente del útimo capítulo. Para obtener la respuesta, vamos a usar la fórmula de Laplace.
+            \begin{Ejemplo}\label{ejem:BinomialDosSeisesCuatroTiradas}
+            El conjunto de respuestas posibles (espacio muestral) tiene $6^4$ respuestas posibles (y equiprobables). ¿En cuántas de ellas se obtienen exactamente dos seises? (Dicho de otro modo ¿cuántas ``favorables'' hay?) Podemos representar los resultados de esas cuatro tiradas usando un casillero con cuatro casillas.
+            \begin{center}
+            \begin{tabular}{|c|c|c|c|}
+            \hline
+             \rule{0cm}{0.5cm}\rule{0.3cm}{0cm}&\rule{0.3cm}{0cm}&\rule{0.3cm}{0cm} &\rule{0.3cm}{0cm}\\
+             \hline
+             \end{tabular}
+             \end{center}
+             Los dos seises se pueden haber obtenido en la primera y segunda casillas, o en la primera y la tercera, etcétera. Marcamos con un $6$ las casillas en las que se han obtenido los seises:
+            \begin{center}
+            \begin{tabular}{|c|c|c|c|}
+            \hline
+             \rule{0cm}{0.5cm}\mbox{\large\bf 6}&\mbox{\large\bf 6}& &\\
+            \hline
+             \rule{0cm}{0.5cm}\mbox{\large\bf 6}&& \mbox{\large\bf 6}&\\
+            \hline
+             \rule{0cm}{0.5cm}\mbox{\large\bf 6}&& &\mbox{\large\bf 6}\\
+            \hline
+             \rule{0cm}{0.5cm}&\mbox{\large\bf 6}& \mbox{\large\bf 6}&\\
+            \hline
+             \rule{0cm}{0.5cm}&\mbox{\large\bf 6}& &\mbox{\large\bf 6}\\
+            \hline
+             \rule{0cm}{0.5cm}&& \mbox{\large\bf 6}&\mbox{\large\bf 6}\\
+             \hline
+             \end{tabular}
+             \end{center}
+             Hay seis posibilidades. Observa que estamos eligiendo 2 de entre cuatro casillas, y sabemos que:
+             \[\binom{4}{2}=\dfrac{4\cdot 3}{2}=6.\]
+             Una vez que hemos decidido donde colocar los seises, todavía tenemos que pensar en los resultados de los restantes lanzamientos. Si, por ejemplo, hemos obtenido los dos seises en el primer y segundo lanzamiento, tendremos:
+            \[
+            \left.\begin{array}{|c|c|c|c|}
+            \hline
+             \rule{0cm}{0.5cm}\mbox{\large\bf 6}&\mbox{\large\bf 6}&\mbox{\large\bf 1}&\mbox{\large\bf 1}\\
+            \hline
+            \rule{0cm}{0.5cm}\mbox{\large\bf 6}&\mbox{\large\bf 6}&\mbox{\large\bf 1}&\mbox{\large\bf 2}\\
+            \hline
+            \rule{0cm}{0.5cm}\vdots&\vdots&\vdots&\vdots\\
+            \hline
+            \rule{0cm}{0.5cm}\mbox{\large\bf 6}&\mbox{\large\bf 6}&\mbox{\large\bf 1}&\mbox{\large\bf 5}\\
+            \hline
+            \rule{0cm}{0.5cm}\mbox{\large\bf 6}&\mbox{\large\bf 6}&\mbox{\large\bf 2}&\mbox{\large\bf 1}\\
+            \hline
+            \rule{0cm}{0.5cm}\mbox{\large\bf 6}&\mbox{\large\bf 6}&\mbox{\large\bf 2}&\mbox{\large\bf 2}\\
+            \hline
+            \rule{0cm}{0.5cm}\vdots&\vdots&\vdots&\vdots\\
+            \rule{0cm}{0.5cm}\mbox{\large\bf 6}&\mbox{\large\bf 6}&\mbox{\large\bf 5}&\mbox{\large\bf 5}\\
+            \hline
+             \end{array}\quad\right\}\,\,5^2=25\mbox{ posibilidades}
+             \]
+             Y ese número de posibilidades, 25, es el mismo si los dos seises se colocan en cualquier otro par de casillas. Por lo tanto, tenemos
+             \[\binom{4}{2}5^2\]
+             casos favorables, y la respuesta es:
+             \[\dfrac{\displaystyle\binom{4}{2}5^2}{6^4}\approx 0.116\]
+             ¿Y si hubiéramos lanzado los dados nueve veces, y de nuevo nos preguntáramos por la probabilidad de obtener dos seises? Sería:
+             \[\dfrac{\displaystyle\binom{9}{2}5^{9-2}}{6^9},\]
+             donde el $9-2=7$ corresponde a las cinco casillas que tenemos que rellenar con números distintos de $6$. Es interesante recordar que lo que hacemos es repetir $n=9$ veces un experimento de Bernouilli que tiene $p=\dfrac{1}{6}$ como probabilidad de éxito y $q=\dfrac{5}{6}$ como probabilidad de fracaso. Y lo que nos preguntamos es la probabilidad de obtener $k=2$ éxitos (y por lo tanto, claro, $9-2$ fracasos). Teniendo esto en cuenta, podemos escribir el resultado que acabamos de obtener de una forma más útil, que lo relaciona con los parámetros del experimento de Bernouilli subyacente. Separamos los nueve seises del denominador en dos grupos: dos corresponden a los éxitos, y siete a los fracasos. Obtenemos:
+             \[\dfrac{\displaystyle\binom{9}{2}5^{9-2}}{6^9}=
+             \mbox{\large $ \displaystyle\binom{9}{2}$}\cdot\left(\dfrac{1}{6}\right)^2\cdot\left(\dfrac{5}{6}\right)^{9-2}=
+             \binom{n}{k}\cdot p^k\cdot q^{n-k}.
+             \]
+             \quad\qed
+             \end{Ejemplo}
+
+             Con este ejemplo ya estamos listos para la definición:\\[3mm]
+           \fbox{\colorbox{Gris025}{\begin{minipage}{14cm}
+           \begin{center}
+           \vspace{2mm}
+           {\bf Variable aleatoria binomial}
+           \end{center}
+            Una variable aleatoria discreta $X$ es de {\sf tipo binomial con parámetros $n$ y $p$}, lo que se representa con el símbolo $B(n,p)$, si $X$ representa el número de éxitos en la repetición de $n$ experimentos independientes de Bernouilli, con probabilidad $p$ de éxito en cada uno de ellos (y con $q=1-p$).\\[3mm]
+            Si $X$ es una variable aleatoria binomial de tipo $B(n,p)$, la probabilidad $P(X=k)$, es decir la probabilidad de obtener $k$ éxitos viene dada por:
+           \[\fbox{$\displaystyle
+           P(X=k)=\binom{n}{k}\cdot p^k\cdot q^{n-k}.
+           $}
+           \]
+           \vspace{1mm}
+           \end{minipage}}}\\[3mm]
+
+           \item Calcular ``a mano'' los valores de la distribución binomial puede ser un engorro, porque los números combinatorios son complicados de calcular, y además hay que incluir las potencias de $p$ y $q$. Por esta razón los valores de $P(X=k)$ en una variable de tipo $B(n,p)$ se encuentran tabulados en muchos libros de Estadística para distintos valores de $n, p$ y $k$. Por ejemplo, en \textattachfile{tablasUCA.pdf}{\textcolor{blue}{este fichero}} tienes unas tablas de la distribución binomial (y de otras muchas que irán apareciendo en las próximas secciones) para valores de $n\leq 10$, y distintos valores de $p$. Estas tablas pertenecen al libro \link{http://knuth.uca.es/moodle/course/view.php?id=21}{Inferencia Estadística}, elaborado por profesores de la Universidad de Cádiz.
+
+
+            \item De momento, es bueno saber que el comando {\tt DISTR.BINOM(k;n;p;0)} de Calc permite calcular el valor $P(X=k)$ para $B(n,p)$. \footnote{El último parámetro de la función, al que hemos dado el valor $0$, puede ser 1 o 0. Si se usa 1 se obtienen probabilidades acumuladas $P(X\leq k)$.}
+
+                En $R$ tenemos el comando {\tt dbinom(k,size=n,prob=p)} (que se explica solo) para calcular estos mismos valores (los acumulados se obtienen con {\tt dbinom}).
+                Por ejemplo, la respuesta del Ejemplo \ref{ejem:BinomialDosSeisesCuatroTiradas}, se obtendría con estos comandos R:
+                \begin{verbatim}
+                p=1/6
+                n=4
+                k=2
+                dbinom(k,size=n,prob=p)
+                \end{verbatim}
+                en los que basta modificar los valores de $n,p,k$ para calcular otros valores de la binomial.
+
+                Aprovechamos para comentar que él número combinatorio $\binom{n}{k}$ se puede calcular en R con el comando {\tt choose(n,k)}.
+
+           \end{itemize}
+
+           \subsection*{Media y desviación típica de una variables aleatoria de tipo $B(n,p)$}
+
+           \begin{itemize}
+
+           \item Una variable aleatoria binomial $X$ de tipo $B(n,p)$ se puede considerar como la suma de $n$ variables independientes $X_1,\ldots,X_n$ de tipo Bernouilli$(p)$. Por lo tanto aplicando los  resultados que hemos visto en la sección \ref{sec:OperacionesVariablesAleatorias} se obtienen fórmulas para la media y la varianza de una variable binomial:\\[3mm]
+           \fbox{\colorbox{Gris025}{\begin{minipage}{14cm}
+           \begin{center}
+           \vspace{2mm}
+           {\bf Media y varianza de una variables aleatoria de tipo $B(n,p)$}
+           \end{center}
+           La media de una variable aleatoria discreta de tipo $B(n,p)$ es
+           \[\mu=n\cdot p\]
+           mientras que su {\sf desviación típica}  es
+           \[
+           \sigma=\sqrt{n\cdot p\cdot q}.
+           \]
+           \end{minipage}}}\\[3mm]
+
+
+
+\end{itemize}
+
+%
+%\section*{Tareas asignadas para esta sesión.}
+%
+%\begin{enumerate}
+%   \item Hay un nuevo cuestionario en Moodle, en este caso centrado sobre todo en preguntas de probabilidad. Tenéis hasta el viernes 4/11.
+%\end{enumerate}
+%
+%
+%\section*{\fbox{\colorbox{Gris025}{{Sesión 14. Probabilidad.}}}}
+%
+%\subsection*{\fbox{\colorbox{Gris025}{{Teorema Central del Límite, primera parte.}}}}
+%\subsection*{Fecha: Miércoles, 02/11/2011, 16h.}
+%
+%\noindent{\bf Atención:
+%\begin{enumerate}
+%\item Este fichero pdf lleva adjuntos los ficheros de datos necesarios.
+%\end{enumerate}
+%}
+%
+%%\subsection*{\fbox{1. Ejemplos preliminares }}
+%\setcounter{tocdepth}{1}
+%%\tableofcontents
+%\section*{Lectura recomendada}
+%
+%Al menos uno de los siguientes:
+%    \begin{itemize}
+%    \item Capítulo 5 de "La estadística en Comic".
+%    \item Estos resultados están repartidos entre los Capítulos 10 y 11 de Head First Statistics.
+%    \item Tema 5 de Bioestadística: Métodos y Aplicaciones, Univ. de Málaga (veremos las variables aleatorias continuas en próximas sesiones).
+%    \item Apuntes de la sexta y comienzo de la séptima sesiones del Curso 2010-2011.
+%
+%    \end{itemize}
+
+\section{Distribuciones Binomiales con n muy grande}
+
+
+\noindent{\em ``If I have seen further, it is by standing upon the shoulders of giants''.\\ Isaac Newton, 1676}.
+
+\begin{itemize}
+
+\item Cuando los matemáticos empezaron a trabajar con la distribución binomial, no había ordenadores -- ni calculadoras-- disponibles. En esas condiciones, incluso el cálculo de un valor relativamente sencillo $P(X=30)$ para la distribución binomial $B(100,1/3)$, implicaba calcular números como $\binom{100}{30}$ (que es del orden de $10^{25}$). Ese cálculo podía resultar un inconveniente casi insufrible. Por esa razón, aquellos matemáticos empezaron a pensar sobre el comportamiento de la distribución binomial para valores de $n$ cada vez más grandes. Entre esos matemáticos estaba Abraham De Moivre, un hugonote francés refugiado en Londres, que había pasado a formar parte del selecto grupo de personas cercanas a Newton. Esa cercanía a uno de los fundadores del Cálculo ayuda sin duda a entender cómo llegó De Moivre a algunos de sus hallazgos.
+
+
+\item De Moivre empezó pensando en los valores de una distribución binomial $B(n,p)$ para $n$ pequeño, por ejemplo $n=10$, y un valor cualquiera de $p$, por ejemplo $p=1/3$. Al representar los valores de probabilidad $P(X=0)$, $P(X=1)$,$P(X=2)$,\dots,$P(X=10)$ en un gráfico similar a un histograma se obtiene algo como esto\footnote{Fíjate en que las escalas en los ejes son muy distintas.}:
+   \begin{center}
+   \includegraphics[height=6cm]{2011_11_02_Figura01-Binomial.png}
+   \end{center}
+   De Moivre probablemente siguió pensando en este tipo de figuras para valores de $n$ cada vez más grandes. Por ejemplo, para $n=100$ se tendría:
+   \begin{center}
+   \includegraphics[height=10cm]{2011_11_02_Figura02-Binomial-a.png}
+   \end{center}
+   Atención a las escalas de nuevo. En esta figura la individualidad de cada uno de los rectángulos empieza a perderse, dando paso a la percepción de una cierta forma de {\em curva acampanada} que describe lo que ocurre, con una cima en el valor $\mu$, como en esta figura:
+   \begin{center}
+   \includegraphics[height=10cm]{2011_11_02_Figura03-Binomial.png}
+   \end{center}
+   Por su proximidad a Newton, estas situaciones en las que tenemos una curva y una aproximación de la curva mediante rectángulos no le podían resultar extrañas a De Moivre. Esas mismas ideas se estaban utilizando para sentar las bases del Cálculo Integral. En la siguiente figura hay un fragmento del libro \link{http://books.google.com/books?id=Tm0FAAAAQAAJ&pg=PA1\#v=onepage&q&f=false}{Principia Mathematica} (nos atrevemos a decir que es uno de los libros más importantes en la historia de la humanidad), en el que Newton sentó las bases del Cálculo Diferencial e Integral. Como puedes ver, en la parte que hemos destacado, Newton sugiere que se considere un número cada vez mayor de rectángulos (su número tiende hacia infinito), con bases que son cada vez más pequeñas en proporción al total de la figura.
+   \begin{center}
+   \includegraphics[height=8cm]{2011_11_02_Figura04-Newton.png}
+   \end{center}
+    Esos eran exactamente los ingredientes que aparecían en la situación en la que De Moivre se encontraba. Así que la pregunta, parecía evidente: {\em ¿cuáles serían esas curvas que De Moivre estaba empezando a entrever en sus reflexiones sobre la binomial?}.  Porque si tuviéramos la ecuación de esa curva podríamos usarla para aproximar los valores de la binomial sin necesidad de calcular los molestos números combinatorios. Por otra parte, aquellos matemáticos habían pensado mucho sobre fórmulas binomiales, así que De Moivre consiguió identificar esas curvas, y vio que las curvas que buscaba respondían todas a la misma fórmula. Para aproximar una binomial distribución binomial $B(n,p)$, con $n$ grande, y recordando que $\mu=np$ y $\sigma=\sqrt{npq}$, había que usar la curva:
+    \begin{equation}\label{ecu:distribucionNormalGenerica}
+    \fbox{\colorbox{Gris025}{$f_{\mu,\sigma}(x)=\displaystyle\dfrac{1}{\sigma\sqrt{2\pi}}e^{-\frac{1}{2}\left(\frac{x-\mu}{\sigma}\right)^2}
+    $}}
+    \end{equation}
+    ¡Sí, esos son el número $e$ y el número $\pi$! Produce un cierto vértigo verlos aparecer aquí, cuando todo esto ha empezado lanzando dados... Veamos como funciona esta fórmula en un ejemplo.
+    \begin{Ejemplo}\label{ejem:BinomialVsNormal}
+    Volvamos al cálculo que proponíamos al principio de esta sección. Calculemos $P(X=30)$ para una distribución binomial $B(100,1/3)$ (es decir, que puedes pensar que estamos tirando un dado 100 veces y preguntándonos por la probabilidad de obtener 30 veces un número 1 o 2. Probabilidad $2/6=1/3$). Si usamos la definición, calcularíamos
+   \[\displaystyle
+   P(X=k)=\binom{n}{k}\cdot p^k\cdot q^{n-k},
+   \]
+   con $n=100, k=30, p=\frac{1}{3}$. Para calcular esto hay que obtener $\binom{100}{30}\approx 2.9372\cdot 10^{25}$. Con esto, finalmente se obtiene $P(X=30)\approx 0.06728$. Si usamos la función $f_{\mu,\sigma}(x)$ con $\mu=np=\frac{100}{3}$ y $\sigma=\sqrt{n\cdot p\cdot q}\approx4.714$ se obtiene
+   \[f(30|\mu,\sigma)\approx 0.06591.\]
+   La aproximación, como vemos, no está mal, {\em aunque no es espectacular}. Hay un detalle que podría mejorarla, pero lo dejamos para más adelante, cuando hayamos entendido esto mejor.
+   \quad\qed
+   \end{Ejemplo}
+    Antes de seguir adelante, en \textattachfile{AproximacionBinomialPorNorrmal.R}{\textcolor{blue}{este fichero}} tienes las instrucciones en R para repetir esos cálculos.
+\end{itemize}
+
+\section{Las distribuciones continuas entran en escena...}\label{sec:distribucionesContinuasEntranEscena}
+
+\begin{itemize}
+
+    \item Por otra parte, si pensamos en valores de $n$ cada vez más grandes, las preguntas como $P(X=k)$ se vuelven cada vez menos relevantes. Si vas a lanzar un dado 10000 veces, la probabilidad de obtener exactamente $30$ veces 1 o 2 es prácticamente nula. Puedes usar el fichero de instrucciones anterior para calcularlo. En resultado es del orden de $10^{-128}$, inimaginablemente pequeño. Incluso los valores más probables (cercanos a la media $\mu$) tienen en este ejemplo  probabilidades de en torno a un $2\%$.  No, en casos como este, lo que tiene interés es preguntar por {\em intervalos de valores}. igual que hacíamos en la Estadística Descriptiva. Es decir, nos preguntamos ¿cuál es la probabilidad de obtener 300 éxitos o menos? O también, ¿cuál es la probabilidad de obtener entre 300 y 600 éxitos del total de 1000?\\
+
+        Para entender la respuesta, volvamos por un momento a un valor de $n$ más moderado. Por ejemplo $n=21$, todavía con $p=1/3$. La media es $\mu=7$, y el diagrama correspondiente a la distribución $B(21,1/3)$ es
+        \begin{center}
+        \includegraphics[height=8cm]{2011_11_02_Figura05-ProbabilidadIntervalo1.png}
+        \end{center}
+        ¿Cuál es la probabilidad de obtener entre 5 y 9 éxitos? Pues la suma de áreas de los rectángulos coloreados en oscuro en esta figura (recuerda que la suma total de áreas de los rectángulos es 1, cuando se dibujan a escala):
+        \begin{center}
+        \includegraphics[height=8cm]{2011_11_02_Figura05-ProbabilidadIntervalo2.png}
+        \end{center}
+        Ese valor es $P(5\leq X\leq 9)=P(X=5)+P(X=6)+\cdots+P(X=9)$, y está cercano al $75\%$. Si ahora volvemos al problema para $B(1000,1/3)$  y nos preguntamos por $p(300\leq X\leq 600)$, vemos que tenemos que sumar el área de 301 rectángulos para calcular esa probabilidad. ¿No hay una forma mejor de hacer esto? Para De Moivre, en contacto con las ideas recién nacidas sobre cálculo integral y su aplicación al cálculo del área bajo una curva, la respuesta tuvo que ser evidente. Porque precisamente Newton había descubierto que, para definir el área bajo la gráfica de una función, para valores de $x$ entre $a$ y $b$, había que considerar una aproximación del área mediante $n$ rectángulos y estudiar el límite de esas aproximaciones para $n$ cada vez más grande, como se ilustra en esta figura:
+        \begin{center}
+        \includegraphics[height=8cm]{2011_11_02_Figura06-AreaMedianteIntegralesSumaInferior.png}
+        \end{center}
+        En \textattachfile{2011_11_02_AreaMedianteIntegralesSumaInferior.html}{\textcolor{blue}{este fichero html}} (se abre en el navegador) puedes explorar lo que ocurre con esas aproximaciones cuando $n$ aumenta.
+
+        Volviendo a la distribución binomial, si $f_{\mu,\sigma}(x)$ es la curva que aproxima a $B(1000,1/3)$, entonces la probabilidad que buscamos será, aproximadamente
+        \[\int_{300}^{600}f_{\mu,\sigma}(x)dx\]
+        Y esta integral da como resultado aproximadamente $0.9868$. De hecho, si usamos R para sumar los valores $P(X=300)+\cdots+P(X=600)$ se obtiene aproximadamente $0.9888$. La aproximación está muy bien, y eso que aún tenemos pendiente mejorar el ajuste de la curva $f_{\mu,\sigma}(x)$ con los valores de $B(p,n)$.
+
+    \item Recapitulemos: para calcular la probabilidad $P(a\leq X\leq b)$ de $B(n,p)$ hemos usado una cierta función $f_{\mu,\sigma}(x)$, y hemos visto que
+        \[P(a\leq X\leq b)\approx \int_a^b f_{\mu,\sigma}(x)dx.\]
+        Y en el proceso para llegar a esto hemos visto que el valor de probabilidad para un valor concreto es prácticamente nulo, es decir $P(X=a)\approx 0$. ¿Dónde hemos oído algo parecido? ¿Dónde decíamos que la probabilidad de un valor concreto era $0$? En los problemas de probabilidad geométrica en los que tratábamos con {\sf variables aleatorias continuas}\footnote{Ver el Ejemplo \ref{ejem:ProbabilidadGeometricaSubconjuntosCirculo} de la página \pageref{ejem:ProbabilidadGeometricaSubconjuntosCirculo}}.  De hecho, hemos dejado pendiente desde la sección \ref{sec:variablesAletorias} (pág. \pageref{sec:variablesAletorias}) el tratamiento general de las variables aleatorias continuas. Las ideas anteriores justifican la siguiente definición.\\[3mm]
+           \fbox{\colorbox{Gris025}{\begin{minipage}{14cm}
+           \begin{center}
+           \vspace{2mm}
+           {\bf Función de densidad de una variables aleatoria continua}
+           \end{center}
+           Si $X$ es una variable aleatoria continua, su {\sf función de densidad} es una función $f(x)$
+           que tiene estas propiedades:
+           \begin{itemize}
+           \item $f(x)\geq 0$ para todo $x$; $f$ no toma valores negativos.
+           \item El área total bajo la gráfica de $f$ es 1:
+           \[\int_{-\infty}^{\infty}f(x)dx=1\]
+           \item La función de densidad permite calcular probabilidades asociadas a $X$ mediante:
+           \[P(a\leq X\leq b)=\int_a^b f(x)dx.\]
+           \end{itemize}
+           \end{minipage}}}\\[3mm]
+        Ahora el descubrimiento de De Moivre se puede expresar en este nuevo lenguaje, más claramente. Lo que De Moivre descubrió es que para valores de $n$ grandes, la variable aleatoria binomial $B(n,p)$ (¡qué es discreta!) se puede aproximar bien por una variable aleatoria de tipo continuo, cuya función de densidad es la que aparece en la Ecuación \ref{ecu:distribucionNormalGenerica} de la página \pageref{ecu:distribucionNormalGenerica}. Esta relación con la binomial hace que esa variable aleatoria continua sea la más importante de todas, y es la razón por la que le vamos a dedicar una atención especial en la próxima sección.
+\end{itemize}
+
+
+%
+%
+%\section*{Tareas asignadas para esta sesión.}
+%
+%\begin{enumerate}
+%   \item No hay tareas asignadas para esta sesión.
+%\end{enumerate}
+%
+%\section*{\fbox{\colorbox{Gris025}{{Sesión 15. Probabilidad.}}}}
+%
+%\subsection*{\fbox{\colorbox{Gris025}{{Teorema Central del Límite, segunda parte. Distribución normal.}}}}
+%\subsection*{Fecha: Viernes, 04/11/2011, 14h y 16h (sesión doble).}
+%
+%\noindent{\bf Atención:
+%\begin{enumerate}
+%\item Este fichero pdf lleva adjuntos los ficheros de datos necesarios.
+%\end{enumerate}
+%}
+%
+%%\subsection*{\fbox{1. Ejemplos preliminares }}
+%\setcounter{tocdepth}{1}
+%%\tableofcontents
+%\section*{Lectura recomendada}
+%
+%Al menos uno de los siguientes:
+%    \begin{itemize}
+%    \item Capítulo 5 de "La estadística en Comic".
+%    \item Estos resultados están repartidos entre los Capítulos 10 y 11 de Head First Statistics.
+%    \item Tema 5 de Bioestadística: Métodos y Aplicaciones, Univ. de Málaga.
+%    \item Apuntes de la octava y novena sesiones del Curso 2010-2011.
+%
+%    \end{itemize}
+
+\section{Más sobre distribuciones continuas}
+
+\begin{itemize}
+    \item Vamos a empezar con un ejemplo que ilustre la definición de función de densidad una variable aleatoria continua.
+        \begin{ejemplo}
+        Consideremos la variable aleatoria continua $X$ cuya función de densidad es
+        \[f(x)=\dfrac{1}{\pi(1+x^2)}.\]
+        La gráfica de esta función se muestra en la siguiente figura:
+       \begin{center}
+       \includegraphics[width=14cm]{2011_11_04_Figura00-FuncionDensidad.png}
+       \end{center}
+        Podemos empezar comprobando que la probabilidad total calculada con esta función es $1$. En efecto,
+        \[P(-\infty\leq X\leq\infty)=\int_{-\infty}^{\infty}f(x)dx=
+        \int_{-\infty}^{\infty}\dfrac{1}{\pi(1+x^2)}dx=\]
+        \[=\dfrac{1}{\pi}\left[\arctan x\right]_{-\infty}^{\infty}=
+        \dfrac{1}{\pi}\left(\dfrac{\pi}{2}-\left(-\dfrac{\pi}{2}\right)\right)=1.
+        \]
+        Ahora nos preguntamos cuál es la probabilidad de que $X$ tome un valor entre 0 y 1. Tenemos que calcular el área sombreada en la figura:
+       \begin{center}
+       \includegraphics[width=10cm]{2011_11_04_Figura01-FuncionDensidad.png}
+       \end{center}
+        Y eso significa que debemos calcular esta integral:
+        \[
+        P(0\leq X\leq 1)=\int_0^1f(x)dx=\int_0^1\dfrac{1}{\pi(1+x^2)}dx=\dfrac{1}{\pi}\left[\arctan x\right]_0^1=
+        \]\[
+        =\dfrac{1}{\pi}\left(\arctan 1-\arctan 0\right)=\dfrac{1}{\pi}\left(\frac{\pi}{4}-0\right)=\dfrac{1}{4}.
+        \]
+        Si necesitas recordar las propiedades del arcotangente, \textattachfile{2011_11_04_GraficaArcoTangente.html}{\textcolor{blue}{aquí tienes su gráfica}} (se abre en el navegador). Si lo que queremos es calcular la probabilidad de que $X$ tome valores mayores que 1, debemos calcular el área que aparece en esta figura
+       \begin{center}
+       \includegraphics[width=14cm]{2011_11_04_Figura02-FuncionDensidad.png}
+       \end{center}
+        Y para ello hay que hacer este cálculo:
+        \[
+        P(X>1)=\int_1^{\infty}f(x)dx=\lim_{N\to\infty}\left(\int_1^N\dfrac{1}{\pi(1+x^2)}dx\right)=\lim_{N\to\infty}\left(\dfrac{1}{\pi}\left[\arctan x\right]_1^N\right)=
+        \]\[
+        =\lim_{N\to\infty}\left(\dfrac{1}{\pi}\left(\arctan N-\arctan 1\right)\right)=\dfrac{1}{\pi}\lim_{N\to\infty}\left(\arctan N-\dfrac{\pi}{4}\right)=\dfrac{1}{\pi}\left(\dfrac{\pi}{2}-\dfrac{\pi}{4}\right)=\dfrac{1}{4}.
+        \]
+        Por otra parte, a partir de la simetría de la función $f$, el cálculo que acabamos de hacer era innecesario, puesto que ya conocíamos $P(0\leq X\leq 1)$. ¿Ves cómo calcular $P(X>1)$ usando esto?\qed
+        \end{ejemplo}
+
+
+    \item A partir de este ejemplo, vemos que si $X$ es una variable aleatoria continua y  $f(x)$ es su función de densidad, la función $f$ representa una forma de repartir la probabilidad total (que siempre es uno) entre los puntos de la recta real, de maneras que las zonas donde $f(x)$ vale más son las zonas con mayor probabilidad. Esto se ilustra en la siguiente figura, para una función de densidad ficticia:
+       \begin{center}
+       \includegraphics[width=15cm]{2011_11_04_Figura04-FuncionDensidad.png}
+       \end{center}
+
+\end{itemize}
+
+\subsection*{Media y varianza de una variable aleatoria continua}
+
+\begin{itemize}
+    \item Es fácil entender que uno de nuestros primeros objetivos es extender la definición de media y varianza al caso de variables aleatorias continuas. Recordemos que para una variable aleatoria discreta se definía
+    \[\mu=\sum_{i=1}^{k}x_iP(X=x_i),\qquad  \sigma^2=\sum_{i=1}^{k}(x_i-\mu)^2P(X=x_i),\]
+    siendo $x_1,x_2,\ldots,x_k$ los valores distintos que toma la variable. ¿Cómo podemos extender esto al caso de una variable continua con función de densidad $f(x)$? Bueno, siempre podemos {\em desandar el camino que tomó De Moivre}. Es decir, podemos pensar en reemplazar la función $f(x)$ por una (enorme) colección de rectángulos, como en esta figura:
+   \begin{center}
+   \includegraphics[width=15cm]{2011_11_04_Figura05-EsperanzaConFuncionDensidad.png}
+   \end{center}
+   Y ahora podemos {\em ``olvidar la curva $f(x)$ y simplemente sumar usando estos rectángulos como si se tratara de una variable discreta''.} A este proceso lo llamaremos {\sf discretización} de la variable aleatoria continua. ¿Cómo sería la suma correspondiente?
+   \[\mu=E(X)=\sum_{\begin{minipage}{1.5cm}\tiny todos los\\ rectángulos\end{minipage}} x_iP(X=x_i)\]
+   En esta suma $x_i$ es un punto dentro de uno de los rectángulos, algo así como las marcas de clase que veíamos al principio del curso. Puedes pensar, por ejemplo, que $x_i$ es el punto medio de la base de cada rectángulo.  Y ¿cuánto vale $P(X=x_i)$? Ese valor es la altura del rectángulo. Y en nuestro caso, esos valores vienen dados por $f(x_i)$, siendo $f$ la función de densidad. Así que la suma anterior se puede escribir
+   \[\mu=E(X)=\sum_{\begin{minipage}{1.5cm}\tiny todos los\\ rectángulos\end{minipage}} x_if(x_i).\]
+   Por otra parte, sabemos que la aproximación a $f$ mejora al hace más pequeños y numerosos los intervalos (lo puedes observar en  \textattachfile{2011_11_04_EsperanzaMatematicaParaFuncionDensidad.html}{\textcolor{blue}{este fichero html, que se abrirá en tu navegador}}). Este tipo de sumas, cuando los intervalos se hacen cada vez más finos y numerosos, se convierten en integrales al pasar al límite continuo. Y puesto que estamos sumando {\em todos los rectángulos del eje real}, esta integral recorre todo el eje, desde $-\infty$ hasta $\infty$. Con estas observaciones, no debería resultar demasiado extraña esta definición:\\[3mm]
+           \fbox{\colorbox{Gris025}{\begin{minipage}{14cm}
+           \begin{center}
+           \vspace{2mm}
+           {\bf Media (o valor esperado) de una variables aleatoria continua}
+           \end{center}
+           Si $X$ es una variable aleatoria continua con función de densidad $f(x)$, entonces la {\sf media} de $f$ es el valor
+           \[\mu=\int_{-\infty}^{\infty} x\cdot f(x)dx.\]
+           \end{minipage}}}\\[3mm]
+
+\item La fórmula para la varianza se puede justificar mediante este mismo proceso de discretización. Se obtiene:\\[3mm]
+           \fbox{\colorbox{Gris025}{\begin{minipage}{14cm}
+           \begin{center}
+           \vspace{2mm}
+           {\bf Varianza y desviación típica de una variables aleatoria continua}
+           \end{center}
+           Si $X$ es una variable aleatoria continua con función de densidad $f(x)$ y media $\mu$, entonces la {\sf varianza} de $f$ es el valor
+           \[\sigma^2=\int_{-\infty}^{\infty} (x-\mu)^2\cdot f(x)dx.\]
+           Y la {\sf desviación típica} $\sigma$ es la raíz cuadrada de la varianza.
+           \end{minipage}}}\\[3mm]
+
+
+\item Resumimos la situación en una tabla para que puedas ver las analogías y las diferencias entre variables discretas y continuas
+    \begin{center}
+    \begin{tabular}{|c|c|c|}
+    \hline
+                        & $X$ Var. continua                                             & $X$ Var. discreta                               \\
+    \hline
+    Media $\mu$         & $\displaystyle \int_{-\infty}^{\infty} x\cdot f(x)dx$         & $\displaystyle\sum_{i=1}^k x_iP(X=x_i)$         \\
+    \hline
+    Varianza $\sigma^2$ & $\displaystyle \int_{-\infty}^{\infty} (x-\mu)^2\cdot f(x)dx$ & $\displaystyle\sum_{i=1}^k (x_i-\mu)^2P(X=x_i)$ \\
+    \hline
+    \end{tabular}
+    \end{center}
+    Como puede apreciarse, si se reemplaza $P(X=x_i)$ por $f(x)$, el paralelismo entre las dos fórmulas resulta evidente.
+
+\end{itemize}
+
+\subsection*{Variables continuas con soporte en un intervalo}
+
+\begin{itemize}
+
+\item A menudo sucede que una variable aleatoria continua $X$ sólo puede tomar valores dentro de un cierto intervalo $[a,b]$. En estos casos diremos que {\sf la variable $X$ tiene soporte en el intervalo $[a,b]$}. Por ejemplo, si definimos una variable continua $X$ que representa la altura de los ciudadanos españoles, entonces los valores de $X$ (en cm) están todos ellos comprendidos en el intervalo $[0,300]$. En casos como este, los valores de $f(x)$ fuera del intervalo $[a,b]$ son iguales a cero . Y eso incluso simplifica nuestros cálculos de medias y varianzas, porque, en lugar de una integral $\int_{-\infty}^{\infty}$, lo que tenemos que calcular es una integral $\int_a^b$. Veamos un ejemplo.
+    \begin{ejemplo}
+    Supongamos que $X$ es una variable aleatoria continua cuya función de densidad es
+    \[f(x)=\begin{cases}2\cdot(2-x)&\mbox{ para }1\leq x\leq 2\\ 0&\mbox{en otro caso}\end{cases}\]
+    como se ve en esta figura
+    \begin{center}
+    \includegraphics[width=15cm]{2011-11-04-EjemploFuncionDensidadIntervaloAcotado.png}
+    \end{center}
+    Empieza por comprobar (queda como ejercicio) que el área total bajo la gráfica de $f$ es 1. ¿Cuál es la media de $X$? Tenemos que calcular:
+    \[
+    \mu=\int_{1}^{2}xf(x)dx=\int_{1}^{2}x\cdot 2\cdot(2-x)dx=2\int_{1}^{2}(2x-x^2)dx=2\left[x^2-\frac{x^3}{3}\right]_1^2=2\left(4-\frac{8}{3}\right)-2\left(1-\frac{1}{3}\right)=\dfrac{4}{3}.
+    \]
+    Dejamos como ejercicio para el lector comprobar que
+    \[
+    \sigma^2=\int_{1}^{2}(x-\mu)^2f(x)dx=2\int_{1}^{2}\left(x-\dfrac{4}{3}\right)^2(2-x)dx=\dfrac{1}{18}.
+    \]
+    También puedes repetir el ejercicio con
+    \[f(x)=\begin{cases}1&\mbox{ para }2\leq x\leq 2\\ 0&\mbox{en otro caso}\end{cases}\]
+    \qed
+
+    \end{ejemplo}
+
+\end{itemize}
+
+\subsection*{}
+
+
+
+\section{Distribución normal}
+
+\begin{itemize}
+
+\item En la sección \ref{sec:distribucionesContinuasEntranEscena} (\pageref{sec:distribucionesContinuasEntranEscena}) hemos visto que De Moivre descubrió un tipo especialmente importante de variable aleatoria continua, a la que vamos a poner nombre.\\[3mm]
+       \fbox{\colorbox{Gris025}{\begin{minipage}{14cm}
+       \begin{center}
+       \vspace{2mm}
+       {\bf Variable aleatoria normal}
+       \end{center}
+       Una variable aleatoria continua $X$ es {\sf normal de tipo $N(\mu,\sigma)$} si su función de densidad es
+       de la forma
+       \[f_{\mu,\sigma}(x)=\dfrac{1}{\sigma\sqrt{2\pi}}e^{-\frac{1}{2}\left(\frac{x-\mu}{\sigma}\right)^2}\]
+       donde $\mu$ y $\sigma>0$ son dos números reales.
+       \end{minipage}}}\\[3mm]
+       Las variables aleatorias normales son, insistimos, excepcionalmente importantes. Pero el trabajo con ellas tropieza con el inconveniente de que {\bf la función $f_{\mu,\sigma}(x)$ no tiene una primitiva elemental}, y por lo tanto el trabajo debe hacerse mediante integración numérica, tablas, o usando software como $R$ o una hoja de cálculo.
+
+
+\item  Antes de seguir adelante vamos a ver el aspecto que tienen estas funciones, y como dependen de los valores de $\mu$ y $\sigma$. Lo puedes observar en \textattachfile{2011_11_04_DistribucionesNormales.html}{\textcolor{blue}{este documento html}}. Una propiedad especialmente significativa de esta familia de variables aleatorias es que
+    \[P(\mu-\sigma<X<\mu+\sigma)\approx 0.68\mbox{, y también }P(\mu-2\sigma<X<\mu+2\sigma)\approx 0.95.\]
+    Y además vamos a hacer constar lo que seguramente el lector intuye desde hace rato.\\[3mm]
+       \fbox{\colorbox{Gris025}{\begin{minipage}{14cm}
+       \begin{center}
+       \vspace{2mm}
+       {\bf Media y desviación típica de una variable aleatoria normal}
+       \end{center}
+       Si $X$ es una variable aleatoria normal de tipo $N(\mu,\sigma)$, cuya función de densidad es por tanto $f_{\mu,\sigma}(x)$, entonces
+       \[\mu=E(X), \mbox{ es decir $\mu$ es la media de $X$},\]
+       y
+       \[\sigma^2=\operatorname{Var}(X), \mbox{ es decir $\sigma^2$ es la varianza de $X$}.\]
+       Y, naturalmente, $\sigma$ es la desviación típica de $X$.
+       \end{minipage}}}\\[3mm]
+    No vamos a entrar en los detalles del cálculo de estas medias y varianzas para una variable aleatoria normal $N(\mu,\sigma)$, para no complicar la discusión.
+
+\end{itemize}
+
+\subsection{Distribución normal estándar. Tipificación.}
+
+\begin{itemize}
+
+\item  Una variable aleatoria $Z$, normal de tipo $N(0,1)$ (con media $\mu=0$ y desviación típica $\sigma=1$) es una {\sf variable normal estándar (o tipificada)}. Como hemos indicado, vamos a reservar la letra $Z$ para referirnos a una variable normal estándar; esta es una práctica generalizada en Estadística, que conviene respetar. La función de densidad $f_{0,1}(x)$ es especialmente simple:
+       \[f_{0,1}(x)=\dfrac{1}{\sqrt{2\pi}}e^{-\frac{x^2}{2}}\]
+
+
+\item ¿Por qué es importante la variable normal estándar? Pues porque todas las demás normales se pueden obtener de ella. Concretamente,\\[3mm]
+       \fbox{\colorbox{Gris025}{\begin{minipage}{14cm}
+       \begin{center}
+       \vspace{2mm}
+       {\bf Variable normal $N(\mu,\sigma)$ a partir de $N(0,1)$}
+       \end{center}
+       Si $X$ es una variable aleatoria normal de tipo $N(\mu,\sigma)$, entonces
+       \[Z=\dfrac{X-\mu}{\sigma}\]
+       es una variable normal estándar. Al proceso de obtener los valores de $Z$ a partir de los de $X$ se le llama {\sf tipificación.}\\
+       En particular, para las funciones de densidad se cumple que:
+       \[f_{\mu,\sigma}(x)=\dfrac{1}{\sigma}f\left(\left.\dfrac{x-\mu}{\sigma}\right|0,1\right),\]
+       como puedes comprobar.
+       \end{minipage}}}\\[3mm]
+       De esta última igualdad se deduce, entre otras cosas,la propiedad que hemos comentado antes sobre el hecho de que
+       \[P(\mu-\sigma<X<\mu+\sigma)\approx 0.68\] no depende de $\mu$ ni de $\sigma$.
+
+       \item Este proceso de tipificación de las variables normales significa entre otras cosas que sólo necesitamos saber responder a las preguntas sobre probabilidad formuladas para el caso $N(0,1)$, porque todos los demás casos se reducen a este mediante la tipificación. Veamos un ejemplo.
+           \begin{ejemplo}
+           Una variable aleatoria continua $X$ es normal, de tipo $N(400,15)$. ¿Cuál es el valor de la probabilidad $P(380\leq X\leq 420)$?\\
+           Consideremos la variable aleatoria
+           \[Z=\dfrac{X-\mu}{\sigma}=\dfrac{X-400}{15}.\]
+           Como sabemos, $Z$ es de tipo normal estándar $N(0,1)$. Y entonces:
+           \[380\leq X\leq 420\]
+           significa
+           \[380-400\leq X-400\leq 420-400,\mbox{ es decir }-20\leq X\leq 20,\]
+           y por tanto
+           \[\dfrac{-20}{15}\leq \dfrac{X-400}{15}\leq\dfrac{20}{15},\mbox{ es decir }\dfrac{-4}{3}\leq Z\leq\dfrac{4}{3},\]
+           por la construcción de $Z$. En resumen:
+           \[P(380\leq X\leq 420)=P\left(\dfrac{-4}{3}\leq Z\leq\dfrac{4}{3}\right)\approx P(-1.33\leq Z\leq 1.33),\]
+           y como se ve lo que necesitamos es saber responder preguntas para $Z$, que es de tipo $N(0,1)$. En este caso esa probabilidad es (leer más abajo) $\approx 0.82$.\qed
+           \end{ejemplo}
+       Este ejemplo explica porque los valores de $N(0,1)$ son especialmente importantes. De hecho, se encuentran tabulados al final de casi cualquier libro de estadística (salvo los más modernos, que dan por sentado que se va a usar un ordenador para estas operaciones). Ya aprenderemos, en la parte práctica del curso, a usar esas tablas y, sobre todo, el software para calcular los valores que necesitemos. Por el momento nos conformamos con saber que si $Z$ es de tipo $N(0,1)$, el comando R para calcular $P(a\leq Z\leq b)$ es:\\
+       \begin{center}
+       {\tt pnorm(b)-pnorm(a)}
+       \end{center}
+       mientras que en Calc se consigue lo mismo con
+       \begin{center}
+       {\tt DISTR.NORM.ESTAND(b)-DISTR.NORM.ESTAND(a)}
+       \end{center}
+       donde ahora $b$ y $a$ son los nombres de las celdas que almacenan los extremos del intervalo.
+       \subsection*{Funciones de distribución}
+
+       \item ¿Qué es lo restamos en estas dos fórmulas? Son valores de la forma $P(Z\leq k)$. Dada una variable aleatoria $X$ (discreta o continua), la función
+       \[F(x)=P(X\leq x)\]
+       se llama su {\sf función de distribución}. En $R$ esas funciones se reconocen por el prefijo {\tt p}. Por ejemplo, {\tt pnorm} es la función de distribución de una variable continua de tipo $N(\mu,\sigma)$, mientras que {\tt pbinom} es la de una variable discreta de tipo $B(n,p)$.
+
+       \item La diferencia
+
+\end{itemize}
+
+\section{El teorema central del límite}\label{sec:teoremaCentralLimitePrimeraVersion}
+
+\begin{itemize}
+
+\item Para cerrar el intenso trabajo de este capítulo , queremos volver a la idea de De Moivre, que ahora podemos explicar con más claridad. Lo que De Moivre descubrió es que cuando se considera una variable binomial de $X$ de tipo $B(n,p)$ con valores de $n\emph{}$ muy grandes, sus valores se pueden calcular muy aproximadamente utilizando una variable $Y$ con distribución normal $N(\mu,\sigma)$, con
+    \[\mu=n\cdot p,\sigma=\sqrt{n\cdot p\cdot q}.\]
+    Pero esta idea contiene una pequeña trampa. Si volvemos a mirar los diagramas tipo histograma de la última sección, veremos que cada una de las barras está {\em centrada en $k$}. En la figura hemos ampliado la base para que esto resulte evidente:
+   \begin{center}
+   \includegraphics[width=12cm]{2011-11-04-CorreccionContinuidad.png}
+   \end{center}
+    Y eso significa que en realidad, como hemos indicado en la figura, esas barras incluyen la probabilidad de los valores desde $0.5$ unidades antes hasta $0.5$ unidades después del valor que aparece en su base. Al pasar a la aproximación por la normal debemos tener esto en cuenta si no queremos obtener valores poco precisos. Esto se conoce como {\sf corrección de continuidad}. En la práctica se traduce es esto:\\[3mm]
+   \fbox{\colorbox{Gris025}{\begin{minipage}{14cm}
+   \begin{center}
+   \vspace{2mm}
+   {\bf TEOREMA CENTRAL DEL LÍMITE, PRIMERA VERSIÓN}\\
+   {\bf Aproximación de $X$ de tipo binomial $B(n,p)$ por $Y$ de tipo normal $N(\mu,\sigma)$}
+   \end{center}
+   Siendo
+   \[\mu=n\cdot p,\sigma=\sqrt{n\cdot p\cdot q}\]
+   y siempre que se cumpla $n\cdot p>5, n\cdot q>5$ (en caso contrario la aproximación no es muy buena),
+   \begin{enumerate}
+   \item para calcular $P(X=k)$, la aproximación por la normal que usamos es $P(k-0.5\leq Y\leq k+0.5)$.
+   \item para calcular $P(X\leq k)$, la aproximación por la normal que usamos es $P(Y\leq k+0.5)$.
+   \item para calcular $P(k_1\leq X\leq k_2)$, la aproximación por la normal que usamos es $P(k_1-0.5\leq Y\leq k_2+0.5)$.
+   \end{enumerate}
+   \end{minipage}}}\\[3mm]
+   Y aquí tienes un \textattachfile{DistibucionBinomial.R}{\textcolor{blue}{fichero de instrucciones R}} con el que practicar estas aproximaciones (comparándolas con los valores calculados directamente  usando la binomial).
+
+
+\item Esta es la primera ocasión en la que nos encontramos con que, para valores de $n$ grande, una distribución --en este caso la binomial $B(n,p)$-- se comporta cada vez más como si fuese una normal. Y la distribución binomial, recordémoslo, resulta del efecto combinado de $n$ ensayos independientes. Este comportamiento es el primer indicio de algo que iremos confirmando en el curso: cualquier fenómeno natural que resulte de la acción superpuesta (es decir, de la suma) de un número enorme de procesos independientes, tendrá una distribución aproximadamente normal. Y cuando se combina esta observación con el descubrimiento de la estructura atómica de la materia, o de la estructura celular de los seres vivos, se empieza a percibir el {\sf alcance universal de la distribución normal}, a través del Teorema Central del Límite, como una de las leyes fundamentales de la naturaleza. No encontramos mejor manera de resumirlo que la que Gonick y Smith incluyen en su libro al hablar de este teorema (pág. 83):
+   \begin{center}
+   \includegraphics[height=12cm]{2011-11-04-DeMoivre.png}
+   \end{center}
+
+
+
+
+\end{itemize}
+
+
+%
+%
+%\section*{Tareas asignadas para esta sesión.}
+%
+%\begin{enumerate}
+%   \item Aunque todavía no están disponibles, a lo largo del fin de semana aparecerán en Moodle una nueva hoja de problemas y un cuestionario.
+%\end{enumerate}
+
+%\section*{Lectura recomendada}
+%
+%Al menos uno de los siguientes:
+%    \begin{itemize}
+%    \item Capítulo 3 de "La estadística en Comic".
+%    \item Capítulo 4 de Head First Statistics.
+%    \item Tema 4 de Bioestadística: Métodos y Aplicaciones, Univ. de Málaga (no veremos la definición axiomática de probabilidad).
+%    \item Apuntes de la tercera sesión del Curso 2010-2011, (las tres últimas páginas) y cuarta sesión íntegra.
+%    \item Capítulo 4 de "La estadística en Comic".
+%    \item Capítulo 5 de Head First Statistics.
+%    \item Tema 5 de Bioestadística: Métodos y Aplicaciones, Univ. de Málaga (veremos las variables aleatorias continuas en próximas sesiones).
+%    \item Apuntes de la sexta y comienzo de la séptima sesiones del Curso 2010-2011.
+%    \item Capítulo 5 de "La estadística en Comic".
+%    \item Capítulo 7 de Head First Statistics.
+%    \item Tema 5 de Bioestadística: Métodos y Aplicaciones, Univ. de Málaga (veremos las variables aleatorias continuas en próximas sesiones).
+%    \item Apuntes de la sexta y comienzo de la séptima sesiones del Curso 2010-2011.
+%    \end{itemize}
+
+%\section*{Recomendaciones.}
+%
+%\begin{enumerate}
+%   \item El \link{http://www.ine.es/}{INE (Instituto Nacional de Estadística)} es el organismo oficial encargado, entre otras cosas del censo electoral, la elaboración del IPC (índice de precios de consumo), la EPA (encuesta de población activa), el PIB (producto interior bruto) etc. El instituto ofrece una enorme colección de datos estadísticos accesibles para cualquiera a través de la red (sistema INEbase). Además, tiene alojado en su página web un \link{http://www.ine.es/explica/explica.htm}{portal de divulgación estadística} en el que se pueden ver vídeos sobre estos y otros temas, que tal vez os interesen.
+%\end{enumerate}
+

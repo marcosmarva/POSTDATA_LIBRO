@@ -1,0 +1,300 @@
+% !Mode:: "Tex:UTF-8"
+
+
+\section{Proporciones y su distribución muestral}
+
+\begin{itemize}
+
+    \item Hasta ahora, todas nuestras incursiones en el terreno de la inferencia se han centrado en el problema de la estimación de la media de la población. Sin embargo, en algunos casos la media no es el valor que más nos interesa. En esta sección vamos a tratar un ejemplo especialmente importante de una de estas situaciones. De esa forma empezaremos a ver inferencias sobre parámetros distintos de la media.
+
+     \item  Para centrar el problema, supongamos que tenemos una población $\Omega$, y que en los individuos de esa población hay definida cierta característica que puede estar presente o no en esos individuos. Por ejemplo, podemos fijarnos en la población de araos comunes (\link{http://www.seo.org/aves_espana.cfm}{\em Uria aalge}, en inglés common guillemot). Esta especie presenta un polimorfismo, que consiste en la existencia, en algunos ejemplares de un anillo ocular blanco (estos ejemplares se denominan {\em embridados (bridled, en inglés)}).
+         \begin{center}
+         \includegraphics[width=11cm]{2011-11-29-araos.jpg}
+         \end{center}
+         En esta imagen de una colonia de cría en Escocia puede verse en el centro uno de estos ejemplares embridados rodeado de ejemplares sin esa característica. Una pregunta natural es ¿cuál es la proporción de ejemplares embridados sobre el total de individuos de la especie? Hay muchas otras preguntas que encajan con este modelo: ¿qué proporción de personas han contraído una determinada enfermedad? ¿que porcentaje de ejemplares albinos hay en una especie?, etcétera.
+
+    \item Vamos a fijar la terminología necesaria para responder a preguntas como esta. Llamaremos $p$ a la proporción de individuos de la especie que presentan la característica que es objeto de estudio. Para estimar el valor de $p$, naturalmente, tomaremos una muestra aleatoria de la población, formada por $n$ observaciones. Recordemos que eso significa que tenemos $n$ variables aleatorias independientes,
+        \[X_1,X_2,\ldots,X_n\]
+        y que la distribución de probabilidad para cada una de ellas es una copia de la distribución de probabilidad de la población original. ¿Cómo usaremos esta muestra para estimar $p$?
+
+        Así que debemos empezar por preguntarnos ¿cuál es esa distribución de la población original? Afortunadamente, la respuesta es fácil. La población original se puede describir mediante una variable aleatoria $X$ que toma sólo dos valores: 1 cuando la característica está presente, y 0 cuando está ausente. Y la probabilidad de que $X$ tome el valor $1$ es precisamente $p$, la proporción que queremos estimar (la probabilidad de $0$ es $q=1-p$). Es decir, que la variable $X$ es una variable de tipo Bernouilli, o dicho de otra forma, es una binomial $B(1,p)$. Su media es $\mu_X=1\cdot p=p$ y su desviación típica es $\sigma_X=\sqrt{1\cdot p\cdot q}=\sqrt{p\cdot q}$.
+
+        Recapitulando: las variables $X_1$,\ldots,$X_n$ son independientes, cada una de ellas sólo puede tomar los valores $1$ o $0$, y la probabilidad de que $X_i$ tome el valor $1$ es $p$ (y toma ese valor cuando el $i$-ésimo individuo de la muestra presenta la característica). Por lo tanto,
+        \[\mu_{X_1}=\mu_{X_2}=\cdots=\mu_{X_n}=p,\qquad \sigma_{X_1}=\sigma_{X_2}=\cdots=\sigma_{X_n}=\sqrt{p\cdot q}\]
+
+        \item ¿Cómo usamos la muestra para estimar $p$? Pues contamos el número de individuos de la muestra que presentan esa característica, y dividimos entre el número $n$ de elementos de la muestra. Está claro que esto significa que calculamos la {\sf proporción muestral:}
+            \[\hat p=\dfrac{X_1+X_2+\cdots+X_n}{n}\]
+            Obsérvese que usamos el símbolo $\hat p$ para distinguir la proporción muestral de la de poblacional, que es $p$. Y por lo tanto, la proporción muestral es simplemente la media de una lista de variables independientes de tipo $B(1,p)$
+            ¿Qué sucede al sumar $n$ variables independientes de tipo $B(1,p)$? Pues, pensándolo un poco, nos daremos cuenta de que se obtiene una binomial $B(n,p)$. Por lo tanto la variable $\hat p$ es una binomial $B(n,p)$ {\em pero dividida por $n$}. Esto lo representamos así:
+             \[\hat p \sim \textcolor{red}{\dfrac{1}{n}}B(n,p).\]
+            Ahora basta con recordar lo que dijimos en su momento en la página \pageref{sec:ExperimentosBernouilliDistribucionBinomial}, sobre la media y varianza de una combinación de variables aleatorias. Para la media resulta:
+            \[E\left(\dfrac{1}{n}B(n,p)\right)=\dfrac{1}{n}\cdot E(B(n,p))=\dfrac{n\cdot p}{n}=p,\]
+            Mientras que para la varianza (recordando que los números salen al cuadrado) es:
+            \[\operatorname{Var}\left(\dfrac{1}{n}B(n,p)\right)=\left(\dfrac{1}{n}\right)^2\cdot \operatorname{Var}(B(n,p))=\dfrac{n\cdot p\cdot q}{n^2}=\dfrac{p\cdot q}{n}.\]
+            Y por lo tanto hemos obtenido este resultado:\\[3mm]
+            \fbox{
+            \colorbox{Gris025}{
+            \begin{minipage}{14cm}
+            \begin{center}
+            \vspace{2mm}
+            {\bf Proporción muestral $\hat p$ y su distribución}
+            \end{center}
+            Sea $X$ una variable aleatoria de tipo $B(1,p)$, y sea $(X_1,X_2,\ldots,X_n)$ una muestra aleatoria independiente de tamaño $n$ de $X$. Si llamamos
+            \[\hat p=\dfrac{X_1+X_2+\cdots+X_n}{n}\]
+            entonces \[\hat p \sim \dfrac{1}{n}B(n,p)\]
+            y por lo tanto:
+           \[\mu_{\hat p}=p, \qquad \sigma_{\hat p}=\sqrt{\dfrac{p\cdot q}{n}}.\]
+            \end{minipage}
+            }
+            }\\[3mm]
+
+        \end{itemize}
+
+\section{Inferencia estadística sobre proporciones}\label{sec:InferenciaEstadisticaSobreProporciones}
+
+\begin{itemize}
+
+    \item  Al disponer de toda la información sobre la variable $\hat p$, estamos en condiciones de construir intervalos de confianza y realizar contrastes de hipótesis que involucren a esa variable. Empezamos por repetir algo que, a estas alturas\footnote{Y, en cualquier caso, se puede consultar la segunda versión del Teorema Central del Límite, en la página \pageref{subsec:teoremaCentralLimiteSegundaVersion}}, debería ser evidente: para valores grandes de $n$, la distribución de $\hat p$ es muy aproximadamente normal. Y usando entonces los valores críticos de la normal estándar, está claro que podemos obtener fácilmente intervalos de confianza y contrastes. Sólo nos queda un pequeño problema, que ya tuvimos en su momento en el caso de la media. La desviación típica de $\hat p$ es:
+        \[\sqrt{\dfrac{p\cdot q}{n}},\]
+        pero no podemos usar esto directamente, porque desconocemos el valor de $p$. Así que lo que vamos a hacer es reemplazarlo con
+        \[\sqrt{\dfrac{\hat p\cdot \hat q}{n}},\]
+        (donde $\hat q=1-\hat p$), que es el valor que podemos calcular a partir de la muestra. Se puede demostrar rigurosamente que entonces se cumple esto:\\[3mm]
+       \fbox{
+       \colorbox{Gris025}{
+       \begin{minipage}{14cm}
+       \begin{center}
+       \vspace{2mm}
+       {\bf Teorema central del límite para proporciones}\\
+       \end{center}
+       Sea $X$ una variable aleatoria de tipo $B(1,p)$. Si se toman muestras independientes de $X$ de tamaño $n$, entonces cuando $n$ se hace cada vez más grande la distribución de la proporción muestral
+          $\hat p$ se aproxima cada vez más a la normal $N\left(p,\sqrt{\dfrac{\hat p\cdot\hat q}{n}}\right)$.\\
+          En particular, para $n$ grande tenemos
+          \[Z=\dfrac{\hat p-p}{\sqrt{\dfrac{\hat p\cdot \hat q}{n}}}\sim N(0,1).\]
+          Esta aproximación se considera válida cuando se cumplen, a la vez:
+          \[n\cdot\hat p>5, n\cdot\hat q>5.\]
+       \end{minipage}
+       }
+       }\\[3mm]
+        Y a partir de aquí es inmediato obtener el intervalo de confianza:\\[3mm]
+       \fbox{
+       \colorbox{Gris025}{
+       \begin{minipage}{14cm}
+       \begin{center}
+       \vspace{2mm}
+       {\bf Intervalo de confianza (nivel $(1-\alpha$)) para la proporción $p$, con muestra grande.}\\
+       \end{center}
+       Si consideramos muestras de tamaño $n$ suficientemente grandes, entonces el intervalo de confianza al nivel $(1-\alpha)$  para la proporción $p$ es:
+       \[\hat p-z_{\alpha/2}\sqrt{\dfrac{\hat p\cdot \hat q}{n}}\leq p \leq \hat p +z_{\alpha/2}\sqrt{\dfrac{\hat p\cdot \hat q}{n}}.\]
+       que también escribiremos:
+       \[p =\hat p \pm z_{\alpha/2}\sqrt{\dfrac{\hat p\cdot \hat q}{n}}.\]
+       \end{minipage}
+       }
+       }\\[3mm]
+       Y los contrastes de hipótesis unilaterales y bilaterales {\em (¡atención a los valores de $z$ utilizados en cada caso!)}:
+       \\[3mm]
+       \fbox{\colorbox{Gris025}{\begin{minipage}{14cm}
+       \begin{center}
+       \vspace{2mm}
+       {\bf Contraste de hipótesis (nivel $(1-\alpha$)) para la proporción $p$, con muestra grande.}\\
+       \end{center}
+       Si consideramos muestras de tamaño $n$ suficientemente grandes, entonces se tienen los siguientes contrastes de hipótesis:
+       \begin{enumerate}
+       \item[(a)] Hipótesis nula: $H_0=\{p\leq p_0\}$.\\
+            Región de rechazo:
+            \[\hat p>p_0+z_{\alpha}\sqrt{\dfrac{p_0\cdot q_0}{n}}.\]
+       \item[(b)] Hipótesis nula: $H_0=\{p\geq p_0\}$.\\
+            Región de rechazo:
+            \[\hat p<p_0+z_{1-\alpha}\sqrt{\dfrac{p_0\cdot q_0}{n}}.\]
+       \item[(a)] Hipótesis nula: $H_0=\{p=p_0\}$.\\
+            Región de rechazo:
+            \[|\hat p-p_0|>z_{\alpha/2}\sqrt{\dfrac{p_0\cdot q_0}{n}}.\]
+       \end{enumerate}
+       \end{minipage}}}\\[3mm]
+       Es importante observar una diferencia con el caso de la media. Puesto que el contraste se basa en suponer que la hipótesis nula es cierta, hemos utilizado $p_0$ y $q_0=1-p_0$ en lugar de $\hat p$ y $\hat q$. La razón de hacer esto es que, como hemos dicho, si suponemos que la hipótesis nula es cierta, entonces la desviación típica de la proporción muestral sería $\sqrt{\dfrac{p_0\cdot q_0}{n}}$. En el caso de la media, sin embargo, suponer conocida la media $\mu_0$ de la población no nos servía para saber cuál es la desviación típica de la población, y por eso usábamos $s$ como sustituto.
+
+       Veamos como funciona esto en un ejemplo (tomado de {\em Biostatistics, 7th edition}, W.W.Daniel, Ed.John Wiley (1999), ejemplo 7.5.2 en la página 250).
+       \begin{ejemplo}
+       En un estudio de drogadictos por vía intravenosa en una gran ciudad, Coates et al. descubrieron que, para un muestra de 423 drogadictos, 18 eran seropositivos para el VIH. Se desea saber si estos datos permiten concluir que la proporción de drogadictos seropositivos en esa población es inferior al 5\%.\\
+       La hipótesis nula y alternativa son, para este ejemplo (en el que $p_0=0.05$, $q_0=0.95$):
+       \[
+       H_0=\{p\geq 0.05\},\qquad H_a=\{p<0.05\}
+       \]
+       Y hemos obtenido una proporción muestral:
+       \[\hat p=\dfrac{18}{423}\approx 0.04255\]
+       Elegimos un nivel de confianza del 95\%, es decir $1-\alpha=0.95$, con lo que
+       \[z_{1-\alpha}=z_{0.95}=-1.6449.\]
+        Calculamos:
+       \[p_0+z_{1-\alpha}\sqrt{\dfrac{p_0\cdot q_0}{n}}=0.05+(-1.6449)\sqrt{\dfrac{0.05\cdot 0.95}{423}}\approx 0.03257\]
+       Y puesto que (recuerda que $\hat p=0.04255$):
+       \[0.03257<0.04255\]
+       concluimos que {\em no se puede rechazar la hipótesis nula}. Es decir, el porcentaje de seropositivos puede ser mayor que el 5\% conjeturado.\\
+
+       Otra manera de organizar esta misma cuenta es utilizar el estadístico
+       \[Z=\dfrac{\hat p-p_0}{\sqrt{\dfrac{p_0\cdot q_0}{n}}}\]
+       que, {\em si se acepta la hipótesis nula}, tiene distribución normal estándar. Por lo tanto, calculamos $Z$ para nuestros datos:
+       \[Z=\dfrac{\hat p-p_0}{\sqrt{\dfrac{p_0\cdot q_0}{n}}}=
+       \dfrac{0.04255-0.05}{\sqrt{\dfrac{0.05\cdot 0.95}{423}}}\approx -0.7030
+       \]
+       Como este valor cumple
+       \[-0.7030>z_{0.95}=-1.645\]
+       vemos que no se puede rechazar la hipótesis nula.
+       La probabilidad de la cola izquierda para este valor en la normal estándar:
+       \[P(Z<-0.7030)\approx 0.2410\]
+       es el $p$-valor del contraste. \qed
+       \end{ejemplo}
+
+    \end{itemize}
+
+
+\section{Distribución de Poisson}
+
+\begin{itemize}
+
+    \item Las distribuciones binomial y normal, que (junto con la $t$ de Student) han centrado nuestro trabajo hasta ahora, no agotan, ni mucho menos, el repertorio de las distribuciones que se usan en
+    Estadística. En las próximas secciones vamos a ampliar nuestro repertorio de distribuciones, presentando las distribuciones más destacadas y sus aplicaciones. Entre esas aplicaciones veremos de nuevo algunos de los conceptos que ya hemos discutido, como las distribuciones muestrales y sus aplicaciones para calcular intervalos de confianza, realizar contrastes de hipótesis, etcétera.
+
+
+     \item Dijimos, en su momento que la distribución binomial $B(n,p)$ era, sin duda, la más importante de todas las distribuciones discretas. Y al pasar al límite para $n\to\infty$, obtuvimos como límite la distribución normal. Pero ese límite no se obtenía sin condiciones. Como vimos al enunciar la primera versión del Teorema Central del Límite (en la página \pageref{sec:teoremaCentralLimitePrimeraVersion} ), la aproximación de la binomial normal por la normal se comporta bien en tanto se cumplan las condiciones:
+         \[n\cdot p>5, n\cdot q>5.\]
+         Sin embargo, es frecuente encontrase con situaciones que, aunque se dejan enunciar en el lenguaje de éxitos y fracasos de los ensayos de Bernouilli (como pasaba con la binomial), tienen asociados valores de $p$ extremadamente bajos. Si, por ejemplo, $p=0.001$, entonces la condición $n\cdot p>5$ no empieza a cumplirse hasta que han transcurrido 5000 ensayos. Y sin embargo, si queremos calcular
+         \[P(X=34),\quad\mbox{para $X$ del tipo }B(150,0.001)\]
+         el cálculo usando la definición con la binomial resulta bastante complicado:
+         \[P(X=34)=\binom{150}{34}\left(0.001\right)^{34}(0.999)^{116}.\]
+         Vamos a ver, en esta sección, una distribución que permite aproximar a la binomial en estos casos. Antes de la definición, una observación importante. La variable que vamos a definir es {\em discreta, pero puede tomar cualquier valor entre los números naturales $0,1,2,\ldots$ (infinitos valores).}\\[3mm]
+         \fbox{\colorbox{Gris025}{\begin{minipage}{14cm}
+         \begin{center}
+         \vspace{2mm}
+         {\bf DISTRIBUCIÓN DE POISSON}\\
+         \end{center}
+          Sea $\lambda$ un número positivo. Una variable aleatoria discreta $X$, es de tipo {\sf Poisson $\operatorname{Pois}(\lambda)$}, si $X$ puede tomar cualquier valor natural $0,1,2,3,\ldots$, con esta distribución de probabilidad:
+          \[P(X=k)=\dfrac{\lambda^k}{k!}e^{-\lambda}\]
+         \end{minipage}}}\\[3mm]
+         El valor $k$ se va a seguir interpretando como el número de éxitos obtenidos. Y enseguida vamos a ver qué significa el parámetro $\lambda$, y cómo se usa esta distribución de Poisson para aproximar la binomial. Pero para practicar un poco la definición, veamos que, por ejemplo, si $\lambda=2$, y $k=3$, se tiene
+         \[P(X=3)=\dfrac{2^3}{3!}e^{-2}\approx  0.180447\]
+         Pero los valores de probabilidad decaen rápidamente. Por ejemplo, con el mismo valor $\lambda=2$, pero con $k=10$ se obtiene:
+         \[P(X=10)=\dfrac{2^{10}}{10!}e^{-2}\approx 1.2811\cdot 10^{-8}.\]
+         Este tipo de comportamiento es de esperar, porque si vamos a aproximar binomiales con probabilidades $p$ (de éxito en cada ensayo) bajas, esperamos que la probabilidad de un número alto de éxitos sea muy pequeña.
+         En la siguiente figura puedes ver representados algunos valores de probabilidad de la distribución de Poisson para $\lambda=2$:
+         \begin{center}
+         \includegraphics[width=12cm]{2011-11-25-Poisson01.png}
+         \end{center}
+         Y en este \textattachfile{Cap08-Poisson.html}{\textcolor{blue}{documento html}} (se abre en el navegador, requiere Java) puedes observar el comportamiento de la distribución de Poisson a medida que $n$ cambia.
+
+    \item El parámetro $\lambda$ de la distribución de Poisson determina todas sus propiedades estadísticas:\\[3mm]
+         \fbox{\colorbox{Gris025}{\begin{minipage}{14cm}
+         \begin{center}
+         \vspace{2mm}
+         {\bf MEDIA Y VARIANZA DE UNA DISTRIBUCIÓN DE POISSON}\\
+         \end{center}
+          Sea $X$ una variable aleatoria discreta de tipo {\sf Poisson $\operatorname{Pois}(\lambda)$}. Entonces su media y varianza vienen dadas por:
+          \[\mu_X=\lambda,\qquad \sigma^2_X=\lambda\]
+         \end{minipage}}}\\[3mm]
+         Este valor de la media se calcula aplicando la definición, que ya conocemos,  sólo que en este caso se trata de una suma infinita (serie):
+         \[\mu_X=0\cdot P(X=0)+1\cdot P(X=1)+2\cdot P(X=2)+\cdots=
+         0\cdot\dfrac{\lambda^0}{0!}e^{-\lambda}+1\cdot\dfrac{\lambda^1}{1!}e^{-\lambda}+2\cdot\dfrac{\lambda^2}{2!}e^{-\lambda}+\cdots\]
+         y hay que usar matemáticas algo más complicadas para ver que el valor de esta suma infinita es $\lambda$. La varianza se obtiene de una serie similar.
+
+    \item Esta distribución fue introducida por  \link{http://en.wikipedia.org/wiki/Sim\%C3\%A9on\_Denis_Poisson}{Siméon Denis Poisson}, un físico y matemático francés del siglo XIX, discípulo de Laplace.
+
+  \item Hemos dicho que la distribución de Poisson se utiliza para aproximar la binomial en el caso de probabilidades pequeñas. Por esa razón la distribución de Poisson se llama a veces la {\sf distribución de los sucesos raros}. Concretamente, el resultado de aproximación es este:\\[3mm]
+         \fbox{\colorbox{Gris025}{\begin{minipage}{14cm}
+         \begin{center}
+         \vspace{2mm}
+         {\bf APROXIMACIÓN DE LA BINOMIAL POR UNA DISTRIBUCIÓN DE POISSON}\\
+         \end{center}
+          Si $X$ es una variable aleatoria discreta de tipo binomial $B(n,p)$ y se cumplen a la vez estas dos condiciones\footnote{Algunos autores sugieren $n>30$.}:
+          \[n>50,\qquad n\cdot p<5,\]
+          entonces los valores de probabilidad de $X$ se pueden aproximar por los de una distribución de tipo Poisson, concretamente por una $\operatorname{Pois}(\lambda)$, con
+          \[\lambda=n\cdot p.\]
+         \end{minipage}}}\\[3mm]
+         Esta aproximación se puede obtener a partir de la binomial mediante el paso al límite cuando $p\to 0$, $n\to\infty$, pero $n\cdot p=\lambda$ se mantiene constante. Los límites necesarios no son muy complicados, pero tampoco aportan gran cosa a nuestra comprensión. Si estás interesado puedes encontrarlos en el libro {\em Estadística Básica para estudiantes de ciencias}, de Gorgas, Cardiel y Zamorano (profesores de la Univ. Complutense de Madrid), que puedes descargar en versión electrónica desde \link{http://www.ucm.es/info/Astrof/users/jaz/estadistica.html}{esta página}.
+
+         Naturalmente, como habrás podido observar al analizar la distribución de Poisson para distintos valores de $\lambda$, al aumentar $\lambda$ se obtienen distribuciones cada vez más parecidas a la normal. Esta es otra manifestación más del Teorema Central del Límite. Esto permite aproximar la distribución de Poisson por una normal:\\[3mm]
+         \fbox{\colorbox{Gris025}{
+         \begin{minipage}{14cm}
+         \begin{center}
+         \vspace{2mm}
+         {\bf APROXIMACIÓN DE LA DISTRIBUCIÓN DE POISSON POR UNA NORMAL}\\
+         \end{center}
+          Si $X$ es una variable aleatoria discreta de tipo $\operatorname{Pois}(\lambda)$, y se cumple:
+          \[\lambda>5,\]    
+          entonces los valores de probabilidad de $X$ se pueden aproximar por los de una distribución de tipo normal, concretamente:
+          \[N(\lambda,\sqrt{\lambda}).\]
+         \end{minipage}}}
+         \\[3mm]
+
+%         ¿Hasta qué punto es coherente esto con la aproximación binomial-normal que hemos visto (suponiendo que se cumplan todas las condiciones)? Si aproximamos una binomial $B(n,p)$ directamente por una normal usaríamos $N\left(n\cdot p,\sqrt{n\cdot p\cdot q}\right)$. Pero si primero aproximamos la binomial por una Poisson, usaríamos $\operatorname{Pois}(\lambda)=\operatorname{Pois}(n\cdot p)$. Y si ahora aproximamos esta Poisson por una normal, tendríamos
+
+         Vamos a usar esto, más adelante en el curso, como justificación teórica de algunos métodos. Pero, en la práctica, para el cálculo de valores de probabilidad, hay que tener en cuenta que los valores de la distribución de Poisson son relativamente fáciles de calcular.
+
+
+  \item Otra de las aplicaciones frecuentes de la distribución de Poisson es a procesos en los que un determinado fenómeno (un éxito, en el lenguaje de la binomial) puede ocurrir una o más veces a lo largo de un intervalo de tiempo (o en una parcela de espacio) y que reúnen estas características:
+      \begin{enumerate}
+        \item el número de sucesos en un intervalo es independiente del número de sucesos en cualquier otro intervalo.
+        \item cuánto mayor es el intervalo de tiempo, mayor es la probabilidad de que ocurra un suceso individual en ese intervalo. Hay proporcionalidad entre longitud del intervalo y probabilidad del suceso.
+        \item la probabilidad de que ocurran dos sucesos en un mismo intervalo es muy pequeña.
+      \end{enumerate}
+      En tal caso, si llamamos $X=${\em \{número de sucesos en un intervalo\}}, la variable $X$ sigue una distribución de tipo $\operatorname{Pois}(\lambda)$, siendo $\lambda$ naturalmente el número medio de sucesos en cada intervalo.
+
+  \item Para calcular los valores de probabilidad asociados a la distribución de Poisson disponemos de bastantes recursos. Naturalmente, se pueden usar las tablas de esta distribución que incluyen casi todos los libros de Estadística. En las hojas de cálculo como Calc o Excel disponemos de la función {\tt POISSON}, que reemplaza ventajosamente a esas tablas (y aquí tienes un \textattachfile{Cap08-ProbabilidadPoisson.ods}{\textcolor{blue}{fichero Calc}} preparado para que puedas practicar el cálculo de valores de probabilidad).
+
+      En R disponemos de:
+      \begin{enumerate}
+        \item la función {\tt dpois(k,lambda)} devuelve el valor de $P(X=k)$ para una distribución de Poisson de parámetro {\tt lambda}.
+        \item la función {\tt ppois(k,lambda)} devuelve el valor de $P(X\leq k)$ para una distribución de Poisson de parámetro {\tt lambda}.
+        \item la función {\tt qpois(p, lambda)} devuelve, para un valor de probabilidad {\tt p}, el {\sf menor número $k$} para que el que se cumple $P(X\leq k)\geq p$.
+      \end{enumerate}
+      Y en este \textattachfile{Cap08-DistribucionPoisson.R}{\textcolor{blue}{fichero de instrucciones R}} tienes preparadas esas funciones para practicar con ellas.
+
+      Finalmente, para hacer esos cálculos, puedes usar el entorno Wiris con este \textattachfile{Cap08-Poisson-Wiris.html}{\textcolor{blue}{documento html}} (se abre en el navegador, requiere Java y conexión activa a internet).
+
+    \end{itemize}
+
+
+\section{Inferencia estadística para la distribución de Poisson}
+
+\begin{itemize}
+
+    \item Debería estar empezando a convertirse en una costumbre: cada nueva distribución que aparece (en este caso la de Poisson) lleva aparejados los correspondientes resultados inferenciales, que se traducen en el cálculo de intervalos de confianza y contrastes de hipótesis. Con la distribución de Poisson, naturalmente, sucede lo mismo. No vamos a considerar el caso de muestras pequeñas, porque sería demasiado complicado. Al limitarnos a muestras grandes, podemos contar con el Teorema Central del Límite, que nos garantiza este resultado:\\[3mm]
+       \fbox{\colorbox{Gris025}{\begin{minipage}{14cm}
+       \begin{center}
+       \vspace{2mm}
+       {\bf Teorema central del límite para la distribución de Poisson}\\
+       \end{center}
+       Sea $X$ una variable aleatoria de tipo $\operatorname{Pois}(\lambda)$. Si se toman muestras independientes de $X$ de tamaño $n$, entonces cuando $n$ se hace cada vez más grande la distribución de la media muestral
+       $\hat p$ se aproxima cada vez más a la normal $N\left(\lambda,\sqrt{\dfrac{\lambda}{n}}\right)$.\\
+       En particular, para $n$ grande tenemos $Z=\dfrac{\bar X-\lambda}{\sqrt{\dfrac{\mbox{\boldmath$\textcolor{red}{\bar X}$}}{n}}}\sim N(0,1)$.
+       \end{minipage}}}\\[3mm]
+       {\em Obsérvese} que, con vistas a la inferencia, hemos utilizado $\bar X$ como sustituto de $\lambda$ en el cálculo de la desviación típica muestral. Esta sustitución es similar a otras que ya hemos encontrado.
+
+    \item Como en el caso de las proporciones, tras establecer la distribución de la media muestral, es inmediato obtener el intervalo de confianza:\\[3mm]
+       \fbox{\colorbox{Gris025}{\begin{minipage}{14cm}
+       \begin{center}
+       \vspace{2mm}
+       {\bf Intervalo de confianza (nivel $(1-\alpha$)) para $\lambda$ (en $\operatorname{Pois}(\lambda)$), con muestra grande.}\\
+       \end{center}
+       Si consideramos muestras de tamaño $n$ suficientemente grandes, entonces el intervalo de confianza al nivel $(1-\alpha)$  para $\lambda$  es:
+       \[\bar X-z_{\alpha/2}\sqrt{\dfrac{\bar X }{n}}\leq \lambda \leq \bar X +z_{\alpha/2}\sqrt{\dfrac{\bar X}{n}}.\]
+       que también escribiremos $\lambda =\bar X \pm z_{\alpha/2}\sqrt{\dfrac{\bar X}{n}}$.
+       \end{minipage}}}\\[3mm]
+       Y los contrastes de hipótesis unilaterales y bilaterales {\em (¡de nuevo, hay que prestar atención a los valores de $z$ utilizados en cada caso!)}:
+       \\[3mm]
+       \fbox{\colorbox{Gris025}{\begin{minipage}{14cm}
+       \begin{center}
+       \vspace{2mm}
+       {\bf Contraste de hipótesis (nivel $(1-\alpha$)) para $\lambda$ (en $\operatorname{Pois}(\lambda)$), con muestra grande.}\\
+       \end{center}
+       Si consideramos muestras de tamaño $n$ suficientemente grandes, entonces se tienen los siguientes contrastes de hipótesis:
+       \begin{enumerate}
+       \item[(a)] Hipótesis nula: $H_0=\{\lambda\leq \lambda_0\}$.\\
+            Región de rechazo $\bar X>\lambda_0+z_{\alpha}\sqrt{\dfrac{\lambda_0}{n}}.$
+       \item[(b)] Hipótesis nula: $H_0=\{\lambda\geq \lambda_0\}$.\\
+            Región de rechazo: $\bar X<\lambda_0+z_{1-\alpha}\sqrt{\dfrac{\lambda_0}{n}}.$
+       \item[(a)] Hipótesis nula: $H_0=\{\lambda=\lambda_0\}$.\\
+            Región de rechazo: $|\bar X-\lambda_0|>z_{\alpha/2}\sqrt{\dfrac{\lambda_0}{n}}.$
+       \end{enumerate}
+       \end{minipage}}}\\[3mm]
+       Una observación, muy parecida a la que hicimos en el caso de los contrastes sobre proporciones. Puesto que el contraste se basa en suponer que la hipótesis nula es cierta, hemos utilizado $\lambda_0$ en lugar de $\bar X$. Y de nuevo, la razón de hacer esto es que, como hemos dicho, si suponemos que la hipótesis nula es cierta, entonces la desviación típica de la media muestral sería $\sqrt{\dfrac{\lambda_0}{n}}$.
+
+\end{itemize}
+

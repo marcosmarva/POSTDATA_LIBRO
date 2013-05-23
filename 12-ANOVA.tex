@@ -1,0 +1,347 @@
+﻿% !Mode:: "Tex:UTF-8"
+
+%\chapter{Diseño de experimentos}
+%
+%\section*{\fbox{\colorbox{Gris025}{{Sesión 27. Diseño experimental.}}}}\label{sesion:27}
+%
+%\subsection*{\fbox{\colorbox{Gris025}{{Análisis de la varianza.}}}}
+%\subsection*{Fecha: Martes, 10/01/2012, 14h.}
+%
+%\noindent{\bf Atención: este fichero pdf lleva adjuntos los ficheros de datos necesarios.}
+%
+%%\subsection*{\fbox{1. Ejemplos preliminares }}
+%\setcounter{tocdepth}{1}
+%%\tableofcontents
+
+\section{ANOVA unifactorial.}
+
+\begin{itemize}
+
+    \item El análisis de la varianza (ANOVA) es una de las técnicas básicas de la estadística, y es el fundamento de la parte de la estadística aplicada conocida como diseño experimental.  {\em El análisis de la varianza consiste en descomponer la variabilidad presente en un conjunto de datos en una suma de términos, de manera que cada uno de esos términos se pueda atribuir a una fuente específica de variación, que influye en el fenómeno que estamos estudiando.} El diseño de experimentos, y el propio análisis de la varianza, tienen como objetivo maximizar la calidad estadística de la información que se obtiene a partir de un experimento, y requieren un estudio mucho más detallado que el que vamos a poder hacer en un curso de introducción a la estadística como es este. Aquí nos vamos a limitar a dar los primeros pasos en esa dirección.
+
+    \item Para comenzar a caminar, vamos a combinar varias ideas que ya hemos visto en anteriores capítulos. En realidad, ya hemos visto un ejemplo de análisis de la varianza. Cuando, en el Capítulo 11, ver página \pageref{sec:anova}), tratábamos de entender la dispersión de los puntos en un modelo sencillo de regresión lineal, obtuvimos esta descomposición de la varianza para la variable $y$
+        \[V_y=\mbox{ECM}+b\cdot\operatorname{cov}(x,y),\]
+        (aquí ECM es el error cuadrático medio, y $b$ es la pendiente de la recta de regresión). Dijimos entonces que esto se podía interpretar conceptualmente como una descomposición de $V_y$, la dispersión total de los valores de $y$, de esta forma:
+        \[
+        \underbrace{\left(\mbox{dispersión total de }y\right)}_{V_y}=
+        \underbrace{\left(\mbox{dispersión aleatoria }N(0,\sigma)\right)}_{\mbox{ECM}}+
+        \underbrace{\left(\mbox{dispersión debida a la regresión}\right)}_{b\cdot\operatorname{cov}(x,y)}
+        \]
+        En este caso, la varianza de $y$ se descompone en una componente puramente aleatoria (ECM), y una componente que corresponde al modelo lineal $y=a+bx$ que estamos utilizando. Esta segunda componente nos permite explicar parte de la diferencia entre los valores de $y$, diciendo que corresponden a distintos valores de la variable $x$, que es la variable predictora, o regresora; es decir, es la variable que en muchos casos, resulta más fácil de medir o de manipular al diseñar el experimento. Y, en este modelo de regresión lineal, en principio es posible cualquier valor de la variable $x$.
+
+    \item El otro ingrediente que queremos traer a la memoria es la inferencia sobre diferencia de medias en poblaciones normales que hemos estudiado; es decir, la estimación por intervalos y contrastes de hipótesis de una hipótesis nula tal como
+        \[H_0=\{\mu_1=\mu_2\}.\]
+        En este caso nos interesaba una misma variable aleatoria $X$ en ambas poblaciones, y tratábamos de detectar alguna diferencia en las medias, que se pudiera atribuir a diferencias entre ambas poblaciones. ¿Qué tiene esto que ver con el modelo de regresión lineal? Bueno, en realidad aquí también hay dos variables. Por un lado la variable $X$, y por otro lado la {\sf variable población} $P$, una variable discreta, que sólo puede tomar dos valores, 1 y 2, para distinguir de que población proceden los datos. Y estamos tratando de usar la variable $P$ como predictora para analizar las diferencias (para empezar, la diferencia de medias) de los valores de $X$. Esa es la conexión: el valor (1 o 2) de $P$ permite analizar diferencias entre los valores de $X$, de modo análogo a como los distintos valores de $x$ permitían entender los distintos valores de $y$ en el modelo de regresión. Y una diferencia evidente entre ambos casos es que, mientras que la variable población sólo toma dos valores, la variable $x$ del modelo de regresión es una variable continua con infinitos valores posibles.
+
+    \item El problema que vamos a estudiar en esta sección es una generalización del problema de la diferencia de medias. Para centrar las ideas, vamos a pensar en un ejemplo concreto. Supongamos que estamos comparando la eficacia de $k$ tratamientos diferentes para una misma enfermedad. Para ello, vamos a realizar un estudio en el que intervienen un total de $n$ pacientes. Esos pacientes se dividen aleatoriamente en $k$ grupos, y a cada uno de los grupos se le asigna uno de los tratamientos. La variable aleatoria $X$ que nos interesa es la respuesta al tratamiento, pero está claro que en este ejemplo interviene también una {\em variable población} $P$, que puede tomar $k$ valores, y que indica el grupo al que pertenece el paciente, y por lo tanto el tratamiento que se le ha asignado. Cada uno de esos $k$ grupos se puede considerar como una muestra de una población (la de los pacientes a los que se les aplica el tratamiento número $k$), y las medias de los valores de $X$ en cada una de las poblaciones serían:
+        \[\mu_1,\mu_2,\ldots,\mu_k.\]
+        Naturalmente, estamos interesados en comparar esos tratamientos según la respuesta que producen. Y eso significa que, como primer paso, queremos contrastar la hipótesis nula
+        \[H_0=\{\mu_1=\mu_2=\cdots=\mu_k\}\]
+        Esta hipótesis nula indica que no hay diferencias en la respuesta producida por los distintos tratamientos (es decir, $X$ no depende de $k$, por decirlo en un lenguaje que recuerde al de la regresión lineal).
+
+    \item La situación que hemos descrito se presta al tipo de análisis estadístico conocido como {\sf ANOVA de un factor (o de una vía, o de clasificación simple), completamente aleatorio y de efectos fijos.} Vamos a explicar uno por uno estos términos:
+    \begin{enumerate}
+        \item Decimos que es un modelo de un factor, porque sólo tenemos en cuenta cómo depende $X$ del tratamiento aplicado, sin tener en cuenta otras variables que pueden influir (la edad, el género de los pacientes, su dieta y estilo de vida, etcétera).
+            \item Es completamente aleatorio porque los pacientes se asignan de forma aleatoria a cada grupo de tratamiento, sin tratar de agruparlos de ninguna manera.
+            \item Y es de efectos fijos, porque nosotros hemos seleccionado cuáles son los tratamientos que queremos analizar, no los hemos elegido al azar de entre un conjunto posible de tratamientos.
+    \end{enumerate}
+
+    \item A cada uno de los $k$ tratamientos le hemos asignado un cierto grupo de pacientes. Vamos a llamar $n_j$ al número de pacientes que se han asignado al tratamiento número $j$, donde $j$ va desde 1 hasta $k$. Si llamamos $X_{ij}$ al valor de la variable $X$ en el paciente número $i$ del grupo número $j$, entonces podemos anotar los resultados experimentales en forma de tabla:
+        \begin{equation}\label{ec:tablaValoresParaAnova}
+        \begin{array}{cccccc}
+        &\multicolumn{5}{r}\mbox{\bf Tratamiento aplicado ($j$ de 1 a $k$)}\\
+        \cline{2-6}
+        &1&2&3&\cdots&k\\
+        \hline
+        \multirow{5}{*}{\mbox{\bf Paciente ($i$ de 1 a $n_j$)}}
+        &X_{11}&X_{12}&X_{13}&\cdots&X_{1k}\\
+        &X_{21}&X_{22}&X_{23}&\cdots&X_{2k}\\
+        &X_{31}&X_{32}&X_{33}&\cdots&X_{3k}\\
+        &\vdots&\vdots&\vdots&\ddots&\vdots\\
+        &X_{n_11}&X_{n_22}&X_{n_33}&\cdots&X_{n_kk}\\
+        \hline
+        \end{array}
+        \end{equation}
+        {\sf Un par de observaciones importantes sobre la notación:} aunque la tabla anterior parece indicar que todos los tratamientos han sido probados en el mismo número de pacientes, {\em en general no es así}, de modo que cada columna de la Tabla (\ref{ec:tablaValoresParaAnova}) puede tener distinta longitud. Es decir, {\sf no estamos suponiendo} que sea $n_1=n_2=\cdots=n_k$. Y, en segundo lugar, conviene comprobar, cuando se usan las fórmulas de un libro de texto, cuáles son los significados de $i$ y $j$ en $X_{ij}$, porque algunos autores los cambian de orden. Nosotros vamos a utilizar la notación más coherente con la notación matricial de uso general en matemáticas, donde en una tabla, $i$ indica la fila, y $j$ indica la columna.
+
+\end{itemize}
+
+\section{Identidad ANOVA. Residuos e hipótesis necesarias.}
+
+\begin{itemize}
+
+    \item Para contrastar la hipótesis nula de igualdad de medias entre todos los grupos (entre tratamientos, por tanto), necesitamos como siempre
+        \begin{enumerate}
+        \item hacer algunas hipótesis sobre distribuciones muestrales y
+        \item un estadístico adecuado, cuyo comportamiento sea conocido a partir de esas hipótesis muestrales.
+        \end{enumerate}
+        Y aquí es donde entra en juego el análisis de la varianza, y su descomposición en componentes. Necesitamos introducir un poco de notación, para organizar los cálculos, y para conocer además la notación habitual en los textos de estadística relativos a estos problemas. Por ejemplo, para representar la suma de valores del grupo $j$ (columna $j$)
+        \[X_{\textcolor{red}{\mbox{\bf\large $\cdot$}}j}=\sum_{i=1}^{n_j}X_{ij}\]
+        Observa el punto que aparece como subíndice (y que, en esta ocasión, hemos coloreado de rojo para destacarlo). Ese punto indica sumación sobre la variable $i$ a la que sustituye. Por ejemplo, la media del grupo número $j$ sería
+        \[\bar X_{\textcolor{red}{\mbox{\bf\large $\cdot$}}}j=\dfrac{X_{\textcolor{red}{\mbox{\bf\large $\cdot$}}}j}{n_j}\]
+        Y la suma de todos los valores de la tabla se indicará con dos puntos:
+        \[X_{\textcolor{red}{\mbox{\bf\large $\cdot\cdot$}}}=\sum_{j=1}^k\sum_{i=1}^{n_j}X_{ij}\]
+        La media de todos los valores de la tabla se indica simplemente colocando una barra sobre $X$, como hemos hecho en otros capítulos:
+        \[\bar{X}=\dfrac{X_{\textcolor{red}{\mbox{\bf\large $\cdot\cdot$}}}}{n}\]
+
+
+    \item Con esta notación, empecemos el trabajo necesario para obtener el contraste de igualdad de medias. En primer lugar, para cualquier valor de la Tabla \ref{ec:tablaValoresParaAnova} (pág. \pageref{ec:tablaValoresParaAnova}) podemos escribir esta igualdad:
+        \[X_{ij}-\mu=(X_{ij}-\mu_j)+(\mu_j-\mu)\]
+        donde $\mu_j$ es la media (teórica o poblacional) de la población número $j$ (los pacientes tratados con el tratamiento $j$), y $\mu$ representa la media teórica de la población que resulta de combinar todas las poblaciones en una sola población. De la misma forma podemos escribir una ecuación de estimadores:
+
+        \begin{equation}\label{cap14:ecu:AnovaIdentidadEstimadores}
+        X_{ij}-\bar X=(X_{ij}-\bar X_{\mbox{\bf\large $\cdot$}j})+(\bar X_{\mbox{\bf\large $\cdot$}j}-\bar X)
+        \end{equation}
+
+        Supongamos que estamos tratando de estimar la varianza de todos los valores de la Tabla \ref{ec:tablaValoresParaAnova},  olvidando por un momento la separación en $k$ poblaciones (grupos), y usando $\mu$ como media teórica. Naturalmente, como $\mu$ no es conocido, usaríamos $\bar X$ para estimarlo. Entonces elevaríamos al cuadrado los términos de la forma
+        \[X_{ij}-\bar X\]
+        y sumaríamos para todos los valores de $i$ y $j$. El resultado interesante  se obtiene cuando se sustituye la anterior identidad (\ref{cap14:ecu:AnovaIdentidadEstimadores}) en esa suma (y se hacen unas cuantas simplificaciones algebraicas, que nos vamos a ahorrar para abreviar). Se obtiene:\\[3mm]
+        \fbox{\colorbox{Gris025}{\begin{minipage}{14cm}
+        \begin{center}
+        \vspace{2mm}
+        {\bf Identidad de la suma de cuadrados para ANOVA}\\
+        \end{center}
+        \begin{equation}\label{ec:identidadSumaCuadradosANOVA}
+        \underbrace{\sum_{j=1}^k\sum_{i=1}^{n_j}(X_{ij}-\bar X)^2}_{(I)}=
+        \underbrace{\sum_{j=1}^k n_j(\bar X_{\mbox{\bf\large $\cdot$}j}-\bar X)^2}_{(II)}+
+        \underbrace{\sum_{j=1}^k\sum_{i=1}^{n_j}(X_{ij}-\bar X_{\mbox{\bf\large $\cdot$}j})^2}_{(III)}
+        \end{equation}
+        y el análisis de la varianza consiste en la interpretación de cada uno de los tres términos de esta ecuación:
+        \begin{enumerate}
+        \item El término $(I)$ representa, como hemos dicho, la dispersión total de los datos cuando se consideran como si procedieran de una única población combinada.
+        \item El término $(II)$ representa la dispersión en los datos que se atribuye al hecho de que se utilizan $k$ tratamientos distintos. Es la dispersión {\sf entre grupos}.
+        \item Finalmente, el término $(III)$ representa la dispersión en los datos que se atribuye al factor aleatorio {\sf dentro de los grupos}, porque cada {\sf individuo} responde de una forma distinta al tratamiento por razones que en este modelo se consideran puramente aleatorias.
+        \end{enumerate}
+        \end{minipage}}}\\[3mm]
+        Esta descomposición o análisis de la varianza es justo lo que se necesita para poder introducir las hipótesis que proporcionan soporte teórico al contraste de igualdad de medias que vamos a hacer.
+
+\end{itemize}
+
+\subsection{Residuos e hipótesis necesarias para aplicar ANOVA.}\label{subsec:residuosAnova}
+
+\begin{itemize}
+
+    \item Volvamos al asunto de las condiciones que el modelo tiene que cumplir, para que el ANOVA funcione correctamente. Recordemos que estamos trabajando con un modelo ANOVA de una vía (o unifactorial, o de clasificación simple), completamente aleatorio y de efectos fijos. Además, vamos a suponer que:
+        \begin{enumerate}
+                \item las $k$ muestras (es decir, las $k$ columnas de la Tabla (\ref{ec:tablaValoresParaAnova}), página \pageref{ec:tablaValoresParaAnova}) son muestras independientes.
+                \item cada una de esas muestras procede de una población normal (las poblaciones corresponden a los diferentes grupos de tratamiento), con media $\mu_j$ para la población número $j$.
+                \item las $k$ poblaciones {\em tienen la misma varianza $\sigma^2$ (homocedasticidad).}
+        \end{enumerate}
+        %Por razones de agilidad, para llegar lo antes posible al núcleo del ANOVA, vamos a dejar para las próximas secciones varias preguntas importantes: ¿cómo comprobar estas condiciones? ¿qué se puede hacer cuando falla alguna de ellas?
+        Al igual que sucedía en capítulos anteriores, donde nos planteábamos este problema para el caso de dos poblaciones, ya sabemos que la primera hipótesis depende de un diseño experimental correcto, y a veces es difícil de garantizar. En este capítulo simplemente supondremos que esa independencia está garantizada, posponiendo la discusión detallada para más adelante.
+
+    \item La segunda hipótesis también va a quedar pospuesta a otro capítulo, cuando veamos distintas maneras de contrastar la normalidad de un conjunto de datos. Por el momento, sólo queremos destacar algunas ideas:
+        \begin{enumerate}
+                \item El contraste ANOVA de un factor es robusto frente a las desviaciones moderadas respecto a la normalidad. Es decir, que si se verifican las otras dos hipótesis (independencia e igualdad de varianzas), ANOVA seguirá funcionando aunque los datos sean un poco {\em no normales}.
+                \item Si las muestras (los grupos a los que se aplica cada uno de los tratamientos) son de un tamaño muy pequeño, es muy difícil contrastar esta hipótesis de normalidad.
+                \item Aunque ya hemos dicho que posponemos los detalles sobre los métodos más avanzados, para empezar debemos representar el diagrama de cajas (boxplot) de cada uno de los grupos por separado, y estudiar si se corresponde con el de una población normal. Siempre teniendo en cuenta, como hemos dicho, que si el tamaño de la muestra es pequeño, es muy posible que el diagrama de cajas no sea representativo de la población. Un poco más adelante, en este mismo capítulo, veremos como hacer estos diagramas usando R.
+        \end{enumerate}
+
+    \item La tercera hipótesis, la de la igualdad de varianzas (homocedasticidad), es, en cambio, más delicada: si los grupos son todos del mismo tamaño ({\em diseño equilibrado}), ANOVA es bastante robusto frente a cambios en las varianzas. Pero con grupos de distinto tamaño, el método pierde potencia rápidamente. Parte del trabajo que no vamos a poder hacer en este curso consiste en aprender lo que hay que hacer cuando no se puede justificar esa hipótesis de igualdad de varianzas. ¿Cómo se puede verificar si se cumple esa homogeneidad de las varianzas? Usando un concepto que ya encontramos al hablar de regresión: los residuos.
+
+    \item[]{\bf Residuos}
+
+    \item Al igual que sucedía en el caso de la regresión, con la que ANOVA está emparentado, el análisis de la condición de igualdad de varianzas del ANOVA utiliza el concepto de {\sf residuo}. Recordemos que en el caso de la regresión, dado un valor observado $(x_i,y_i)$ y la recta de regresión, de ecuación
+        \[y=a+b\cdot x\]
+        sustituimos $x_i$ en la recta y obtenemos el valor predicho por el modelo $\hat y_i=a+b\cdot x_i$. El residuo en este caso es la diferencia
+        \[e_i=y_i-\hat y_i\]
+        entre el valor observado y el que predice el modelo.
+
+        ¿Qué significa residuo (y {\em valor predicho}) en el contexto de ANOVA? Vamos a escribir una ecuación similar a la \ref{cap14:ecu:AnovaIdentidadEstimadores} (página \pageref{cap14:ecu:AnovaIdentidadEstimadores}):
+        \[
+        X_{ij}=\bar X_{\mbox{\bf\large $\cdot$}j}+\left(X_{ij}-\bar X_{\mbox{\bf\large $\cdot$}j}\right)
+        \]
+        Esta expresión muestra el valor $X_{ij}$ como el resultado de dos términos:
+        \begin{enumerate}
+            \item la media $\bar X_{\mbox{\bf\large $\cdot$}j}$ del grupo al que pertenece el elemento en cuestión y
+            \item el término $(X_{ij}-\bar X_{\mbox{\bf\large $\cdot$}j})$, que es el que vamos a llamar el {\sf residuo}, y que compara a cada elemento con la media de su grupo.
+        \end{enumerate}
+
+    \item En el caso de la regresión, vimos que los residuos representaban la componente aleatorio del modelo. Es decir, la parte de la muestra de puntos que no se explicaba mediante la contribución de la recta de regresión. En este caso, sucede algo similar: si el residuo es cero, el valor $X_{ij}$ se convierte en:
+        \[
+        X_{ij}=\bar X_{\mbox{\bf\large $\cdot$}j}
+        \]
+        la media de su grupo. Y si eso sucediera para todos los valores, entonces lo único que haría distintos unos valores de otros sería su adscripción a uno u otro grupo. Eso permite pensar en los residuos como la parte puramente aleatoria del modelo, en el sentido de que corresponde a valores que no se explican simplemente sabiendo a que grupo pertenece el elemento que examinamos. Otra manera conceptual de expresar lo que estamos diciendo es que se cumple:
+        \[\mbox{Respuesta}=\mbox{(media del grupo)}\,+\,\mbox{(residuo)},\]
+        y por lo tanto, en el modelo ANOVA, la media del grupo se considera como el valor {\em teórico (o ajustado) que predice el modelo}, de la misma forma que en la regresión el valor teórico era el que se obtenía sustituyendo $x$ en la ecuación de la recta.\\
+        En este lenguaje, la Ecuación \ref{cap14:ecu:AnovaIdentidadEstimadores} se deja expresar así:
+        \[
+        X_{ij}=\bar X+(\bar X_{\mbox{\bf\large $\cdot$}j}-\bar X)+(X_{ij}-\bar X_{\mbox{\bf\large $\cdot$}j}),
+        \]
+        es decir:
+        \[\mbox{Respuesta}=\mbox{(respuesta media general)}\,+\,\mbox{(diferencia debida al grupo)}\,+\,\mbox{(residuo).}\]
+
+    \item Una vez entendido el significado de los residuos en ANOVA, ¿cómo podemos usarlos para verificar la condición de homogeneidad de la varianza? A menudo, los residuos se analizan gráficamente. Por ejemplo, usando un gráfico de los residuos frente a los valores que predice el modelo (ordenados por tamaño, claro; recordemos que los valores predichos por el modelo ANOVA son las medias de los grupos). Si en ese gráfico los puntos aparecen con forman de cuña (o con algún otro patrón claramente definido), podemos sospechar que hay una dependencia entre la media y la varianza, y por lo tanto, concluiremos que no se cumple la hipótesis de homogeneidad de varianzas. Por otra parte, si esa hipótesis se cumple, los residuos seguirán una distribución normal $N(0,\sigma)$, siendo $\sigma$ la desviación típica común a todas las poblaciones. Así que podemos representar los percentiles de los residuos (tipificados) frente a los correspondientes percentiles de una normal estándar, en lo que se conoce como un gráfico Q-Q (en inglés, Q-Q plot; la Q procede de {\em quantile}). Si la hipótesis de homogeneidad de varianzas se cumple, los puntos de ese gráfico deben estar aproximadamente situados en una recta.
+
+\end{itemize}
+
+
+\section{Tablas ANOVA.}
+
+\begin{itemize}
+
+    \item Ahora que hemos aprendido algo sobre las condiciones del modelo, ya estamos en condiciones de presentar el estadístico que usaremos para el contraste de la igualdad de medias:\\[3mm]
+        \fbox{\colorbox{Gris025}{\begin{minipage}{14cm}
+        \begin{center}
+        \vspace{2mm}
+        {\bf Distribución muestral de los componentes del ANOVA unifactorial}\\
+        \end{center}
+        Si la hipótesis nula $H_0=\{\mu=\mu_1=\mu_2=\cdots=\mu_k\}$ es cierta, entonces:
+        \begin{equation}\label{ec:distribucionMuestralComponentesANOVA}
+        Y=\dfrac{\quad
+        \dfrac{\sum_{j=1}^k n_j(\bar X_{\mbox{\bf\large $\cdot$}j}-\bar X)^2}{k-1}
+        \quad
+        }{
+        \quad\dfrac{\sum_{j=1}^k\sum_{i=1}^{n_j}(X_{ij}-\bar X_{\mbox{\bf\large $\cdot$}j})^2}{n-k}\quad
+        }\sim F_{k-1;n-k}
+        \end{equation}
+        siendo $F_{k-1;n-k}$ la distribución de Fisher-Snedecor con $k-1$ y $n-k$ grados de libertad.
+        \end{minipage}}}\\[3mm]
+        Si la hipótesis nula fuese cierta, esperaríamos valores del estadístico cercanos a $1$. Por lo tanto, rechazaremos la hipótesis nula si se obtienen valores del estadístico suficientemente mayores que $1$, de manera que la variabilidad debida a diferencias entre grupos es claramente mayor que la que podemos explicar mediante las diferencias dentro de los grupos. Se trata, en definitiva, {\sf de un contraste unilateral} (cola derecha).
+
+
+    \item La forma habitual de presentar los cálculos del contraste de igualdad de medias en el modelo ANOVA unifactorial, completamente aleatorio y de efectos fijos, que hemos descrito, es mediante una tabla como esta:
+    \end{itemize}
+
+    \hspace{-1cm}
+    \begin{minipage}{15cm}{
+    \begin{tabular}{lccccc}
+    \hline
+    {\small Fuente de variación}&{\small Suma cuadrados}&{\small Grados libertad}&{\small Cuadrado medio}&{\small Estadístico}&\textcolor{red}{\small P-valor}\\
+    \hline
+    {\small Entre grupos}&{\scriptsize $\displaystyle\sum_{j=1}^k n_j(\bar X_{\mbox{\bf\large $\cdot$}j}-\bar X)^2$}&$k-1$&{\scriptsize $\dfrac{\displaystyle\sum_{j=1}^k n_j(\bar X_{\mbox{\bf\large $\cdot$}j}-\bar X)^2}{k-1}$}&$Y$&\textcolor{red}{$P(F>Y)$}\\
+
+    \begin{minipage}{2cm}{\small Dentro de\\ los grupos}\end{minipage}&{\scriptsize $\displaystyle\sum_{j=1}^k\sum_{i=1}^{n_j}(X_{ij}-\bar X_{\mbox{\bf\large $\cdot$}j})^2$}&$n-k$&{\scriptsize $\dfrac{\displaystyle\sum_{j=1}^k\sum_{i=1}^{n_j}(X_{ij}-\bar X_{\mbox{\bf\large $\cdot$}j})^2}{n-k}$}\\
+    \hline
+    \end{tabular}
+    }
+    \end{minipage}
+\begin{itemize}    
+    \item Hemos resaltado en color rojo el que probablemente es el valor más relevante de la tabla, el p-valor del contraste.  Esta tabla ANOVA se utiliza, como venimos diciendo, para contrastar la hipótesis nula
+    \[H_0=\{\mu_1=\mu_2=\cdots=\mu_k\}\]
+    En concreto, si el $p$-valor que aparece en la tabla ANOVA  es menor que el valor de $\alpha$ correspondiente al nivel de confianza, entonces el contraste es {\sf significativo} a ese nivel, y rechazaremos la hipótesis nula. Es decir, consideraremos que los datos obtenidos no son --insistimos, a ese nivel-- estadísticamente compatibles con la hipótesis de que las medias son iguales. Otra manera de pensar esto, es que el contraste es tanto más significativo cuanto mayor sea el valor del estadístico $Y$.
+
+
+\subsection{Cálculos con Calc y R}
+
+    \item Naturalmente, no tiene mucho sentido tratar de realizar estas cuentas a mano. En esta \textattachfile{Cap14-Tabla-ANOVA.ods}{\textcolor{blue}{hoja de cálculo (Calc)}}, y en
+    \textattachfile{Cap14-ANOVA.R}{\textcolor{blue}{este documento de instrucciones R}},
+    se calculan automáticamente estos valores. Ambos ficheros asumen que los datos están contenidos en un fichero de tipo csv (como
+    \textattachfile{Cap14-Datos-ANOVA.csv}{\textcolor{blue}{este de ejemplo}}, con cuatro grupos), y que se cumplen estas condiciones:
+        \begin{itemize}
+        \item[] {\bf si se va a usar el fichero con R:}
+        \item cada grupo de datos está en una columna.
+        \item se usan puntos para indicar los decimales, no comas.
+        \item en cada fila los elementos están separados por espacios (no tabuladores).
+        \item los títulos de las columnas son G1, G2, G3, etcétera. Si hay más (o menos) de cuatro grupos, se deben modificar --de forma evidente-- las líneas que empiezan
+        \begin{verbatim}
+Grupos<-c(G1,G2,G3,G4)
+Nombres<-c(rep("G1",length(G1)),rep("G2",length(G2)),rep("G3",length(
+        \end{verbatim}
+        para adaptarlas al número de grupos con el que estemos trabajando.
+        \item todas las columnas tienen la misma longitud. Si faltan elementos, se sustituyen por la cadena de caracteres {\tt 'NA'} (comillas incluidas).
+        \item[] {\bf si se va a usar con Calc}
+        \item los puntos deben reemplazarse por comas.
+        \item los datos (sin los títulos G1, G2, G3, pero incluyendo los {\tt 'NA'}) se deben cortar y pegar en la primera hoja (tiene tres) del documento Calc, titulada {\tt Datos}. La tabla ANOVA se obtiene entonces en la tercera hoja del documento.
+        \item se pueden introducir un máximo de 10 grupos, con un máximo de 50 observaciones por grupo. Para conjuntos de datos mayores, recomendamos el uso de herramientas especializadas como R.
+        \end{itemize}
+    \item En este caso, hay diferencias entre Calc y Excel. Mientras que Calc no incluye las tablas ANOVA entre sus funciones estadísticas predefinidas, Excel sí tiene una función ANOVA, incluida en el Analysis ToolPak (podéis ampliar la información en \link{http://office.microsoft.com/en-us/excel-help/use-the-analysis-toolpak-to-perform-complex-data-analysis-HP010342762.aspx?CTT=1}{este enlace}).
+
+    \item El fichero de comandos R incluye muchas otras opciones de análisis, que tienen que ver tanto con la verificación de las condiciones del modelo, como con los métodos que se aplican si el contraste ANOVA resulta significativo, y que comentaremos brevemente en el próximo apartado. Para no extendernos, dejamos la discusión detallada del uso de ese fichero de comandos para una entrada del blog de la asignatura.
+
+    \item Y aquí se incluyen varios  \textattachfile{datos-ANOVA.zip}{\textcolor{blue}{ficheros de datos}} con los que poner a prueba estos métodos.
+    \end{itemize}
+
+
+\subsection{¿Qué hacer si el contraste ANOVA es significativo?}
+    \begin{itemize}
+        \item Si el contraste ANOVA es significativo  (es decir, si el p-valor es bajo), concluiremos que hay evidencia estadística para rechazar la hipótesis nula. Por lo tanto, la conclusión es que las medias $\mu_i$ no son todas iguales. ¿Y ahora qué? Necesitaríamos, desde luego, saber qué medias son distintas entre sí.  La primera idea es, evidentemente, que podemos hacer comparaciones por parejas, grupo a grupo, usando la teoría que aprendimos en el Capítulo 10. Si tenemos $n$ grupos, el número de parejas se calcula mediante el número combinatorio
+            \[\binom{n}{2}=\dfrac{n(n-1)}{2}.\]
+            Por ejemplo, para $n=6$ hay que hacer 15 comparaciones. Supongamos que decidimos trabajar a un nivel de significación $\alpha=0.05$. Recordemos que $\alpha$ indica la probabilidad de cometer un error de tipo I, y por lo tanto, la probabilidad de afirmar que existe una diferencia entre las medias de dos grupos, cuando en realidad no es así. Si en cada una de las 15 comparaciones necesarias corremos el riesgo de cometer un error de tipo I con una probabilidad del 5\%, entonces es fácil (ya que las comparaciones son independientes entre sí) ver que la probabilidad total de cometer ese error al menos una vez en la serie completa de comparaciones es:
+            \[P(\mbox{error tipo I en 15 comparaciones})=1-(0.95)^{15}\approx 0.537\]
+            Es decir, que tenemos una probabilidad mayor del 50\% de cometer un error de tipo I. Con menos grupos el problema es menor, pero aún así grave. Y, por supuesto, a medida que aumenta el número de grupos, esta probabilidad aumenta hasta hacerse casi una certeza a partir de diez o más grupos. La conclusión evidente es que no podemos lanzarnos a hacer las comparaciones sin más.
+
+        \item Uno de los remedios tradicionales para este problema es utilizar lo que se conoce como {\sf ajuste de Bonferroni}. Con este método, el nivel de significación se reparte entre las distintas comparaciones que debemos realizar, de manera que se garantiza el control de los errores de tipo I. Este ajuste se puede realizar fácilmente en cualquier programa estadístico (aunque no las hojas de cálculo, al menos no en las versiones que he examinado), y desde luego, está incluido en R (de nuevo nos remitimos al blog de la asignatura para los detalles). El problema con el ajuste de Bonferroni es que es demasiado {\em conservador}. Y como ya discutimos en su momento, tratar de reducir la probabilidad de cometer un error de tipo I, lleva aparejado un aumento de la probabilidad de cometer errores de tipo II.
+
+        \item Para paliar estos problemas, los estadísticos han diseñado bastantes métodos con el objetivo de comparar las medias de los distintos grupos. Estos métodos se caracterizan, a menudo, por estar diseñados con un tipo específico de comparación de medias en mente. Por ejemplo, uno de esos métodos, el contraste de Dunnett, se utiliza en aquellas situaciones en que, desde el principio, se dispone de un {\em grupo de control}, y lo que se desea es comparar la media de los demas grupos con la del grupo de control; no nos interesa comparar todos con todos, sino medir las posibles diferencias con el control. Y hay otros tipos de contrastes (SNK, Ryan, Duncan, Tukey, Scheffe, Peritz...), cada uno con su finalidad, sus pros y sus contras, que los hacen más adecuados (o populares) en distintos campos de trabajo (medicina, ecología, etc.)
+
+        \item En lugar de ponerles remedios como los que hemos comentado, hay otra forma de evitar los problemas del método ANOVA que hemos descrito; ¡usar otros métodos, claro! El ANOVA y todas las estrategias de comparaciones múltiples asociadas con él, asumen que los datos proceden de poblaciones normales o al menos aproximadamente normales. Podemos librarnos de esa condición utilizando contrastes de hipótesis no paramétricos, como el de Kruskal-Wallis, del que hablaremos en otro capítulo.
+
+        \item Y despedimos este capítulo avanzando algo del próximo. Está claro que la situación que hemos estudiado en este capítulo, en la que la respuesta depende de un sólo factor, es la más sencilla de un conjunto mucho más general de situaciones. Situaciones en las que la respuesta depende de varios factores, y nos veremos obligados a tener cuenta las posibles interacciones entre los distintos niveles de esos factores. Como decíamos, eso es contenido correspondiente al próximo capítulo.
+    \end{itemize}
+
+
+%\section*{Tareas asignadas para esta sesión.}
+%No hay tareas asignadas para esta sesión.
+%
+%\section*{Lectura recomendada}
+%
+%Los textos que hemos utilizado en el curso no cubren este tema, o no al menos con el suficiente detalle. En la próxima y última sesión del curso comentaremos la bibliografía en la que se pueden ampliar los métodos ANOVA y en general, las técnicas de diseño experimental.
+
+%\section*{\fbox{\colorbox{Gris025}{{Sesión 28. Diseño experimental.}}}}
+%
+%\subsection*{\fbox{\colorbox{Gris025}{{Última sesión del curso}}}}
+%\subsection*{Fecha: Viernes, 13/01/2012, 14h.}
+%
+%\noindent{\bf Atención: este fichero pdf lleva adjuntos los ficheros de datos necesarios.}
+%
+%%\subsection*{\fbox{1. Ejemplos preliminares }}
+%\setcounter{tocdepth}{1}
+%%\tableofcontents
+
+%\section{Variables intrusas, comparaciones emparejadas y más sobre diseño experimental.}
+%
+%\begin{itemize}
+%
+%    \item A lo largo del curso, en los ejemplos de inferencia y contraste de hipótesis, hemos usado a menudo la idea de muestras independientes cuando estábamos tratando de estudiar las características de una variable aleatoria $X$ en una o más poblaciones. En las aplicaciones de la Estadística, y muy especialmente en el diseño experimental, a menudo esa suposición de independencia en las muestras es imposible. Lo normal, por el contrario, es que el resultado del experimento se vea afectado por la presencia de otras variables. Por ejemplo, al estudiar los efectos de dos medicamentos $A$ y $B$, podemos formar dos grupos de pacientes y aplicar a cada uno de ellos uno de los tratamientos. Obtendremos como resultado dos muestras,
+%        \[X^A_1,X^A_2,\ldots,X^A_n\mbox{ y por otro lado }X^B_1,X^B_2,\ldots,X^B_m.\]
+%        y podemos aplicar los métodos que hemos visto para comparar la respuesta a ambos tratamientos (por ejemplo, haciendo un contraste de hipótesis para la diferencia de medias $\mu_A-\mu_B$ a partir de esas dos muestras). Observa que no estamos suponiendo que ambas muestras sean del mismo tamaño. Pero, si hacemos esto,  debemos tener en cuenta que el resultado del experimento se verá afectado por muchos otros factores: el género de cada paciente, su variabilidad genética, su modo de vida, su edad, etcétera. Todas estas {\em variables intrusas} influyen sobre la respuesta al tratamiento; y a consecuencia de esto, a menudo sería necesario considerar muestras de tamaños inaceptablemente grandes para paliar los efectos de esas variables intrusas. En lugar de hacer esto, hay una manera de diseñar el experimento que nos permite obtener resultados estadísticamente relevantes sin tener que recurrir a muestras enormes.
+%
+%    \item La idea es muy sencilla: puesto que lo que está alterando el resultado del experimento es la variabilidad individual de los pacientes, lo que hacemos es probar los dos tratamientos {\em en todos los pacientes} (consecutiva o simultáneamente, dependiendo del tipo de experimento; esta parte del diseño debe ser objeto también de ua reflexión minuciosa).  Ahora obtendremos dos muestras del mismo tamaño, y podemos considerar las {\sf diferencias emparejadas}:
+%        \[
+%        \begin{cases}
+%        D_1=X^A_1-X^B_1\\
+%        D_2=X^A_2-X^B_2\\
+%        D_3=X^A_3-X^B_3\\
+%        \qquad\vdots\\
+%        D_n=X^A_n-X^B_n
+%        \end{cases}
+%        \]
+%        Estos valores se pueden considerar como una muestra de la variable aleatoria $D$ (diferencia entre las respuestas a ambos tratamientos de {\em un mismo paciente}). Y ahora podemos utilizarlas para realizar un contraste de hipótesis sobre $\mu_D$ (que sustituye a $\mu_A-\mu_B$). Por ejemplo, para contrastar la hipótesis nula $H_0=\{\mu_D\leq \mu_D^0\}$, con una muestra de tamaño pequeño, y suponiendo que la población tiene una distribución normal, podríamos utilizar los métodos que vimos en la sesión 9 (del 22/11/2011, página \pageref{S2211-subsec:contrasteHipotesisMediaMuestrasPequennasVarianzaDesconocida}) el estadístico
+%        \[\dfrac{\bar D-\mu_D^0}{\dfrac{s}{\sqrt{n}}}\]
+%        Sabemos que la distribución muestral de este estadístico es una $t$ de Student con $n-1$ grados de libertad, y a partir de esto podemos realizar el contraste.
+%
+%    \item Lo que hemos hecho, por tanto, es emparejar los resultados experimentales utilizando algunas unidades naturales (cada paciente es una unidad) del fenómeno que estamos analizando. Esta idea tan simple es una primera indicación de por dónde discurre el trabajo en el diseño experimental, en el que se trata de obtener la máxima información estadística posible a partir de muestras de tamaños moderados, y teniendo en cuenta la presencia de otras variables que intervienen en ese fenómeno.
+%
+%    \item Siguiendo con este tipo de ideas, el modelo ANOVA (unifactorial, completamente aleatorio y de efectos fijos), que hemos descrito en la \link{http://moodle.mat.uah.es/file.php?file=\%2F93\%2FEsquemas\_Curso_2011-2012\%2F2012\_01\_10\_Estadistica.pdf}{anterior sesión} nos permitía contrastar una hipótesis nula de la forma
+%        \[H_0=\{\mu_1=\mu_2=\cdots=\mu_k\}\]
+%        entre grupos de pacientes que han sido sometidos a $k$ tratamientos diferentes.  Si el resultado del contraste no es significativo (es decir, si no rechazamos la hipótesis nula), entonces no hay argumentos estadísticos para concluir que los tratamientos produzcan resultados distintos. Pero si la hipótesis nula se rechaza, entonces lo único que el contraste nos permite afirmar es que, de entre todos los $k$ tratamientos probados, al menos hay una pareja de medias $\mu_i$ y $\mu_j$ que son distintas. La pregunta natural es ¿cómo localizamos esas parejas con medias distintas, para comparar los tratamientos, ahora que sabemos que no son todos igual de efectivos?
+%
+%    \item La primera respuesta es comparar todas las parejas posibles de tratamientos entre sí. Es decir, comparamos el tratamiento 1 con el dos, el uno con el 3, el 2 con el 5, etcétera, para todas las {\em combinaciones} posibles. Y decimos combinaciones porque sabemos que hay
+%        \[\binom{k}{2}=\dfrac{k(k-1)}{2}\]
+%        parejas posibles. Por ejemplo, para comparar cinco tratamientos esto significa que debemos realizar $10$ contrastes de hipótesis distintos. Si son 20 los tratamientos que comparamos, el número de contrastes se eleva a $190$. Cada uno de esos contrastes se puede llevar a cabo por los métodos que vimos (sesión 24, del 13/12/2011) para comparar la media de dos poblaciones. No obstante hay que hacer algunas consideraciones importantes:
+%        \begin{enumerate}
+%        \item a la hora de seleccionar el número de grados de libertad que usamos en la $t$ de Student, (ver la Sesión 24, sección \ref{S1312-sec:diferenciaMediasDosPoblaciones}, página \pageref{S1312-sec:diferenciaMediasDosPoblaciones}), debemos tener en cuenta que el modelo ANOVA que hemos usado supone que las varianzas de todas las poblaciones son iguales. Pero {\em además}, cuando estamos comparando $\mu_i$ con $\mu_j$, para estimar $s$ (la cuasidesviación típica muestral), podemos utilizar el hecho de que tenemos a nuestra disposición todos los datos de la tabla ANOVA, y no sólo los de las muestras $i$ y $j$.
+%        \item aunque no podemos entrar en la demostración detallada, se puede comprobar que el riesgo de cometer errores de tipo I puede volverse muy alto si se realizan comparaciones entre un número (incluso no muy alto) de tratamientos\footnote{es algo así como la versión estadística de la sabiduría popular que afirma que si los médicos te hacen suficientes pruebas, terminan encontrándote algo...}. Hay varios esquemas de diseño experimental (constrastes de Bonferroni, Duncan, y esquemas similares, ver la bibliografía) que se utilizan para mitigar este problema.
+%        \item A diferencia con el caso de las comparaciones emparejadas, aquí no hemos supuesto que se aplican todos los tratamientos a todos los pacientes. Se puede modificar el diseño experimental para utilizar {\sf bloques}, que es una generalización de la idea de pares de datos. El bloque es una colección de unidades experimentales, que tienen valores similares de las variables intrusas, cuyos efectos estamos tratando de mitigar.
+%        \end{enumerate}
+%
+%    \item Finalmente, en esta descripción (superficial, desde luego) de algunos de los primeros problemas que debe abordar el diseño de experimentos, queremos mencionar que existen también muchos métodos para realizar contrastes de hipótesis cuando se tienen en cuenta {\em a la vez} varios factores. Recordemos que el ANOVA que hemos visto era unifactorial porque clasificábamos los datos teniendo en cuenta tan sólo un factor, el tratamiento recibido. Si queremos tener en cuenta otros factores (que de lo contrario tendríamos que considerar como variables intrusas), podemos utilizar los diseños en bloques completos aleatorizados, combinados con la técnica de los cuadrados latinos para diseñar el experimento. Un \link{http://en.wikipedia.org/wiki/Latin_square}{\sf cuadrado latino} es una especie de generalización del conocido \link{http://en.wikipedia.org/wiki/Mathematics_of_Sudoku}{Sudoku}, en la que tenemos un cuadrado de $n$ filas y $n$ columnas, relleno de números del $1$ al $n$, con la condición de que cada uno de estos números aparece sólo una vez en cada fila y en cada columna. Por ejemplo,
+%        \[
+%        \begin{array}{|c|c|c|c|}
+%        \hline
+%        1&2&3&4\\
+%        \hline
+%        2&1&4&3\\\hline
+%        3&4&1&2\\
+%        \hline
+%        4&3&2&1\\
+%        \hline
+%        \end{array}
+%        \]
+%        es uno de los $576$ cuadrado latino de orden 4 que existen. Si se consideran cuadrados latinos de tamaño $9$ (como en el Sudoku), el número aumenta a 5524751496156892842531225600
+%        \footnote{sólo una fracción de estos, en concreto 6670903752021072936960, son Sudokus}. El primer paso de uno de estos diseños experimentales consiste en elegir aleatoriamente uno de esos cuadrados latinos para asignar los factores a las unidades experimentales (a su vez, esto puede repetirse al nivel de bloques, en diseños más elaborados). Como puedes ver, la combinatoria que acompaña al diseño experimental puede ser bastante complicada.
+%
+%\end{itemize}
+%
+

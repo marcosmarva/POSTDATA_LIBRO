@@ -1,0 +1,294 @@
+% !Mode:: "Tex:UTF-8"
+
+\section{Diferencia de proporciones en dos poblaciones}
+
+\begin{itemize}
+
+    \item En todos los problemas que hemos estudiado hasta ahora, hemos supuesto que nuestro interés se reducía a una única población, cuyas características estudiábamos. Sin embargo, en las aplicaciones de la Estadística, a menudo nos encontramos con situaciones en las que lo natural es comparar los datos procedentes de dos poblaciones, {\em precisamente para ver si existen diferencias entre ellas.} Los ejemplos son numerosos: un nuevo tratamiento que se prueba en dos grupos, mediante ensayos de tipo doble ciego, administrando el tratamiento a un grupo y un placebo al grupo de control. Lo que nos interesa es, por ejemplo, saber si la proporción de pacientes que experimentan mejoría es la misma en ambos grupos. En otro ejemplo tenemos dos poblaciones de una misma especie de árboles, y queremos estudiar si la proporción de entre ellas que están infectadas con un determinado hongo es distinta. Podríamos seguir con otros muchos ejemplos, pero lo que todos ellos tienen en común es que:
+        \begin{enumerate}
+            \item tenemos dos poblaciones (que llamaremos población 1 y población 2), y una misma variable aleatoria $X$, definida en ambas poblaciones. La variable $X$ representa la proporción de individuos de cada población que presentan una determinada característica. Se trata por tanto de una variable de tipo Bernouilli, pero el parámetro $p$ (la proporción) puede ser distinto en las dos poblaciones. Así que tenemos que usar dos símbolos, $p_1$ y $p_2$, para referirnos a las proporciones en cada una de las poblaciones.
+            \item Tomamos dos muestras aleatorias, una en cada población, de tamaños $n_1$ y $n_2$ respectivamente. Y para cada una de esas muestras calculamos la proporción muestral; se obtendrán, de nuevo, dos valores $\hat p_1$ y $\hat p_2$.
+            \item El objetivo de nuestro estudio es comparar ambas proporciones, analizando la diferencia $p_1-p_2$. Y, como en secciones precedentes, lo que queremos es obtener intervalos de confianza para $p_1-p_2$, y poder realizar contrastes de hipótesis sobre esa diferencia.
+        \end{enumerate}
+    \item Una vez planteado el problema, los pasos que hay que dar están claros. Empezamos haciendo alguna suposición sobre el comportamiento estadístico de las dos poblaciones. En concreto vamos a suponer, para empezar, que ambas muestras son suficientemente grandes, y que $\hat p_1$ y $\hat p_2$ no son demasiado pequeñas (ni demasiado cercanas a $1$).{\sf Si se cumplen las condiciones
+        \[n_1\cdot\hat p_1>5,\qquad n_1\cdot\hat q_1>5,\qquad  n_2\cdot\hat p_2>5,\qquad n_2\cdot\hat q_2>5,\]
+        entonces las dos poblaciones se comportan aproximadamente como las normales $N(n_1p_1,\sqrt{n_1p_1q_1})$ y $N(n_2p_2,\sqrt{n_2p_2q_2})$ respectivamente.}
+
+        A partir de esta información, obtenemos una distribución para el estadístico muestral que nos interesa, que es la diferencia $\hat p_1-\hat p_2$. Vimos, en el Capítulo 8, (pág. \pageref{sec:InferenciaEstadisticaSobreProporciones}), que en estas condiciones las proporciones muestrales tienen una distribución muy aproximadamente normal, concretamente:
+        \[\hat p_1\sim N\left(p_1,\sqrt{\dfrac{\hat p_1\cdot\hat q_1}{n_1}}\right),\qquad\mbox{ y análogamente }\qquad \hat p_2\sim N\left(p_2,\sqrt{\dfrac{\hat p_2\cdot\hat q_2}{n_2}}\right).\]
+        Eso significa que la diferencia $\hat p_1-\hat p_2$ es --muy aproximadamente-- la diferencia de dos distribuciones normales. Y (como en la discusión de la página \pageref{ObtenerDistribucionCuasivarianzaMuestral} (Capítulo 9, ver nota a pie de página), eso significa que la diferencia se puede aproximar ella misma por una normal, de modo que es:\\[3mm]
+        \fbox{\begin{minipage}{14cm}
+         \begin{center}
+         \vspace{2mm}
+         {\bf Distribución muestral de la diferencia de proporciones}\\
+         \end{center}
+         Si se cumplen las condiciones
+        \[n_1\cdot\hat p_1>5,\qquad n_1\cdot\hat q_1>5, \qquad n_2\cdot\hat p_2>5,\qquad n_2\cdot\hat q_2>5,\]
+        entonces la diferencia de proporciones se puede aproximar por esta distribución normal:
+        \[\hat p_1-\hat p_2\sim N\left(p_1-p_2,\sqrt{\dfrac{\hat p_1\cdot\hat q_1}{n_1}+\dfrac{\hat p_2\cdot\hat q_2}{n_2}}\right)\]
+         \end{minipage}}\\[3mm]
+
+    \item Y, como de costumbre, con la distribución muestral obtenemos nuestros objetivos, en forma de intervalos y contrastes:\\[3mm]
+       \fbox{\begin{minipage}{14cm}
+       \begin{center}
+       \vspace{2mm}
+       {\bf Intervalo de confianza (nivel $(1-\alpha$)) para la diferencia de proporciones $p_1-p_2$, \\
+       con muestras de tamaño grande.}\\
+       \end{center}
+       Si se cumplen las condiciones
+        \[n_1\cdot\hat p_1>5,\qquad n_1\cdot\hat q_1>5, \qquad n_2\cdot\hat p_2>5,\qquad n_2\cdot\hat q_2>5,\]
+       entonces el intervalo de confianza al nivel $(1-\alpha)$  para $p_1-p_2$  es:
+       \[(p_1-p_2)=(\hat p_1-\hat p_2)\pm z_{\alpha/2}\sqrt{\dfrac{\hat p_1\cdot\hat q_1}{n_1}+\dfrac{\hat p_2\cdot\hat q_2}{n_2}}\]
+       siendo $z_{\alpha/2}$ el valor crítico de la normal estándar, que cumple $P(Z>z_{\alpha/2})=\alpha/2$.
+       \begin{center}
+       \vspace{2mm}
+       {\bf Contraste de hipótesis (nivel $(1-\alpha$)) para la diferencia de proporciones $p_1-p_2$, \\
+       con muestras de tamaño grande.}
+       \end{center}
+       Si se cumplen las condiciones
+        \[n_1\cdot\hat p_1>5,\qquad n_1\cdot\hat q_1>5, \qquad n_2\cdot\hat p_2>5,\qquad n_2\cdot\hat q_2>5,\]
+       y se define:
+       \[\hat p=\dfrac{n_1\hat p_1+n_2\hat p_2}{n_1+n_2},\quad \hat q=1-\hat p\]
+       (es decir, $\hat p$ es la media ponderada de las proporciones muestrales), entonces se tienen los siguientes contrastes de hipótesis:
+       \begin{enumerate}
+       \item[(a)] Hipótesis nula: $H_0=\{p_1\leq p_2\}$. Región de rechazo: \[\hat p_1>\hat p_2+z_{\alpha}\sqrt{\hat p\hat q\left(\dfrac{1}{n_1}+\dfrac{1}{n_2}\right)}.\]
+       \item[(b)] Hipótesis nula: $H_0=\{p_1\geq p_2\}$. Región de rechazo: cambia $p_1$ por $p_2$ y usa el anterior.
+       \item[(a)] Hipótesis nula: $H_0=\{p_1=p_2\}$. Región de rechazo: cuando $\hat p_1-\hat p_2$ no pertenece al intervalo de confianza calculado más arriba.
+            \quad\\
+       \end{enumerate}
+       \end{minipage}}\\[3mm]
+       \begin{ejemplo}(Tomado de {\em Estadística para Biología y Ciencias de la Salud, 3a. ed.}, J.Susan Milton, Ed.MacGraw-Hill, págs. 276 a 278.)
+       En un estudio sobre el uso de la prednisona en el tratamiento de pacientes renales, se utilizaron 72 sujetos en 19 hospitales. De los 34 pacientes tratados con prednisona, sólo uno sufrió insuficiencia renal. Sin embargo, de los 38 que recibieron un placebo, se produjo insuficiencia renal en 10. Construir  un intervalo de confianza al $95\%$ de la diferencia de tasas de insuficiencia renal entre quienes recibieron prednisona y quienes recibieron un placebo.\\
+       En este ejemplo tenemos
+       \[n_1=34,\quad \hat p_1=\dfrac{1}{34}\approx 0.02941,\quad n_2=38,\quad \hat p_2=\dfrac{10}{38}\approx 0.2632\]
+       Y puesto que $1-\alpha=0.95$, es $\alpha/2=0.025$ y $z_{\alpha/2}=1.9600$. Por lo tanto, el intervalo pedido es:
+       \[(p_1-p_2)=(0.02941-0.2632)\pm 1.9600\sqrt{\dfrac{0.02941\cdot(1-0.2941)}{34}+\dfrac{0.2632\cdot(1-0.2632)}{38}}=\]
+       \[=-0.2338\pm 0.1511\]
+       o lo que es lo mismo,
+       \[-0.3848<p_1-p_2<-0.0827\]
+       El hecho de que este intervalo no incluya al cero se puede considerar como una prueba estadística (al 95\%) de que las dos proporciones son realmente diferentes. ¿Lo son al $99\%$?\qed
+       \end{ejemplo}
+
+       \item En Calc puedes usar esta \textattachfile{Cap10-IntervaloConfianzaDiferenciaProporcionesMuestrasGrandes.ods}{\textcolor{blue}{hoja de Cálculo}} para realizar las cuentas necesarias en este ejemplo, y otros similares. En R, además de este  \textattachfile{Cap10--IntervaloConfianzaDiferenciaProporcionesPoblacionesNormalesMuestrasGrandes.R}{\textcolor{blue}{fichero de instrucciones}}, disponemos del comando {\tt prop.test} que permite obtener intervalos de confianza (y contrastes de hipótesis) sobre proporciones. Para calcular este ejemplo teclearíamos
+       \[\mbox{\tt prop.test(c(1,10),c(34,38),conf.level=0.95,correct=F)}\]
+       Como se ve, tenemos que introducir dos vectores, que representa respectivamente los éxitos (el vector {\tt c(1,10)}) y el tamaño de las muestras (el vector {\tt c(34,38)}). Indicamos el nivel de confianza mediante {\tt conf.level=0.95},y finalmente la opción {\tt correct=F} desactiva ciertas correcciones estadísticas avanzadas (que no hemos visto en este curso), para que obtengamos el intervalo en la forma que queremos.
+       La parte de la respuesta que se obtiene que nos interesa es:
+       \begin{verbatim}
+        95 percent confidence interval:
+         -0.38483372 -0.08265854
+       \end{verbatim}
+
+
+
+\end{itemize}
+
+\section{Diferencia de medias en dos poblaciones}\label{sec:diferenciaMediasDosPoblaciones}
+
+\begin{itemize}
+
+    \item Vamos a estudiar ahora un problema similar al anterior. De nuevo tenemos dos poblaciones, y una variable aleatoria $X$ definida en ambas, pero ahora --en lugar de la diferencia de proporciones-- lo que queremos es estudiar la diferencia entre las medias $\mu_1$ y $\mu_2$. Este problema también aparece muy a menudo en el mismo tipo de aplicaciones que hemos visto en el caso de proporciones. Por ejemplo, después de aplicar un tratamiento, queremos saber si el nivel medio de azúcar en sangre de los pacientes ha disminuido, comparado con los del grupo de control que han recibido un placebo. Este problema se formula de manera natural como una pregunta sobre la diferencia de valores medios en ambos grupos.
+
+    \item Empezamos suponiendo que, en ambas poblaciones, la variable $X$ tiene un comportamiento aproximadamente normal (por ejemplo, esto sucede si ambas muestras son grandes, $n_1>30$ y $n_2>30$). Sean $X_1$ y $X_2$, para distinguirlas, las distribuciones de $X$ respectivamente en cada una de las poblaciones. Estamos suponiendo que
+        \[X_1\sim N\left(\mu_1,\sigma_1\right),\qquad\mbox{ y que }\qquad X_2\sim N\left(\mu_2,\sigma_2\right).\]
+        Entonces, si llamamos $\bar X_1$ y $\bar X_2$ respectivamente a las medias muestrales en cada una de las poblaciones, el Teorema Central del Límite  nos permite afirmar que
+        \[\bar X_1\sim N\left(\mu_1,\dfrac{\sigma_1}{\sqrt{n_1}}\right),\qquad\mbox{ y que }\qquad \bar X_2\sim N\left(\mu_2,\dfrac{\sigma_2}{\sqrt{n_2}}\right).\]
+        Por lo tanto, sin la menor duda, la diferencia $\bar X_1-\bar X_2$ es una normal. Concretamente:
+        \[\bar X_1-\bar X_2\sim N\left(\mu_1-\mu_2,\sqrt{\dfrac{\sigma_1^2}{n_1}+\dfrac{\sigma_2^2}{n_2}}\right)\]
+
+
+        El problema, como ya nos sucedió en el caso de una única población, consiste en saber {si las varianzas de las poblaciones originales pueden considerarse conocidas}. Si es así, entonces los intervalos de confianza y contrastes se pueden obtener directamente a partir de esta distribución muestral de la diferencia de medias.  Si no es así, se hace necesario aplicar una serie de modificaciones que vamos a enumerar:
+        \begin{enumerate}
+            \item {\sf Si ambas  muestras son grandes}, debemos recurrir a reemplazar las varianzas $\sigma_1^2$ y $\sigma_2^2$ por las cuasivarianzas muestrales $s_1^2$ y $s_2^2$;  en este caso se usa:
+                \[\sqrt{\dfrac{s_1^2}{n_1}+\dfrac{s_2^2}{n_2}}\]
+                en lugar de
+                \[\sqrt{\dfrac{\sigma_1^2}{n_1}+\dfrac{\sigma_2^2}{n_2}}\]
+                y podemos recurrir todavía a los valores críticos de la normal estándar $Z$.
+            \item {\sf Si las muestras no son suficientemente grandes, pero sabemos que las poblaciones son normales, y (aunque no las conozcamos) podemos suponer que las varianzas son iguales}, entonces podemos usar la distribución $t$ de Student con $n_1+n_2-2$ grados de libertad, y además debemos recurrir a reemplazar las varianzas $\sigma_1^2$ y $\sigma_2^2$ por una combinación de las cuasivarianzas muestrales $s_1^2$ y $s_2^2$;  concretamente usamos:
+                \[\sqrt{\left(\dfrac{(n_1-1)s_1^2+(n_2-1)s_2^2}{n_1+n_2-2}\right)\left(\dfrac{1}{n_1}+\dfrac{1}{n_2}\right)}\]
+                en lugar de \[\sqrt{\dfrac{\sigma_1^2}{n_1}+\dfrac{\sigma_2^2}{n_2}}\]
+            \item {\sf Si las muestras no son suficientemente grandes, pero sabemos que las poblaciones son normales, y {\sc no} podemos suponer que las varianzas son iguales}, entonces se usa:
+                \[\sqrt{\dfrac{s_1^2}{n_1}+\dfrac{s_2^2}{n_2}}\]
+                en lugar de
+                \[\sqrt{\dfrac{\sigma_1^2}{n_1}+\dfrac{\sigma_2^2}{n_2}}\]
+                y todavía podemos usar la distribución $t$ de Student. Pero los grados de libertad son más complicados de obtener. Se suele utilizar $t_f$, donde $f$ el número entero más próximo a
+                \begin{equation}\label{ecu:aproximacionWelch}
+                \dfrac{\left(\dfrac{s_1^2}{n_1}+\dfrac{s_2^2}{n_2}\right)^2}{\dfrac{1}{n_1+1}\left(\dfrac{s_1^2}{n_1}\right)^2+\dfrac{1}{n_2+1}\left(\dfrac{s_2^2}{n_2}\right)^2}-2
+                \end{equation}
+                Esta expresión se conoce como {\em aproximación de Welch.}
+            \item Finalmente, si las muestras son pequeñas, y no podemos asegurar que las poblaciones sean normales, entonces debemos utilizar {\em métodos de inferencia no paramétricos}, más complicados que lo que vamos a ver en este curso.
+        \end{enumerate}
+
+        \item El resultado de toda esta información muestral se puede ver en la Tabla \ref{tabla:IntervalosConfianzaContrastesParaDiferenciaMedias} (página \pageref{tabla:IntervalosConfianzaContrastesParaDiferenciaMedias}).        Queremos dejar claro que {\em no es necesario, desde luego, recordar todas estas fórmulas}. Lo que debemos tener claro es la existencia de esta división en casos (a), (b), (c) y (d), y, llegado el caso, buscar las fórmulas adecuadas para cada uno de ellos.
+
+
+       \begin{table}[h]
+       \caption{\small Tabla de intervalos de confianza y contrastes para la diferencia de medias\label{tabla:IntervalosConfianzaContrastesParaDiferenciaMedias}}
+       \fbox{\begin{minipage}{14cm}
+       \begin{center}
+       \vspace{2mm}
+       {\bf Intervalos de confianza y contraste de hipótesis (nivel $(1-\alpha$))\\ para la diferencia de medias $\mu_1-\mu_2$}
+       \end{center}
+       %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+       {\bf (a) Poblaciones normales, varianzas conocidas}.\\
+       {\bf Intervalo:}  $\displaystyle(\mu_1-\mu_2)=(\bar X_1-\bar X_2)\pm z_{\alpha/2}\sqrt{\dfrac{\sigma_1^2}{n_1}+\dfrac{\sigma_2^2}{n_2}}$\\
+       {\bf Contraste de hipótesis:\\}
+       Hipótesis nula: $H_0=\{\mu_1\leq\mu_2\}$. Región de rechazo: $\bar X_1>\bar X_2+\displaystyle z_{\alpha}{\sqrt{\frac{\sigma_1^2}{n_1}+\frac{\sigma_2^2}{n_2}}}$.\\
+       Para contrastar $\mu_2\leq\mu_1$, simplemente intercambiar las poblaciones.\\
+       Hipótesis nula: $H_0=\{\mu_1=\mu_2\}$. Región de rechazo: $|\bar X_1-\bar X_2|>\displaystyle{z_{\alpha/2}}{\sqrt{\frac{\sigma_1^2}{n_1}+\frac{\sigma_2^2}{n_2}}}$.\\
+       %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+       {\bf (b) Ambas muestras grandes ($>30$), varianzas desconocidas}:\\
+       {\bf Intervalo:}      $\displaystyle(\mu_1-\mu_2)=(\bar X_1-\bar X_2)\pm z_{\alpha/2}\sqrt{\dfrac{s_1^2}{n_1}+\dfrac{s_2^2}{n_2}}$\\
+       {\bf Contraste de hipótesis:\\}
+       Hipótesis nula: $H_0=\{\mu_1\leq\mu_2\}$. Región de rechazo: $\bar X_1>\bar X_2+\displaystyle{z_{\alpha}}{\sqrt{\frac{s_1^2}{n_1}+\frac{s_2^2}{n_2}}}$.\\
+       Para contrastar $\mu_2\leq\mu_1$, simplemente intercambiar las poblaciones.\\
+       Hipótesis nula: $H_0=\{\mu_1=\mu_2\}$. Región de rechazo: $|\bar X_1-\bar X_2|>\displaystyle{z_{\alpha/2}}{\sqrt{\frac{s_1^2}{n_1}+\frac{s_2^2}{n_2}}}$.\\
+       %%%%%%%%%%%%%%%%%%%%%%%%
+       {\bf (c) Muestras pequeñas, varianzas desconocidas pero iguales}:\\
+       {\bf Intervalo:}\\
+       \[(\mu_1-\mu_2)=(\bar X_1-\bar X_2)\pm \textcolor{red}{t_{n_1+n_2-2;\alpha/2}}\sqrt{\left(\dfrac{(n_1-1)s_1^2+(n_2-1)s_2^2}{n_1+n_2-2}\right)\left(\dfrac{1}{n_1}+\dfrac{1}{n_2}\right)}\]
+       {\bf Contraste de hipótesis:\\}
+       Hipótesis nula: $H_0=\{\mu_1\leq\mu_2\}$. Región de rechazo:
+       \[\bar X_1>\bar X_2+\displaystyle{\textcolor{red}{t_{n_1+n_2-2;\alpha}}}{\sqrt{\left(\dfrac{(n_1-1)s_1^2+(n_2-1)s_2^2}{n_1+n_2-2}\right)\left(\dfrac{1}{n_1}+\dfrac{1}{n_2}\right)}}.\]
+       Para contrastar $\mu_2\leq\mu_1$, simplemente intercambiar las poblaciones.\\
+       Hipótesis nula: $H_0=\{\mu_1=\mu_2\}$. Región de rechazo:
+       \[|\bar X_1-\bar X_2|>\displaystyle{\textcolor{red}{t_{n_1+n_2-2;\alpha/2}}}{\sqrt{\left(\dfrac{(n_1-1)s_1^2+(n_2-1)s_2^2}{n_1+n_2-2}\right)\left(\dfrac{1}{n_1}+\dfrac{1}{n_2}\right)}}.\]
+       %%%%%%%%%%%%%%%%%%%%%%%%%
+       {\bf (d) Muestras pequeñas, varianzas desconocidas y distintas}:\\
+       {\bf Intervalo:}       $\displaystyle(\mu_1-\mu_2)=(\bar X_1-\bar X_2)\pm \textcolor{red}{t_{f;\alpha/2}}\sqrt{\dfrac{s_1^2}{n_1}+\dfrac{s_2^2}{n_2}}$\\
+       {\bf Contraste de hipótesis:\\}
+       Hipótesis nula: $H_0=\{\mu_1\leq\mu_2\}$. Región de rechazo: $\bar X_1>\bar X_2+\textcolor{red}{t_{f;\alpha}}\sqrt{\dfrac{s_1^2}{n_1}+\dfrac{s_2^2}{n_2}}$.\\
+       Para contrastar $\mu_2\leq\mu_1$, simplemente intercambiar las poblaciones.\\
+       Hipótesis nula: $H_0=\{\mu_1=\mu_2\}$. Región de rechazo: $|\bar X_1-\bar X_2|>\textcolor{red}{t_{f;\alpha/2}}\sqrt{\dfrac{s_1^2}{n_1}+\dfrac{s_2^2}{n_2}}$.\\
+       siendo $f$ el entero más próximo a (aproximación de Welch, Ecuación \ref{ecu:aproximacionWelch}):
+       \[\dfrac{\left(\dfrac{s_1^2}{n_1}+\dfrac{s_2^2}{n_2}\right)^2}{\dfrac{1}{n_1+1}\left(\dfrac{s_1^2}{n_1}\right)^2+\dfrac{1}{n_2+1}\left(\dfrac{s_2^2}{n_2}\right)^2}-2.\]
+       \end{minipage}}\\[3mm]
+       \end{table}
+
+
+
+
+
+
+    \end{itemize}
+
+
+
+\section{Inferencias para comparar varianzas en poblaciones normales. Distribución $F$ de Fisher-Snedecor}
+
+\begin{itemize}
+
+    \item Hemos visto en el apartado anterior que, para hacer inferencia sobre la diferencia de medias entre dos poblaciones normales, es necesario en ocasiones saber si las varianzas de ambas poblaciones son iguales (aunque no sepamos sus valores). Naturalmente, si conocemos esas varianzas, basta con compararlas. Pero, como hemos discutido en otras ocasiones, a menudo es poco realista asumir, para la inferencia, que se conocen esas varianzas, o incluso si coinciden o no.
+
+    \item Necesitamos por lo tanto pensar en algún tipo de pregunta que nos permita saber si los dos números $\sigma_1^2$ y $\sigma_2^2$ son o no iguales. A poco que se piense sobre ello, hay dos candidatos naturales:
+        \begin{enumerate}
+        \item Podemos estudiar la diferencia $\sigma_1^2-\sigma_1^2$ y ver si está cerca de $0$.
+        \item O podemos estudiar el cociente $\dfrac{\sigma_1^2}{\sigma_2^2}$.
+        \end{enumerate}
+        ¿Cuál de los dos es el más adecuado? Esta segunda reflexión ya es un poco más sutil. Es conveniente pensar sobre un ejemplo. Supongamos que $\sigma_1^2=\dfrac{1}{1000}$, $\sigma_2^2=\dfrac{1}{1000000}$. Entonces
+        \[\sigma_1^2-\sigma_1^2=0.000999,\quad\mbox{mientras que }\quad\dfrac{\sigma_1^2}{\sigma_2^2}=1000.\]
+        A la vista de este ejemplo, la situación empieza a estar más clara. La diferencia  $\sigma_1^2-\sigma_1^2$ tiene el inconveniente de la {\em sensibilidad a la escala} en la comparación. Si empezamos con dos números {\em pequeños} (en las unidades del problema), entonces su diferencia es asimismo {\em pequeña} en esas unidades. Pero eso no impide que uno de los números sea órdenes de magnitud (miles de veces) más grande que el otro. En cambio, el cociente no tiene esta dificultad. Si el cociente de dos números es cercano a uno, podemos asegurar que los dos números son realmente parecidos, con independencia de su tamaño.
+
+    \item Por las razones expuestas, vamos a utilizar el cociente
+        \[\dfrac{\sigma_1^2}{\sigma_2^2},\]
+        y trataremos de estimar si este cociente es un número cercano a uno. ¿Cómo podemos estimar ese cociente? Parece que el candidato natural para la estimación sería el cociente de las cuasivarianzas muestrales:
+        \[\dfrac{s_1^2}{s_2^2}.\]
+        Y el siguiente paso para la inferencia está claro: {\em ¿cuál es la distribución muestral de este cociente?}
+
+    \item Para responder a esta pregunta, recordemos que si $n_1$ y $n_2$ son los tamaños muestrales en ambas poblaciones, entonces  \[k_1\dfrac{s_1^2}{\sigma_1^2}\sim\chi^2_{k_1},\quad\mbox{y análogamente }k_2\dfrac{s_2^2}{\sigma_2^2}\sim\chi^2_{k_2},\quad\mbox{ con }k_1=n_1-1,\quad k_2=n_2-1.\]
+        Y por lo tanto, dividiendo:
+        \[\dfrac{s_1^2/s_2^2}{\sigma_1^2/\sigma_2^2}\sim\dfrac{\chi^2_{k_1}/k_1}{\chi^2_{k_2}/k_2}.\]
+        Esta relación está a un paso de lo que necesitamos para empezar la inferencia (intervalos y contrastes), ...si supiéramos cómo se comporta el cociente de dos distribuciones de tipo $\chi^2$. Para describir estos cocientes necesitamos la última de las grandes distribuciones clásicas de la Estadística.\\[3mm]
+        \fbox{\begin{minipage}{14cm}
+        \begin{center}
+        \vspace{2mm}
+        {\bf Distribución $F$ de Fisher-Snedecor.}\\
+        \end{center}
+        Una variable aleatoria $Y$ de la forma
+        \[\dfrac{\chi^2_{k_1}/k_1}{\chi^2_{k_2}/k_2}\]
+        es una variable de tipo Fisher-Snedecor $F_{k_1,k_2}$. A veces escribimos  $F(k_1,k_2)$ si necesitamos una notación más clara.
+        \end{minipage}}\\[3mm]
+        Esta función recibe su nombre de los dos matemáticos que contribuyeron a establecer su uso en Estadística, \link{http://en.wikipedia.org/wiki/Ronald_Fisher}{R. Fisher} y \link{http://en.wikipedia.org/wiki/George_W._Snedecor}{G.W.Snedecor}. La función de densidad de $F_{n_1,n_2}$ (que, como en casos anteriores, no vamos a necesitar para la inferencia) es esta:
+        \[f_{n_1,n_2}(x)=
+        \begin{cases}
+        \dfrac{1}{\beta\left(\dfrac{k_1}{2},\dfrac{k_2}{2}\right)}\left(\dfrac{k_1}{k_2}\right)^{k_1/2}\dfrac{x^{\frac{k_1}{2}-1}}{\left(1+\frac{k_1}{k_2}x\right)^{\frac{k_1+k_2}{2}}}&x\geq 0\\[6mm]
+        0&x<0
+        \end{cases}
+        \]
+        donde $\beta$ es, de nuevo, la \link{http://en.wikipedia.org/wiki/Beta_function}{función beta} que ya apareció en relación con la $t$ de Student. En este \textattachfile{Cap10_FisherSnedecor.html}{\textcolor{blue}{documento html}} (se abre en el navegador, requiere Java) puedes observar la forma de la distribución $F_{k_1,k_2}$ para distintos valores de $k_1$ y $k_2$. Su aspecto típico es como el que se muestra en esta figura:
+        \begin{center}
+        \includegraphics[width=15cm]{2011-12-13-FisherSnedecor.png}
+        \end{center}
+        y, como puede verse, es otra vez --como sucedía con la $\chi^2$-- una distribución asimétrica, claramente no normal.
+
+
+    \item En Calc y Excel \link{http://office.microsoft.com/es-es/excel-help/distr-f-HP005209087.aspx}{disponemos de las funciones} {\tt DISTR.F} y {\tt DISTR.F.INV} para resolver problemas directos e inversos relacionados con la distribución $F_{k_1,k_2}$. Ambas funciones trabajan con colas derechas de la distribución, de manera que, por ejemplo, el resultado de Calc:
+        \[\mbox{\tt DISTR.F(1,5;10;60)=0,161863136}\]
+        significa que
+        \[P( F_{10,60}>1.5)=0,161863136\]
+        Y, recíprocamente, el resultado
+        \[\mbox{\tt DISTR.F.INV(0,05;10;60)=1,9925919966}\]
+        significa que $y=1,9925919966$ es la solución del problema inverso:
+        \[P( F_{10,60}>y)=0,05.\]
+        En R se pueden utilizar las funciones {\tt pf} y {\tt qf} para resolver problemas directos e inversos, usando, como siempre en R, la cola izquierda de la distribución. Por lo tanto en R se tiene:
+        \[\mbox{\tt 1-pf(1.5,df1=10,df2=60)=0.1618631}\]
+        para resolver el mismo problema directo que hicimos con Calc (observa el {\tt 1-pf} que hemos utilizado, al tratarse de un problema de cola derecha). Y se tiene
+        \[\mbox{\tt qf(1-0.05,df1=10,df=60)=1.992592}\]
+        para resolver el anterior problema inverso. Observa que, en este caso, hemos usado {\tt qf(1-) } al tratarse de un problema de cola derecha.
+
+    \item Ahora que ya nos hemos familiarizado con la distribución $F$, podemos volver a la inferencia sobre la diferencia de varianzas en el punto en el que la habíamos dejado. Podemos resumir lo que hemos estado haciendo diciendo que:
+        \[\dfrac{s_1^2/s_2^2}{\sigma_1^2/\sigma_2^2}\sim\dfrac{\chi^2_{k_1}/k_1}{\chi^2_{k_2}/k_2}=F_{k_1,k_2}\]
+        Observa que si fuese $\sigma_1^2=\sigma_2^2$, entonces $s1^2/s_2^2$ se comportaría directamente como $F_{k_1,k_2}$. A partir de esta información vamos a obtener directamente los intervalos de confianza y contrastes de hipótesis necesarios. Como en casos anteriores, {\sf llamaremos $f_{k_1,k_2;\alpha}$ al valor que tiene la propiedad de que:}
+        \[P(F_{k_1,k_2}\leq f_{k_1,k_2;\alpha})=1-\alpha\]
+        como en esta figura:
+        \begin{center}
+        \includegraphics[width=15cm]{2011-12-13-FisherSnedecor-ValoresCriticos.png}
+        \end{center}
+        Y para calcular estos valores usamos, como hemos dicho, {\tt DISTR.F.INV} en Calc, o {\tt qf} en R. Con estos ingredientes
+        \\[3mm]
+       \fbox{\begin{minipage}{14cm}
+       \begin{center}
+       \vspace{2mm}
+       {\bf Intervalo de confianza (nivel $(1-\alpha$)) para $\frac{\sigma_1^2}{\sigma_2^2}$, en dos poblaciones normales.}\\
+       \end{center}
+       Si consideramos muestras independientes de tamaños $n_1$ y $n_2$ respectivamente, entonces el intervalo de confianza al nivel $(1-\alpha)$  para $\frac{\sigma_1^2}{\sigma_2^2}$  es:
+       \[\dfrac{s_1^2}{s_2^2}\cdot\dfrac{1}{f_{k_1,k_2;\alpha/2}}\leq\frac{\sigma_1^2}{\sigma_2^2}\leq \dfrac{s_1^2}{s_2^2}\cdot\dfrac{1}{f_{k_1,k_2;1-\alpha/2}}.\]
+       con $k_1=n_1-1$, $k_2=n_2-1$.
+       \end{minipage}}\\[3mm]
+        Aquí tienes una \textattachfile{Cap10-IntervaloConfianzaCocienteVarianzas.ods}{\textcolor{blue}{hoja de cálculo}}, y también un \textattachfile{Cap10-IntervaloConfianzaCocienteVarianzas2PoblacionesNormales.R}{\textcolor{blue}{fichero de instrucciones R}} preparados para obtener estos intervalos de confianza.
+
+       \begin{ejemplo}(Adaptado --y corregido-- de {\em Curso y ejercicios de estadística}, V.Quesada, A.Isidoro, L.A.López. Ed. Alhambra 1984.) Se está haciendo un estudio sobre hipertensión. Se toma una muestra de trece pacientes de una ciudad, y en otra ciudad se toma una muestra de dieciséis pacientes. Se obtienen las siguientes medias y cuasidesviaciones típicas muestrales (en mm de mercurio):
+       \[\bar X_1=166,\quad  \bar X_2=164.7,\quad s_1=28,\quad s_2=7.\]
+       Si queremos calcular un intervalo de confianza (o hacer un contraste) para la diferencia de medias, puesto que las poblaciones son pequeñas, necesitamos saber si las varianzas de ambas poblaciones se pueden suponer iguales. Para ello calculamos el intervalo de confianza de $\frac{\sigma_1^2}{\sigma_2^2}$, usando Calc o R. Se obtiene (al 99\%)
+       \[3.3889\leq\dfrac{\sigma_1^2}{\sigma_2^2}\leq 67.9960\]
+       Y, como este intervalo no contiene al $1$, podemos concluir con un 99\% de confianza que las varianzas de ambas poblaciones no son iguales. Esta información serviría de guía en la inferencia sobre $\mu_1-\mu_2$.
+       \qed
+       \end{ejemplo}
+
+
+        Una observación: en algunos libros, para expresar ese intervalo de confianza, se utiliza esta propiedad de los valores críticos de la distribución $F$
+        \[f_{k_1,k_2;\alpha}=\dfrac{1}{f_{k_2,k_1;1-\alpha}}.\]
+        Esta propiedad permitía disminuir el volumen de las tablas que se incluyen en esos libros. Pero, dado que nosotros vamos a calcular esos valores usando el ordenador, preferimos la expresión que aparece más arriba.
+
+
+       \item Finalmente, aquí están los contrastes de hipótesis unilaterales y bilaterales:
+       \\[3mm]
+       \fbox{\begin{minipage}{14cm}
+       \begin{center}
+       \vspace{2mm}
+       {\bf Contraste de hipótesis (nivel $(1-\alpha$)) para $\frac{\sigma_1^2}{\sigma_2^2}$, en dos poblaciones normales.}\\
+       \end{center}
+       Se tienen los siguientes contrastes de hipótesis:
+       \begin{enumerate}
+       \item[(a)] Hipótesis nula: $H_0=\{\sigma_1^2\leq \sigma_2^2\}$. Región de rechazo: \[\dfrac{s_1^2}{s_2^2}>f_{k_1,k_2;\alpha}.\]
+       \item[(b)] Para $H_0=\{\sigma_1^2\geq \sigma_2^2\}$, intercambiar los papeles de ambas poblaciones.
+       \item[(a)] Hipótesis nula: $H_0=\{\sigma_1^2=\sigma_2^2\}$. Región de rechazo:
+       \[\dfrac{s_1^2}{s_2^2}\mbox{ no pertenece al intervalo:}
+            \left(f_{k_1,k_2;1-\alpha/2},f_{k_1,k_2;\alpha/2}\right).\]
+            \quad\\
+       \end{enumerate}
+       \end{minipage}}\\[3mm]
+
+
+\end{itemize}
+
+

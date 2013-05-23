@@ -1,0 +1,61 @@
+% !Mode:: "Tex:UTF-8"
+
+\section*{Introducción}\label{part04:intro}
+Todo nuestro trabajo, hasta ahora, ha consistido en el estudio de una única variable aleatoria. Incluso en el anterior capítulo, hemos partido de la idea de que teníamos dos poblaciones, pero la variable que observábamos en ambas era la misma. Sin embargo, está claro que en muchos problemas, nos interesan simultáneamente varias variables distintas de una población. Y más concretamente, {\sf nos interesan las relaciones que pueden existir entre esas variables.}
+
+El modelo matemático ideal de relación entre dos variables se refleja en la noción de {\sf función}. La idea intuitiva de función, en matemáticas, es que tenemos una expresión como:
+\[y=f(x),\]
+donde $x$ e $y$ representan {\sf variables}, y $f$ es una {\em fórmula} o {\em procedimiento}, que permite calcular valores de la variable $y$ a partir de valores de la variable $x$. Un ejemplo típico sería una expresión como
+\[y=\frac{x}{x^2+1}.\]
+Aquí la fórmula que define la función es
+\[f(x)=\frac{x}{x^2+1}.\]
+Dada un valor de $x$, sea un número real cualquiera, como por ejemplo $x=2$, sustituimos ese valor en la fórmula y obtenemos
+\[y=\frac{2}{2^2+1}=\frac{2}{5}.\]
+En este contexto la variable $x$ se llama {\sf independiente}, mientras que la $y$ es la {\sf variable dependiente}. Y en este concepto de función: el valor de $y$ que se obtiene está absolutamente {\em determinado} por el valor de $x$. No hay ninguna incertidumbre, nada aleatorio, en relación con el vínculo entre la $y$ y la $x$.
+
+Sin embargo, cuando se estudian problemas del mundo real, las relaciones entre variables son mucho menos simples. Todos sabemos que, en general, {\em la edad de un bebé (en días) y su peso (en gramos)} están relacionados. En esa frase aparecen dos variables, edad y peso, y afirmamos que existe una relación entre ellas. Pero desde luego, no existe una fórmula que nos permita, dada la edad de un bebé, calcular su peso exacto, en el mismo sentido en el que antes hemos sustituido $2$ para obtener $2/5$. La idea de relación de la que estamos empezando a hablar tiene mucho que ver con la aleatoriedad y la incertidumbre típicas de la Estadística. Y para reflejar este tipo de {\sf relaciones inciertas} vamos a usar la notación
+\[y \sim x.\]
+Esta notación indica dos cosas:
+\begin{enumerate}
+  \item Que hablamos de la posible relación entre las variables $x$ e $y$, como hemos dicho.
+  \item Pero, además, al escribirla en este orden queremos señalar que se desea utilizar los valores de la variable $x$ para, de alguna manera, predecir o explicar los valores de la variable $y$. Volveremos sobre esto muy pronto, y más detalladamente. Pero por el momento conviene irse familiarizando con la terminología. Cuando tratamos de predecir $y$ a partir de $x$, decimos que $y$ es la {\sf variable respuesta (response variable)}, y que $x$ es la {\sf variable explicativa (explanatory variable)}.
+\end{enumerate}
+
+En esta parte del curso vamos a extender los métodos que hemos aprendido al estudio de este tipo de relaciones entre dos variables aleatorias. Pero, como sabemos desde el principio del curso, las variables se clasifican en dos grandes tipos: cuantitativas y cualitativas (también llamadas factores). En lo que sigue, y para abreviar, usaremos una letra C mayúscula para indicar que la variable es cuantitativa y una letra F mayúscula para indicar que es un factor (cualitativa). Atendiendo al tipo de variables que aparezcan en el problema que estamos estudiando, y al papel (respuesta o explicativa) que las variables jueguen en el problema, nos vamos a encontrar con cuatro situaciones posibles, que hemos representado en la Tabla \ref{tabla:MetodosInferencia2Variables} (página \pageref{tabla:MetodosInferencia2Variables}).
+
+        \begin{center}
+        \begin{table}[h]
+        \begin{tabular}{cccc}
+        \cline{3-4}
+        &
+        &
+        \multicolumn{2}{|c|}{\bf {\rule{0mm}{0.5cm}Tipo var. respuesta.}}
+        \\[3mm]
+        \cline{3-4}
+        &
+        &
+        \multicolumn{1}{|c|}{\bf \rule{0mm}{0.5cm}Cuantitativa (C)}&
+        \multicolumn{1}{|c|}{\bf \rule{0mm}{0.5cm}Cualitativa (F)}
+        \\[3mm]
+        \cline{1-4}
+        \multicolumn{1}{|c}{\multirow{2}{*}[-1em]{\bf \begin{tabular}{cc}Tipo variable\\explicativa\end{tabular}}}&
+        \multicolumn{1}{|c|}{\bf Cuantitativa (C)}&
+        \multicolumn{1}{|c|}{\bf \rule{0mm}{0.7cm}(11) \begin{tabular}{cc}C $\sim$ C\\Regresión\end{tabular}}&
+        \multicolumn{1}{|c|}{\bf (14) \begin{tabular}{cc}F $\sim$ C\\ \begin{minipage}{4cm}Regresión Logística\\y similares.\end{minipage}\end{tabular}}
+        \\[3mm]
+        \cline{2-4}
+         \multicolumn{1}{|c}{}&
+         \multicolumn{1}{|c|}{\bf Cualitativa (F)}&
+         \multicolumn{1}{|c|}{\bf \rule{0mm}{0.7cm}(12) \begin{tabular}{cc} C $\sim$ F\\ ANOVA\end{tabular}}&
+         \multicolumn{1}{|c|}{\bf (13) \begin{tabular}{cc} F $\sim$ F \\Contraste $\chi^2$\end{tabular}}\\[3mm]
+        \cline{1-4}
+        \end{tabular}
+        \caption{Casos posibles en la inferencia sobre la relación entre  dos variables}
+        \label{tabla:MetodosInferencia2Variables}
+        \end{table}
+        \end{center}
+
+
+Por ejemplo, en la relación entre edad en días de un bebé y su peso en gramos, ambas variables son cuantitativas, y diremos que es una situación C $\sim$ C. Cada una de esas situaciones requiere el uso de técnicas estadísticas distintas. Hemos indicado, de forma abreviada, bajo cada una de las entradas de la tabla, el nombre de la técnica correspondiente. Y en esta parte del curso, le dedicaremos un capítulo a cada una de las técnicas; los números de esos capítulos, que aparecen entre paréntesis en la tabla, indican el orden en que vamos a proceder.
+
+Empezaremos, en el siguiente capítulo, por la situación C $\sim$ C, porque es la más cercana al concepto familiar de función $y=f(x)$, que el lector ya conoce. Pero antes de empezar, sin embargo, queremos advertir al lector de un problema con el que vamos a tropezar varias veces en esta parte del curso. Cuando, en la segunda parte del curso, estudiamos la Probabilidad y las variables aleatorias, ya dijimos que el tratamiento que vamos a hacer de esos temas pretende mostrar al lector sólo lo necesario para hacer comprensibles las ideas fundamentales de la Estadística. Ahora, al estudiar la relación entre dos variables aleatorias, nos ocurre algo  similar. Pero las técnicas matemáticas necesarias son más complicadas; esencialmente, es como el paso de funciones de una variable (que se estudian en la matemática elemental) a las funciones de varias variables (que sólo se estudian en cursos avanzados). Afortunadamente, la intuición, que a estas alturas del curso hemos adquirido, nos va a permitir avanzar sin atascarnos en esos detalles. Pero en algunos momentos notaremos cierta resistencia a ese avance, porque nos faltan los fundamentos teóricos que se requieren. En esta ocasión vamos a aplicar a rajatabla la máxima de que no sirve de nada tener la solución antes de tener el problema. Y dejaremos para el último capítulo de esta parte del curso la discusión, somera y sin detalles técnicos, del armazón teórico necesario. Ese capítulo es una lectura opcional, y está pensado para complementar la información de los que lo preceden.

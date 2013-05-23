@@ -1,0 +1,143 @@
+% !Mode:: "Tex:UTF-8"
+
+\section{Inferencia sobre la varianza y $\chi^2$}
+
+\begin{itemize}
+
+    \item Ya hemos obtenido intervalos de confianza y contrastes de hipótesis para (a) la media $\mu$ de una población normal, (b) la proporción $p$ en una población de tipo Bernouilli y (c) $\lambda$ en una población de tipo Poisson. Estos dos últimos casos (b) y (c) corresponden a distribuciones que quedan completamente identificadas por un parámetro: $p$ y $\lambda$ respectivamente. Pero si volvemos la vista al caso (a), sabemos que una población normal se caracteriza por dos parámetros: $\mu$ y $\sigma$ (o $\sigma^2$). Y aunque hemos dedicado bastante esfuerzo a $\mu$, no hemos dicho nada todavía sobre el problema de cómo estimar $\sigma$, a partir de una muestra de la población.
+
+    \item Vamos a intentar evitar una posible confusión que puede estar apareciendo: desde luego, tenemos un {\sf candidato natural} a servir de estimador para $\sigma^2$, que no es otro que $s^2$, la {\sf cuasivarianza muestral}. Lo que estamos diciendo es que hasta ahora hemos usado $s^2$ como una herramienta auxiliar, {\em con el objetivo de estimar $\mu$ mediante $\bar X$}. El protagonista de aquella estimación, por así decirlo, era $\bar X$. Pero ahora queremos centrar nuestra atención en $s^2$ (sin nadie que le robe protagonismo) y preguntarnos ¿cómo se puede usar $s^2$ {\em para estimar $\sigma^2$}, la varianza poblacional?
+
+    \item Con la experiencia que ya vamos acumulando, sabemos que el primer paso es obtener algún resultado sobre la distribución de $s^2$, la cuasivarianza muestral. Sea por lo tanto $X$ una variable aleatoria con distribución de tipo $N(\mu,\sigma)$ (que representa a la población), y sea $X_1,X_2,\ldots,X_n$ una muestra aleatoria de $X$ (como siempre, las $X_i$ son $n$ copias independientes de $X$).  Recordemos que entonces:
+        \[s^2=\dfrac{\displaystyle\sum_{i=1}^n(X_i-\bar X)^2}{{n-1}}.\]
+        Como siempre, vamos a tratar de relacionar esto con la normal estándar $N(0,1)$. Para conseguirlo, vamos a dividir esta expresión por $\sigma^2$, y la reorganizaremos (vamos buscando tipificar las $X_i$):
+        \begin{equation}\label{eq:ObtenerDistribucionCuasivarianzaMuestral}
+        \dfrac{s^2}{\sigma^2}=\dfrac{\displaystyle\sum_{i=1}^n(X_i-\bar X)^2}{\sigma^2\cdot(n-1)}=
+        \dfrac{1}{(n-1)}\dfrac{\displaystyle\sum_{i=1}^n(X_i-\bar X)^2}{\sigma^2}=\dfrac{1}{(n-1)}\sum_{i=1}^n\left(\dfrac{(X_i-\bar X)^2}{\sigma^2}\right)=
+        \end{equation}
+        \[
+        =\textcolor{red}{\dfrac{1}{(n-1)}\sum_{i=1}^n\left(\dfrac{X_i-\bar X}{\sigma}\right)^2}=\dfrac{1}{(n-1)}\sum_{i=1}^n Z_i^2=\dfrac{1}{n-1}(Z_1^2+Z_2^2+\cdots+Z_n^2).\]
+        El paso que hemos destacado coloreándolo en rojo es el paso en el que tipificamos las $X_i$, y obtenemos las $Z_i$ que son, cada una de ellas, copias de la normal estándar.
+
+    \item Lo que hace que esta situación sea diferente de las que nos hemos encontrado hasta ahora, es que las $Z_i$ están elevadas al cuadrado. Vamos despacio: aunque no vamos a entrar en los detalles, porque son demasiado técnicos, se puede demostrar que la suma de variables normales es una variable normal\footnote{Si $X_1\sim N(\mu_1,\sigma_1)$ y $X_2\sim N(\mu_2,\sigma_2)$, entonces $(X_1+X_2)\sim N\left(\mu_1+\mu_2,\sqrt{\sigma_1^2+\sigma_2^2}\right)$ }. Así que si simplemente estuviéramos sumando las $Z_i$, al final obtendríamos una variable normal. La dificultad estriba en que cada $Z_i$ aparece elevada al cuadrado, {\sf y el cuadrado de una variable con distribución normal no es una variable con distribución normal}. Esto es relativamente fácil de entender: la normal estándar $Z$ toma valores positivos y negativos, como de hecho sucede con cualquier otra normal. Pero en cuanto la elevamos al cuadrado, deja de tomar valores negativos. Así que, como decíamos, el cuadrado de una normal estándar no puede ser una normal, y la suma de unos cuantos cuadrados de normales estándar tampoco resulta ser una normal (ni estándar, ni no estándar, simplemente no es normal). Lo cual es un problema, claro, porque precisamente eso es lo que necesitamos para entender la distribución de la cuasivarianza muestral $s^2$.
+
+    \item La pregunta es: ¿cuál es, entonces, la distribución de una suma de cuadrados de normales estándar independientes?\\[3mm]
+       \fbox{\begin{minipage}{14cm}
+       \begin{center}
+       \vspace{2mm}
+       {\bf Distribución $\chi^2$. Media y varianza.}\\
+       \end{center}
+       Si la variable aleatoria $Y$ es la suma de los cuadrados de una familia de $n$ copias independientes de la distribución normal estándar, entonces diremos que $Y$ es de tipo $\chi^2_k$ (de \link{http://en.wikipedia.org/wiki/Karl_Pearson}{Pearson}), con $k=n-1$ grados de libertad.\\
+       La media de $\chi^2_k$ es $\mu_{\chi^2_k}=k$, y su desviación típica es $\sigma_{\chi^2_k}=\sqrt{2k}$.
+       \end{minipage}}\\[3mm]
+
+    \item La función de densidad de la distribución $\chi^2$ (para $k=4$) tiene este aspecto:
+         \begin{center}
+         \includegraphics[width=15cm]{2011-12-02-ChiCuadrado.png}
+         \end{center}
+         Observa, en primer lugar, que la función vale $0$ (no hay probabilidad asociada) para los valores negativos, como ya habíamos adelantado. La fórmula de esta función de densidad es:
+         \[f(x;n)=
+         \begin{cases}
+         \dfrac{1}{2^{k/2}\Gamma(k/2)}x^{(k/2)-1}e^{-x/2}&\mbox{ si }x\geq 0\\
+         0&\mbox{ si }x<0
+         \end{cases}
+         \]
+         donde $\Gamma$ es la \link{http://es.wikipedia.org/wiki/Funci\%C3\%B3n_gamma}{función Gamma}. Como en el caso de la $t$ de Student, no es necesario, ni mucho menos, que te aprendas esta fórmula. Pero es bueno tener una idea general del aspecto que tiene $\chi^2_k$ para distintos valores de $k$. Puedes observarlo por ti mismo usando este \textattachfile{Cap09_ChiCuadrado.html}{\textcolor{blue}{documento html}} (se abre en el navegador, requiere Java).
+
+    \item Para calcular los valores de $\chi^2_k$, en $R$ disponemos de las funciones
+        \[\mbox{{\tt pchisq(x,df=k)},\qquad y \qquad {\tt qchisq(p,df=k)},}\]
+        que -como en los otros casos que ya hemos encontrado-- resuelven respectivamente los problemas directos e inversos asociados con esta distribución, usando siempre colas izquierdas. Por ejemplo, el resultado de    \[\mbox{\tt qchisq(0.95,df=4)}\]
+        es $9.487729$, lo cual significa que si $Y\sim\chi^2_4$:
+        \[P(Y\leq 9,487729)=0.95,\]
+        como se ilustra en la figura:
+        \begin{center}
+        \includegraphics[width=15cm]{2011-12-02-ChiCuadrado-2.png}
+        \end{center}
+        En Calc disponemos de las funciones {\tt CHISQDIST} y {\tt CHISQINV}, de nuevo para calcular probabilidades y problemas inversos, usando en ambos casos la cola izquierda, Por lo tanto, como en R, se tiene este resultado:
+        \[\mbox{\tt CHISQINV(0,95;4)=9,487729}\]
+        y la interpretación es la misma figura que acabamos de ver. Pero además, en Calc,  existe también la función {\tt DISTR.CHI}, para problemas directos, que usa la cola derecha de la distribución, de manera que, por ejemplo, el resultado:
+        \[\mbox{\tt DISTR.CHI(9;4)=0,061099481}\]
+        significa que si $Y\sim\chi^2_4$ (con cuatro grados de libertad), entonces:
+        \[P(Y\geq 9)=0.0061099481\]
+        como en esta figura:
+        \begin{center}
+        \includegraphics[width=15cm]{2011-12-02-ChiCuadrado-coladerecha.png}
+        \end{center}
+
+    \item Ahora que disponemos de la información necesaria sobre la distribución $\chi^2_k$, podemos volver al problema de la distribución de la cuasivarianza muestral. Recuerda que en la Ecuación \ref{eq:ObtenerDistribucionCuasivarianzaMuestral} (de la página \pageref{eq:ObtenerDistribucionCuasivarianzaMuestral}) hemos obtenido
+        \[(n-1)\dfrac{s^2}{\sigma^2}=\dfrac{1}{n-1}(Z_1^2+Z_2^2+\cdots+Z_n^2),\]
+        y que las $Z_i$ eran todas normales estándar independientes. Con esto tenemos este resultado:\\[3mm]
+       \fbox{\begin{minipage}{14cm}
+       \begin{center}
+       \vspace{2mm}
+       {\bf $\chi^2_k$ y la distribución de la cuasivarianza muestral}\\
+       \end{center}
+       Sea $X$ una variable aleatoria de tipo normal $N(\mu,\sigma)$. Si se toman muestras independientes de $X$ de tamaño $n$, y $s^2$ es la cuasivarianza muestral de $X$, entonces:
+        \[(n-1)\dfrac{s^2}{\sigma^2}\sim\chi^2_k,\mbox{ con }k=n-1.\]
+       \end{minipage}}\\[3mm]
+
+    \item Como en casos anteriores, la distribución de un estadístico muestral lleva de forma directa a obtener el intervalo de confianza:\\[3mm]
+       \fbox{\begin{minipage}{14cm}
+       \begin{center}
+       \vspace{2mm}
+       {\bf Intervalo de confianza (nivel $(1-\alpha$)) para $\sigma^2$ \textcolor{red}{(la varianza)},\\
+       en una población $N(\mu,\sigma)$), con muestras de tamaño $n$.}\\
+       \end{center}
+       Si consideramos muestras de tamaño $n$, entonces el intervalo de confianza al nivel $(1-\alpha)$  para $\sigma^2$  es:
+       \[\dfrac{(n-1)s^2}{\chi^2_{k,\alpha/2}}\leq\sigma^2\leq\dfrac{(n-1)s^2}{\chi^2_{k,1-\alpha/2}} ,\mbox{ con }k=n-1.\]
+       donde, para cualquier número $u$, $\chi^2_{k,u}$ es el valor que verifica:
+       \[P(Y>\chi^2_{k,u})=u.\]
+       \end{minipage}}\\[3mm]
+       La construcción de este intervalo parte de una idea muy sencilla: como queremos un nivel de confianza $1-\alpha$, ponemos $\alpha/2$ en cada una de las dos colas de $\chi^2_k$, y buscamos los valores críticos correspondientes, $\chi^2_{k,1-\alpha/2}$ y $\chi^2_{k,\alpha/2}$, como muestra la figura:
+       \begin{center}
+       \includegraphics[width=15cm]{2011-12-02-ChiCuadrado-ValoresCriticosIntervalo.png}
+       \end{center}
+       Sabemos entonces que:
+       \[P(\chi^2_{k,1-\alpha/2}<\chi^2_k<\chi^2_{k,\alpha/2})=1-\alpha\]
+       Y como
+       \[(n-1)\dfrac{s^2}{\sigma^2}\sim\chi^2_k,\]
+       tenemos:
+       \[P\left(\chi^2_{k,1-\alpha/2}<(n-1)\dfrac{s^2}{\sigma^2}<\chi^2_{k,\alpha/2}\right)=1-\alpha\]
+       y ahora podemos despejar $\sigma^2$ en estas desigualdades, teniendo en cuenta que al dar la vuelta a la fracción, las desigualdades también se invierten:
+       \[P\left(
+       \dfrac{1}{\chi^2_{k,\alpha/2}}<\dfrac{\sigma^2}{(n-1)s^2}<\dfrac{1}{\chi^2_{k,1-\alpha/2}}
+       \right)=1-\alpha,\]
+       y finalmente:
+       \[P\left(
+       \dfrac{(n-1)s^2}{\chi^2_{k,\alpha/2}}<\sigma^2<\dfrac{(n-1)s^2}{\chi^2_{k,1-\alpha/2}}
+       \right)=1-\alpha,\]
+       \begin{ejemplo}
+       La desviación típica de las estaturas de 16 estudiantes seleccionados aleatoriamente en una universidad de 10000 estudiantes es de 2.40cm. Hallar un intervalo de confianza al 95\% para la desviación típica de la altura de la población de estudiantes de esa universidad.\\
+       Tenemos $k=16-1=15$. Como $1-\alpha=0.95$, es $\alpha=0.05$, con lo que $\alpha/2=0.025$ y $1-\alpha/2=0.975$. Entonces, usando $R$, por ejemplo:
+       \[\chi^2_{k,1-\alpha/2}\approx 6.262138, \chi^2_{k,\alpha/2}\approx27.48839\]
+       Como sabemos que $s^2=(2.4)^2=5.76$, se obtiene entonces:
+       \[\dfrac{15\cdot 5.76}{27.49}<\sigma^2<\dfrac{15\cdot 5.76}{6.26}\]
+       o lo que es lo mismo (sacando raíces cuadradas):
+       \[1.77<\sigma<3.71\]
+       \qed
+       \end{ejemplo}
+
+
+       \item También podemos ahora establecer los contrastes de hipótesis unilaterales y bilaterales {\em (¡de nuevo, hay que prestar atención a los valores de $\chi^2_{k;u}$ utilizados en cada caso!)}:
+       \\[3mm]
+       \fbox{\begin{minipage}{14cm}
+       \begin{center}
+       \vspace{2mm}
+       {\bf Contraste de hipótesis (nivel $(1-\alpha$)) para $\sigma^2$ (en $N(\mu,\sigma)$), con muestras de tamaño $n$ y $k=n-1$.}\\
+       \end{center}
+       Se tienen los siguientes contrastes de hipótesis:
+       \begin{enumerate}
+       \item[(a)] Hipótesis nula: $H_0=\{\sigma^2\leq \sigma^2_0\}$. Región de rechazo: \[\sigma_0^2<\dfrac{(n-1)s^2}{\chi^2_{k,\alpha}}.\]
+       \item[(b)] Hipótesis nula: $H_0=\{\sigma^2\geq \sigma^2_0\}$. Región de rechazo: \[\sigma_0^2>\dfrac{(n-1)s^2}{\chi^2_{k,1-\alpha}}.\]
+       \item[(a)] Hipótesis nula: $H_0=\{\sigma^2=\sigma^2_0\}$. Región de rechazo: \[(n-1)\dfrac{s^2}{\sigma_0^2}\mbox{ no pertenece al intervalo:}
+            \left(\chi^2_{k,1-\alpha/2},\chi^2_{k,\alpha/2}\right).\]
+            \quad\\
+       \end{enumerate}
+       \end{minipage}}\\[3mm]
+       Y debería estar ya claro porque, para el contraste, hemos utilizado $\sigma^2_0$.
+
+\end{itemize}
+
+
+
+

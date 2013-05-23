@@ -1,0 +1,458 @@
+% !Mode:: "Tex:UTF-8"
+
+\section{Variables aleatorias}\label{sec:variablesAletorias}
+
+
+\subsection{¿Qué son las variables aleatorias?}
+
+\begin{itemize}
+
+    \item Hemos visto que cada suceso $A$ del espacio muestral $\Omega$ tiene asociado un valor $P(A)$ de la función probabilidad. Y sabemos que los valores de la función probabilidad son valores positivos, comprendidos entre $0$ y $1$. La idea de variable aleatoria es similar, pero generaliza este concepto, porque a menudo querremos asociar otros valores numéricos con los resultados de un experimento aleatorio.
+        \begin{Ejemplo}\label{ejem:VariableAleatoria:SumaDosDados}
+        Quizá uno de los ejemplos más sencillos sea lo que ocurre cuando lanzamos dos dados, y nos fijamos
+        en la suma de los valores obtenidos. Esa suma es siempre un número del 2 al 12, y es perfectamente
+        legítimo hacer preguntas como ¿cuál es la probabilidad de que  la suma valga $7$? Para responder a esa
+        pregunta, iríamos al espacio muestral (formado por 36 resultados posibles), veríamos el valor de la suma
+        en cada uno de ellos, para localizar aquellos en que la suma vale $7$. Así obtendríamos un suceso
+        aleatorio $A=\{(1,6),(2,5),(3,4),(4,3),(5,2),(6,1)\}$, cuya probabilidad es $6/36$. De hecho podemos
+        repetir lo mismo para cada uno de los posibles valores de la suma. Se obtiene esta tabla:\\[3mm]
+        \begin{tabular}[t]{|c|c|c|c|c|c|c|c|c|c|c|c|}
+        \hline
+        \rule{0cm}{0.5cm}{\em Valor de la suma:}&2&3&4&5&6&7&8&9&10&11&12\\
+        \hline
+        \rule{0cm}{0.7cm}{\em Probabilidad de ese valor:}&$\dfrac{1}{36}$&$\dfrac{2}{36}$&$\dfrac{3}{36}$&$\dfrac{4}{36}$&$\dfrac{5}{36}$&$\dfrac{6}{36}$&$\dfrac{5}{36}$&$\dfrac{4}{36}$&$\dfrac{3}{36}$&$\dfrac{2}{36}$&$\dfrac{1}{36}$\\
+        &&&&&&&&&&&\\
+        \hline
+        \end{tabular}\\[3mm]
+        Y de hecho, esta tabla es lo que en este caso caracteriza a la variable aleatoria suma.\qed
+        \end{Ejemplo}
+        Vamos ahora a ver otro ejemplo inspirado en los problemas de probabilidad geométrica.
+        \begin{Ejemplo}\label{ejem:ProbabilidadGeometricaSubconjuntosCirculo}
+        Consideremos un círculo $C$ centrado en el origen y de radio 1. El espacio muestral $\Omega$ está formado por todos los subconjuntos\footnote{No excesivamente ``raros'', en el sentido que ya hemos discutido.} de puntos de $C$. Y la Función de Probabilidad se define así:
+        \[P(A)=\mbox{área de }A.\]
+        Consideremos ahora la variable $X(x,y)=x$, que a cada punto del círculo le asocia su coordenada $x$. En este caso la coordenada $x$ toma cualquier valor real entre $-1$ y $1$. Y si preguntamos {``¿cuál es la probabilidad de que tome por ejemplo el valor $1/2$?''}, la respuesta es $0$. Porque los puntos del círculo donde toma ese valor forman un segmento (una cuerda del círculo), y el segmento tiene área $0$. Las cosas cambian si preguntamos {``¿cuál es la probabilidad de que la coordenada $x$ esté entre $0$ y $1/2$?''} En este caso, como muestra la figura
+        \begin{center}
+        \includegraphics[height=7cm]{2011_10_25_Figura01-VariableAleatoriaContinua.png}
+        \end{center}
+        el conjunto de puntos del círculo cuyas coordenadas $x$ están entre $0$ y $1/2$ tiene un área bien definida y no nula. ¿Cuánto vale ese área? Aproximadamente $0.48$, y esa es la probabilidad que buscábamos. El cálculo del área se puede hacer de distintas maneras, pero el lector debe darse cuenta de que en ejemplos como este se necesita a veces recurrir al cálculo de integrales.\\
+        Naturalmente, se pueden hacer preguntas más complicadas. Por ejemplo, dado un punto $(x,y)$ del círculo
+         $C$ podemos calcular el valor de $f(x,y)=x^2+ 4y^2$. Y entonces nos preguntamos ¿cuál es la probabilidad de que, tomando un punto al azar en $C$, el valor de $f$ esté entre 0 y 1? La respuesta es, de nuevo, un área, pero más complicada: es el área que se muestra en esta figura:
+        \begin{center}
+        \includegraphics[height=7cm]{2011_10_25_Figura02-VariableAleatoriaContinua.png}
+        \end{center}
+        Lo que tienen en común ambos casos es que hay una función (o fórmula), que es $x$ en el primero y $f(x,y)$ en el segundo, y que nos preguntamos por la probabilidad de que los valores de esa fórmula caigan dentro de un cierto intervalo.
+        \qed
+        \end{Ejemplo}
+        Los dos ejemplos que hemos visto contienen los ingredientes básicos de la noción de variable aleatoria. En el primer caso teníamos un conjunto finito de valores posibles, y a cada uno le asignábamos una probabilidad. En el segundo caso teníamos un rango continuo de valores posibles, y podíamos asignar probabilidades a intervalos. Lo que vamos a ver a continuación no se puede considerar de ninguna manera una definición rigurosa de variable aleatoria\footnote{La situación es similar a lo que ocurría al definir los sucesos aleatorios. Un suceso aleatorio $A$ es un subconjunto que tiene bien definida la probabilidad $P(A)$. Pero ya hemos dicho hay conjuntos tan {\em raros} que no es fácil asignarles un valor de la probabilidad (igual que a veces cuesta asignar un área). De la misma forma hay funciones tan raras que no se pueden considerar variables aleatorias. Se necesitan definiciones más rigurosas, pero que aquí sólo nos complicarían.}, pero servirá a nuestros propósitos.\\[3mm]
+        \fbox{\colorbox{Gris025}{\begin{minipage}{14cm}
+        \begin{center}
+        \vspace{2mm}
+        {\bf Variables aleatorias:}
+        \end{center}
+        Una variable aleatoria $X$ es una función (o fórmula) que le asigna, a cada elemento $p$ del espacio muestral $\Omega$, un número real $X(p)$. Distinguimos dos tipos de valores aleatorias:
+        \begin{enumerate}
+            \item La {\sf variable aleatoria $X$ es discreta} si sólo toma una cantidad finita (o una sucesión) de valores numéricos $x_1,x_2,x_3,\ldots$, de manera que para cada uno de esos valores tenemos bien definida la probabilidad $P(X=x_i)$ de que $X$ tome el valor $x_i$.
+            \item La {\sf variable aleatoria $X$ es continua} si sus valores forman un cierto rango continuo dentro de los números reales, de manera que si nos dan un intervalo $I=(a,b)$ (aquí puede ser $a=-\infty$ o $b=+\infty$), tenemos bien definida la probabilidad $P(X\in I)$ de que el valor de $X$ esté dentro de ese intervalo $I$.
+        \end{enumerate}
+        \end{minipage}}}\\[3mm]
+        Veamos un ejemplo, muy parecido al Ejemplo \ref{ejem:VariableAleatoria:SumaDosDados}.
+        \begin{Ejemplo}\label{ejem:VariableAleatoria:RestaDosDados}
+            De nuevo lanzamos dos dados, pero ahora nos fijamos en la diferencia de los valores obtenidos (el menor menos el mayor, y cero si son iguales). Si llamamos $(a,b)$ al resultado de lanzar los dados, donde $a$ y $b$ son números del 1 al 6, entonces estamos definiendo una variable aleatoria mediante la expresión
+            \[X(a,b)=|a-b|.\]
+            Esta claro que la variable $X$ toma solamente los valores $0,1,2,3,4,5$. ¿Cuál es la probabilidad de que al calcular $X$ obtengamos $3$? El siguiente diagrama ayudará a entender la respuesta. Para cada punto del espacio muestral,  se muestra el valor de $X$:
+            \[
+            \begin{array}{cccccc}
+            X(1,1)=0&X(1,2)=1&X(1,3)=2&X(1,4)=3&X(1,5)=4&X(1,6)=5\\
+            X(2,1)=1&X(2,2)=0&X(2,3)=1&X(2,4)=2&X(2,5)=3&X(2,6)=4\\
+            X(3,1)=2&X(3,2)=1&X(3,3)=0&X(3,4)=1&X(3,5)=2&X(3,6)=3\\
+            X(4,1)=3&X(4,2)=2&X(4,3)=1&X(4,4)=0&X(4,5)=1&X(4,6)=2\\
+            X(5,1)=4&X(5,2)=3&X(5,3)=2&X(5,4)=1&X(5,5)=0&X(5,6)=1\\
+            X(6,1)=5&X(6,2)=4&X(6,3)=3&X(6,4)=2&X(6,5)=1&X(6,6)=0
+            \end{array}
+            \]
+            Y se observa que $P(X=3)=6/36=1/6$. De hecho, podemos repetir lo mismo para cada uno de los posibles valores de la variable aleatoria $X$. Se obtiene esta tabla:
+            \begin{center}
+            \begin{tabular}[t]{|c|c|c|c|c|c|c|}
+            \hline
+            \rule{0cm}{0.5cm}{\em Valor de $X$ (diferencia):}&0&1&2&3&4&5\\
+            \hline
+            \rule{0cm}{0.7cm}{\em Probabilidad de ese valor:}&$\dfrac{6}{36}$&$\dfrac{10}{36}$&$\dfrac{8}{36}$&$\dfrac{6}{36}$&$\dfrac{4}{36}$&$\dfrac{2}{36}$\\
+            &&&&&&\\
+            \hline
+            \end{tabular}
+            \end{center}
+        Y de hecho, esta tabla es lo que en este caso caracteriza a la variable aleatoria diferencia $X$.\qed
+        \end{Ejemplo}
+
+\end{itemize}
+
+\subsection{Variables aleatorias y sucesos.}
+
+\begin{itemize}
+
+        \item Al principio la diferencia entre suceso aleatorio y variable aleatoria puede resultar un poco confusa. Vamos a recordar lo que es cada uno de estos conceptos:
+            \begin{enumerate}
+                \item Un suceso es un {\em subconjunto}, mientras que una variable aleatoria es una {\em función}. Por ejemplo, un suceso al lanzar dos dados puede ser ``los dos resultados son pares'', y este enunciado no hay un valor numérico fácil de identificar. Lo que sí tenemos es una {\em probabilidad asociada a este suceso}.
+                \item Por el contrario, en la variable aleatoria $X(a,b)=|a-b|$, definida en el espacio muestral de los 36 posibles resultados al lanzar dos dados, el valor numérico está claramente definido: $|a-b|$.
+            \end{enumerate}
+            ¿Cuál es entonces el origen de la confusión? Probablemente la parte más confusa es que {\sf las variables aleatorias definen sucesos cuando se les asigna un valor}. Por ejemplo, si escribimos $X(a,b)=|a-b|=3$, estamos pensando en el suceso {\em ``la diferencia de los resultados de los dados es 3''}. Y hemos visto en el Ejemplo \ref{ejem:VariableAleatoria:RestaDosDados} que la probabilidad de ese suceso es \[P(X=3)=1/6.\]
+
+        \item ¿Para qué sirven entonces las variables aleatorias? Precisamente su utilidad es que representan {\sf modelos abstractos de asignación de probabilidad}. Es decir, la variable aleatoria nos permite concentrar nuestra atención en la forma en que la probabilidad se asigna a los posibles resultados numéricos de un experimento aleatorio, sin entrar en los detalles sobre el espacio muestral y los sucesos subyacentes a esa asignación de probabilidad.  Vamos a ver un ejemplo que tal vez ayude a aclarar el sentido en el que estas variables aleatorias son resúmenes que eliminan detalles (y por tanto información).
+            \begin{Ejemplo}\label{ejem:VariablesAleatoriasEliminanInformacion}
+            Ya hemos visto que en el espacio muestral correspondiente al lanzamiento de dos dados, la variable aleatoria $X(a,b)=|a-b|$ tiene esta tabla de valores y probabilidades:
+            \begin{center}
+            \begin{tabular}[t]{|c|c|c|c|c|c|c|}
+                \hline
+                \rule{0cm}{0.5cm}{\em Valor de $X$ (diferencia):}&0&1&2&3&4&5\\
+                \hline
+                \rule{0cm}{0.7cm}{\em Probabilidad de ese valor:}&$\dfrac{6}{36}$&$\dfrac{10}{36}$&$\dfrac{8}{36}$&$\dfrac{6}{36}$&$\dfrac{4}{36}$&$\dfrac{2}{36}$\\
+                &&&&&&\\
+                \hline
+            \end{tabular}
+            \end{center}
+            Y, por su parte, la variable aleatoria suma $Y(a,b)=a+b$ tiene esta tabla:
+            \begin{center}
+            \begin{tabular}[t]{|c|c|c|c|c|c|c|c|c|c|c|c|}
+                \hline
+                \rule{0cm}{0.5cm}{\em Valor de la suma:}&2&3&4&5&6&7&8&9&10&11&12\\
+                \hline
+                \rule{0cm}{0.7cm}{\em Probabilidad de ese valor:}&$\dfrac{1}{36}$&$\dfrac{2}{36}$&$\dfrac{3}{36}$&$\dfrac{4}{36}$&$\dfrac{5}{36}$&$\dfrac{6}{36}$&$\dfrac{5}{36}$&$\dfrac{4}{36}$&$\dfrac{3}{36}$&$\dfrac{2}{36}$&$\dfrac{1}{36}$\\
+                &&&&&&&&&&&\\
+            \hline
+            \end{tabular}
+            \end{center}
+            En el Ejemplo \ref{ejem:probabilidadCondicionadaLanzamientoDosDados} (página \pageref{ejem:probabilidadCondicionadaLanzamientoDosDados}) nos hicimos la pregunta {\em `` ¿Cuál es la probabilidad de que la diferencia entre los valores de ambos dados (mayor-menor) sea menor que 4, sabiendo que la suma de los dados es 7?''} Está claro, con la notación que usamos ahora, que estamos preguntando cuál es la probabilidad del suceso
+            \[(X<4)\cap (Y=7).\]
+            ¿Podemos calcular este número usando sólo las tablas de probabilidad de $X$ e $Y$, sin utilizar más información sobre el suceso muestral subyacente?\qed
+            \end{Ejemplo}
+        \item En el caso de las variables aleatorias discretas, hemos visto que conocer la variable es esencialmente lo mismo que conocer la tabla de probabilidades asignadas a cada uno de los posibles valores de la variable (esta tabla se conoce como {\sf función de probabilidad o función de masa} de la variable aleatoria). En el caso de las variables aleatorias continuas, no podemos hacer la asignación de probabilidades de esta misma forma. Recordando que la probabilidad de las variables continuas es análoga al área, necesitamos un recurso técnicamente más complicado, y eso es lo que vamos a hacer más adelante, al presentar los conceptos de función de densidad y función de distribución.
+\end{itemize}
+
+
+%\section*{Tareas asignadas para esta sesión.}
+%
+%\begin{enumerate}
+%    \item Supongamos ahora que lanzamos un dado cuatro veces y nos preguntamos por la probabilidad de sacar exactamente dos seises. Esto es similar al problema del Caballero De Mere, que vimos en la sesión 7 y recuerda mucho al Ejemplo \ref{ejem:probabilidadLanzamientoMonedas}, hasta el punto de que es razonable preguntarse si la respuesta es la misma. Usa las ideas de esta sesión para obtener la respuesta. Escribe esa respuesta y el razonamiento que te conduce a ella en Moodle.
+%    \item A lo largo del fin de semana aparecerá una nueva hoja de Ejercicios para trabajar con ella durante la semana que viene. Estad atentos a Moodle.
+%%    \item Está claro que si en una habitación hay 367 personas, entonces hay al menos dos de ellas que cumplen años el mismo día, ¿verdad? ¿Cuál es el número mínimo de personas que debe haber en esa habitación para que la probabilidad sea superior al 50\%? Escribe tu respuesta y el razonamiento que te conduce a ella en Moodle.
+%\end{enumerate}
+%
+%
+%%\section*{Recomendaciones.}
+%%
+%%\begin{enumerate}
+%%   \item El \link{http://www.ine.es/}{INE (Instituto Nacional de Estadística)} es el organismo oficial encargado, entre otras cosas del censo electoral, la elaboración del IPC (índice de precios de consumo), la EPA (encuesta de población activa), el PIB (producto interior bruto) etc. El instituto ofrece una enorme colección de datos estadísticos accesibles para cualquiera a través de la red (sistema INEbase). Además, tiene alojado en su página web un \link{http://www.ine.es/explica/explica.htm}{portal de divulgación estadística} en el que se pueden ver vídeos sobre estos y otros temas, que tal vez os interesen.
+%%\end{enumerate}
+%
+%\section*{\fbox{\colorbox{Gris025}{{Sesión 12. Probabilidad.}}}}
+%
+%\subsection*{\fbox{\colorbox{Gris025}{{Media y varianza de variables aleatorias. Variable aleatoria binomial.}}}}
+%\subsection*{Fecha: Martes, 25/10/2011, 14h.}
+%
+%\noindent{\bf Atención:
+%\begin{enumerate}
+%\item Este fichero pdf lleva adjuntos los ficheros de datos necesarios.
+%\end{enumerate}
+%}
+%
+%%\subsection*{\fbox{1. Ejemplos preliminares }}
+%\setcounter{tocdepth}{1}
+%%\tableofcontents
+%\section*{Lectura recomendada}
+%
+%Al menos uno de los siguientes:
+%    \begin{itemize}
+%    \item Capítulo 4 de "La estadística en Comic".
+%    \item Capítulo 5 de Head First Statistics.
+%    \item Tema 5 de Bioestadística: Métodos y Aplicaciones, Univ. de Málaga (veremos las variables aleatorias continuas en próximas sesiones).
+%    \item Apuntes de la sexta y comienzo de la séptima sesiones del Curso 2010-2011.
+%
+%    \end{itemize}
+%
+%\section{Variables aleatorias}
+%
+%
+%\subsection{¿Qué son las variables aleatorias?}
+%
+%\begin{itemize}
+%
+%    \item Hemos visto que cada suceso $A$ del espacio muestral $\Omega$ tiene asociado un valor $P(A)$ de la función probabilidad. Y sabemos que los valores de la función probabilidad son valores positivos, comprendidos entre $0$ y $1$. La idea de variable aleatoria es similar, pero generaliza este concepto, porque a menudo querremos asociar otros valores numéricos con los resultados de un experimento aleatorio.
+%        \begin{Ejemplo}\label{ejem:VariableAleatoria:SumaDosDados}
+%        Quizá uno de los ejemplos más sencillos sea lo que ocurre cuando lanzamos dos dados, y nos fijamos en la suma de los valores obtenidos. Esa suma es siempre un número del 2 al 12, y es perfectamente legítimo hacer preguntas como ¿cuál es la probabilidad de que la suma valga $7$? Para responder a esa pregunta, iríamos al espacio muestral (formado por 36 resultados posibles), veríamos el valor de la suma en cada uno de ellos, para localizar aquellos en que la suma vale $7$. Así obtendríamos un suceso aleatorio $A=\{(1,6),(2,5),(3,4),(4,3),(5,2),(6,1)\}$, cuya probabilidad es $6/32$. De hecho podemos repetir lo mismo para cada uno de los posibles valores de la suma. Se obtiene esta tabla:\\[3mm]
+%        \begin{tabular}[t]{|c|c|c|c|c|c|c|c|c|c|c|c|}
+%        \hline
+%        \rule{0cm}{0.5cm}{\em Valor de la suma:}&2&3&4&5&6&7&8&9&10&11&12\\
+%        \hline
+%        \rule{0cm}{0.7cm}{\em Probabilidad de ese valor:}&$\dfrac{1}{36}$&$\dfrac{2}{36}$&$\dfrac{3}{36}$&$\dfrac{4}{36}$&$\dfrac{5}{36}$&$\dfrac{6}{36}$&$\dfrac{5}{36}$&$\dfrac{4}{36}$&$\dfrac{3}{36}$&$\dfrac{2}{36}$&$\dfrac{1}{36}$\\
+%        &&&&&&&&&&&\\
+%        \hline
+%        \end{tabular}\\[3mm]
+%        Y de hecho, esta tabla es lo que en este caso caracteriza a la variable aleatoria suma.\qed
+%        \end{Ejemplo}
+%        Vamos ahora a ver otro ejemplo inspirado en los problemas de probabilidad geométrica.
+%        \begin{Ejemplo}
+%        Consideremos un círculo $C$ centrado en el origen y de radio 1. El espacio muestral $\Omega$ está formado por todos los subconjuntos\footnote{No excesivamente ``raros'', en el sentido que ya hemos discutido.} de puntos de $C$. Y la Función de Probabilidad se define así:
+%        \[P(A)=\mbox{área de }A.\]
+%        Consideremos ahora la variable que a cada punto del círculo le asocia su coordenada $x$. En este caso la coordenada $x$ toma cualquier valor real entre $-1$ y $1$. Y si preguntamos {``¿cuál es la probabilidad de que tome por ejemplo el valor $1/2$?''}, la respuesta es $0$. Porque los puntos del círculo donde toma ese valor forman un segmento (una cuerda del círculo), y el segmento tiene área $0$. Las cosas cambian si preguntamos {``¿cuál es la probabilidad de que la coordenada $x$ esté entre $0$ y $1/2$?''} En este caso, como muestra la figura
+%        \begin{center}
+%        \includegraphics[height=7cm]{2011_10_25_Figura01-VariableAleatoriaContinua.png}
+%        \end{center}
+%        el conjunto de puntos del círculo cuyas coordenadas $x$ están entre $0$ y $1/2$ tiene un área bien definida y no nula. ¿Cuánto vale ese área? Aproximadamente $0.48$, y esa es la probabilidad que buscábamos. El cálculo del área se puede hacer de distintas maneras, pero el lector debe darse cuenta de que en ejemplos como este se necesita a veces recurrir al cálculo de integrales.\\
+%        Naturalmente, se pueden hacer preguntas más complicadas. Por ejemplo, dado un punto $(x,y)$ del círculo $C$ podemos calcular el valor de $f(x,y)=\frac{x^2}+ 4y^2$. Y entonces nos preguntamos ¿cuál es la probabilidad de que, tomando un punto al azar en $C$, el valor de $f$ esté entre 0 y 1? La respuesta es, de nuevo, un área, pero más complicada: es el área que se muestra en esta figura:
+%        \begin{center}
+%        \includegraphics[height=7cm]{2011_10_25_Figura02-VariableAleatoriaContinua.png}
+%        \end{center}
+%        Lo que tienen en común ambos casos es que hay una función (o fórmula), que es $x$ en el primero y $f(x,y)$ en el segundo, y que nos preguntamos por la probabilidad de que los valores de esa fórmula caigan dentro de un cierto intervalo.
+%        \qed
+%        \end{Ejemplo}
+%        Los dos ejemplos que hemos visto contienen los ingredientes básicos de la noción de variable aleatoria. En el primer caso teníamos un conjunto finito de valores posibles, y a cada uno le asignábamos una probabilidad. En el segundo caso teníamos un rango continuo de valores posibles, y podíamos asignar probabilidades a intervalos. Lo que vamos a ver a continuación no se puede considerar de ninguna manera una definición rigurosa de variable aleatoria\footnote{La situación es similar a lo que ocurría al definir los sucesos aleatorios. Un suceso aleatorio $A$ es un subconjunto que tiene bien definida la probabilidad $P(A)$. Pero ya hemos dicho hay conjuntos tan {\em raros} que no es fácil asignarles un valor de la probabilidad (igual que a veces cuesta asignar un área). De la misma forma hay funciones tan raras que no se pueden considerar variables aleatorias. Se necesitan definiciones más rigurosas, pero que aquí sólo nos complicarían.}, pero servirá a nuestros propósitos.\\[3mm]
+%        \fbox{\begin{minipage}{14cm}
+%        \begin{center}
+%        \vspace{2mm}
+%        {\bf Variables aleatorias:}
+%        \end{center}
+%        Una variable aleatoria $X$ es una función (o fórmula) que le asigna, a cada elemento $p$ del espacio muestral $\Omega$, un número real $X(p)$. Distinguimos dos tipos de valores aleatorias:
+%        \begin{enumerate}
+%            \item La {\sf variable aleatoria $X$ es discreta} si sólo toma una cantidad finita (o una sucesión) de valores numéricos $x_1,x_2,x_3,\ldots$, de manera que para cada uno de esos valores tenemos bien definida la probabilidad $P(X=x_i)$ de que $X$ tome el valor $x_i$.
+%            \item La {\sf variable aleatoria $X$ es continua} si sus valores forman un cierto rango continuo dentro de los números reales, de manera que si nos dan un intervalo $I=(a,b)$ (aquí puede ser $a=-\infty$ o $b=+\infty$), tenemos bien definida la probabilidad $P(X\in I)$ de que el valor de $X$ esté dentro de ese intervalo $I$.
+%        \end{enumerate}
+%        \end{minipage}}\\[3mm]
+%        Veamos un ejemplo, muy parecido al Ejemplo \ref{ejem:VariableAleatoria:SumaDosDados}.
+%        \begin{Ejemplo}\label{ejem:VariableAleatoria:RestaDosDados}
+%            De nuevo lanzamos dos dados, pero ahora nos fijamos en la diferencia de los valores obtenidos (el menor menos el mayor, y cero si son iguales). Si llamamos $(a,b)$ al resultado de lanzar los dados, donde $a$ y $b$ son números del 1 al 6, entonces estamos definiendo una variable aleatoria mediante la expresión
+%            \[X(a,b)=|a-b|.\]
+%            Esta claro que la variable $X$ toma solamente los valores $0,1,2,3,4,5$. ¿Cuál es la probabilidad de que al calcular $X$ obtengamos $3$? El siguiente diagrama ayudará a entender la respuesta. Para cada punto del espacio muestral,  se muestra el valor de $X$:
+%            \[
+%            \begin{array}{cccccc}
+%            X(1,1)=0&X(1,2)=1&X(1,3)=2&X(1,4)=3&X(1,5)=4&X(1,6)=5\\
+%            X(2,1)=1&X(2,2)=0&X(2,3)=1&X(2,4)=2&X(2,5)=3&X(2,6)=4\\
+%            X(3,1)=2&X(3,2)=1&X(3,3)=0&X(3,4)=1&X(3,5)=2&X(3,6)=3\\
+%            X(4,1)=3&X(4,2)=2&X(4,3)=1&X(4,4)=0&X(4,5)=1&X(4,6)=2\\
+%            X(5,1)=4&X(5,2)=3&X(5,3)=2&X(5,4)=1&X(5,5)=0&X(5,6)=1\\
+%            X(6,1)=5&X(6,2)=4&X(6,3)=3&X(6,4)=2&X(6,5)=1&X(6,6)=0
+%            \end{array}
+%            \]
+%            Y se observa que $P(X=3)=6/36=1/6$. De hecho, podemos repetir lo mismo para cada uno de los posibles valores de la variable aleatoria $X$. Se obtiene esta tabla:
+%            \begin{center}
+%            \begin{tabular}[t]{|c|c|c|c|c|c|c|}
+%            \hline
+%            \rule{0cm}{0.5cm}{\em Valor de $X$ (diferencia):}&0&1&2&3&4&5\\
+%            \hline
+%            \rule{0cm}{0.7cm}{\em Probabilidad de ese valor:}&$\dfrac{6}{36}$&$\dfrac{10}{36}$&$\dfrac{8}{36}$&$\dfrac{6}{36}$&$\dfrac{4}{36}$&$\dfrac{2}{36}$\\
+%            &&&&&&\\
+%            \hline
+%            \end{tabular}
+%            \end{center}
+%        Y de hecho, esta tabla es lo que en este caso caracteriza a la variable aleatoria diferencia $X$.\qed
+%        \end{Ejemplo}
+%
+%\end{itemize}
+
+%\subsection{¿Para qué sirven las variables aleatorias?.}
+%
+%\begin{itemize}
+%
+%        \item Al principio la diferencia entre suceso aleatorio y variable aleatoria puede resultar un poco confusa. Vamos a recordar que un suceso es un {\em subconjunto}, y que una variable aleatoria es una {\em función}. Por ejemplo, un suceso al lanzar dos dados puede ser ``los dos resultados son pares'', y este enunciado no hay un valor numérico fácil de identificar. De la misma forma, la variable aleatoria
+%
+%
+%
+%\end{itemize}
+%
+%
+%
+\section{Media y varianza de variables aleatorias}
+
+
+\subsection{Media de una variable aleatoria discreta}
+
+\begin{itemize}
+
+    \item Hemos dicho que las variables aleatorias son modelos teóricos de los resultados de un experimento aleatorio. Y de la misma forma que hemos aprendido a describir un conjunto de datos mediante su media aritmética y su desviación típica, podemos caracterizar a una variable aleatoria mediante valores similares. Empecemos por la media, en el caso de una variable aleatoria discreta. El caso de las variables aleatorias continuas requiere cálculo integral, y lo veremos un poco más adelante.
+
+    \item El punto de partida es la fórmula que ya conocemos para calcular la media aritmética de una variable discreta a partir de su tabla de frecuencias, que escribimos de una forma ligeramente diferente, usando las frecuencias relativas:
+        \[\fbox{\colorbox{Gris025}{$
+        \bar x=\dfrac{\displaystyle\sum_{i=1}^k x_i\cdot f_i}{\displaystyle\sum_{i=1}^k f_i}
+        =\dfrac{\displaystyle\sum_{i=1}^k x_i\cdot f_i}{n}
+        =\displaystyle\sum_{i=1}^k x_i\cdot \dfrac{f_i}{n}
+        $}}
+        \]
+        y aquí $\dfrac{f_i}{n}$ es la frecuencia relativa número $i$.\\[3mm]
+        Para entender el siguiente paso, es importante entender que la probabilidad, como concepto teórico, es una idealización de lo que sucede en la realidad que estamos tratando de representar. Para centrar las ideas, volvamos al conocido caso del lanzamiento de dos dados, que ya vimos en el Ejemplo \ref{ejem:VariableAleatoria:SumaDosDados} (página \pageref{ejem:VariableAleatoria:SumaDosDados}).
+        \begin{Ejemplo}\label{ejem:Cap04-VariableAleatoria:SumaDosDados}
+        La tabla de probabilidades para los posibles valores de la suma es, como ya vimos,\\[3mm]
+        \begin{tabular}[t]{|c|c|c|c|c|c|c|c|c|c|c|c|}
+        \hline
+        \rule{0cm}{0.5cm}{\em Valor de la suma:}&2&3&4&5&6&7&8&9&10&11&12\\
+        \hline
+        \rule{0cm}{0.7cm}{\em Probabilidad de ese valor:}&$\dfrac{1}{36}$&$\dfrac{2}{36}$&$\dfrac{3}{36}$&$\dfrac{4}{36}$&$\dfrac{5}{36}$&
+        $\dfrac{6}{36}$&$\dfrac{5}{36}$&$\dfrac{4}{36}$&$\dfrac{3}{36}$&$\dfrac{2}{36}$&$\dfrac{1}{36}$\\
+        &&&&&&&&&&&\\
+        \hline
+        \end{tabular}\\[3mm]
+        Pero esto es un modelo teórico que describe a la variable aleatoria suma. Si hacemos un experimento en el mundo real, como el lanzamiento de 3000 pares de dados que se simula en esta \textattachfile{2011-10-25-Lanzamientos2Dados-FrecuenciasSumaVsProbabilidades.ods}{\textcolor{blue}{hoja de cálculo}}, lo que obtendremos es una tabla de frecuencias que son {\em aproximadamente} iguales a las probabilidades. ¿Y si en lugar de lanzar 3000 veces lo hiciéramos un millón de veces?
+        \qed
+        \end{Ejemplo}
+        La idea que queremos subrayar es que los valores de las probabilidades son una especie de límite teórico de las frecuencias relativas, una idealización de lo que ocurre si lanzamos los dados muchísimas veces, tendiendo hacia infinito. Y por lo tanto, esto parece indicar que las fórmulas teóricas correctas se obtienen cambiando las frecuencias relativas por las correspondientes probabilidades. Eso conduce a esta definición para la media de una variable aleatoria:\\[3mm]
+        \fbox{\colorbox{Gris025}{\begin{minipage}{14cm}
+        \begin{center}
+        \vspace{2mm}
+        {\bf Media $\mu$ de una variable aleatoria discreta (valor esperado)}
+        \end{center}
+        Si $X$ es una variable aleatoria discreta, que toma los valores $x_1,x_2,\ldots,x_k$, con las probabilidades $p_1,p_2,\ldots,p_k$ (donde $p_i=P(X=x_i)$), entonces la {\sf media}, o {\sf valor esperado}, o {\sf esperanza matemática}  de $X$ es:
+        \[
+        \mu=\sum_{i=1}^k
+        \left(x_i\cdot P(X=x_i)\right)=x_1p_1+x_2p_2+\cdots+x_kp_k.
+        \]
+        \end{minipage}}}\\[3mm]
+        La media de una variable aleatoria discreta se suele representar con la letra griega $\mu$ para distinguirla de la media aritmética de una muestra $\bar x$. La media, como hemos indicado, también se suele llamar valor esperado o esperanza matemática de la variable $X$.\\
+        (En el caso de que la variable aleatoria tome infinitos valores --ver el ejemplo \ref{Sesion08:ejem:LanzamientoMonedaHastPrimeraCara} (página \pageref{Sesion08:ejem:LanzamientoMonedaHastPrimeraCara}), en el que lanzábamos monedas hasta obtener la primera cara--, esta suma puede ser una suma infinita.)
+
+
+
+        \item Vamos a aplicar esta definición al ejemplo de la suma de dos dados
+        \begin{Ejemplo} {\bf Continuación del Ejemplo \ref{ejem:Cap04-VariableAleatoria:SumaDosDados}}\\
+        A partir de la tabla tenemos:
+        \[\mu=\sum x_i P(X=x_i)=\]
+        \[\mbox{\small $
+        2\cdot\dfrac{1}{36}+3\cdot\dfrac{2}{36}+4\cdot\dfrac{3}{36}+5\cdot\dfrac{4}{36}+6\cdot\dfrac{5}{36}+
+        7\cdot\dfrac{6}{36}+8\cdot\dfrac{5}{36}+9\cdot\dfrac{4}{36}+10\cdot\dfrac{3}{36}+11\cdot\dfrac{2}{36}
+        +12\cdot\dfrac{1}{36}$}=7.\]
+        Así que, en este ejemplo, la media o valor esperado es $\mu=7$.\qed
+        \end{Ejemplo}
+
+        \item {\sf Valor esperado y juegos ``justos''.}
+        Cuando se usa la probabilidad para analizar un juego de azar en el que cada jugador invierte una cierta cantidad de recursos (por ejemplo, dinero), es conveniente considerar la variable aleatoria
+        \[X=\mbox{beneficio del jugador}=\mbox{(ganancia neta)}-\mbox{(recursos invertidos)}.\]
+        Para que el juego sea justo la media de la variable beneficio (es decir, el beneficio esperado) debería ser $0$.
+        \begin{Ejemplo}
+        Cada uno de nosotros pone un euro, y lanzamos un dado. Si sale un uno ganas tú y te quedas los dos euros. Si sale cualquier otra cosa gano yo y me quedo los dos euros. ¿Es un juego justo? Parece claro que no. ¿Cuál es el valor esperado del beneficio para cada uno de nosotros?\\
+        Una pregunta más interesante. Si tú sigues poniendo un euro, ¿cuántos euros tengo que poner yo para que el juego sea justo?\qed
+        \end{Ejemplo}
+
+\end{itemize}
+
+\subsection{Varianza y desviación típica de una variable aleatoria discreta}
+
+\begin{itemize}
+
+        \item Ahora que hemos visto la definición de media, y como obtenerla a partir de la noción de frecuencias relativas, parece bastante evidente lo que tenemos que hacer para definir la varianza de una variable aleatoria discreta. Recordemos la fórmula para la varianza poblacional a partir de una tabla de frecuencias, y vamos a escribirla en términos de frecuencias relativas:
+            \[
+            \mbox{Var($x$)}=\dfrac{\displaystyle\sum_{i=1}^k{ f_i\cdot}(x_i-\bar x)^2}{{ \displaystyle\sum_{i=1}^k f_i}}=
+            \dfrac{\displaystyle\sum_{i=1}^k{ f_i\cdot}(x_i-\bar x)^2}{n}=
+            \displaystyle\sum_{i=1}^k{(x_i-\bar x)^2\cdot}\dfrac{f_i}{n}.
+           \]
+           Por lo tanto, definimos:\\[3mm]
+           \fbox{\colorbox{Gris025}{\begin{minipage}{14cm}
+           \begin{center}
+           \vspace{2mm}
+           {\bf Varianza $\sigma^2$ de una variables aleatoria discreta}
+           \end{center}
+           La {\sf varianza}  de una variable aleatoria discreta $X$, que toma los valores $x_1,x_2,x_3,\ldots,x_k$, con las probabilidades $p_1,p_2,\ldots,p_k$ (donde $p_i=P(X=x_i)$), es:
+           \[
+           \sigma^2=\sum_{i=1}^k
+           \left((x_i-\mu)^2P(X=x_i)\right).
+           \]
+           \end{minipage}}}\\[3mm]
+
+           \item Y por supuesto, esta definición va acompañada por la de la desviación típica:\\[3mm]
+           \fbox{\colorbox{Gris025}{\begin{minipage}{14cm}
+           \begin{center}
+           \vspace{2mm}
+           {\bf Desviación típica $\sigma$ de una variables aleatoria discreta}
+           \end{center}
+           La {\sf desviación típica}  de una variable aleatoria discreta $X$ es simplemente la raíz cuadrada $\sigma$ de su varianza.
+           \[
+           \sigma=\displaystyle\sqrt{\sum_{i=1}^k\left((x_i-\mu)^2P(X=x_i)\right)}.
+           \]
+           \end{minipage}}}\\[3mm]
+
+
+
+\end{itemize}
+
+
+%\section*{Tareas asignadas para esta sesión.}
+%
+%\begin{enumerate}
+%   \item No hay tareas previstas para hoy. En la sesión del viernes sí habrá nuevas tareas.
+%\end{enumerate}
+%
+%
+%\section*{\fbox{\colorbox{Gris025}{{Sesión 13. Probabilidad.}}}}
+%
+%\subsection*{\fbox{\colorbox{Gris025}{{Variable aleatoria binomial.}}}}
+%\subsection*{Fecha: Viernes, 28/10/2011, 14h.}
+%
+%\noindent{\bf Atención:
+%\begin{enumerate}
+%\item Este fichero pdf lleva adjuntos los ficheros de datos necesarios.
+%\end{enumerate}
+%}
+%
+%%\subsection*{\fbox{1. Ejemplos preliminares }}
+%\setcounter{tocdepth}{1}
+%%\tableofcontents
+%\section*{Lectura recomendada}
+%
+%Al menos uno de los siguientes:
+%    \begin{itemize}
+%    \item Capítulo 5 de "La estadística en Comic".
+%    \item Capítulo 7 de Head First Statistics.
+%    \item Tema 5 de Bioestadística: Métodos y Aplicaciones, Univ. de Málaga (veremos las variables aleatorias continuas en próximas sesiones).
+%    \item Apuntes de la sexta y comienzo de la séptima sesiones del Curso 2010-2011.
+%
+%    \end{itemize}
+
+\section{Operaciones con variables aleatorias. Esperanza y varianza.}
+\label{sec:OperacionesVariablesAleatorias}
+
+
+\begin{itemize}
+
+\item Aparte de los símbolos $\mu$ y $\sigma^2$ que ya vimos para la media y varianza de una variable aleatoria, en esta sección vamos a usar los símbolos
+    \[E(X)=\mu, \operatorname{Var}(X)=\sigma^2,\]
+    para la media y la varianza respectivamente. Estos símbolos son a veces más cómodos cuando se trabaja a la vez con varias variables aleatorias.
+
+\item Una variable aleatoria $X$ es, al fin y al cabo, una fórmula que produce un resultado numérico. Y puesto que es un número, podemos hacer operaciones con ella. Por ejemplo, tiene sentido hablar de $2X$, $X+1$, $X^2$, etcétera.
+    \begin{Ejemplo}
+    En el caso del lanzamiento de dos dados, teníamos la variable aleatoria suma, definida mediante $X(a,b)=a+b$. En este caso:
+    \[
+    \begin{cases}
+    2X(a,b)=2a+2b\\[2mm]
+    X(a,b)+1=a+b+1\\[2mm]
+    X^2(a,b)=(a+b)^2
+    \end{cases}
+    \]
+    de manera que, por ejemplo, $X^2(3,4)=(3+4)^2=49$.\qed
+    \end{Ejemplo}
+
+    \item De la misma manera, si tenemos dos variables aleatorias $X_1$ y $X_2$ (dos fórmulas), podemos sumarlas para obtener una nueva variable $X=X_1+X_2$, o multiplicarlas, etcétera.
+    \begin{Ejemplo}
+    De nuevo en el lanzamiento de dos dados, si consideramos la variable aleatoria suma $X_1(a,b)=a+b$, y la variable aleatoria producto $X_2(a,b)=a\cdot b$, sería:
+    \[X_1(a,b)+X_2(a,b)=(a+b)+a\cdot b.\]
+    \qed
+    \end{Ejemplo}
+
+    \item Si hemos invertido algo de tiempo y esfuerzo en calcular las medias y las varianzas $X_1$ y $X_2$, nos gustaría poder aprovechar ese esfuerzo para obtener sin complicaciones las medias y varianzas de combinaciones como $X_1+X_2$, o $3X_1+5$, etcétera. Afortunadamente, eso es posible.\\[3mm]
+           \fbox{\colorbox{Gris025}{\begin{minipage}{14cm}
+           \begin{center}
+           \vspace{2mm}
+           {\bf Media y varianza de una combinación de variables aleatorias}
+           \end{center}
+           \begin{itemize}
+           \item Si $X$ es una variable aleatoria, y $a, b$ son números cualesquiera, entonces
+           \[E(a\cdot X+b)=a\cdot E(X)+b,\quad \operatorname{Var}(a\cdot X+b)=a^2\cdot \operatorname{Var}(X).\]
+           \item Y si $X_1, X_2$ son dos variables aleatorias, se tiene:
+           \[E(X_1+X_2)=E(X_1)+E(X_2).\]
+           Si además $X_1$ y $X_2$ son {\em independientes}, entonces
+           \[\operatorname{Var}(X_1+X_2)=\operatorname{Var}(X_1)+\operatorname{Var}(X_2).\]
+           No entramos en este momento en la definición técnica de la independencia, pero es fácil intuir que se basa en la independencia de los sucesos subyacentes a los valores de las variables.\\
+           \end{itemize}
+           \end{minipage}}}\\[3mm]
+        Con la notación de $\mu$ y $\sigma$ se obtienen estas fórmulas, algo más confusas:
+        \[\mu_{aX+b}=a\cdot\mu_X,\quad \sigma^2_{aX+b}=a^2\sigma^2_X\]
+        y
+         \[\mu_{X_1+X_2}=\mu_{X_1}+\mu_{X_2},\quad \sigma^2_{X_1+X_2}=\sigma^2_{X_1}+\sigma^2_{X_2},\]
+         donde la última fórmula, insistimos {\em es válida para variables independientes}.
+
+\end{itemize}

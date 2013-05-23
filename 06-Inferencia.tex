@@ -1,0 +1,643 @@
+﻿% !Mode:: "Tex:UTF-8"
+%\section*{\fbox{\colorbox{Gris025}{{Sesión 16. Inferencia estadística.}}}}
+%
+%\subsection*{\fbox{\colorbox{Gris025}{{Muestreo.}}}}
+%\subsection*{Fecha: Martes, 08/11/2011, 14h.}
+%
+%\noindent{\bf Atención:
+%\begin{enumerate}
+%\item Este fichero pdf lleva adjuntos los ficheros de datos necesarios.
+%\end{enumerate}
+%}
+%
+%%\subsection*{\fbox{1. Ejemplos preliminares }}
+%\setcounter{tocdepth}{1}
+%%\tableofcontents
+
+\section{Distribución muestral}
+
+\begin{itemize}
+    \item En esta parte del curso, y después de nuestra incursión en el mundo de la Probabilidad, vamos a comenzar con la parte central de la Estadística, la {\sf Inferencia.} Recordemos que, en resumen, la inferencia Estadística consiste en la predicción de características de una población, a partir del estudio de una muestra tomada de esa población. Naturalmente, puesto que estamos haciendo Ciencia, queremos que nuestras predicciones sean precisas. Más concretamente, queremos poder decir cómo de fiables son nuestras predicciones. Y la Probabilidad nos va a permitir hacer esto, de manera que al final podemos hacer afirmaciones como, por ejemplo, {\em ``el valor que predecimos para la media de la población es $\mu$, {\sf y hay una probabilidad del 99\% de que esta predicción sea cierta}''}. Esta es la forma en la que las afirmaciones estadísticas se convierten en predicciones con validez y utilidad para la Ciencia. \\[3mm]
+        Más adelante veremos como construir este tipo de afirmaciones en detalle. Pero para llegar hasta ellas, el primer paso es reflexionar sobre el proceso de obtención de las muestras. A su vez, en este proceso hay que distinguir dos aspectos:
+        \begin{enumerate}
+        \item un primer aspecto, de carácter más práctico: la propia forma en la que se obtiene una muestra. Este es uno de los pasos fundamentales para garantizar que los métodos producen resultados correctos, y que las predicciones de la Estadística son fiables. Vamos a dejar el análisis de este proceso de toma de muestras para más adelante, si tenemos tiempo para ocuparnos de él.
+        \item el otro aspecto es más teórico. Tenemos que entender cómo es el conjunto de {\em todas las muestras posibles} que se pueden extraer, y que consecuencias estadísticas tienen las propiedades de ese conjunto de muestras. Es decir, tenemos que entender las {\sf distribuciones muestrales}. Esta parte todavía es esencialmente Teoría de Probabilidad, y es a lo que nos vamos a dedicar en este capítulo. Cuando la acabemos, habremos entrado, por fin, en el mundo de la Inferencia.
+        \end{enumerate}
+
+        \item De nuevo, vamos a empezar con un largo ejemplo, que nos va a ocupar casi toda la sesión de hoy. De hecho, usaremos el que es casi nuestro ejemplo canónico: vamos a lanzar dos dados.
+        \begin{ejemplo}\label{ejem:DistribucionMediaMuestral}
+        Consideremos la variable aleatoria $X(a,b)=a+b$ que representa la suma de puntos obtenidos al lanzar dos dados. Recordemos que el espacio muestral subyacente tiene 36 sucesos elementales equiprobables, que podemos representar como
+        \[d_1=(1,1), d_2=(1,2),\ldots,d_6=(1,6),d_7=(2,1)\mbox{ y así hasta el }d_{36}=(6,6).\]
+        Ya vimos (en el Ejemplo \ref{ejem:VariablesAleatoriasEliminanInformacion}, página \pageref{ejem:VariablesAleatoriasEliminanInformacion}) que la tabla de distribución de esta variable es:
+        \begin{center}
+            \begin{tabular}[t]{|c|c|c|c|c|c|c|c|c|c|c|c|}
+                \hline
+                \rule{0cm}{0.5cm}{\em Valor de la suma:}&2&3&4&5&6&7&8&9&10&11&12\\
+                \hline
+                \rule{0cm}{0.7cm}{\em Probabilidad de ese valor:}&$\dfrac{1}{36}$&$\dfrac{2}{36}$&$\dfrac{3}{36}$&$\dfrac{4}{36}$&$\dfrac{5}{36}$&$\dfrac{6}{36}$&$\dfrac{5}{36}$&$\dfrac{4}{36}$&$\dfrac{3}{36}$&$\dfrac{2}{36}$&$\dfrac{1}{36}$\\
+                &&&&&&&&&&&\\
+            \hline
+            \end{tabular}
+        \end{center}
+        Y con esta tabla es fácil calcular la media y la desviación típica de $X$. Se obtiene $\mu_X=7$,  $\sigma_X=\dfrac{\sqrt{35}}{6}\approx 2.415$.
+
+        Naturalmente, en un caso como este, en que el espacio muestral tiene sólo 36 elementos, y conocemos todos los detalles, el proceso de muestreo es innecesario. Pero precisamente por eso nos interesa este ejemplo, por ser tan sencillo. Vamos a usarlo como un modelo  ``de juguete'', como un laboratorio en el que aclarar nuestras ideas sobre las implicaciones del proceso de muestreo.
+
+        Así pues, pensemos en muestras. En particular, vamos a pensar en muestras de tamaño 3. ¿Cuántas muestras distintas de tamaño 3 podemos obtener? Cada tirada de dos dados se identifica por un número del 1 al 36. Así que una muestra puede ser cualquier terna tal como
+        \[(d_2,d_{15},d_{23})\]
+        que corresponde a los tres resultados
+        \[d_2=(1,2), d_{15}=(3,3), d_{23}=(4,5)\]
+         de los dados. Pero, ¿qué sucede con, por ejemplo, $(d_4,d_4,d_4)$? ¿Es esta una muestra que debamos tomar en consideración? ¿Debemos admitir valores repetidos? Hay que andar con cuidado aquí: es importante, para empezar, que los tres valores de la muestra sean independientes entre sí. Y eso obliga a considerar extracción con reemplazamiento. ¿Qué queremos decir con esto? Es como si tuviéramos una urna con bolas marcadas del 1 al 36 y aleatoriamente extrajéramos tres. Si después de cada extracción no devolvemos la bola, ¡es evidente que los resultados de la segunda extracción no son independientes de los de la primera! Así que tenemos que devolver la bola a la caja cada vez. Y eso significa que sí, que tenemos que considerar muestras con repeticiones. Ahora ya podemos contestar a la pregunta de cuántas muestras de tres elementos hay. Son
+        \[36^3=46656\]
+        muestras distintas\footnote{Si no incluimos las repeticiones serían $\binom{36}{3}=7140$.} En este \textattachfile{Cap06-MuestreoSumaDosDados.R}{\textcolor{blue}{fichero de instrucciones R}} se construyen todas esas muestras y se comprueban todos los cálculos que vamos a realizar en este ejemplo. Las 46656 muestras de tamaño 3 van desde
+        \[m_1=(d_1,d_1,d_1),m_2=(d_1,d_1,d_2),\ldots,\mbox{ pasando por }m_{1823}=(d_2,d_{15},d_{23}),\]\[\ldots\mbox{ hasta }m_{46656}=(d_{36},d_{36},d_{36}).\]
+        Para cada una de ellas, hay tres valores de sumas (tres valores de $X$). Por ejemplo, para la muestra $(d_2,d_{15},d_{23})$ , que vimos antes, esos tres valores, que vamos a llamar $X_1, X_2$ y $X_3$,
+        son ($X_1$ es la suma para la primera de las tres tiradas, $X_2$ y $X_3$ para la segunda y tercera):
+        \[X_1=\hspace{-3mm}\underbrace{1+2=3}_{\mbox{\small valor de $X(d_2)$}},\quad X_2=\hspace{-3mm}\underbrace{3+3=6}_{\mbox{\small valor de $X(d_{15})$}},
+        \quad X_3=\hspace{-3mm}\underbrace{4+5=9}_{\mbox{\small valor de $X(d_{23})$}}.\]
+        Cada una de estas $X_1$, $X_2$ y  $X_3$ es una variable aleatoria, y cada una de ellas es una copia idéntica de $X$. El dato importante a retener es que tienen la misma media y varianza que $X$, y que son independientes (gracias al muestreo con reemplazamiento).
+
+        Para ayudarte a seguir la discusión de este ejemplo, en la próxima página hay un diagrama que trata de aclarar los conceptos que van a ir apareciendo.
+        \newpage
+        \begin{center}\label{fig:DiagramaDistribucionMediaMuestral}
+        \includegraphics[width=16cm]{2011-11-08-Diagrama.PNG}
+        \end{center}
+        {\LARGE La tabla de frecuencias de $\bar X$ está en la página \pageref{subsec:TablaFrecuenciasMediasMuestrales}}
+        \newpage
+
+        A continuación, puesto que tenemos tres valores ($X_1$, $X_2$ y  $X_3$), podemos hacer la media de estos tres:
+        \[\mbox{media de $X$ en esa muestra }=\dfrac{X_1+X_2+X_3}{3}=\dfrac{3+6+9}{3}=\dfrac{18}{3}=6.\]
+        Esta media es lo que vamos a llamar la {\sf media muestral}, que representamos por $\bar X$. Así pues
+        \[\bar X=\dfrac{X_1+X_2+X_3}{3},\mbox{ y por tanto }\bar X(d_2,d_{15},d_{23})=6.\]
+        ¡Es importante que no confundas los índices $(1,15,23)$ de la muestra $(d_2,d_{15},d_{23})$ --que son sólo eso, índices que identifican a la muestra concreta que estamos usando-- con $(3,6,9)$, que son los valores de las sumas para esas parejas de números! Asegúrate de entender esto antes de seguir adelante.
+
+        Puesto que tenemos 46656 muestras distintas, podemos calcular 46656 de estas medias muestrales. No está mal, teniendo en cuenta que hemos empezado con 36 valores. El caso es que podemos ver esos 46656 valores como una nueva variable aleatoria, que llamaremos, naturalmente $\bar X$. Si agrupamos los valores de $\bar X$ por frecuencias se obtiene una tabla de frecuencias, que hemos incluido en la página \pageref{subsec:TablaFrecuenciasMediasMuestrales}. Y (por ejemplo, usando esa tabla),  esa nueva variable tiene una media, y una desviación típica, que representamos con $\mu_{\bar X}$ y $\sigma_{\bar X}$ respectivamente. Si no agrupamos los valores, $\mu_{\bar X}$ se calcularía así:
+        \[\mu_{\bar X}=
+        \dfrac{\overbrace{\bar X(d_1,d_1,d_1)+\bar X(d_1,d_1,d_2)+\cdots+\bar X(d_2,d_{15},d_{23})+\cdots+\bar X(d_{36},d_{36},d_{36})}^{\mbox{\small(Hay 46656 sumandos en el numerador)}} }{46656}=
+        \]
+        \[=\dfrac{\left(\dfrac{2+2+2}{3}\right)+\left(\dfrac{2+2+3}{3}\right)+\cdots+\left(\dfrac{3+6+9}{3}\right)+\cdots+\left(\dfrac{12+12+12}{3}\right)}{46656}.\]
+        ¿Cuánto vale $\mu_{\bar X}$? Es decir, ¿cuánto vale la media de las medias muestrales? No hay sorpresas, es la media de la variable aleatoria original $X$:
+        \[\mu_{\bar X}=\mu_X=7.\]
+        Una vez calculada la media $\mu_{\bar X}$ de $\bar X$, podemos calcular su desviación típica $\sigma_{\bar X}$. Pero antes de ponernos manos a la obra queremos evitar desde el principio una posible confusión que a veces aparece, sobre el significado de $\sigma_{\bar X}$. El valor $\sigma_{\bar X}$ del que vamos a hablar es la raíz cuadrada de:
+        \begin{equation}\label{eq:VarianzaDeMEdiasMuestrales}
+        \begin{array}{c}
+        \sigma^2_{\bar X}=
+        \dfrac{\overbrace{
+        (\bar X(d_1,d_1,d_1)\textcolor{red}{-\mu_{\bar X}})^{\textcolor{red}{2}}+
+        (\bar X(d_1,d_1,d_2)\textcolor{red}{-\mu_{\bar X}})^{\textcolor{red}{2}}+
+        \cdots+
+        (\bar X(d_{36},d_{36},d_{36})\textcolor{red}{-\mu_{\bar X}})^{\textcolor{red}{2}}
+        }^{\mbox{\small(Otra vez 46656 sumandos en el numerador)}} }{46656}=
+        \\[8mm]
+        =\dfrac{\left(\dfrac{2+2+2}{3}\textcolor{red}{-7}\right)^{\textcolor{red}{2}}+\left(\dfrac{2+2+3}{3}\textcolor{red}{-7}\right)^{\textcolor{red}{2}}+
+        \cdots+\left(\dfrac{12+12+12}{3}\textcolor{red}{-7}\right)^{\textcolor{red}{2}}}{46656}.
+        \end{array}
+        \end{equation}
+        Y \underline{no estamos hablando} de la varianza que se puede calcular para cada muestra individual. Para dejarlo más claro, igual que el cálculo
+        \[\dfrac{3+6+9}{3}=\dfrac{18}{3}=6\]
+        nos llevó a decir que
+        \[\bar X(d_1,d_{15},d_{23})=6,\]
+        ahora podríamos calcular:
+        \[\dfrac{(3-6)^2+(6-6)^2+(9-6)^2}{3},\]
+        y tendríamos 46656 de estos valores. Pero, insistimos, \underline{no es eso lo que estamos haciendo}, sino lo que indica la Ecuación \ref{eq:VarianzaDeMEdiasMuestrales}.
+
+
+
+        ¿Qué crees que sucede con la desviación típica de las medias muestrales, es decir con $\sigma_{\bar X}$?  ¿Es más grande o más pequeña que la desviación típica de la variable original? Es decir, ¿están más dispersos los 36 valores originales de la suma de los dados, o los $46656$ valores que hemos obtenido a partir de las muestras?
+
+        A bote pronto, es fácil pensar que, al aparecer tantísimas muestras, los valores se habrán dispersado. Todo lo contrario. Se obtiene:
+        \[\sigma_{\bar X}=1.394\]
+        qué es bastante más pequeño que el valor que ya obtuvimos de $\sigma_X=\frac{\sqrt{35}}{6}\approx 2.415$. De hecho, Si dividimos ambas desviaciones típicas y elevamos al cuadrado, tenemos
+        \[\left(\dfrac{\sigma_{\bar X}}{\sigma_X}\right)^2=3.\]
+        No es {\em aproximadamente} 3; es {\sf exactamente} $3$. ¿De dónde sale este $3$? Es fácil intuir que ese número es el tamaño de la muestra: estamos tomando muestras de tres valores de la variable original $X$.
+
+        Al final de este ejemplo tan largo vamos a tratar de justificar teóricamente lo que ha sucedido, pero ahora queremos detenernos en otro tipo de explicación, más informal, pero quizá más intuitiva. Para ello, en la página final de este resumen hemos incluido la tabla de frecuencias de valores para la media muestral (sobre el conjunto de las $46656$ muestras). La Figura \ref{fig:distribucionXvsMediasMuestrales} muestra los correspondientes diagramas de barras.
+        \begin{figure}[h]
+        \begin{center}
+        \caption{Distribución de $X$ (izda) y de $\bar X$ (dcha).\label{fig:distribucionXvsMediasMuestrales}}
+        \includegraphics[width=16cm]{2011-11-08-DistribucionOriginalVsMuestral.png}
+        \end{center}
+        \end{figure}
+
+       Y, como puede verse en la Figura, el efecto del muestreo ha sido una concentración mucho más acusada de la probabilidad sobre los valores centrales de la variable aleatoria. Una forma intuitiva de entender este fenómeno es pensando que en cada muestra de tres valores es más probable que haya dos cercanos a la media para compensar un posible valor alejado de la media. Es decir, que el proceso de muestreo matiza o lima las diferencias entre los distintos valores que toma la variable, empujándolos a todos hacia la media. Y si el fenómeno se observa incluso para un valor tan modesto como $n=3$ ¿qué pasará cuando, en otros ejemplos, se tomen muestras de, por ejemplo, $n=10000$? \qed
+
+        \end{ejemplo}
+
+\item Dejamos aquí el ejemplo, para retomar la última pregunta desde un punto de vista teórico, y explicar lo que sucede con la media muestral. La media muestral de tamaño $n$, es la suma de $n$ variables aleatorias {\sf independientes}, que corresponden a cada uno de los $n$ valores de la variable inicial $X$ que se han seleccionado para la muestra:
+    \[\bar X=\dfrac{X_1+X_2+\cdots+X_n}{n}=\dfrac{X_1}{n}+\dfrac{X_2}{n}+\cdots+\dfrac{X_n}{n}\]
+    Y las variables $X_i$ son copias de $X$, así que todas tienen media $\mu_X$ y desviación típica $\sigma_X$. Por lo tanto, en primer lugar,
+    \[\mu_{\bar X}=E(\bar X)=\dfrac{E(X_1)+E(X_2)+\cdots+E(X_n)}{n}=\dfrac{n\cdot \mu_X}{n}=\mu_X.\]
+    Y \underline{\sf puesto que son independientes}:
+    \[\sigma^2_{\bar X}=\operatorname{Var}(\bar X)=\operatorname{Var}\left(\dfrac{X_1}{n}\right)+\operatorname{Var}\left(\dfrac{X_2}{n}\right)+\cdots+\operatorname{Var}\left(\dfrac{X_n}{n}\right)=
+    n\cdot\dfrac{\operatorname{Var}(X)}{n^2}=\dfrac{\sigma^2_X}{n}.\]
+    Y con esto se obtienen los resultados teóricos que explican lo que hemos constatado en el ejemplo anterior:\\[3mm]
+        \fbox{\begin{minipage}{14cm}
+        \begin{center}
+        \vspace{2mm}
+        {\bf La media muestral $\bar X$ y su distribución}
+        \end{center}
+        Sea $X$ una variable aleatoria cualquiera, con media $\mu_X$ y desviación típica $\sigma_X$.
+       \begin{enumerate}
+       \item Una {\sf muestra aleatoria de tamaño $n$} de $X$ es una lista $(X_1,X_2,\ldots,X_n)$ de $n$ copias independientes de la variable $X$.
+       \item La {\sf media muestral} de $X$ es la variable aleatoria
+       \[\bar X=\dfrac{X_1+\cdots+X_n}{n}\]
+       \item Para la media y la desviación típica de la media muestral (muestras de tamaño $n$) de una variable aleatoria $X$ cualquiera se tiene:
+        \[\mu_{\bar X}=\mu_X,\qquad \sigma_{\bar X}=\dfrac{\sigma_X}{\sqrt{n}}.\]
+       \end{enumerate}
+        \end{minipage}}\\[3mm]
+        Y la última fórmula explica de donde proviene el $3$ que encontramos en el ejemplo al comparar $\sigma_{\bar X}$ con $\sigma_X$.
+
+%\item No queremos dejar este tema sin atender a una confusión que surge con frecuencia al estudiar por primera vez la distribución muestral, y que tiene que ver con el significado del símbolo $\sigma_{\bar X}$. Este símbolo se refiere a la desviación típica de las medias muestrales.\\
+%    A pesar  de que para cada muestra $m$ hemos obtenido tres números $X_1(m), X_2(m), X_3(m)$, \underline{no hemos calculado} la desviación típica de cada una de esas ternas. Por ejemplo, para la muestra
+%    \[m_{522}=(d_1,d_{15},d_{23})\]
+%    para la que
+%    \[\]
+%    cuya media muestral no hemos calculado
+
+\end{itemize}
+
+
+
+\subsection*{El Teorema Central del Límite, otra vez.}\label{subsec:teoremaCentralLimiteSegundaVersion}
+
+\begin{itemize}
+    \item En nuestra anterior sesión vimos que De Moivre había descubierto que, cuando $n$ se hace más y más grande, una variable de tipo binomial $B(n,p)$ se parece cada vez más a una variable de tipo normal $N(\mu, \sigma)$, para los valores correctos de $\mu$ y $\sigma$. Esta fue la primera versión del Teorema Central del Límite. Hoy, en el Ejemplo \ref{ejem:DistribucionMediaMuestral}, que acabamos de ver, hemos empezado con una variable aleatoria que, desde luego, no es binomial ({\em estamos sumando resultados, no midiendo éxitos de ningún tipo}). Y sin embargo, cuando se observa la parte izquierda de la Figura \ref{fig:distribucionXvsMediasMuestrales} de ese ejemplo, parece evidente que la distribución de la media muestral $\bar X$ se parece a la normal. ¡Y sólo estamos tomando $n=3$! Este fenómeno es otra nueva manifestación del Teorema Central del Límite, sobre el que ahora vamos a precisar más:\\[3mm]
+       \fbox{\begin{minipage}{14cm}
+       \begin{center}
+       \vspace{2mm}
+       {\bf TEOREMA CENTRAL DEL LÍMITE, SEGUNDA VERSIÓN}\\
+       \end{center}
+       Sea $X$ una variable aleatoria cualquiera, con media $\mu$ y desviación típica $\sigma$.
+       \begin{enumerate}
+       \item  {\sf Sea cual sea la forma de la distribución de $X$}, si se toman muestras de $X$ de tamaño $n$, entonces cuando $n$ se hace cada vez más grande la distribución de la media muestral
+          $\bar X$ se aproxima cada vez más a la normal $N\left(\mu_X,\dfrac{\sigma_X}{\sqrt{n}}\right)$. En particular, para $n$ grande tenemos
+          \[P(a\leq \bar X\leq b)\approx P\left(\dfrac{a-\mu_X}{\dfrac{\sigma_X}{\sqrt{n}}}\leq Z\leq \dfrac{b-\mu_X}{\dfrac{\sigma_X}{\sqrt{n}}}\right)\]
+          siendo $Z$ de tipo  normal $N(0,1)$.
+       \item Si además sabemos que la variable original es de tipo normal $N(\mu_X,\sigma_X)$, entonces, {\sf independientemente del tamaño $n$ de la muestra}, la media muestral también es normal, de tipo  $N\left(\mu_X,\dfrac{\sigma_X}{\sqrt{n}}\right)$.
+       \end{enumerate}
+       \end{minipage}}\\[3mm]
+       \item En resumidas cuentas: para muestras grandes, las medias muestrales de todas las variables se comportan como variables normales, y si además empezamos con una variable normal, entonces el tamaño de la muestra es irrelevante. Esta última parte es muy importante cuando se tiene en cuenta la primera versión del Teorema Central del Límite que vimos. Aquella primera versión nos hizo pensar que las variables normales o muy aproximadamente normales debían ser extremadamente frecuentes en la naturaleza. Y esta versión nos asegura que el comportamiento en el muestreo de esas variables normales es especialmente bueno.
+
+    \item  Esas son las buenas noticias. Las malas noticias son que, si no podemos suponer que la variable $X$ sea normal, entonces se necesitaría una muestra muy grande. Y en general, no tendremos muestras grandes. Además, para usar este resultado, necesitaríamos conocer la desviación típica de la población. Dejamos pendiente para la próxima sección este problema, junto con el problema de cómo obtener las muestras que mencionábamos al principio.
+
+
+\end{itemize}
+
+%
+%\section*{Tareas asignadas para esta sesión.}
+%No hay tareas asignadas para esta sesión.
+
+
+%\newpage
+\subsection*{Tabla de frecuencias de medias muestrales para el ejemplo de lanzamiento de dos dados}\label{subsec:TablaFrecuenciasMediasMuestrales}
+
+        \begin{center}
+        \begin{tabular}{|c|c|}
+        \hline
+        {\bf Valor de $\bar X$}\rule{0cm}{0.7cm}&{\bf Frecuencia}\\
+        \hline
+        2& 1 \\ \hline
+        2$+\frac{1}{3}$\rule{0cm}{0.35cm}&6 \\ \hline
+        2$+\frac{2}{3}$\rule{0cm}{0.35cm}& 21 \\ \hline
+        3&56 \\ \hline
+        3$+\frac{1}{3}$\rule{0cm}{0.35cm}&126 \\ \hline
+        3$+\frac{2}{3}$\rule{0cm}{0.35cm}&252 \\ \hline
+        4& 456 \\ \hline
+        4$+\frac{1}{3}$\rule{0cm}{0.35cm}&756 \\ \hline
+        4$+\frac{2}{3}$\rule{0cm}{0.35cm}& 1161 \\ \hline
+        5&1666 \\ \hline
+        5$+\frac{1}{3}$\rule{0cm}{0.35cm}&2247 \\ \hline
+        5$+\frac{2}{3}$\rule{0cm}{0.35cm}& 2856 \\ \hline
+        6&3431 \\ \hline
+        6$+\frac{1}{3}$\rule{0cm}{0.35cm}&3906 \\ \hline
+        6$+\frac{2}{3}$\rule{0cm}{0.35cm}& 4221 \\ \hline
+        7&4332 \\ \hline
+        7$+\frac{1}{3}$\rule{0cm}{0.35cm}&4221 \\ \hline
+        7$+\frac{2}{3}$\rule{0cm}{0.35cm}& 3906 \\ \hline
+        8&3431 \\ \hline
+        8$+\frac{1}{3}$\rule{0cm}{0.35cm}& 2856 \\ \hline
+        8$+\frac{2}{3}$\rule{0cm}{0.35cm}& 2247 \\ \hline
+        9&1666 \\ \hline
+        9$+\frac{1}{3}$\rule{0cm}{0.35cm}& 1161 \\ \hline
+        9$+\frac{2}{3}$\rule{0cm}{0.35cm}&756 \\ \hline
+        10&456 \\ \hline
+        10$+\frac{1}{3}$\rule{0cm}{0.35cm}&252 \\ \hline
+        10$+\frac{2}{3}$\rule{0cm}{0.35cm}&126 \\ \hline
+        11& 56 \\ \hline
+        11$+\frac{1}{3}$\rule{0cm}{0.35cm}& 21 \\ \hline
+        11$+\frac{2}{3}$\rule{0cm}{0.35cm}&6 \\ \hline
+        12&1 \\ \hline
+        \end{tabular}
+        \end{center}
+
+
+%\section*{\fbox{\colorbox{Gris025}{{Sesión 17. Inferencia estadística.}}}}
+%
+%\subsection*{\fbox{\colorbox{Gris025}{{Intervalos de confianza para la media.}}}}
+%\subsection*{Fecha: Viernes, 11/11/2011, 14h.}
+%
+%\noindent{\bf Atención:
+%\begin{enumerate}
+%\item Este fichero pdf lleva adjuntos los ficheros de datos necesarios.
+%\end{enumerate}
+%}
+%
+%%\subsection*{\fbox{1. Ejemplos preliminares }}
+%\setcounter{tocdepth}{1}
+%%\tableofcontents
+
+\section{Intervalos de confianza para la media en poblaciones normales}
+
+\begin{itemize}
+    \item  Nuestro objetivo es, como decíamos al principio del resumen de la última sesión es usar el valor de $\bar X$ obtenido en una muestra, para  poder llegar a una predicción sobre $\mu_X$. El tipo de predicciónes que vamos a hacer sigue el esquema de esta frase:
+       \begin{center}
+       {\sf Hay una probabilidad del 90\% de que el valor de $\mu_X$ esté dentro del intervalo $(a,b)$.}
+       \end{center}
+       El intervalo $(a,b)$ será un {\sf intervalo de confianza} para $\mu_X$, y el porcentaje del $90\%$ es el {\sf nivel de confianza} que deseamos. Los niveles de confianza más frecuentes son $90\%$, $95\%$ y $99\%$. Hablando en general, el nivel de confianza está relacionado con la anchura del intervalo (cuánto mayor sea el margen de error, más segura es la predicción. ¡Pero también es menos precisa!) y con el tamaño de la muestra (cuántos más elementos incluya la muestra, mayor será la precisión de la predicción). Es decir, {\em conseguir un intervalo muy pequeño, con una probabilidad muy alta, requiere más trabajo (por ejemplo, en forma de muestras más grandes)}.
+
+    \item ¿Cómo se construyen estos intervalos? Vamos a empezar recordando el último resultado de la anterior sesión, que es una de las formas que adopta el Teorema Central del Límite:\\[3mm]
+       \fbox{\begin{minipage}{14cm}
+       \begin{center}
+       \vspace{2mm}
+       {\bf TEOREMA CENTRAL DEL LÍMITE, POBLACIÓN NORMAL}\\
+       \end{center}
+       Sea $X$ una variable aleatoria normal, de tipo $N(\mu_X,\sigma_X)$. Entonces, {\sf independientemente del tamaño $n$ de la muestra}, la media muestral $\bar X$ también es normal, de tipo  $N\left(\mu_X,\dfrac{\sigma_X}{\sqrt{n}}\right)$.\\ Y por tanto, si definimos (tipificamos):
+          \[Z=\dfrac{\bar X-\mu_X}{\dfrac{\sigma_X}{\sqrt{n}}},\]
+          la variable $Z$ es de tipo normal estándar $N(0,1)$.
+       \end{minipage}}\\[3mm]
+       Y lo bueno de este resultado es que estamos muy bien preparados para responder a cualquier tipo de preguntas sobre la variable normal estándar $Z$. Antes de seguir con los intervalos de confianza, vamos a
+       detenernos para dejar claros estos detalles referentes a la normal.
+
+       \end{itemize}
+
+       \subsection*{Valores críticos de la distribución normal estándar}
+
+       \begin{itemize}
+
+
+       \item Sea por lo tanto $Z$ una variable con distribución normal estándar $N(0,1)$. Si nos preguntamos por ejemplo, cuál es el valor de
+       \[P(-K\leq Z\leq K)\]
+       sabemos contestar con precisión. Usando tablas, o mediante los comandos de R ({\tt pnorm}) o de una hoja de cálculo como Calc ({\tt DISTRIB.NORM}) que permiten responder a este tipo de preguntas.  Pero además, usando esos mismos recursos, podemos responder a la pregunta contraria. Es decir, {\em fijando a priori un valor de la probabilidad}, por ejemplo $0.90$, podemos responder a la pregunta: ``¿cuál es el valor de $K$ para el que se cumple la siguiente desigualdad?''
+       \begin{equation}\label{eq:inversaProbabilidadesNormales}
+       P(-K\leq Z\leq K)=0.90
+       \end{equation}
+       Es decir, que estamos eligiendo $K$ de forma que el área que aparece en la figura sea $0.90$:
+       \begin{center}
+       \includegraphics[width=16cm]{2011-11-08-NormalEstandarArea90.png}
+       \end{center}
+        En las clases de prácticas estamos aprendiendo a usar R o una hoja de cálculo como Calc para contestar a estas preguntas. En R, por ejemplo, el comando {\tt qnorm(p)} nos devuelve el valor $z$ para el que se cumple
+        \[P(Z\leq z)\leq p\]
+        ¿Cómo usamos esto para calcular el valor $K$ en la Ecuación \ref{eq:inversaProbabilidadesNormales}? Empezamos por fijarnos en los valores de las {\em colas a izquierda y derecha} de la normal estándar, como se muestra en la figura:
+       \begin{center}
+       \includegraphics[width=16cm]{2011-11-08-NormalEstandarArea90-2.png}
+       \end{center}
+       Y como el área de la cola de la derecha es $0.05$, está claro que debemos buscar el valor $z$ tal que
+        \[P(Z\leq z)\leq (1-0.05)=0.95\]
+        Si introducimos en R el comando {\tt qnorm(0.95)} obtendremos $z\approx 1.645$. En Calc obtendríamos ese mismo valor usando {\tt DISTR.NORM.ESTAND.INV(0,95)}.  ¿Qué relación hay entre este cálculo y los intervalos de confianza? Está claro: el valor $0.90$ corresponde a uno de los posibles niveles de confianza que podemos fijar para el intervalo. Así que vamos a describir en detalle el proceso, desde que fijamos el nivel de confianza deseado.
+
+        La notación tradicional en Estadística llama $1-\alpha$ al nivel de confianza. De esa forma, si el nivel de confianza es $1-\alpha=0.90$, entonces $\alpha=0.10$ representa la suma de las dos colas, a izquierda y derecha. Y en realidad, lo que necesitamos, como en el ejemplo de antes, es $\frac{\alpha}{2}=0.05$, para saber el área de una de las colas. Una vez que lo tenemos queremos saber cual es el valor $z$ que cumple
+        \[P(Z\leq z)\leq \left(1-\dfrac{\alpha}{2}\right).\]
+        Y ese valor es el que llamaremos {\sf valor crítico} para el nivel de confianza $\alpha$, y que se representa con el símbolo $z_{\alpha/2}$ (por ejemplo, $z_{0.05}\approx 1.645$).
+
+        Al principio todo este asunto del $\alpha$, el $1-\alpha$ y el $\alpha/2$ resulta un poco confuso. Pero practicando un poco es fácil acostumbrarse. El esquema es este:
+        \begin{center}
+        \begin{tabular}{|c|c|c|c|c|c|c|}
+        \hline
+        Nivel de confianza:&&&&&Aquí usamos tablas, R, etc.&\\
+        \hline
+        $1-\alpha$\rule{0cm}{1cm}&$\longrightarrow$&$\alpha$&$\longrightarrow$&$\frac{\alpha}{2}$&$\longrightarrow$&$z_{\alpha/2}$\\[3mm]
+        \hline
+        0.90\rule{0cm}{1cm}&$\longrightarrow$&$0.10$&$\longrightarrow$&$0.05$&$\longrightarrow$&$1.645$\\[3mm]
+        \hline
+        \end{tabular}
+        \end{center}
+
+        Conviene familiarizarse con los valores críticos $z_{\alpha}{2}$ correspondientes a los niveles de confianza más utilizados:
+
+        \begin{center}\label{tabla:valoresCriticosNormalEstandar}
+        \begin{tabular}{|c|c|c|c|c|}
+        \hline
+        {\bf Nivel de confianza:}\rule{0cm}{0.5cm}&0.80&0.90&0.95&0.99\\
+        \hline
+        $z_{\alpha/2}$\rule{0cm}{0.5cm}&$1.28$&$1.64$&$1.96$&2.58\\[3mm]
+        \hline
+        \end{tabular}
+        \end{center}
+
+        Y la forma en que los vamos a usar es esta.\\[3mm]
+       \fbox{\begin{minipage}{14cm}
+       \begin{center}
+       \vspace{2mm}
+       {\bf CÓMO SE USAN LOS VALORES CRÍTICOS}\\
+       \end{center}
+       Si $Z$ es una variable normal estándar (de tipo $N(0,1)$), entonces para que sea:
+        \[P(-K\leq Z\leq K)=1-\alpha\]
+        debe ser
+        \[-z_{\alpha/2}\leq Z\leq z_{\alpha/2}.\]
+       \end{minipage}}\\[3mm]
+
+
+       \end{itemize}
+
+       \subsection*{Construcción del intervalo de confianza}
+
+       \begin{itemize}
+
+       \item Una vez que entendemos el papel que juegan los valores críticos, el plan para construir el         intervalo de confianza $(a,b)$ es muy sencillo de entender. Queremos llegar a un intervalo de la forma
+       \[a\leq \mu_X\leq b\]
+       de manera que podamos afirmar que
+       \[P(a\leq \mu_{X}\leq b)=0.90\]
+       Para conseguirlo vamos a utilizar la variable tipificada $Z$ construida a partir de la media muestral, es decir
+       \[Z=\dfrac{\bar X-\mu_X}{\dfrac{\sigma_X}{\sqrt{n}}}\]
+       que, como sabemos es de tipo normal estándar $N(0,1)$.
+
+       Entonces, sabemos que para conseguir que sea
+       \[P(-K\leq Z\leq K)=1-\alpha\]
+       \[\mbox{debemos tomar: }-z_{\alpha/2}\leq Z\leq z_{\alpha/2}.\]
+       Pero si traducimos esto a la media muestral $\bar X$, lo que estamos diciendo es que para que sea
+       \[P\left(-K\leq \dfrac{\bar X-\mu_X}{\dfrac{\sigma_X}{\sqrt{n}}}\leq K\right)=1-\alpha\]
+       tiene que ser:
+       \[-z_{\alpha/2}\leq \dfrac{\bar X-\mu_X}{\dfrac{\sigma_X}{\sqrt{n}}} \leq z_{\alpha/2}.\]
+       Ya casi lo tenemos. Ahora vamos a despejar $\mu$. Primer paso:
+       \[-z_{\alpha/2}\dfrac{\sigma_X}{\sqrt{n}}\leq {\bar X-\mu_X} \leq z_{\alpha/2}\dfrac{\sigma_X}{\sqrt{n}}.\]
+       A continuación restamos $\bar X$ en todos los términos:
+       \[-\bar X-z_{\alpha/2}\dfrac{\sigma_X}{\sqrt{n}}\leq -\mu_X \leq -\bar X+z_{\alpha/2}\dfrac{\sigma_X}{\sqrt{n}}.\]
+       Y finalmente cambiamos el signo de toda la desigualdad, con lo que las desigualdades se invierten (tras cambiar de signo, el término de la izquierda pasa a la derecha y viceversa). El resultado es:
+       \[\bar X-z_{\alpha/2}\dfrac{\sigma_X}{\sqrt{n}}\leq \mu_X \leq \bar X+z_{\alpha/2}\dfrac{\sigma_X}{\sqrt{n}}.\]
+       y este es, como queríamos, el intervalo \[a\leq \mu_X\leq b.\]
+       En conclusión:\\[3mm]
+       \fbox{\begin{minipage}{14cm}
+       \begin{center}
+       \vspace{2mm}
+       {\bf Intervalo de confianza (nivel $(1-\alpha$)) para la media $\mu$.}\\{\bf Población normal, con desviación típica conocida.}\\
+       \end{center}
+       Sea $X$ una variable aleatoria normal, cuya desviación típica $\sigma_X)$ se conoce. Si consideramos muestras de tamaño $n$, entonces el intervalo de confianza al nivel $(1-\alpha)$  para la media $\mu_X$ es:
+       \[\bar X-z_{\alpha/2}\dfrac{\sigma_X}{\sqrt{n}}\leq \mu_X \leq \bar X+z_{\alpha/2}\dfrac{\sigma_X}{\sqrt{n}}.\]
+       que a veces escribiremos:
+       \[\mu_X =\bar X \pm z_{\alpha/2}\dfrac{\sigma_X}{\sqrt{n}}.\]
+       \end{minipage}}\\[3mm]
+
+       \item {\sf Sobre el cálculo de intervalos:} El procedimiento para obtener estos intervalos de confianza es por lo tanto puramente mecánico, a partir de estos datos:
+       \begin{enumerate}
+       \item la media muestral $\bar X$,
+       \item la desviación típica de la población, $\sigma_X$,
+       \item el tamaño de la muestra $n$
+       \item y el nivel de confianza deseado $1-\alpha$ (en la forma $0.90$, $0.95$, etc.)
+       \end{enumerate}
+       Y de hecho, en esta \textattachfile{Cap06-IntervaloConfianzaMediaPoblacionNormalVconocida.ods}{\textcolor{blue}{hoja de cálculo}}, y en este \textattachfile{Cap06-IntervaloConfianzaMediaPoblacionNormalVconocida.R}{\textcolor{blue}{fichero de instrucciones R}} basta con introducir los datos para obtener los extremos del intervalo de confianza buscado. Vamos a ver un ejemplo:
+       \begin{ejemplo}
+       Una muestra aleatoria de 50 individuos de una población normal con varianza conocida, e igual a $16$, presenta una media muestral de $320$. Calcular un intervalo de confianza al $99\%$ para la media de la población.\\
+       Usando cualquiera de las dos herramientas de cálculo (o simplemente mirando la tabla de la página \pageref{tabla:valoresCriticosNormalEstandar}) comprobamos que el valor crítico correspondiente a este nivel de confianza es:
+       \[z_{\alpha/2}=2.58\]
+       Calculamos la anchura del intervalo:
+       \[z_{\alpha/2}\dfrac{\sigma_X}{\sqrt{n}}=2.58\dfrac{4}{\sqrt{50}}\approx 1.46\]
+       Y por lo tanto el intervalo de confianza buscado es:
+       \[318.54\leq \mu_X\leq 321.46.\]
+       o, escribiéndolo de otra forma:
+       \[\mu=320\pm 1.46\]
+       \quad\qed
+       \end{ejemplo}
+
+       \end{itemize}
+
+
+       \section{Desviación típica muestral (y el misterio del $n-1$).}
+
+       \begin{itemize}
+
+       \item Se supone que estamos tratando de calcular la media $\mu_X$ de la población a partir del valor de $\bar X$ en una muestra, ¡porque no conocemos $\mu_X$, claro! Y sin embargo {\em ¿damos por conocida la desviación típica $\sigma_X$?} A primera vista, resulta al menos chocante dar por conocida la desviación típica, cuando ni siquiera conocemos la media.
+
+           Una primera respuesta es que, en algunos contextos (por ejemplo, en los procesos de control de la calidad en fabricación industrial), la desviación típica de la población puede en ocasiones considerarse conocida. Pero es verdad que eso no siempre es así. ¿Y entonces? ¿Qué hacemos en esos otros casos en que $\sigma_X$ no es conocido? Pues lo que hacemos es utilizar un sustituto de la desviación típica de la población, pero calculado a partir de la muestra. Se trata de un viejo conocido (con el que nos encontramos en la sesión del 30/09):\\[3mm]
+           \fbox{\begin{minipage}{14cm}
+           \begin{center}
+           \vspace{2mm}
+           {\bf Varianza y desviación típica muestral.}\\
+           \end{center}
+           Dada una muestra de la variable $X$ de tamaño $n$, formada por los valores $x_1,\ldots,x_n$
+           definimos la {\sf varianza muestral} (a veces se llama {\sf cuasivarianza muestral}) mediante:
+           \[s^2=\dfrac{\displaystyle\sum_{i=1}^n(x_i-\bar x)^2}{\textcolor{red}{\bf\Large n-1}}.\]
+           En el caso de valores agrupados por frecuencias, la fórmula es:
+           \[s^2=\dfrac{\displaystyle\sum_{i=1}^k{\bf f_i\cdot}(x_i-\bar x)^2}{\bf\displaystyle\left(\sum_{i=1}^k f_i\right)\textcolor{red}{-1}}.
+           \]
+           Y la {\sf desviación típica muestral} es simplemente la raíz cuadrada $s$ de la varianza muestral.
+           \end{minipage}}\\[3mm]
+
+       \item Cuando $n$ es suficientemente grande, el uso del valor de $s$ como sustituto de $\sigma$ se puede justificar teóricamente por completo. ¿Cómo de grande debe ser $n$? Se suele utilizar
+            \[\fbox{\textcolor{red}{\boldmath\large $n>30$}}\]
+           como criterio para distinguir las muestras {\em grandes} de las pequeñas. De paso, podemos aprovechar la oportunidad para explicar un poco más este asunto del $n-1$ en el denominador. Cuando se estudia teóricamente esa aproximación de $\sigma$ por $s$, se descubre que, si se utiliza $n$ en el denominador, las aproximaciones a $\sigma$ resultan ser {\em sistemáticamente más pequeñas} de lo que deberían para que la aproximación funcione. Técnicamente, esto se resume diciendo que la fórmula con $n$:
+           \[\dfrac{\displaystyle\sum_{i=1}^n(x_i-\bar x)^2}{{n}}\]
+           es {\sf sesgada}, mientras que la fórmula de $s^2_X$ (que usa $n-1$) es {\sf insesgada}.
+
+       \item Por cierto, en la anterior sesión, en el diagrama de la página \pageref{fig:DiagramaDistribucionMediaMuestral} (ver también la discusión en la página \pageref{eq:VarianzaDeMEdiasMuestrales}), decíamos {\em ``no estamos calculando cosas como''}. Bueno, pues ahora sí las estamos calculando. Precisamente, los números $s$ que estamos calculando son las desviaciones típicas calculadas para cada muestra, a partir de la media $\bar x$ de esa muestra concreta ({\em ¡salvo que, para que las cosas funcionen, hay que dividir por $n-1$ en lugar de por $n$, claro!}).
+       \end{itemize}
+
+       \subsection*{Intervalos de confianza para $\mu$ con muestra grande y varianza desconocida.}
+
+       \begin{itemize}
+
+
+       \item Una vez que decidimos utilizar $s$ como sustituto de $\sigma$, el cálculo del intervalo de confianza procede exactamente como antes:\\[3mm]
+       \fbox{\begin{minipage}{14cm}
+       \begin{center}
+       \vspace{2mm}
+       {\bf Intervalo de confianza (nivel $(1-\alpha$)) para la media $\mu$.}\\
+       {\bf Población normal, con varianza desconocida, pero muestra grande $n>30$.}\\
+       \end{center}
+       Sea $X$ una variable aleatoria normal, Si consideramos muestras de tamaño $n$, entonces el intervalo de confianza al nivel $(1-\alpha)$  para la media $\mu_X$ es:
+       \[\bar X-z_{\alpha/2}\dfrac{\textcolor{red}{\boldmath\mbox{\large $s$}}}{\sqrt{n}}\leq \mu_X \leq \bar X+z_{\alpha/2}\dfrac{\textcolor{red}{\boldmath\mbox{\large $s$}}}{\sqrt{n}}.\]
+       que también escribiremos:
+       \[\mu_X =\bar X \pm z_{\alpha/2}\dfrac{\textcolor{red}{\boldmath\mbox{\large $s$}}}{\sqrt{n}}.\]
+       \end{minipage}}\\[3mm]
+       Y aquí están la \textattachfile{Cap06-IntervaloConfianzaMediaPoblacionNormalVDesconocidaMuestraGrande.ods}{\textcolor{blue}{hoja de cálculo}}, y el \textattachfile{Cap06-IntervaloConfianzaMediaPoblacionNormalVDesconocidaMuestraGrande.R}{\textcolor{blue}{fichero de instrucciones R}} correspondientes a este caso.
+
+       \item Al llegar a este punto, y reflexionar lo que hemos obtenido en esta sesión, comprobaremos que, como sucede siempre en la Ciencia, cada nueva respuesta conduce a más preguntas. ¿Qué sucede si el tamaño de la muestra es más pequeño, si $n<30$? Y ¿qué sucede si no sabemos si la población sigue una distribución normal? Veremos las respuestas a estas preguntas en la próxima sesión.
+
+       \end{itemize}
+
+%\section*{Tareas asignadas para esta sesión.}
+%Este fin de semana habrá una tarea asignada en Moodle. Se os avisará a través de un mensaje en el foro cuando esté disponible.
+%
+%%\newpage
+%
+%
+%\section*{\fbox{\colorbox{Gris025}{{Sesión 18. Inferencia estadística.}}}}
+%
+%\subsection*{\fbox{\colorbox{Gris025}{{Más sobre intervalos de confianza.}}}}
+%\subsection*{Fecha: Martes, 15/11/2011, 14h.}
+%
+%\noindent{\bf Atención:
+%\begin{enumerate}
+%\item Este fichero pdf lleva adjuntos los ficheros de datos necesarios.
+%\end{enumerate}
+%}
+%
+%%\subsection*{\fbox{1. Ejemplos preliminares }}
+%\setcounter{tocdepth}{1}
+%%\tableofcontents
+
+
+\section{Distribución $t$ de Student.}
+
+\begin{itemize}
+
+    \item Al final de la última sesión habíamos establecido un procedimiento para encontrar un intervalo de confianza para la media de una población normal, a partir de los valores de una muestra de tamaño $n$ de dicha población. En el caso de que la varianza de la población fuera desconocida, pero que el tamaño de la muestra fuera grande (mayor que $30$), tomábamos el intervalo
+        \begin{equation}\label{eq:IntervaloConfianzaMediaConVarianzaDesconocida}
+        \bar X-z_{\alpha/2}\dfrac{s}{\sqrt{n}}\leq \mu_X \leq \bar X+z_{\alpha/2}\dfrac{s}{\sqrt{n}},
+        \end{equation}
+        donde $s$ es la desviación típica muestral, es decir la raíz cuadrada de la varianza muestral:
+        \[s^2=\dfrac{\displaystyle\sum_{i=1}^n(x_i-\bar x)^2}{{n-1}}.\]
+
+    \item Estos resultados estaban basados en lo que el Teorema Central del Límite dice sobre la distribución de estas dos variables aleatorias:
+        \[\begin{cases}
+        Y_1=\dfrac{\bar X-\mu_X}{\dfrac{\sigma_X}{\sqrt{n}}}&\mbox{ para el caso de varianza $\sigma_X^2$ conocida, y}\\[8mm]
+        \quad\\
+        Y_2=\dfrac{\bar X-\mu_X}{\dfrac{s}{\sqrt{n}}}&\mbox{ para el caso de $\sigma_X^2$ desconocida.}
+        \end{cases}
+        \]
+        El Teorema Central del Límite nos asegura que, en el primer caso, la variable $Y_1$ es {\em exactamente} una normal estándar $N(0,1)$. Y en el segundo caso, la variable $Y_2$ \textcolor{red}{\em para muestras grandes} ($n>30$), se puede aproximar muy bien por la normal estándar $N(0,1)$.
+
+    \item A la vista de estos resultados, terminábamos la anterior sesión preguntándonos: ¿qué sucede si el tamaño de la muestra es más pequeño, si $n<30$? Y ¿qué sucede si no sabemos si la población sigue una distribución normal? Empecemos por la segunda pregunta, que tiene una respuesta relativamente fácil:
+            \begin{enumerate}
+            \item Aunque no sepamos si la población original tiene una distribución normal, si el tamaño de la muestra es suficientemente grande, el Teorema asegura que el propio proceso de muestreo se encargará de que $Y_2$ tenga un comportamiento muy parecido al de la normal. Así que también en este caso podemos utilizar la Ecuación \ref{eq:IntervaloConfianzaMediaConVarianzaDesconocida} para el intervalo de confianza.
+            \item {\sf Si la muestra no es grande y no sabemos que la población sea normal, entonces \underline{no debemos} usar los métodos sencillos que estamos viendo.} Hablaremos de estos casos más adelante, cuando hablemos de Inferencia No Paramétrica.
+            \end{enumerate}
+
+    \item Esto nos deja con un caso pendiente. Si se cumplen estas condiciones:
+    \[\begin{cases}
+     \mbox{(1) la población original es normal (o al menos, aproximadamente normal)}\\[3mm]
+     \mbox{(2) pero desconocemos la varianza de la población $\sigma^2_X$}\\[3mm]
+     \mbox{(3) y el tamaño de la muestra es pequeño,}
+     \end{cases}
+     \]
+     entonces ¿qué hacemos? Es importante entender que no podemos usar la Ecuación \ref{eq:IntervaloConfianzaMediaConVarianzaDesconocida}, porque {\bf para $n$ pequeño, la variable $Y_2$ (la que usa $s$) no sigue una distribución normal estándar}. La variable $Y_1$ sí que sigue una normal estándar, pero eso no nos sirve de gran cosa porque ignoramos el valor de $\sigma^2_X$.
+
+     Afortunadamente, alguien buscó la respuesta para nosotros, estudiando el comportamiento de la variable $Y_2$ para $n$ pequeño.\\[3mm]
+     \fbox{\begin{minipage}{14cm}
+       \begin{center}
+       \vspace{2mm}
+       {\bf DISTRIBUCIÓN $t$ DE STUDENT}\\
+       \end{center}
+       Sea $X$ una variable aleatoria normal, de tipo $N(\mu_X,\sigma_X)$, y sea $\bar X$ la media muestral de $X$ en muestras de tamaño $n$. Entonces, la distribución de la variable aleatoria
+        \[\dfrac{\bar X-\mu_X}{\dfrac{s}{\sqrt{n}}},\]
+        recibe el nombre de {\sf distribución $t$ de Student con $k=n-1$ grados de libertad.}
+       \end{minipage}}\\[3mm]
+       Esta distribución fue estudiada por \link{http://en.wikipedia.org/wiki/William_Sealy_Gosset}{William S. Gosset}, que trabajaba para la fábrica de cerveza Guinness y que firmaba sus trabajos científicos bajo el pseudónimo de Student. Entre otras cosas, Student obtuvo la función de densidad de esta variable aleatoria continua, que para $k=n-1$ grados de libertad es:
+       \[f(x)=\dfrac{1}{\sqrt{k}\cdot\beta(\frac{1}{2},\frac{k}{2})}\left(1+\dfrac{x^2}{k}\right)^{-\frac{k+1}{2}}.\]
+       (Aquí $\beta$ es la \link{http://en.wikipedia.org/wiki/Beta_function}{función beta}, una función que se usa a menudo en matemáticas y que recuerda un poco a los números combinatorios.)
+
+       {\em ¡No hay ninguna necesidad de que te aprendas esta función de densidad!} La escribimos aquí sólo para recordarte que la distribución de Student, como cualquier variable aleatoria continua, viene caracterizada por su función de densidad. Es mucho más interesante comparar los gráficos de la función de densidad de la normal estándar y la $t$ de Student para distintos valores de $k$. Eso es lo que se ha hecho en este \textattachfile{Cap06_StudentVsNormalEstandar.html}{\textcolor{blue}{documento html}} (se abre en el navegador, requiere Java). Como puedes comprobar, la distribución $t$ de Student tiene una forma de campana que recuerda a la normal, pero es más abierta. A medida que el valor de $k$ aumenta, no obstante, la $t$ se parece cada vez más a la normal estándar, de manera que para $k>30$ son esencialmente iguales.
+    \end{itemize}
+
+    \subsection*{Cálculo de valores asociados a la $t$ de Student con el ordenador}
+
+    \begin{itemize}
+     \item Aparte de estudiar sus propiedades, Student obtuvo tablas de valores de esta distribución, similares a las de la normal, para distintos valores de $n-1$ (lo que llamaremos los {\sf grados de libertad} de la muestra).  Tabla como esas aparecen como apéndices en la mayoría de los libros de estadística, y en particular en los que incluye la bibliografía de la asignatura.
+
+     \item Por supuesto, también pueden obtenerse valores de la distribución $t$ de Student con la hoja de cálculo y con R. En Calc o Excel, por ejemplo, las funciones {\tt DISTR.T} y {\tt DISTR.T.INV} permiten cálculos de valores de probabilidad, similares a los que ya vimos para la distribución normal. Pero es importante entender las diferencias. El resultado de un comando como:
+         \[\mbox{\tt DISTR.T(a;b;c)}\]
+         es
+         \[P(X>a)\quad\mbox{¡ATENCIÓN: la desigualdad es $>$, ver la siguiente figura!}\]
+         donde $X$ es una variable aleatoria que sigue una distribución $t$ de Student con $b$ grados de libertad; si se usa el valor $c=1$ se obtiene el área de la cola derecha, mientras que si se usa $c=2$ se obtiene el área de ambas colas (es decir, se calcula $P(X>a)+P(X<-a)$, o lo que es lo mismo $P(|X|>a)$). Por ejemplo, para calcular
+         \[P(X>\frac{1}{2}),\mbox{ con 3 grados de libertad,}\]
+         se utiliza
+         \[\mbox{\tt DISTR.T(0,5;3;1)=0,3257239824}\]
+         que corresponde a esta figura
+         \begin{center}
+         \includegraphics[width=15cm]{2011-11-15-AreaColaDerechaTStudent.png}
+         \end{center}
+         Y si lo que queremos es calcular $P(X<\frac{1}{2})$, debemos utilizar
+         \[\mbox{\tt 1-DISTR.T(0,5;3;1)=0,6742760176}\]
+
+         {\sf Así que es importante tener en cuenta que el comportamiento de {\tt DISTR.NORM} y el de {\tt DISTR.T} son bastante distintos.} En general, siempre que vayamos a usar una función de la hoja de cálculo es necesario comprobar previamente que hemos entendido bien su funcionamiento, consultando la \link{http://office.microsoft.com/es-ar/excel-help/distr-t-funcion-distr-t-HP010335662.aspx}{documentación del programa}.
+
+         Para calcular valores inversos y, por lo tanto, los valores críticos necesarios para los intervalos de confianza, la hoja de cálculo incluye la función {\tt DISTR.T.INV}. Y aquí, de nuevo, hay que ir con cuidado, porque el resultado de
+         \[\mbox{\tt DISTR.T.INV(a;b)}\]
+         es el valor $x$ tal que
+         \[P(X>x)+P(X<-x)=a,\]
+         para una variable aleatoria $X$ que sigue una distribución $t$ de Student con $b$ grados de libertad. Es decir, la función {\tt DISTR.T.INV} {\sf siempre usa el área de las dos colas, derecha e izquierda}. Por ejemplo,
+         con 3 grados de libertad, para calcular el $x$ tal que
+         \[\underbrace{P(X<-x)}_{\mbox{\tiny cola izda.}}+\underbrace{P(X>x)}_{\mbox{\tiny cola dcha.}}=\frac{1}{2},\]
+         usamos
+         \[\mbox{\tt DISTR.T.INV(0,5;3)=0,7648923284},\]
+         que corresponde a esta figura
+         \begin{center}
+         \includegraphics[width=15cm]{2011-11-15-InversaTStudent.png}
+         \end{center}
+         A pesar de la posible confusión que genera, la ventaja de esto es que, si lo que quiero es encontrar el valor crítico para construir un intervalo de confianza, entonces a partir del nivel de confianza $1-\alpha$, precisamente lo que necesitamos saber es cuál es el valor de $x$ tal que
+         \[P(X>x)+P(X<-x)=\alpha\]
+         y eso, directamente, es lo que nos da {\tt DISTR.T.INV}. Por ejemplo, con $3$ grados de libertad, el valor crítico para un intervalo de confianza al $95\%$ (es decir $\alpha=0.05$) para la media se obtiene con
+         \[\mbox{\tt DISTR.T.INV(0,05;3)=2,3533634348},\]
+
+
+         \item Con R, en cambio, las cosas son distintas, y más parecidas a lo que vimos para la normal. La función
+         \[\mbox{{\tt pt(a,df=b)}}\]
+         devuelve el valor de $P(X<a)$ para una variable aleatoria que sigue una distribución $t$ de Student con $b$ grados de libertad (el comportamiento de {\tt pnorm} para la normal y el de {\tt pt} para la $t$ de Student son análogos).  Y, dada una probabilidad $a$, el valor de $x$ tal que
+         \[P(X<x)=a,\]
+         se calcula en R con la función {\tt qt}.  Así que, si antes, para $3$ grados de libertad, calculábamos $P(X<\frac{1}{2})$ en Calc usando
+         \[\mbox{\tt 1-DISTR.T(0,5;3;1)=0,6742760176}\]
+         en R usaríamos
+         \[\mbox{\tt pt(0.5,df=3)}\]
+         para obtener el mismo resultado. Para calcular el valor crítico al nivel $1-\alpha$ con $k$ grados de libertad usaríamos
+         \[\mbox{\tt  -qt(alfa/2,df=k)}\]
+         El valor resultante se denomina $t_{k;\alpha/2}$. Por ejemplo, el valor crítico al $95\%$ (es decir, $\alpha=0.05$) y con $k=10$ grados de libertad es $t_{10;0.025}$, que en R se calcularía con:
+         \[\mbox{\tt  -qt(0.05/2,df=10)}\]
+         obteniendo  $t_{10;0.025}\approx 2.228139$.
+         %corrección hecha por mi
+
+       \end{itemize}
+
+       \subsection*{Intervalos de confianza para $\mu$ con muestras pequeñas y varianza desconocida.}
+
+       \begin{itemize}
+
+
+       \item Una vez entendido como calcular los valores críticos de la $t$ de Student, el cálculo del intervalo de confianza es muy parecido a los casos anteriores:\\[3mm]
+       \fbox{\begin{minipage}{14cm}
+       \begin{center}
+       \vspace{2mm}
+       {\bf Intervalo de confianza (nivel $(1-\alpha$)) para la media $\mu$.}\\[3mm]
+       {\bf Población normal, varianza desconocida, muestras pequeñas $n<30$.}\\
+       \end{center}
+       Sea $X$ una variable aleatoria normal, Si consideramos muestras de tamaño $n$, y por lo tanto el número de grados de libertad es $k=n-1$, entonces el intervalo de confianza al nivel $(1-\alpha)$  para la media $\mu_X$ es:
+       \[\bar X-\textcolor{red}{\boldmath\mbox{\large $t_{k;\alpha/2}$}}\dfrac{s}{\sqrt{n}}\leq \mu_X \leq \bar X+\textcolor{red}{\boldmath\mbox{\large $t_{k;\alpha/2}$}}\dfrac{s}{\sqrt{n}}.\]
+       que también escribiremos:
+       \[\mu_X =\bar X \pm \textcolor{red}{\boldmath\mbox{\large $t_{k;\alpha/2}$}}\dfrac{s}{\sqrt{n}}.\]
+       \end{minipage}}\\[3mm]
+       Y aquí están la \textattachfile{Cap06-IntervaloConfianzaMediaPoblacionNormalVDesconocidaMuestraPequenna.ods}{\textcolor{blue}{hoja de cálculo}}, y el \textattachfile{Cap06-IntervaloConfianzaMediaPoblacionNormalVDesconocidaMuestraPequenna.R}{\textcolor{blue}{fichero de instrucciones R}} correspondientes a este caso.
+
+       \item Veamos un ejemplo (tomado de {\em Estadística, 2a. edición}, M. Spiegel, Ed.MacGraw-Hill(1991)).
+       \begin{ejemplo}
+       Una muestra de 10 medidas del diámetro de una esfera dan una media $\bar X=4.38$cm y una desviación típica $s=0.06$cm. Hallar intervalos de confianza al $95\%$ y al $99\%$ para el diámetro de la esfera.\\[3mm]
+
+       Puesto que $n=10$, usamos la distribución $t$ y tomamos $k=9$ grados de libertad. Al nivel $1-\alpha=0.95$ (es decir, $\alpha/2=0.025$) Calculamos
+       \[t_{9;0.025}\approx 2.26\]
+       %corrección hecha por mi
+       El intervalo al $95\%$ es:
+       \[\bar X \pm \textcolor{black}{\mbox{$t_{k;\alpha/2}$}}\dfrac{s}{\sqrt{n}}=4.38\pm 2.26\cdot\dfrac{0.06}{\sqrt{10}}=4.38\pm 0.04.\]
+       Para el intervalo al $99\%$ calculamos:
+       \[t_{9;0.005}\approx 3.25\]
+       %corrección hecha por mi
+       y se obtiene:
+       \[\bar X \pm \textcolor{black}{\mbox{$t_{k;\alpha/2}$}}\dfrac{s}{\sqrt{n}}=4.38\pm 3.25\cdot\dfrac{0.06}{\sqrt{10}}=4.38\pm 0.06,\]
+       naturalmente más ancho que el anterior.\qed
+       \end{ejemplo}
+
+       \end{itemize}
+
+%\section*{Tareas asignadas para esta sesión.}
+%La tarea prevista para este fin de semana todavía no está disponible. Se os avisará a través de un mensaje en el foro cuando lo esté.
+%
+%\section*{\fbox{\colorbox{Gris025}{{Sesión 19. Inferencia estadística.}}}}
+%
+%\subsection*{\fbox{\colorbox{Gris025}{{Introducción al Contraste de hipótesis.}}}}
+%\subsection*{Fecha: Martes, 22/11/2011, 14h.}
+%
+%\noindent{\bf Atención:
+%\begin{enumerate}
+%\item Este fichero pdf lleva adjuntos los ficheros de datos necesarios.
+%\end{enumerate}
+%}
+%
+%%\subsection*{\fbox{1. Ejemplos preliminares }}
+%\setcounter{tocdepth}{1}
+%%\tableofcontents

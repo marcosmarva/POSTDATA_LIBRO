@@ -1,0 +1,109 @@
+% !Mode:: "Tex:UTF-8"
+\documentclass[10pt,a4paper]{book}
+\usepackage{makeidx}
+\newcommand{\idioma}{spanish}
+\newcommand{\opcionesIdioma}{,es-nodecimaldot}
+\input{definiciones}
+%\input{sahp}
+\includecomment{com}
+%\excludecomment{com}
+%\usepackage[dvips]{hyperref}
+%\usepackage{pstricks}
+\usepackage{attachfile}
+
+\textwidth=150mm \textheight=260mm
+\hoffset=-1cm
+\voffset=-25mm
+%\textwidth=160mm \textheight=240mm \hoffset=-20mm \voffset=-20mm \parskip=0mm \marginparsep=-25mm
+\setlength{\parindent}{0pt}
+
+
+\begin{document}
+\author{Fernando San Segundo}
+\title{\textcolor{blue}{Un curso de estadística para principiantes}\\
+{\small (Alumnos y profesores...)}}
+\date{\today}
+
+\pagestyle{plain}
+\maketitle
+
+\setcounter{tocdepth}{1}
+\tableofcontents
+
+
+\part{Estadística descriptiva}
+%\input{001-EstadisticaDescriptiva}
+
+    \chapter{Introducción a la estadística descriptiva}%\addcontentsline{toc}{chapter}{Introducción a la Estadística}
+    \input{01-EstadisticaDescriptiva}
+
+    \chapter{Valores centrales y dispersión}
+    \input{02-ValoresCentralesDispersion}
+
+\part{Probabilidad y variables aleatorias}
+%   \input{002-ProbabilidadVariablesAleatorias}
+
+    \chapter{Probabilidad}
+    \input{03-Probabilidad-a}
+
+    \chapter{Variables aleatorias}
+    \input{04-VariablesAleatorias}
+
+
+    \chapter{Teorema central del límite}
+    \input{05-TeoremaCentralLimite}
+
+
+\part{Inferencia Estadística}
+%  \input{003-InferenciaEstadistica}
+
+    \chapter{Inferencia e intervalos de confianza}
+    \input{06-Inferencia}
+
+    \chapter{Contraste de hipótesis}
+    \input{07-ContrasteHipotesis}
+
+    \chapter{Distribuciones relacionadas con la binomial}\label{cap:DistribucionesRelacionadasBinomial}
+    \input{08-DistribucionesRelacionadasBinomial}
+
+    \chapter{Inferencia sobre la varianza}
+    \input{09-InferenciaSobreLaVarianza}
+
+    \chapter{Inferencia sobre dos poblaciones}\label{cap:Inferencia2Poblaciones}
+    \input{10-InferenciasSobreDosPoblaciones.tex}
+
+\part{Inferencia sobre la relación entre dos variables}
+    \input{004-Inferencia2variables}
+
+    \chapter{Regresión lineal simple.}
+    \input{11-RegresionLinealSimple.tex}
+
+    \chapter{Introducción al ANOVA}\label{cap:IntroduccionANOVA}
+    \input{12-ANOVA}
+
+    \chapter{Tablas de contingencia y test $\chi^2$}\label{cap:TablasContingenciaTestChi2}
+    \input{13-TablasContingencia.tex}
+
+    \chapter{Regresión logística y métodos relacionados}\label{cap:RegresionLogistica}
+    \input{14-RegresionLogistica.tex}
+
+
+
+%\appendix{Apéndices}
+
+
+
+
+
+
+%##############################################################################################################################
+%##############################################################################################################################
+%##############################################################################################################################
+%##############################################################################################################################
+%##############################################################################################################################
+%##############################################################################################################################
+%\newpage
+%\bibliography{BibliografiaCalculo}\addcontentsline{toc}{section}{Bibliografía}
+
+
+\end{document}

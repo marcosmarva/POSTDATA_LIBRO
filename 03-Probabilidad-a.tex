@@ -1,0 +1,1075 @@
+﻿% !Mode:: "Tex:UTF-8"
+
+%\setcounter{section}{0}
+%\section*{\fbox{\colorbox{Gris025}{{Sesión 7. Probabilidad.}}}}
+%
+%\subsection*{\fbox{\colorbox{Gris025}{{Nociones básicas de probabilidad.}}}}
+%\subsection*{Fecha: Viernes, 07/10/2011, 14h.}
+%
+%\noindent{\bf Atención:
+%\begin{enumerate}
+%\item Este fichero pdf lleva adjuntos los ficheros de datos necesarios.
+%\end{enumerate}
+%}
+%
+%%\subsection*{\fbox{1. Ejemplos preliminares }}
+%\setcounter{tocdepth}{1}
+%%\tableofcontents
+
+\section{El lenguaje de la Probabilidad.}
+
+
+\subsection{El papel de la Probabilidad en la Estadística.}
+
+\begin{itemize}
+
+    \item Hemos venido diciendo desde el principio del curso que el objetivo más importante de la Estadística es realizar inferencias. Recordemos en que consiste esa idea: estamos interesados en estudiar un fenómeno que ocurre en una determinada {\sf población}. En este contexto, población no se refiere sólo a seres vivos. Si queremos estudiar la antigüedad del parque móvil de España, la población la forman todos los vehículos a motor del país (cada vehículo es un individuo). Si queremos estudiar la dotación tecnológica de los centros de secundaria, la población la forman todos los institutos, y cada instituto es un individuo de esa población. En general, resulta imposible, indeseable o inviable estudiar uno por uno todos los individuos de la población. Por esa razón, lo que hacemos es obtener información sobre una {\sf muestra} de la población. Es decir, un subconjunto de individuos de la población original, de los que obtenemos información sobre el fenómeno que nos interesa.
+
+    \item Tenemos que distinguir por lo tanto, en todo lo que hagamos a partir de ahora, qué afirmaciones se refieren a la población (la colección completa) y cuáles se refieren a la muestra. Los únicos datos a los que realmente tendremos acceso son los de la muestra (o muestras) que hayamos obtenido. La muestra nos proporcionará datos sobre alguna variable (o variables) relacionadas con el fenómeno que estamos estudiando. Es decir, que podemos empezar pensando que en la muestra tenemos, como en todo lo que hemos hecho hasta ahora un conjunto de $n$ datos,
+        \[x_1,x_2,\ldots,x_n.\]
+
+    \item En el ejemplo del parque móvil, podríamos haber obtenido las fichas técnicas de 1000 vehículos (la población completa consta de cerca de 28 millones de vehículos\footnote{En concreto, 27963880, según datos del informe de \link{http://www.anfac.com/}{ANFAC 2010}. La web de Anfac contiene una sección de Estadísticas que podéis encontrar interesante.}). Y una variable que nos puede interesar para estudiar la antigüedad del parque móvil es el año de matriculación. Así que tendríamos 1000 valores $x_1,\ldots,x_{1000}$, donde cada uno de esos valores representa el año de matriculación de un vehículo. Con esos 1000 valores podemos calcular una media, que llamaremos la {\sf media muestral}:
+        \[\bar x=\dfrac{x_1+x_2+\cdots+x_{1000}}{1000}\]
+        Naturalmente, si accediéramos a {\em todos} los datos, nos encontraríamos con una lista {\em mucho} más larga, de alrededor de 28 millones de números:
+        \[m_1,m_2,m_3,\ldots,m_{27963880}.\]
+        Y podríamos hacer la media de todos estos datos, que llamaremos la {\sf media poblacional}:
+        \[\mu=\dfrac{m_1+m_2+m_3+\ldots+m_{27963880}}{27963880}.\]
+        Los símbolos que hemos elegido no son casuales. Vamos a utilizar siempre $\bar x$ para referirnos a la media muestral y $\mu$ (la letra griega mu) para referirnos a la media poblacional. Este es un convenio firmemente asentado en los usuarios de la Estadística.
+
+    \item Naturalmente, hacer esta media poblacional es mucho más difícil, complicado, caro, etcétera. Y ahí es donde aparece la idea de inferencia, que se puede formular aproximadamente así, en un sentido intuitivo:
+    \begin{center}
+        \fbox{\colorbox{Gris025}{
+        \begin{minipage}{13cm}
+        {\sf si hemos seleccionado esos 1000 coches al \textcolor{red}{\bf azar} de entre los 28 millones posibles, entonces es muy \textcolor{red}{\bf probable} que la media muestral $\bar x$  se parezca mucho a la media poblacional $\mu$.}
+        \end{minipage}}
+        }
+    \end{center}
+    \quad\\
+    Hemos destacado en esta frase las palabras azar y probable, porque son la explicación de lo que vamos a estar haciendo en los próximos capítulos. Para poder usar la Estadística con rigor científico, tenemos que entender qué quiere decir exactamente {\em seleccionar al azar}, y cómo se puede {\em medir la probabilidad} de algo. Para esto necesitamos el lenguaje matemático de la Teoría de la Probabilidad.
+
+\end{itemize}
+
+\subsection{Primeras nociones sobre Probabilidad.}
+
+\begin{itemize}
+
+    \item El estudio de la Probabilidad nació, como disciplina científica, en el siglo XVII y en relación con los juegos de azar y las apuestas. Y es en el contexto de lanzar monedas, dados, cartas y ruletas, donde todavía se siguen encontrando la mayoría de los ejemplos con los que se presenta la teoría a los que se inician en su estudio. Nosotros vamos a hacer lo mismo.
+        \begin{enumerate}
+            \item Lanzamiento de dados: cuando se lanzan unos dados (sin trucar), el resultado de cada lanzamiento individual es imposible de predecir. Se observa, tras realizar un número muy grande de lanzamientos, que cada uno de los seis posibles resultados aparece aproximadamente una sexta parte de las veces.
+            \item Lanzamiento de monedas: del mismo modo, cuando se lanzn una moneda (sin trucar), se observa, al cabo de muchos lanzamientos, que cada uno de los dos posibles resultados aparece aproximadamente la mitad de las veces.
+            \item Las loterías, con la extracción de bolas numeradas de una urna o un bombo giratorio; o la ruleta, en la que la bola que se lanza puede acabar en cualquiera de las 36 (o 37) casillas.  Estos juegos y otros similares, ofrecían ejemplos adicionales con elementos comunes a los anteriores.
+        \end{enumerate}
+        Las apuestas, basadas en esos juegos de azar, y los casinos son, desde antiguo, un entretenimiento muy apreciado. Para hacer más interesante el juego, la humanidad fue construyendo otros juegos combinados más complicados. Por ejemplo, apostamos cada uno un euro y lanzamos dos dados: si la suma de los resultados es par, yo me llevo los dos euros. Si es impar, los ganas tú. La pregunta es evidente ¿Es este un juego {\em justo} para ambos jugadores? En concreto, lo que queremos saber es: si jugamos muchas, muchas veces ¿cuántos euros perderé o ganaré yo en promedio por cada euro invertido? ¿Y cuántos ganarás o perderás tú?
+
+        Está claro que para que un jugador esté dispuesto a participar, y a arriesgar su fortuna, y desde luego para que alguien considere rentable el casino como negocio, o la lotería como forma de recaudar dinero, es preciso ofrecerle {\sf información precisa sobre cuáles son las ganancias esperadas del juego}.
+
+    \item Otra cosa que la humanidad constató rápidamente al tratar con los juegos de azar es que nuestra intuición, en este terreno, es especialmente débil. Las personas en general, tendemos a subestimar o sobrevalorar mucho las probabilidades de muchos fenómenos. Y así consideramos como milagros algunos fenómenos perfectamente normales y predecibles, o viceversa. Como ejemplo de lo engañosa que puede ser nuestra intuición cuando se trata de probabilidades, en esta clase vamos a ver un vídeo de un fragmento (Episodio 13, 1º temporada) de la serie de televisión \link{http://en.wikipedia.org/wiki/Numb3rs}{Numb3rs} en el que se describe el conocido como \link{http://es.wikipedia.org/wiki/Problema_de_Monty_Hall}{problema de Monty Hall}. En Moodle tenéis un enlace al vídeo por si queréis volver a verlo.\\[3mm]
+        Otro ejemplo, que se describe en detalle en el capítulo 3 de ``La Estadística en Comic'' como problema del \link{http://es.wikipedia.org/wiki/Antoine_Gombaud}{Caballero de Mere}: ¿qué es más probable, (a) obtener al menos un seis en cuatro tiradas de un dado, o (b) obtener al menos un seis doble en 24 tiradas de dos dados? Los jugadores que se planteaban esta pregunta respondían inicialmente así:
+        \begin{itemize}
+            \item[(a)] La probabilidad de obtener un seis en cada tirada es $\dfrac{1}{6}$. Por lo tanto, en cuatro tiradas es \[\dfrac{1}{6}+\dfrac{1}{6}+\dfrac{1}{6}+\dfrac{1}{6}=\dfrac{2}{3}.\]
+            \item[(b)] La probabilidad de obtener un doble seis en cada tirada de dos dados es $\dfrac{1}{36}$, porque hay 36 resultados distintos, y todos aparecen con la misma frecuencia. Por lo tanto, en veinticuatro tiradas será \[\dfrac{1}{36}+\cdots+\dfrac{1}{36}=\dfrac{24}{36}=\dfrac{2}{3}.\]
+        \end{itemize}
+        Así que en principio ambas apuestas son iguales, y las cuentas parecen indicar que recuperaríamos dos de cada tres euros invertidos (el 66\%). Sin embargo, no es así, como algunos de esos jugadores debieron experimentar dolorosamente en sus patrimonios. Aquí tenéis enlazadas dos hojas de cálculo, llamadas \textattachfile{DeMere1.ods}{\textcolor{blue}{DeMere1.ods}} (para la apuesta (a)) y \textattachfile{DeMere2.ods}{\textcolor{blue}{DeMere2.ods}} (para la apuesta (b)), en las que hemos simulado esas dos apuestas, y hemos jugado 1000 veces cada una de ellas. Repetimos que la ganancia esperada es de un 66\% de lo invertido. Y lo que se observa es que la proporción de apuestas perdidas frente a apuestas ganadas no es, ni la que esperábamos, ni siquiera es igual en ambos casos. De hecho, vamos a aprender a calcular los valores correctos, y veremos que para la apuesta (a) ese valor es aproximadamente $0.52$, mientras que para la apuesta (b) es aproximadamente $0.49$ (los valores de la hoja de Cálculo se
+parecen bastante a estos, ¿no es así?).
+
+\end{itemize}
+
+\subsection{Regla de Laplace}
+
+\begin{itemize}
+
+    \item Lo que tienen en común todas las situaciones que hemos descrito ligadas a juegos de azar es que:
+        \begin{enumerate}
+            \item Hay una lista de resultados individuales posibles: los seis números que aparecen en las caras de un dado, las dos caras de la moneda, las 36 casillas de la ruleta francesa, etc. Estos resultados se llaman {\sf resultados elementales}.
+            \item Si repetimos el experimento muchas veces (muchos millones de veces si es necesario), y observamos los resultados, comprobamos que la {\em frecuencia relativa} de aparición de cada uno de los resultados elementales es la misma para todos ellos: $1/6$ para cada número en el dado, $1/2$ para cada cara de la moneda, $1/36$ para cada casilla de la ruleta. En ese caso decimos que los sucesos elementales son {\sf equiprobables}\footnote{Y sin embargo, las cosas no son tan sencillas. Quizá os resulte interesante leer este página Web sobre \link{http://www.microsiervos.com/archivo/azar/la-fabulosa-historia-de-los-pelayos.html}{la ruleta y la familia Pelayo}}.
+        \end{enumerate}
+
+        \item En este contexto, \link{http://es.wikipedia.org/wiki/Pierre_Simon_Laplace}{Laplace}, uno de los mayores genios matemáticos de la Ilustración francesa desarrolló la que seguramente es la primera contribución verdaderamente científica al análisis de la Probabilidad, y que se conoce como {\bf Regla de Laplace.} Vamos a fijar el lenguaje necesario para formular esa regla.
+            \begin{itemize}
+                \item[(a)]  Estamos interesados en un {\sf fenómeno o experimento aleatorio}. Es decir, al azar; como lanzar una moneda, un dado o un par de dados, etc. Y suponemos que ese experimento tiene $n$ {\sf resultados elementales} diferentes:
+                    \[\{a_1,a_2,\ldots,a_n,\}\]
+                    y que esos resultados elementales son {\sf equiprobables}, en el sentido de la igualdad de las frecuencias relativas que hemos descrito, cuando el experimento se repite muchas veces.
+                \item[(b)]  Además, definimos un {\sf suceso aleatorio}, llamémoslo $A$, que es un resultado más complejo que se puede definir en términos de los resultados elementales del experimento en (a). Por ejemplo, si lanzamos un dado, $A$ puede ser: obtener un número par. O si lanzamos dos dados, $A$ puede ser: que la suma de los números sea divisible por $5$. En cualquier caso, en algunos de los resultados elementales ocurre $A$ y en otros no. Eso permite pensar en $A$ como un {\sf subconjunto del conjunto de resultados elementales}. Y aquellos resultados elementales en los que se observa $A$ se dice que son {\sf resultados favorables} al suceso $A$. Por ejemplo, si lanzamos un dado, los resultados favorables al suceso $A=$ {\em(obtener un número par)} son $\{2,4,6\}$. Y podemos decir, sin riesgo de confusión que $A=\{2,4,6\}$.
+        \end{itemize}
+
+    \item Con estas premisas, la formulación de la Regla de Laplace es esta:
+        \begin{center}
+            \fbox{\colorbox{Gris025}{
+            \begin{minipage}{13cm}
+            {\bf Regla de Laplace.\\[3mm]
+            La probabilidad del suceso A es el cociente:
+            \[p(A)=\dfrac{\mbox{número de sucesos elementales favorables a $A$}}{\mbox{número total de sucesos elementales}}\]
+            }
+            \end{minipage}}
+            }
+        \end{center}
+        La Regla de Laplace supuso un impulso definitivo para la teoría de la Probabilidad, porque hizo posible comenzar a calcular probabilidades, y obligó a los matemáticos, a la luz de esos cálculos a pensar en las propiedades de la probabilidad. Además, esa regla se basa en el recuento de los casos favorables al suceso $A$ de entre todos los posibles. Y eso obliga a desarrollar técnicas de recuento a veces extremadamente sofisticadas (contar es algo muy difícil, aunque parezca paradójico), con lo que la Combinatoria se vio también favorecida por esta Regla de Laplace.
+
+    \item La enorme complejidad de algunas operaciones en la Combinatoria es la mayor dificultad técnica asociada al uso de la Regla de Laplace. En este curso no nos vamos a entretener en ese tema más allá de lo imprescindible. Pero, como muestra y anticipo, podemos dar una respuesta en términos de combinatoria al problema del caballero De Mere.  Para ello tenemos que pensar en:
+        \begin{itemize}
+            \item[] {\sf El conjunto de todos los resultados elementales posibles del experimento "lanzar cuatro veces un dado".}
+        \end{itemize}
+        Esto puede resultar complicado. Como estrategia, es más fácil empezar por pensar en el caso de lanzar dos veces el dado, y nos preguntamos por la probabilidad del suceso $A=${\em obtener al menos un seis en las dos tiradas}. Como principio metodológico, esta técnica de entender primero bien una versión {\em a escala reducida} del problema es un buen recurso, al que conviene acostumbrarse.
+
+         Para aplicar la Regla de Laplace al experimento de lanzar dos veces seguidas un dado, debemos empezar por dejar claro cuáles son los sucesos elementales equiprobables de este experimento. Los resumimos en esta tabla:
+        \[
+            \begin{array}{cccccc}
+            (1,1)&(1,2)&(1,3)&(1,4)&(1,5)&\textcolor{red}{(1,6)}\\
+            (2,1)&(2,2)&(2,3)&(2,4)&(2,5)&\textcolor{red}{(2,6)}\\
+            (3,1)&(3,2)&(3,3)&(3,4)&(3,5)&\textcolor{red}{(3,6)}\\
+            (4,1)&(4,2)&(4,3)&(4,4)&(4,5)&\textcolor{red}{(4,6)}\\
+            (5,1)&(5,2)&(5,3)&(5,4)&(5,5)&\textcolor{red}{(5,6)}\\
+            \textcolor{red}{(6,1)}&\textcolor{red}{(6,2)}&\textcolor{red}{(6,3)}&\textcolor{red}{(6,4)}&\textcolor{red}{(6,5)}&\textcolor{red}{(6,6)}
+            \end{array}
+        \]
+        Observa que:
+        \begin{itemize}
+            \item El primer número del paréntesis es el resultado del primer lanzamiento, y el segundo número es el resultado del segundo lanzamiento.
+            \item Hay, por tanto, $6\cdot 6=36$ sucesos elementales equiprobables.
+            \item El suceso $(1,2)$ y el $(2,1)$ (por ejemplo), son distintos (y equiprobables).
+            \item Hemos señalado en la tabla los sucesos elementales que son favorables al suceso $A=${\em obtener al menos un seis en las dos tiradas}. Y hay 11 de estos.
+        \end{itemize}
+        Así pues, la Regla de Laplace predice en este caso un valor de $\frac{11}{36}$, frente a los $\frac{12}{36}$ de la probabilidad ingenua (como la que hemos aplicado antes). Para comprobar experimentalmente nuestras ideas, tenemos una hoja de cálculo llamada \textattachfile{DeMere1a.ods}{\textcolor{blue}{DeMere1a.ods}} en la que se ha simulado ese lanzamiento. Puedes observar, recargando los valores unas cuantas veces (en Calc, prueba con {\tt Ctrl+May.+F9}), que la Regla de Laplace es mucho mejor que la probabilidad ingenua a la hora de predecir el resultado.
+
+
+         Con la Regla de Laplace se pueden analizar también, usando bastante más maquinaria combinatoria, los dos experimentos (a) y (b) del apartado 1.2. Aquí dejamos simplemente un \textattachfile{DeMere2a.html}{\textcolor{blue}{documento}}  (se abre en el navegador y requiere Java) con los valores combinatorios necesarios para ese cálculo.
+
+        Cerramos este apartado con un ejemplo-pregunta, que deberías responder antes de seguir adelante
+        \begin{Ejemplo}\label{Sesion08:ejem:CualEsProbabilidadSumaDosDadosIgualASiete}
+        ¿Cual es la probabilidad de que la suma de los resultados al lanzar dos dados sea igual a siete? Sugerimos usar la tabla de 36 resultados posibles que acabamos de escribir en esta sección.
+        \end{Ejemplo}
+
+\end{itemize}
+
+
+%\section*{Tareas asignadas para esta sesión.}
+%
+%\begin{enumerate}
+%   \item En la clase de hoy hemos descrito un juego de apuestas basado en el lanzamiento de dos dados, y nos hemos preguntado si era justo. En concreto, nos preguntamos cuáles son las ganancias esperadas para cada uno de los jugadores. En Moodle tienes una tarea esperándote, en la que debes responder a esa pregunta.
+%\end{enumerate}
+
+
+
+
+%\setcounter{section}{0}
+%\section*{\fbox{\colorbox{Gris025}{{Sesiones 8, 9, 10. Probabilidad.}}}}
+%
+%\subsection*{\fbox{\colorbox{Gris025}{{Calculando probabilidades.}}}}
+%\subsection*{Fecha: Jueves, 13/10/2011, 16h. También viernes 14/10 y martes 18/10.}
+%
+%\noindent{\bf Este fichero pdf lleva adjuntos los ficheros de datos necesarios.}
+%
+%%\subsection*{\fbox{1. Ejemplos preliminares }}
+%\setcounter{tocdepth}{1}
+%%\tableofcontents
+%\section*{Lectura recomendada}
+%
+%Las mismas de la sesión anterior.
+
+
+\section{Probabilidad más allá de la Regla de Laplace.}
+
+
+\subsection{Definición (casi) rigurosa de probabilidad.}
+
+\begin{itemize}
+
+    \item La Regla de Laplace puede servir, con más o menos complicaciones combinatorias, para calcular probabilidades en casos como los de los dados, la ruleta, las monedas, etcétera. En la base de esa Regla de Laplace está la idea de {\em sucesos equiprobables}. Pero, incluso sin salir del casino, ¿qué sucede cuando los dados están cargados o las monedas trucadas? Y en el mundo real es fácil encontrar ejemplos en los que la noción de sucesos equiprobables no es de gran ayuda a la hora de calcular probabilidades: el mundo está lleno de ``dados cargados'' en favor de uno u otro resultado. Además, esa definición resulta claramente insuficiente para afrontar algunas situaciones.
+        \begin{Ejemplo}\label{Sesion08:ejem:LanzamientoMonedaHastPrimeraCara}
+        Por ejemplo, siguiendo en el terreno de los juegos de azar: dos jugadores A y B, juegan a lanzar una moneda. El primero que saque cara, gana, y empieza lanzando $A$. ¿Cuál es la probabilidad de que gane A?
+        Si tratamos de aplicar la Regla de Laplace a este problema nos tropezamos con una dificultad; no hay límite al número de lanzamientos necesarios en el juego. Al tratar de hacer la lista de ``casos posibles'' nos tenemos que plantear la posibilidad  encontrarnos con secuencias de cruces cada vez más largas.
+        \[
+        \smiley, \dag\smiley, \dag \dag\smiley, \dag \dag \dag\smiley, \dag \dag \dag \dag\smiley,\ldots
+        \]
+        Así que si queremos asignar probabilidades a los resultados de este juego, la Regla de Laplace no parece de gran ayuda.\qed
+        \end{Ejemplo}
+
+
+    \item Otro problema con el que se enfrentaba la teoría de la probabilidad al aplicar la Regla de Laplace era el caso de la asignación de probabilidades a experimentos que involucran variables continuas. Por ejemplo, si en el intervalo $[0,1]$ de la recta real elegimos un número $x$ al azar, ¿cuál es la probabilidad de que sea $0\leq x\leq 1/3$? ¿Cuántos casos posibles (valores de $x$) hay? Y un ejemplo similar: en una circunferencia de radio 1 se eligen dos puntos al azar. ¿Cuál es la longitud media de la cuerda de circunferencia que definen? Aquí tenéis un \textattachfile{ProbabilidadGeometrica01.html}{\textcolor{blue}{documento html}} (se abre en el navegador, requiere Java) en el que se ilustra este problema, que es un ejemplo del tipo de problemas que genéricamente se llaman de {\em Probabilidad Geométrica}. Si queréis ver otro ejemplo famoso, aquí en la \link{http://docentes.educacion.navarra.es/msadaall/geogebra/figuras/azar\_buffon.htm}{página web de Manuel Sada}, podéis ver una ilustración del
+problema de la aguja de Buffon.\\
+
+    \item Veamos otro ejemplo de probabilidad geométrica.
+     \begin{Ejemplo}\label{Sesion08:ejem:ProbabilidadGeometricaMontecarlo}
+     supongamos que tenemos un cuadrado de lado cuatro, y en su interior dibujamos cierta figura $A$. Para fijar ideas, $A$ puede ser un un círculo de radio 1, centrado en el cuadrado, como en la figura.
+        \begin{center}
+         \includegraphics[height=4cm]{2011_10_13_Figura01_Montecarlo.png}
+         \end{center}
+
+    Si tomamos un punto al azar dentro del cuadrado ¿cuál es la probabilidad de que ese punto caiga dentro del círculo? En este otro \textattachfile{MonteCarloAreaCirculo01.html}{\textcolor{blue}{documento html}} hemos realizado ese experimento, para ayudar a aclarar la situación. Debería quedar claro, al pensar detenidamente sobre estos ejemplos, que la noción de probabilidad y la noción de área de una figura plana tienen muchas propiedades en común. El problema, claro está, es que la propia noción de área es igual de complicada de definir que la Probabilidad (como ejemplo, podéis considerar el área de la figura que se obtiene como límite siguiendo el proceso que ilustra este \textattachfile{Sierpinski.html}{\textcolor{blue}{documento html}}).\qed
+    \end{Ejemplo}
+
+    \item  A causa de estos, y otros problemas similares, los matemáticos construyeron (en el siglo XX) una teoría axiomática de la probabilidad. Aquí no podemos entrar en todos los detalles técnicos pero podemos decir que, esencialmente, se trata de lo siguiente:
+        \begin{itemize}
+            \item[(A)] Inicialmente tenemos un {\sf espacio muestral} $\Omega$, que representa el conjunto de todos los posibles resultados de un experimento.
+            \item[(B)] Un {\sf suceso aleatorio} es un subconjunto del espacio muestral. Esta es la parte en la que vamos a ser menos rigurosos. En realidad, no todos los subconjuntos sirven, por la misma razón que hemos visto al observar que no es fácil asignar un área a todos los subconjuntos posibles. Pero para entender qué subconjuntos son sucesos y cuáles no, tendríamos que definir el concepto de $\sigma$-álgebra, y eso nos llevaría demasiado tiempo. Nos vamos a conformar con decir que hay un {\em tipo especial de subconjuntos}, los sucesos aleatorios, a los que sabemos asignarles una probabilidad.
+            \item[(C)] La {\sf Función Probabilidad}, que representaremos con una letra $P$,  asigna por tanto un cierto número $P(A)$ a cada suceso aleatorio $A$ del espacio muestral $\Omega$. Y esa función probabilidad debe cumplir estas tres\\[3mm]
+                \fbox{\colorbox{Gris025}{\begin{minipage}{12cm}
+                \begin{center}
+                \vspace{2mm}
+                {\bf Propiedades fundamentales de la Función Probabilidad:}
+                \end{center}
+                \begin{enumerate}
+                    \item Sea cual sea el suceso aleatorio $A$, siempre se cumple que $0\leq P(A)\leq 1$.
+                    \item Si $A_1$ y $A_2$ son sucesos aleatorios disjuntos, es decir si $A_1\cap A_2=\emptyset$, es decir, si es imposible que $A_1$ y $A_2$ ocurran a la vez, entonces
+                    \[P(A_1\cup A_2)=P(A_1)+P(A_2).\]
+                    \item La probabilidad del espacio muestral completo es $1$. Es decir, $P(\Omega)=1$.
+                \end{enumerate}
+                \end{minipage}}}\\[3mm]
+                La forma en la que se asignan las probabilidades define el {\sf modelo probabilístico} que utilizamos.\\
+                Una aclaración sobre la tercera propiedad  de la probabilidad: el {\sf suceso unión} $A_1\cup A_2$ significa que suceden $A_1$ o $A_2$ (o ambos a la vez). Y, como ya hemos indicado, el {\sf suceso intersección} $A_1\cap A_2$ significa que $A_1$ y $A_2$ ocurren ambos simultáneamente.
+        \end{itemize}
+
+    \item Vamos a ver como se aplican estas ideas al ejemplo del del lanzamiento de una moneda hasta la primera cara que vimos antes.
+        \begin{Ejemplo}[\bf Continuación del Ejemplo \ref{Sesion08:ejem:LanzamientoMonedaHastPrimeraCara} (pág. \pageref{Sesion08:ejem:LanzamientoMonedaHastPrimeraCara})]
+        En este caso, podemos definir un modelo de probabilidad así. El espacio muestral $\Omega$ es el conjunto de todas las listas de la forma
+        \[a_1=\smiley, a_2=\dag\smiley, a_3=\dag \dag\smiley,\ldots,a_k=\hspace{-7pt}\overbrace{\dag \dag \dag \cdots\dag \dag \dag }^{(k-1)\mbox{ cruces }}\hspace{-7pt}\smiley,\ldots\]
+        es decir, $k-1$ cruces hasta la primera cara. Todos los subconjuntos se consideran sucesos aleatorios, y para definir la probabilidad decimos que:
+        \begin{enumerate}
+            \item $P(a_k)=P(\overbrace{\dag \dag \dag \cdots\dag \dag \dag }^{k-1\mbox{ cruces }}\hspace{-5pt}\smiley)=\dfrac{1}{2^{k}}$,
+            \item Si $A=\{a_i\}$ es un suceso aleatorio, es decir conjunto de listas de cruces y caras, entonces $P(A)=\sum P(a_i)$. La probabilidad de un conjunto de listas es igual a la suma de las probabilidades de las listas que lo forman\footnote{No vamos a entreternos en comprobar que, con esta definición, se cumplen las tres propiedades fundamentales, pero le garantizamos al lector que, en efecto, así es.}. Es decir, que si
+                \[A=\{a_1,a_3,a_6\}=\{\smiley,\,\dag \dag\smiley\, ,\, \dag \dag \dag \dag \dag\smiley\,\},\]
+                entonces
+                \[P(A)=P(a_1)+P(a_3)+P(a_6)=\dfrac{1}{2}+\dfrac{1}{2^3}+\dfrac{1}{2^6}.\]
+        \end{enumerate}
+         Ahora podemos calcular la probabilidad de que gane la persona que empieza lanzando. Ese suceso es:
+         \[A=\{a_1,a_3,a_5,a_7,\ldots\}=\mbox{el primer jugador gana en la $k$-ésima jugada},\]
+         y por lo tanto su probabilidad es:
+         \[p(A)=\underbrace{P(a_1)+P(a_3)+P(a_5)+P(a_7)+\cdots}_{\mbox{listas de longitud impar}}=
+         \dfrac{1}{2}+\dfrac{1}{2^3}+\dfrac{1}{2^5}+\dfrac{1}{2^7}+\cdots=\dfrac{2}{3}.\qed\]
+         \end{Ejemplo}
+
+    \item En los problemas-ejemplo de probabilidad geométrica que hemos discutido, esencialmente la definición de Función Probabilidad está relacionada con el área. En el Ejemplo \ref{Sesion08:ejem:ProbabilidadGeometricaMontecarlo} la probabilidad de un suceso (subconjunto del cuadrado grande) es igual al área de ese suceso dividida por 16 (el área del cuadrado grande). Un punto o una recta son sucesos de proabilidad cero (porque no tienen área).
+
+    \item Una aclaración: la probabilidad definida mediante la Regla de Laplace cumple, desde luego, las tres propiedades fundamentales que hemos enunciado. Lo que hemos hecho ha sido {\em generalizar} la noción de probabilidad a otros contextos en los que la idea de favorables/posibles no se aplica. Pero los ejemplos que se basan en la Regla de Laplace son a menudo un buen ``laboratorio mental'' para poner a prueba nuestras ideas y nuestra comprensión de las propiedades de las probabilidades.
+
+\end{itemize}
+
+\subsection{Más propiedades de la Función Probabilidad.}
+
+\begin{itemize}
+
+    \item Las tres propiedades básicas de la Función Probabilidad tienen una serie de consecuencias que vamos a explorar en el resto de este capítulo. Las primeras y más sencillas aparecen resumidas en este cuadro:\\[3mm]
+                \fbox{\colorbox{Gris025}{\begin{minipage}{12cm}
+                \begin{center}
+                \vspace{2mm}
+                {\bf Propiedades adicionales de la Función Probabilidad:}
+                \end{center}
+                \begin{enumerate}
+                    \item Sea cual sea el suceso aleatorio $A$, si $A^c$ es el suceso complementario (es decir ``no ocurre $A$'') siempre se cumple que
+                    \[P(A^c)=1-P(A).\]
+                    \item La probabilidad del suceso vacío $\emptyset$ es $0$; es decir \[P(\emptyset)=0.\]
+                    \item Si $A\subset B$, (es decir si $A$ es un subconjunto de $B$, es decir si siempre que ocurre $A$ ocurre $B$), entonces
+                    \[P(A)\leq P(B)\mbox{, y además }P(B)=P(A)+P(B\cap A^c).\]
+                                        \item Si $A_1$ y $A_2$ son sucesos aleatorios cualesquiera,
+                    \[P(A_1\cup A_2)=P(A_1)+P(A_2)-P(A_1\cap A_2).\]
+                \end{enumerate}
+                \end{minipage}}}\\[3mm]
+    \item La última de estas propiedades se puede generalizar a $n$ sucesos aleatorios. Veamos como queda para tres, y dejamos al lector que imagine el resultado general {\em (ojo a los signos)}:
+    \[P(A_1\cup A_2\cup A_3)=\]\[=\underbrace{\left(P(A_1)+P(A_2)+P(A_3)\right)}_{\mbox{tomados de 1 en 1}}\textcolor{red}{\mathbf -}
+    \underbrace{\left(P(A_1\cap A_2)+P(A_1\cap A_3)+P(A_2\cap A_3)\right)}_{\mbox{tomados de 2 en 2}}\textcolor{red}{\mathbf +}\underbrace{\left(P(A_1\cap A_2\cap A_3)\right)}_{\mbox{tomados de 3 en 3}}.
+    \]
+
+
+
+\end{itemize}
+
+\section{Probabilidad condicionada. Sucesos Independientes.}
+
+
+\subsection{Probabilidad condicionada.}
+
+\begin{itemize}
+
+    \item El concepto de probabilidad condicionada trata de reflejar los cambios en el valor de la Función Probabilidad que se producen cuando tenemos {\em información parcial} sobre el resultado de un experimento aleatorio. Para entenderlo, vamos a usar, como ejemplo, uno de esos casos en los que la Regla de Laplace es suficiente para calcular probabilidades. Vamos a pensar que, al lanzar dos dados, nos dicen que la suma de los dados ha sido mayor que 3. Pero imagina que no sabemos el resultado; puede ser $(1,3), (2,5)$, etc., pero no, por ejemplo, $(1,1)$, o $(1,2)$. Con esa información en nuestras manos, nos piden que calculemos la probabilidad de que la suma de los dos dados haya sido un $7$. Nuestro cálculo debe ser distinto, ahora que sabemos que el resultado es mayor que 3, porque el número de resultados posibles (el denominador en la fórmula de Laplace), ha cambiado. Los resultados como $(1,1)$ o $(2,1)$ no pueden estar en la lista de resultados posibles, {\sf si sabemos que la suma es mayor que $3$}.
+ {\bf La información que tenemos sobre el resultado cambia nuestro cálculo de probabilidades}. ¿Recuerdas el vídeo de Numb3rs sobre el problema de Monty Hall?
+
+    \item Usando como ``laboratorio de ideas'' la Regla de Laplace, estamos tratando de definir la {\em probabilidad del suceso $A$ sabiendo que ha ocurrido el suceso $B$}. Esto es lo que vamos a llamar la {\sf probabilidad de $A$ condicionada por $B$, y lo representamos por $P(A|B)$}. Pensemos en cuáles son los cambios en la aplicación de la Regla de Laplace (favorables/posibles), cuando sabemos que el suceso $B$ ha ocurrido. Antes que nada recordemos que, si el total de resultados elementales posibles es $n$ entonces
+        \[P(A)=\dfrac{\mbox{núm. de casos favorables a $A$}}{n},\]
+        y también se cumple
+        \[P(B)=\dfrac{\mbox{núm. de casos favorables a $B$}}{n}.\]
+        Veamos ahora como deberíamos definir $P(A|B)$. Puesto que sabemos que $B$ ha ocurrido, los casos posibles ya no son todos los $n$ casos posibles originales: ahora los únicos casos posibles son los que corresponden al suceso $B$.  ¿Y cuáles son los casos favorables del suceso $A$, una vez que sabemos que $B$ ha ocurrido? Pues aquellos casos en los que $A$ y $B$ ocurren simultáneamente (o sea, el suceso $A\cap B$). En una fracción:
+        \[P(A|B)=\dfrac{\mbox{número de casos favorables a $A\cap B$}}{\mbox{número de casos favorables a $B$}}.\]
+        Si sólo estuviéramos interesados en la Regla de Laplace esto sería tal vez suficiente. Pero, para poder generalizar la fórmula a casos como la Probabilidad Geométrica, hay una manera mejor de escribirlo. Dividimos el numerador y el denominador por $n$ y tenemos:
+        \[P(A|B)=\dfrac{\quad\left(\dfrac{\mbox{número de casos favorables a $A\cap B$}}{n}\right)\quad}{\left(\dfrac{\mbox{número de casos favorables a $B$}}{n}\right)}=\dfrac{P(A\cap B)}{P(B)}.\]
+        ¿Qué tiene de bueno esto? Pues que la expresión que hemos obtenido ya no hace ninguna referencia a casos favorables o posibles, nos hemos librado de la Regla de Laplace, y hemos obtenido una expresión general que sólo usa la Función de Probabilidad (e, insistimos, hacemos esto porque así podremos usarla, por ejemplo, en problemas de Probabilidad Geométrica). Ya tenemos la definición:
+        \begin{center}
+        \fbox{\colorbox{Gris025}{\begin{minipage}{14cm}
+        \begin{center}
+        \vspace{2mm}
+        {\bf Probabilidad Condicionada:}
+        \end{center}
+        La probabilidad del suceso $A$ condicionada por el suceso $B$ se define así:
+            \[P(A|B)=\dfrac{P(A\cap B)}{P(B)}.\]
+        donde se supone que $P(B)\neq 0$.
+        \end{minipage}}}
+        \end{center}
+
+    \item Vamos a ver un ejemplo de como calcular estas probabilidades condicionadas, usando de nuevo el lanzamiento de dos dados.
+    \begin{Ejemplo}\label{ejem:probabilidadCondicionadaLanzamientoDosDados}
+    Se lanzan dos dados. ¿Cuál es la probabilidad de que la diferencia --en valor absoluto-- entre los valores de ambos dados (mayor-menor) sea menor que 4, sabiendo que la suma de los dados es 7?\\
+    Vamos a considerar los sucesos:
+    \begin{itemize}
+        \item[D:] La suma de los dados es 7.
+        \item[F:] La diferencia en valor absoluto de los dados es menor que 4.
+    \end{itemize}
+    En este caso es muy fácil calcular $P(F|D)$. Si sabemos que la suma es $7$, los resultados sólo pueden ser $(1,6),(2,5),(3,4),(4,3),(5,2),(6,1)$. Y de estos, sólo $(1,6)$ y $(6,1)$ no cumplen la condición de la diferencia. Así que $P(F|D)=4/6$. Vamos a ver si coincide con lo que predice la fórmula. El suceso $D\cap F$ ocurre cuando ocurren {\sf a la vez} $D$ y $F$. Es decir la suma es 7 {\sf y a la vez} la diferencia es menor que $4$. Es fácil ver que, de los 36 resultados posible, eso sucede en estos cuatro casos: \[(2,5),(3,4),(4,3),(5,2)\]
+    La probabilidad de la intersección es $P(D\cap F)=\frac{4}{36}$. Y, por otro lado, la probabilidad del suceso $D$ es $P(D)=\frac{6}{36}$ (ver el Ejemplo \ref{Sesion08:ejem:CualEsProbabilidadSumaDosDadosIgualASiete} de la pág. \pageref{Sesion08:ejem:CualEsProbabilidadSumaDosDadosIgualASiete}; de hecho, hemos descrito los sucesos favorables a $D$ un poco más arriba). Así pues,
+    \[P(F|D)=\dfrac{P(F\cap D)}{P(D)}=\dfrac{4/36}{6/36}=\dfrac{4}{6}=\dfrac{2}{3}\approx 0.666\ldots,\]
+    como esperábamos. En esta \textattachfile{2011-10-13-Lanzamientos2Dados-ProbabilidadCondicionada.ods}{\textcolor{blue}{hoja de cálculo (Calc)}} se ha realizado una simulación para comprobar estos resultados.\\
+    Una extensión natural de este ejemplo es tratar de calcular $P(D|F)$. ¿Puedes modificar la hoja de cálculo para simular este otro caso?\qed
+    \end{Ejemplo}
+\item  Para responder a la última frase del anterior ejemplo, es bueno observar que siempre se cumple
+        \[\fbox{\colorbox{Gris025}{$P(A|B)P(B)=P(B|A)P(A),$}}\]
+        de manera que, si se conocen las probabilidades de $A$ y $B$, se pueden relacionar fácilmente ambas probabilidades condicionadas.
+\end{itemize}
+
+\subsection{Sucesos independientes.}
+
+\begin{itemize}
+
+    \item ¿Qué significado debería tener la frase {\em ``el suceso $A$ es independiente del suceso $B$''}\,? Parece evidente que, si los sucesos son independientes, el hecho de saber que el suceso $B$ ha ocurrido no debería afectar para nada nuestro cálculo de la probabilidad de que ocurra $A$. Esta idea tiene una traducción inmediata en el lenguaje de la probabilidad condicionada, que es de hecho la definición de sucesos independientes:
+        \vspace{-3mm}
+        \begin{center}
+        \fbox{\colorbox{Gris025}{\begin{minipage}{14cm}
+        \begin{center}
+        \vspace{2mm}
+        {\bf Sucesos independientes:}
+        \end{center}
+        Los sucesos $A$ y $B$ son independientes si
+            \[P(A|B)=P(A).\]
+        Esto es equivalente a decir que
+        \[P(A\cap B)=P(A)P(B).\]
+        En particular, {\bf cuando los sucesos $A$ y $B$ son independientes}, se cumple:
+        \[P(A\cup B)=P(A)+P(B)-P(A)P(B).\]
+        \end{minipage}}}
+        \end{center}
+
+    \item En general los sucesos $A_1,\ldots,A_n$ son independientes cuando para {\em cualquier colección} que tomemos de ellos, la probabilidad de la intersección es el producto de las probabilidades.
+    
+    \item A menudo, al principio, hay cierta confusión entre la noción de sucesos independientes y la de sucesos disjuntos. Recordemos que dos sucesos son disjuntos si no pueden ocurrir a la vez. POr ejemplo, si $A$ es el suceso {\em ``Hoy es lunes''} y $B$ es el suceso {\em ``Hoy es vierenes''}, está claro que $A$ y $B$ no pueden ocurrir a la vez. Por otra parte, los sucesos son independientes cuando uno de ellos no aporta ninguna información sobre el otro. Y volviendo al ejemplo, en cuanto sabemos que hoy es lunes (ha ocurrido $A$), ya estamos seguros de que no es viernes (no ha ocurrido $B$). Así que la información sobre el suceso $A$ nos permite decir algo sobre el suceso $B$, y eso significa que no hay independencia. {\sf Dos sucesos disjuntos nunca son independientes}.
+
+\end{itemize}
+
+
+\section{Probabilidades totales y Teorema de Bayes.}\label{cap04:sec:ProbabilidadesTotalesReglaBayes}
+
+
+\subsection{La regla de las probabilidades totales. Problemas de urnas.}\label{Sesion08:subsec:ProbabilidadesTotales}
+
+\begin{itemize}
+
+    \item El resultado que vamos a ver utiliza la noción de probabilidad condicionada para calcular la probabilidad de un suceso $A$ mediante la estrategia de {\em divide y vencerás}.  Se trata de descomponer el espacio muestral completo en una serie de sucesos $B_1,\ldots,B_k$ de manera que:
+        \begin{enumerate}
+            \item[(1)] $\Omega=B_1\cup B_2\cup\cdots\cup B_k.$
+            \item[(2)] $B_i\cap B_j=\emptyset$, para cualquier pareja $i\neq j$
+            \item[(3)] $P(B_i)\neq 0$ para $i=1,\ldots,k$.
+        \end{enumerate}
+        Entonces
+        \begin{center}
+        \fbox{\colorbox{Gris025}{\begin{minipage}{14cm}
+        \begin{center}
+        \vspace{2mm}
+        {\bf Regla de las probabilidades totales:}
+        \end{center}
+        Si los sucesos $B_1,\ldots,B_K$ cumplen las condiciones (1), (2) y (3) entonces:
+            \[P(A)=P(B_1)P(A|B_1)+P(B_2)P(A|B_2)+\cdots+P(B_k)P(A|B_k).\]
+        \end{minipage}}}
+        \end{center}
+        Esta espresión permite calcular la probabilidad de $A$ cuando conocemos de antemano las probabilidades de los sucesos $B_1,\ldots,B_k$ y es fácil calcular las probabilidades condicionadas $P(A|B_i)$. Si los sucesos $B_i$ se han elegido bien, la información de que el suceso $B_i$ ha ocurrido puede en ocasiones simplificar mucho el cálculo de $P(A|B_i)$.
+
+        \item El método de las probabilidades totales se usa sobre todo cuando conocemos varias vías o mecanismos por los que el suceso $A$ puede llegar a producirse. El ejemplo clásico son los {\sf problemas de urnas}, que sirven de prototipo para muchas otras situaciones.
+            \begin{Ejemplo}\label{Sesion08:ejem:ProbailidadTotalEjemploUrnas}
+                Supongamos que tenemos dos urnas, la primera con 3 bolas blancas y dos negras, y la segunda con 4 bolas blancas y 1 negra. Para extraer una bola lanzamos un dado. Si el resultado es $1$ o $2$ usamos la primera urna; si es cualquier otro número usamos la segunda urna. ¿cuál es la probabilidad de obtener una bola blanca?\\
+                Llamemos $B_1$ al suceso {\em ``se ha usado la primera urna''}, y $B_2$ al suceso {\em ``se ha usado la segunda urna''}. Entonces es muy fácil obtener $P(B_1)=\frac{1}{3}$, $P(B_2)=\frac{2}{3}$. Y ahora, cuando sabemos que $B_1$ ha ocurrido (es decir, que estamos usando la primera urna), es muy fácil calcular $P(A|B_1)$.  Se trata de la probabilidad de extraer una bola blanca de la primera urna: $P(A|B_1)=\dfrac{3}{5}.$ De la misma forma $P(A|B_2)=\frac{4}{5}$. Con todos estos datos, el Teorema de las Probabilidades Totales da como resultado:
+                \[P(A)=P(B_1)P(A|B_1)+P(B_2)P(A|B_2)=\dfrac{1}{3}\cdot\dfrac{3}{5}+\dfrac{2}{3}\cdot\dfrac{4}{5}=\dfrac{11}{15}.\]
+                En esta \textattachfile{2011-10-13-ProbabilidadesTotales-Urnas.ods}{\textcolor{blue}{hoja de Calc}} puedes comprobar experimentalmente el resultado. \qed
+            \end{Ejemplo}
+            Este ejemplo, con dados y bolas, puede parecer engañosamente artificioso. Pero piensa en esta situación: si tenemos una fábrica que produce la misma pieza con dos máquinas distintas, y sabemos la proporción de piezas defectuosas que produce cada una de las máquinas, podemos identificar máquinas con urnas y piezas con bolas, y vemos que el método de las probabilidades totales nos permite saber cuál es la probabilidad de que una pieza producida en esa fábrica sea defectuosa. De la misma forma, si sabemos la probabilidad de desarrollar cáncer de pulmón, en  fumadores y no fumadores, y sabemos la proporción de fumadores y no fumadores que hay en la población total, podemos identificar cada uno de esos tipos de individuos (fumadores y no fumadores) con una urna, y el hecho de desarrollar o no cáncer con bola blanca o bola negra. Como puede verse, el rango de aplicaciones de este resultado es bastante mayor de lo que parecía a primera vista. Veremos más ejemplos en los ejercicios.
+
+
+\end{itemize}
+
+\subsection{Teorema de Bayes. La probabilidad de las causas.}
+
+\begin{itemize}
+
+    \item La regla de las probabilidades totales puede describirse así: si conocemos varios mecanismos posibles (los sucesos $B_1,\ldots,B_k$) que conducen al suceso $A$, y las probabilidades asociadas con esos mecanismos, ¿cuál es la probabilidad de ocurra el suceso $A$? El Teorema de Bayes le da la vuelta a la situación. Ahora suponemos que el suceso $A$ {\em de hecho ha ocurrido}.  Y, puesto que puede haber ocurrido a través de distintos mecanismos, nos podemos preguntar ¿cómo de probable es que el suceso $A$ haya ocurrido a través de, por ejemplo, el primer mecanismo $B_1$? Insistimos, no vamos a preguntarnos por la probabilidad del suceso $A$, puesto que suponemos que ha ocurrido. Nos preguntamos por la probabilidad de cada una de los mecanismos o causas que conducen al resultado $A$. Por eso a veces el Teorema de Bayes se describe como un resultado sobre la probabilidad de las causas.
+
+    \item ¿Cómo podemos conseguir esto? La pregunta se puede formular así: sabiendo que el suceso $A$ ha ocurrido, ¿cuál es la probabilidad de que haya ocurrido a través del mecanismo $B_i$? De otra manera: sabiendo que el suceso $A$ ha ocurrido, ¿cuál es la probabilidad de que eso se deba a que $B_i$ ha ocurrido? Es decir, queremos averiguar el valor de
+        \[P(B_i|A)\mbox{\quad para i=1,\ldots,k}.\]
+        Quizá lo más importante es entender que, para calcular este valor, {\em la información de la que disponemos es exactamente la misma que en el caso de las probabilidades totales}. Es decir, conocemos los valores $P(B_1),\ldots,P(B_k)$ y las probabilidades condicionadas $P(A|B_1),\ldots,P(A|B_k)$, ¡qué son justo al revés de lo que ahora queremos!.
+
+        Y la forma de conseguir el resultado es esta. Usando que:
+        \[P(A|B_k)P(B_k)=P(A\cap B_k)=\textcolor{red}{P(B_k|A)}P(A),\]
+        despejamos de aquí lo que queremos, y usamos el teorema de las probabilidades totales de una forma astuta, obteniendo:
+        \begin{center}
+        \fbox{\colorbox{Gris025}{\begin{minipage}{14cm}
+        \begin{center}
+        \vspace{2mm}
+        {\bf Teorema de Bayes:}
+        \end{center}
+        Si los sucesos $B_1,\ldots,B_K$ cumplen las condiciones (1), (2) y (3) (ver la sección \ref{Sesion08:subsec:ProbabilidadesTotales}) entonces:
+            \[P(B_k|A)=\dfrac{P(B_k)P(A|B_k)}{P(B_1)P(A|B_1)+P(B_2)P(A|B_2)+\cdots+P(B_k)P(A|B_k)}.\]
+        \end{minipage}}}
+        \end{center}
+        Obsérvese que:
+        \begin{enumerate}
+        \item Los valores que necesitamos para calcular esta fracción aparecen en la fórmula de las probabilidades totales.
+        \item El numerador es uno de los sumandos del denominador.
+        \item Las probabilidades condicionadas de la fracción son justo al revés que las del miembro izquierdo.
+        \end{enumerate}
+        Con estas observaciones, la fórmula de Bayes es bastante fácil de recordar.
+
+        \item Veamos un ejemplo de uso de la fórmula de Bayes.
+        \begin{Ejemplo}{\em  (adaptado del Ejemplo 3.7.3 de  {\em Estadística para Biología y Ciencias de la Salud, 3a.ed.}, de J.S.Milton. Ed. MacGraw-Hill)}\\[2mm]
+            Se sabe que la distribución de grupos sanguíneos en la población es:\\[3mm]
+            \begin{tabular}{|c|c|c|c|c|}
+            \hline
+            Grupo&A&B&AB&O\\
+            \hline
+            Porcentaje&41\%&9\%&4\%&46\%\\
+            \hline
+            \end{tabular}\\[2mm]
+            Además, el $4\%$ de las personas del grupo O se clasifican por error como personas del tipo A. Igualmente, el $4\%$ del tipo B, y el 10\% del tipo AB se clasifican por error como tipo A. El 88\% del tipo A se clasifica correctamente. Un herido ingresa en el hospital y se le clasifica como tipo A. ¿Cuál es la probabilidad de que ese tipo sea el suyo?\\
+            Consideramos los siguientes sucesos:
+            \begin{itemize}
+                \item $A$: se clasifica como tipo A.
+                \item $B_1$: es del tipo A.
+                \item $B_2$: es del tipo B.
+                \item $B_3$: es del tipo AB.
+                \item $B_4$: es del tipo O.
+            \end{itemize}
+            Con esta notación, lo que queremos es calcular $P(B_1|A)$: ¿cuál es la probabilidad de que sea del tipo A (suceso $B_1$), condicionada a que se le ha clasificado como A (suceso A)? La fórmula de Bayes es, en este caso,
+            \[P(B_1|A)=\dfrac{P(A|B_1)P(B_1)}{P(A|B_1)P(B_1)+P(A|B_2)P(B_2)+P(A|B_3)P(B_3)+P(A|B_4)P(B_4)}\]
+            Y los datos que nos han dado se resumen en esta tabla:
+            \[\begin{array}{cc}
+            P(B_1)=0.41,&P(A|B_1)=0.88\\
+            P(B_2)=0.09,&P(A|B_2)=0.04\\
+            P(B_3)=0.04,&P(A|B_3)=0.10\\
+            P(B_4)=0.46,&P(A|B_4)=0.04
+            \end{array}\]
+            Sustituyendo en la fórmula de Bayes, se obtiene $P(B_1|A)\approx 0.93$. Es conveniente observar que, en este ejemplo, las ``urnas'' de las que estamos extrayendo los resultados son los grupos sanguíneos. Al extraer una bola de la urna (clasificar a un paciente por su grupo sanguíneo), podemos obtener una bola blanca (clasificarlo como grupo A) o negra (clasificarlo de otra manera). Y sabemos la probabilidad de elegir una urna concreta (porque tenemos la proporción de los grupos sanguíneos) y sabemos la composición de cada una de las urnas (el porcentaje de cada grupo que acaban clasificados como grupo A). Por tanto tenemos todos los ingredientes para aplicar la fórmula de Bayes.\qed
+        \end{Ejemplo}
+\end{itemize}
+
+
+%
+%\section*{Tareas asignadas para esta sesión.}
+%
+%\begin{enumerate}
+%   \item Ya está publicada la tercera hoja de Ejercicios. La semana que viene los usaremos en las clases prácticas. Debes intentar resolverlos por escrito, en un papel. Pero una vez resueltos, muchos de ellos admiten una ``comprobación experimental'' de los resultados usando el generador de números (pseudo)aleatorios de la hoja de cálculo. Intenta obtener un par de estas simulaciones, que también revisaremos en las clases prácticas.
+%\end{enumerate}
+
+
+%\section*{Recomendaciones.}
+%
+%\begin{enumerate}
+%   \item El \link{http://www.ine.es/}{INE (Instituto Nacional de Estadística)} es el organismo oficial encargado, entre otras cosas del censo electoral, la elaboración del IPC (índice de precios de consumo), la EPA (encuesta de población activa), el PIB (producto interior bruto) etc. El instituto ofrece una enorme colección de datos estadísticos accesibles para cualquiera a través de la red (sistema INEbase). Además, tiene alojado en su página web un \link{http://www.ine.es/explica/explica.htm}{portal de divulgación estadística} en el que se pueden ver vídeos sobre estos y otros temas, que tal vez os interesen.
+%\end{enumerate}
+%
+
+
+%\section*{\fbox{\colorbox{Gris025}{{Sesión 10. Probabilidad.}}}}
+%
+%\subsection*{\fbox{\colorbox{Gris025}{{Combinatoria.}}}}
+%\subsection*{Fecha: Martes, 18/10/2011, 14h.}
+%
+%\noindent{\bf Atención:
+%En esta sesión vamos a ver también la regla de la probabilidad total y el teorema de Bayes, que aparecen en el resumen de la sesión del Jueves 13/10.
+%}
+%
+%%\subsection*{\fbox{1. Ejemplos preliminares }}
+%\setcounter{tocdepth}{1}
+%%\tableofcontents
+%\section*{Lectura recomendada}
+%
+%Las mismas de la sesión anterior.
+
+\section{Combinatoria}
+
+
+\subsection{Combinaciones}
+
+\begin{itemize}
+
+    \item La Combinatoria es una parte de las matemáticas que estudia técnicas de recuento. En particular, estudia las posibles formas de seleccionar listas o subconjuntos de elementos de un conjunto dado siguiendo ciertos criterios (ordenados o no, con repetición o no, etcétera). Por esa razón es de mucha utilidad para el cálculo de probabilidades, sobre todo cuando se combina con la Regla de Laplace. La Combinatoria, no obstante, puede ser muy complicada, y en este curso vamos a concentrarnos en los resultados que necesitamos.
+
+    \item En particular estamos interesados en este problema. Dado un conjunto de $n$ elementos
+    \[A=\{x_1,x_2,\ldots,x_n\}\]
+    y un número $k$ con $0\leq k\leq n$, ¿cuántos {\sf subconjuntos distintos} de $k$ elementos podemos formar con los elementos de $A$? Es muy importante entender que, al usar la palabra {\sf subconjunto}, estamos diciendo que:
+    \begin{enumerate}
+        \item el {\sf orden de los elementos es irrelevante}. El subconjunto $\{x_1,x_2,x_3\}$ es el mismo que el subconjunto $\{x_3,x_1,x_2\}$.
+        \item los elementos del subconjunto {\sf no se repiten}. El subconjunto $\{x_1,x_2,x_2\}$ es, de hecho, el subconjunto $\{x_1,x_2\}$ (y nunca lo escribiríamos de la primera manera, si estamos hablando de subconjuntos).
+    \end{enumerate}
+
+    Vamos a ponerle un nombre a lo queremos calcular: el número de subconjuntos posibles es el número de {\sf combinaciones de $n$ elementos, tomados de $k$ en $k$} (cada uno de los subconjuntos es una combinación).
+    \begin{Ejemplo}\label{ejem:combinacionesCuatroDosEnDos}
+    Por ejemplo, en un conjunto de 4 elementos $A=\{a,b,c,d\}$, hay seis combinaciones distintas de elementos, tomados de dos en dos :
+    \[\{a,b\},\{a,c\},\{a,d\},\{b,c\},\{b,d\},\{c,d\}\]
+    \qed
+    \end{Ejemplo}
+\end{itemize}
+
+\subsection{Números combinatorios}
+
+\begin{itemize}
+
+    \item Para calcular probabilidades de forma eficaz muchas veces necesitamos una manera de calcular el número de combinaciones posibles. El {\sf número combinatorio} $\binom{n}{k}$ es el número de combinaciones de $n$ elementos tomados de $k$ en $k$.
+
+    \item Para calcular ese número necesitamos el concepto de {\sf factorial}. El factorial del número $n$ es el producto
+        \[\fbox{\colorbox{Gris025}{$n!=n\cdot(n-1)\cdot(n-2)\cdot\,\ldots\,\cdot3\cdot 2\cdot 1.$}}\]
+        Es decir, el producto de todos los números entre $1$ y $n$. Además definimos \fbox{$0!=1$}. Por ejemplo, se tiene:
+        \[6!=6\cdot 5\cdot 4\cdot 3\cdot 2\cdot 1=720.\]
+        La propiedad más llamativa del factorial es su crecimiento extremadamente rápido. Por ejemplo, $100!$ es del orden de $10^{57}$.
+
+    \item La fórmula de los números combinatorios es esta:
+    \\[3mm]
+        \fbox{\colorbox{Gris025}{\begin{minipage}{14cm}
+        \begin{center}
+        \vspace{2mm}
+        {\bf Números combinatorios:}
+        \end{center}
+        \[\binom{n}{k}=\dfrac{n!}{k!(n-k)!}\mbox{, \quad para $0\leq k\leq n$, y $n=0,1,2\ldots$ cualquier número natural}\]
+        \quad
+        \end{minipage}}}\\[3mm]
+        Por ejemplo, el número de combinaciones del Ejemplo \ref{ejem:combinacionesCuatroDosEnDos} es
+        \[\binom{4}{2}=\dfrac{4!}{2!(4-2)!}=\dfrac{24}{2\cdot 2}=6,\]
+        como era de esperar.
+
+    \item Hay dos observaciones que facilitan bastante el trabajo con estos números combinatorios.
+    \begin{enumerate}
+        \item Los números combinatorios se pueden representar en esta tabla de forma triangular, llamada el {\sf Triángulo de Pascal}:
+        \[
+        \begin{array}{l|llcccccccccccccc}
+        n=0&&&&&&&&&1\\
+        n=1&&&&&&&&1&&1\\
+        n=2&&&&&&&1&&2&&1\\
+        n=3&&&&&&1&&3&&3&&1\\
+        n=4&&&&&1&&4&&6&&4&&1\\
+        n=5&&&&1&&5&&10&&10&&5&&1\\
+        n=6&&&1&&6&&15&&20&&15&&6&&1\\
+        \vdots&&& &&\vdots&& &&\vdots&& &&\vdots&&
+        \end{array}
+        \]
+        El número $\binom{n}{k}$ ocupa la fila $n$ posición $k$ (se cuenta desde $0$). Por ejemplo en la $4$ fila, posición $2$ está nuestro viejo conocido $\binom{4}{2}=6$. ¿Cuánto vale $\binom{5}{3}$?
+
+        Los puntos suspensivos de la parte inferior están ahí para indicarnos qué podríamos seguir, y a la vez para servir de desafío. ¿Qué viene a continuación? ¿Qué hay en la línea $n=15$? Pues parece claro que empezará y acabará con un $1$. También parece claro que el segundo y el penúltimo  número valen $7$. ¿Pero y el resto? Lo que hace especial a esta tabla es que {\sf cada número que aparece en el interior de la tabla es la suma de los dos situados a su izquierda y derecha en la fila inmediatamente superior.} Por ejemplo, el $10$ que aparece en tercer lugar en la fila de $n=5$  es la suma del $4$ y el $6$ situados sobre él en la  segunda y tercera posiciones de la fila para $n=4$. Con esta información, podemos         obtener la séptima fila de la tabla, a partir de la sexta sumado según indican las flechas en este esquema:
+        \[
+        \begin{array}{l|llcccccccccccccccc}
+        n=6&&&&1&&6&&15&&20&&15&&6&&1\\
+           &&&&\swarrow\searrow&&\swarrow\searrow&&\swarrow\searrow&&\swarrow\searrow&&\swarrow\searrow&&
+           \swarrow\searrow&&\swarrow\searrow\\
+        n=7&&&1&&7&&21&&35&&35&&21&&7&&1
+        \end{array}
+        \]
+        \item La segunda observación importante sobre los números quedará más clara con un ejemplo:
+        \[
+        \binom{12}{7}=\dfrac{12!}{7!(12-7)!}=\dfrac{12!}{7!5!}.
+        \]
+        Ahora observamos que $12!=(12\cdot 11\cdot\cdots\cdot 6)\cdot(5\cdot\cdots\cdot 2\cdot 1)$, y los paréntesis muestran que esto
+        es igual a $(12\cdot 11\cdot\cdots\cdot 6)\cdot 5!$. Este factorial de $5$ se cancela con el del denominador y tenemos
+        \[
+        \binom{12}{7}=\dfrac{\overbrace{12\cdot 11\cdot 10\cdot 9\cdot 8\cdot 7\cdot 6}^{6\mbox{ factores}}}{7!}=792.
+        \]
+        Generalizando esta observación sobre la cancelación de factoriales, la forma en la que vamos a expresar los coeficientes binomiales será finalmente esta:
+        \begin{equation}\label{cap03:ecu:expresionPseudoFactorialCoeficientesBinomiales}
+        \dbinom{n}{k}=\frac{\overbrace{n\left( n-1\right) \left( n-2\right) \cdots \left( n-k+1\right) }^{k\mbox{ factores}}}{k!}
+        \end{equation}
+        Y, como hemos indicado, lo que caracteriza este esta expresión es que tanto el numerador como el denominador tienen $k$ factores.
+    \end{enumerate}
+
+    \item Los números combinatorios son importantes en muchos problemas de probabilidad. Veamos un par de ejemplos:
+        \begin{Ejemplo}
+        Tenemos una caja de 10 bombillas y sabemos que tres están fundidas. Si sacamos al azar tres bombillas de la caja\footnote{``al azar'' aquí significa que todos los subconjuntos de tres bombillas son equiprobables.}, ¿Cuál es la probabilidad de que hayamos sacado las tres que están fundidas?\\[2mm]
+        En este caso, al tratar de aplicar la Regla de Laplace, usamos los números combinatorios para establecer el número de casos posibles. ¿Cuántas formas distintas hay de seleccionar tres bombillas de un conjunto de 10? Evidentemente hay $\binom{10}{3}$ formas posibles. Este número es:
+        \[\binom{10}{3}=\dfrac{10\cdot 9\cdot 8}{3\cdot 2\cdot 1}=120.\]
+        Estos son los casos posibles. Está claro además que sólo hay un caso favorable, cuando elegimos las tres bombillas defectuosas. Así pues, la probabilidad pedida es:
+        \[\dfrac{1}{120}.\]
+        \qed
+        \end{Ejemplo}
+        El siguiente ejemplo es \underline{extremadamente importante} para el resto del curso, porque nos abre la puerta que nos conducirá a la distribución binomial y a algunos de los resultados más profundos de la Estadística.
+        \begin{Ejemplo}\label{ejem:probabilidadLanzamientoMonedas}
+        Lanzamos una moneda al aire cuatro veces, y contamos el número de caras obtenidas en esos lanzamientos. ¿Cuál es la probabilidad de obtener exactamente dos caras en total?\\
+        Vamos a pensar en cuál es el espacio muestral. Se trata de listas de cuatro símbolos: cara o cruz. Por ejemplo,
+        \[\smiley\smiley\dagger\smiley\]
+        es un resultado posible, con tres caras y una cruz. ¿Cuántas de estas listas de cara y cruz con cuatro símbolos hay? Enseguida se ve que hay $2^4$, así que ese es el número de casos posibles. ¿Y cuál es el número de casos favorables? Aquí es donde los números combinatorios acuden en nuestra ayuda. Podemos pensar así en los sucesos favorables: tenemos cuatro fichas, dos caras y dos cruces $\smiley,\smiley,\dagger,\dagger,$ y un casillero con cuatro casillas
+        \begin{center}
+        \begin{tabular}{|c|c|c|c|}
+        \hline
+         \rule{0cm}{0.5cm}\rule{1cm}{0cm}&\rule{1cm}{0cm}&\rule{1cm}{0cm} &\rule{1cm}{0cm}\\
+         \hline
+         \end{tabular}
+         \end{center}
+         en las que tenemos que colocar esas cuatro fichas. Cada manera de colocarlas corresponde a un suceso favorable. Y entonces está claro que lo que tenemos que hacer es elegir, de entre esas cuatro casillas, cuáles dos llevarán una cara (las restantes dos llevarán una cruz). Es decir, hay que elegir dos de entre cuatro. Y ya sabemos que la respuesta es $\binom{4}{2}=6$. Por lo tanto la probabilidad pedida es:
+         \[p(2 \mbox{ caras} )=\dfrac{\binom{4}{2}}{2^4}=\binom{4}{2}\left(\dfrac{1}{2}\right)^4=\dfrac{6}{16}.\]
+         Supongamos ahora que lanzamos la moneda $n$ veces y queremos saber cuál es la probabilidad de obtener $k$ veces cara. Un razonamiento similar produce la fórmula:
+        \[p(k \mbox{ caras})=\binom{n}{k}\left(\dfrac{1}{2}\right)^k.\]
+        \qed
+        \end{Ejemplo}
+
+        \item No podemos dejar de mencionar que los números combinatorios son también importantes en relación con el Teorema del Binomio, y que por eso se los conoce también como {\sf coeficientes binomiales}. En concreto, se tiene, para $a,b\in\R$, y $n\in\N$ esta {\sf Fórmula del Binomio}:
+             \[
+             (a+b)^n=\binom{n}{0}a^n+\binom{n}{1}a^{n-1}b+\binom{n}{2}a^{n-2}b^2+\cdots+\binom{n}{n-1}ab^{n-1}+\binom{n}{n}b^n
+              \]
+
+
+
+%                volvemos al problema del Caballero De Mere, pero con muchas más herramientas a nuestra disposición.
+%        \begin{Ejemplo}\label{ejem:probabilidadLanzamientoMonedas}
+%        Lanzamos un dado al aire cuatro veces, y contamos el número de seises obtenidas en esos lanzamientos. ¿Cuál es la probabilidad de obtener exactamente cuatro seises en total?\\
+%
+%        \qed
+%        \end{Ejemplo}
+%
+\end{itemize}
+
+%\section{Variables aleatorias}
+%
+%
+%\subsection{¿Qué son las variables aleatorias?}
+%
+%\begin{itemize}
+%
+%    \item Hemos visto que cada suceso $A$ del espacio muestral $\Omega$ tiene asociado un valor $P(A)$ de la función probabilidad. Y sabemos que los valores de la función probabilidad son valores positivos, comprendidos entre $0$ y $1$. La idea de variable aleatoria es similar, pero generaliza este concepto, porque a menudo querremos asociar otros valores numéricos con los resultados de un experimento aleatorio.
+%        \begin{Ejemplo}\label{ejem:VariableAleatoria:SumaDosDados}
+%        Quizá uno de los ejemplos más sencillos sea lo que ocurre cuando lanzamos dos dados, y nos fijamos en la suma de los valores obtenidos. Esa suma es siempre un número del 2 al 12, y es perfectamente legítimo hacer preguntas como ¿cuál es la probabilidad de que la suma valga $7$? Para responder a esa pregunta, iríamos al espacio muestral (formado por 36 resultados posibles), veríamos el valor de la suma en cada uno de ellos, para localizar aquellos en que la suma vale $7$. Así obtendríamos un suceso aleatorio $A=\{(1,6),(2,5),(3,4),(4,3),(5,2),(6,1)\}$, cuya probabilidad es $6/32$. De hecho podemos repetir lo mismo para cada uno de los posibles valores de la suma. Se obtiene esta tabla:\\[3mm]
+%        \begin{tabular}[t]{|c|c|c|c|c|c|c|c|c|c|c|c|}
+%        \hline
+%        \rule{0cm}{0.5cm}{\em Valor de la suma:}&2&3&4&5&6&7&8&9&10&11&12\\
+%        \hline
+%        \rule{0cm}{0.7cm}{\em Probabilidad de ese valor:}&$\dfrac{1}{36}$&$\dfrac{2}{36}$&$\dfrac{3}{36}$&$\dfrac{4}{36}$&$\dfrac{5}{36}$&$\dfrac{6}{36}$&$\dfrac{5}{36}$&$\dfrac{4}{36}$&$\dfrac{3}{36}$&$\dfrac{2}{36}$&$\dfrac{1}{36}$\\
+%        &&&&&&&&&&&\\
+%        \hline
+%        \end{tabular}\\[3mm]
+%        Y de hecho, esta tabla es lo que en este caso caracteriza a la variable aleatoria suma.\qed
+%        \end{Ejemplo}
+%        Vamos ahora a ver otro ejemplo inspirado en los problemas de probabilidad geométrica.
+%        \begin{Ejemplo}
+%        Consideremos un círculo $C$ centrado en el origen y de radio 1. El espacio muestral $\Omega$ está formado por todos los subconjuntos\footnote{No excesivamente ``raros'', en el sentido que ya hemos discutido.} de puntos de $C$. Y la Función de Probabilidad se define así:
+%        \[P(A)=\mbox{área de }A.\]
+%        Consideremos ahora la variable que a cada punto del círculo le asocia su coordenada $x$. En este caso la coordenada $x$ toma cualquier valor real entre $-1$ y $1$. Y si preguntamos {``¿cuál es la probabilidad de que tome por ejemplo el valor $1/2$?''}, la respuesta es $0$. Porque los puntos del círculo donde toma ese valor forman un segmento (una cuerda del círculo), y el segmento tiene área $0$. Las cosas cambian si preguntamos {``¿cuál es la probabilidad de que la coordenada $x$ esté entre $0$ y $1/2$?''} En este caso, como muestra la figura
+%        \begin{center}
+%        \includegraphics[height=7cm]{2011_10_14_Figura01-VariableAleatoriaContinua.png}
+%        \end{center}
+%        el conjunto de puntos del círculo cuyas coordenadas $x$ están entre $0$ y $1/2$ tiene un área bien definida y no nula. ¿Cuánto vale ese área? Aproximadamente $0.48$, y esa es la probabilidad que buscábamos. El cálculo del área se puede hacer de distintas maneras, pero el lector debe darse cuenta de que en ejemplos como este se necesita a veces recurrir al cálculo de integrales.\\
+%        Naturalmente, se pueden hacer preguntas más complicadas. Por ejemplo, dado un punto $(x,y)$ del círculo $C$ podemos calcular el valor de $f(x,y)=\frac{x^2}+ 4y^2$. Y entonces nos preguntamos ¿cuál es la probabilidad de que, tomando un punto al azar en $C$, el valor de $f$ esté entre 0 y 1? La respuesta es, de nuevo, un área, pero más complicada: es el área que se muestra en esta figura:
+%        \begin{center}
+%        \includegraphics[height=7cm]{2011_10_14_Figura02-VariableAleatoriaContinua.png}
+%        \end{center}
+%        Lo que tienen en común ambos casos es que hay una función (o fórmula), que es $x$ en el primero y $f(x,y)$ en el segundo, y que nos preguntamos por la probabilidad de que los valores de esa fórmula caigan dentro de un cierto intervalo.
+%        \qed
+%        \end{Ejemplo}
+%        Los dos ejemplos que hemos visto contienen los ingredientes básicos de la noción de variable aleatoria. En el primer caso teníamos un conjunto finito de valores posibles, y a cada uno le asignábamos una probabilidad. En el segundo caso teníamos un rango continuo de valores posibles, y podíamos asignar probabilidades a intervalos. Lo que vamos a ver a continuación no se puede considerar de ninguna manera una definición rigurosa de variable aleatoria\footnote{La situación es similar a lo que ocurría al definir los sucesos aleatorios. Un suceso aleatorio $A$ es un subconjunto que tiene bien definida la probabilidad $P(A)$. Pero ya hemos dicho hay conjuntos tan {\em raros} que no es fácil asignarles un valor de la probabilidad (igual que a veces cuesta asignar un área). De la misma forma hay funciones tan raras que no se pueden considerar variables aleatorias. Se necesitan definiciones más rigurosas, pero que aquí sólo nos complicarían.}, pero servirá a nuestros propósitos.\\[3mm]
+%        \fbox{\colorbox{Gris025}{\begin{minipage}{14cm}
+%        \begin{center}
+%        \vspace{2mm}
+%        {\bf Variables aleatorias:}
+%        \end{center}
+%        Una variable aleatoria $X$ es una función (o fórmula) que le asigna, a cada elemento $p$ del espacio muestral $\Omega$, un número real $X(p)$. Distinguimos dos tipos de valores aleatorias:
+%        \begin{enumerate}
+%            \item La {\sf variable aleatoria $X$ es discreta} si sólo toma una cantidad finita (o una sucesión) de valores numéricos $x_1,x_2,x_3,\ldots$, de manera que para cada uno de esos valores tenemos bien definida la probabilidad $P(X=x_i)$ de que $X$ tome el valor $x_i$.
+%            \item La {\sf variable aleatoria $X$ es continua} si sus valores forman un cierto rango continuo dentro de los números reales, de manera que si nos dan un intervalo $I=(a,b)$ (aquí puede ser $a=-\infty$ o $b=+\infty$), tenemos bien definida la probabilidad $P(X\in I)$ de que el valor de $X$ esté dentro de ese intervalo $I$.
+%        \end{enumerate}
+%        \end{minipage}}}\\[3mm]
+%        Veamos un ejemplo, muy parecido al Ejemplo \ref{ejem:VariableAleatoria:SumaDosDados}.
+%        \begin{Ejemplo}\label{ejem:VariableAleatoria:RestaDosDados}
+%            De nuevo lanzamos dos dados, pero ahora nos fijamos en la diferencia de los valores obtenidos (el menor menos el mayor, y cero si son iguales). Si llamamos $(a,b)$ al resultado de lanzar los dados, donde $a$ y $b$ son números del 1 al 6, entonces estamos definiendo una variable aleatoria mediante la expresión
+%            \[X(a,b)=|a-b|.\]
+%            Esta claro que la variable $X$ toma solamente los valores $0,1,2,3,4,5$. ¿Cuál es la probabilidad de que al calcular $X$ obtengamos $3$? El siguiente diagrama ayudará a entender la respuesta. Para cada punto del espacio muestral,  se muestra el valor de $X$:
+%            \[
+%            \begin{array}{cccccc}
+%            X(1,1)=0&X(1,2)=1&X(1,3)=2&X(1,4)=3&X(1,5)=4&X(1,6)=5\\
+%            X(2,1)=1&X(2,2)=0&X(2,3)=1&X(2,4)=2&X(2,5)=3&X(2,6)=4\\
+%            X(3,1)=2&X(3,2)=1&X(3,3)=0&X(3,4)=1&X(3,5)=2&X(3,6)=3\\
+%            X(4,1)=3&X(4,2)=2&X(4,3)=1&X(4,4)=0&X(4,5)=1&X(4,6)=2\\
+%            X(5,1)=4&X(5,2)=3&X(5,3)=2&X(5,4)=1&X(5,5)=0&X(5,6)=1\\
+%            X(6,1)=5&X(6,2)=4&X(6,3)=3&X(6,4)=2&X(6,5)=1&X(6,6)=0
+%            \end{array}
+%            \]
+%            Y se observa que $P(X=3)=6/36=1/6$. De hecho, podemos repetir lo mismo para cada uno de los posibles valores de la variable aleatoria $X$. Se obtiene esta tabla:
+%            \begin{center}
+%            \begin{tabular}[t]{|c|c|c|c|c|c|c|}
+%            \hline
+%            \rule{0cm}{0.5cm}{\em Valor de $X$ (diferencia):}&0&1&2&3&4&5\\
+%            \hline
+%            \rule{0cm}{0.7cm}{\em Probabilidad de ese valor:}&$\dfrac{6}{36}$&$\dfrac{10}{36}$&$\dfrac{8}{36}$&$\dfrac{6}{36}$&$\dfrac{4}{36}$&$\dfrac{2}{36}$\\
+%            &&&&&&\\
+%            \hline
+%            \end{tabular}
+%            \end{center}
+%        Y de hecho, esta tabla es lo que en este caso caracteriza a la variable aleatoria diferencia $X$.\qed
+%        \end{Ejemplo}
+%
+%\end{itemize}
+%
+%\subsection{Variables aleatorias y sucesos.}
+%
+%\begin{itemize}
+%
+%        \item Al principio la diferencia entre suceso aleatorio y variable aleatoria puede resultar un poco confusa. Vamos a recordar lo que es cada uno de estos conceptos:
+%            \begin{enumerate}
+%                \item que un suceso es un {\em subconjunto}, y que una variable aleatoria es una {\em función}. Por ejemplo, un suceso al lanzar dos dados puede ser ``los dos resultados son pares'', y este enunciado no hay un valor numérico fácil de identificar. Lo que sí tenemos es una {\em probabilidad asociada a este suceso}.
+%                \item Por el contrario, en la variable aleatoria $X(a,b)=|a-b|$, definida en el espacio muestral de los 36 posibles resultados al lanzar dos dados, el valor numérico está claramente definido: $|a-b|$.
+%            \end{enumerate}
+%            ¿Cuál es entonces el origen de la confusión? Probablemente la parte más confusa es que {\sf las variables aleatorias definen sucesos cuando se les asigna un valor}. Por ejemplo, si escribimos $X(a,b)=|a-b|=3$, estamos pensando en el suceso {\em ``la diferencia de los resultados de los dados es 3''}. Y hemos visto en el Ejemplo \ref{ejem:VariableAleatoria:RestaDosDados} que la probabilidad de ese suceso es \[P(X=3)=1/6.\]
+%
+%        \item ¿Para qué sirven entonces las variables aleatorias? Precisamente su utilidad es que representan {\sf modelos abstractos de asignación de probabilidad}. Es decir, la variable aleatoria nos permite concentrar nuestra atención en la forma en que la probabilidad se asigna a los posibles resultados numéricos de un experimento aleatorio, sin entrar en los detalles sobre el espacio muestral y los sucesos subyacentes a esa asignación de probabilidad.  Vamos a ver un ejemplo que tal vez ayude a aclarar el sentido en el que estas variables aleatorias son resúmenes que eliminan detalles (y por tanto información).
+%            \begin{Ejemplo}
+%            Ya hemos visto que en el espacio muestral correspondiente al lanzamiento de dos dados, la variable aleatoria $X(a,b)=|a-b|$ tiene esta tabla de valores y probabilidades:
+%            \begin{center}
+%            \begin{tabular}[t]{|c|c|c|c|c|c|c|}
+%                \hline
+%                \rule{0cm}{0.5cm}{\em Valor de $X$ (diferencia):}&0&1&2&3&4&5\\
+%                \hline
+%                \rule{0cm}{0.7cm}{\em Probabilidad de ese valor:}&$\dfrac{6}{36}$&$\dfrac{10}{36}$&$\dfrac{8}{36}$&$\dfrac{6}{36}$&$\dfrac{4}{36}$&$\dfrac{2}{36}$\\
+%                &&&&&&\\
+%                \hline
+%            \end{tabular}
+%            \end{center}
+%            Y, por su parte, la variable aleatoria suma $Y(a,b)=a+b$ tiene esta tabla:
+%            \begin{center}
+%            \begin{tabular}[t]{|c|c|c|c|c|c|c|c|c|c|c|c|}
+%                \hline
+%                \rule{0cm}{0.5cm}{\em Valor de la suma:}&2&3&4&5&6&7&8&9&10&11&12\\
+%                \hline
+%                \rule{0cm}{0.7cm}{\em Probabilidad de ese valor:}&$\dfrac{1}{36}$&$\dfrac{2}{36}$&$\dfrac{3}{36}$&$\dfrac{4}{36}$&$\dfrac{5}{36}$&$\dfrac{6}{36}$&$\dfrac{5}{36}$&$\dfrac{4}{36}$&$\dfrac{3}{36}$&$\dfrac{2}{36}$&$\dfrac{1}{36}$\\
+%                &&&&&&&&&&&\\
+%            \hline
+%            \end{tabular}
+%            \end{center}
+%            En el Ejemplo \ref{S1310-ejem:probabilidadCondicionadaLanzamientoDosDados} de la sesión del Jueves 13/10 nos hicimos la pregunta {\em `` ¿Cuál es la probabilidad de que la diferencia entre los valores de ambos dados (mayor-menor) sea menor que 4, sabiendo que la suma de los dados es 7?''} Está claro, con la notación que usamos ahora, que estamos preguntando cuál es la probabilidad del suceso
+%            \[P(X<4)\cap P(Y=7).\]
+%            ¿Podemos calcular este número usando sólo las tablas de probabilidad de $X$ e $Y$, sin utilizar más información sobre el suceso muestral subyacente?\qed
+%            \end{Ejemplo}
+%        \item En el caso de las variables aleatorias discretas, hemos visto que conocer la variable es esencialmente lo mismo que conocer la tabla de probabilidades asignadas a cada uno de los posibles valores de la variable (esta tabla se conoce como {\sf función de probabilidad o función de masa} de la variable aleatoria). En el caso de las variables aleatorias continuas, no podemos hacer la asignación de probabilidades de esta misma forma. Recordando que la probabilidad de las variables continuas es análoga al área, necesitamos un recurso técnicamente más complicado, y eso es lo que vamos a hacer en la próxima sesión al presentar los conceptos de función de densidad y función de distribución.
+%\end{itemize}
+
+%\section{Función de distribución.}
+%
+%
+%\subsection{Variables aleatorias discretas.}
+%
+%\begin{itemize}
+%
+%    \item El concepto de probabilidad condicionada trata de reflejar los cambios en el valor de la Función Probabilidad que se producen cuando tenemos {\em información parcial} sobre el resultado de un experimento aleatorio. Por ejemplo, utilizando uno de esos casos en los que la Regla de Laplace es suficiente, si al lanzar dos dados sabemos que el resultado obtenido ha sido mayor que 3, entonces nuestro cálculo de la probabilidad de que haya sido un $7$  es distinto, porque el número de resultados posibles (el denominador en la fórmula de Laplace), ha cambiado.
+%
+%    \item Usando como guía la Regla de Laplace, estamos tratando de definir la {\em probabilidad del suceso $A$ sabiendo que ha ocurrido el suceso $B$}. Esto es lo que vamos a llamar la {\sf probabilidad de $A$ condicionada por $B$, y lo representamos por $P(A|B)$}. Pensemos en cuáles son los cambios en la aplicación de la Regla de Laplace (favorables/posibles) cuando sabemos que el suceso $B$ ha ocurrido. Antes que nada recordemos que, si el total de resultados elementales posibles es $n$ entonces
+%        \[P(A)=\dfrac{\mbox{núm. de casos favorables a $A$}}{n}\mbox{, y también }P(B)=\dfrac{\mbox{núm. de casos favorables a $B$}}{n}.\]
+%        Veamos ahora como deberíamos definir $P(A|B)$. Puesto que sabemos que $B$ ha ocurrido, los casos posibles ya no son todos los $n$ casos posibles originales: ahora los únicos casos posibles son los que corresponden al suceso $B$.  ¿Y cuáles son los casos favorables del suceso $A$, una vez que sabemos que $B$ ha ocurrido? Pues aquellos casos en los que $A$ y $B$ ocurren simultáneamente (o sea, el suceso $A\cap B$). En una fracción:
+%        \[P(A|B)=\dfrac{\mbox{número de casos favorables a $A\cap B$}}{\mbox{número de casos favorables a $B$}}.\]
+%        Si sólo estuviéramos interesados en la Regla de Laplace esto sería tal vez suficiente. Pero para poder generalizar esto hay una manera mejor de escribirlo. Dividimos el numerador y el denominador por $n$ y tenemos:
+%        \[P(A|B)=\dfrac{\quad\left(\dfrac{\mbox{número de casos favorables a $A\cap B$}}{n}\right)\quad}{\left(\dfrac{\mbox{número de casos favorables a $B$}}{n}\right)}=\dfrac{P(A\cap B)}{P(B)}.\]
+%        ¿Qué tiene de bueno esto? Pues que la expresión que hemos obtenido ya no hace ninguna referencia a casos favorables o posibles, nos hemos librado de la Regla de Laplace y hemos obtenido una expresión general que sólo usa la Función de Probabilidad (y por tanto podremos usarla, por ejemplo, en los problemas de probabilidad geométrica). Ya tenemos la definición:
+%        \begin{center}
+%        \fbox{\colorbox{Gris025}{\begin{minipage}{14cm}
+%        \begin{center}
+%        \vspace{2mm}
+%        {\bf Probabilidad Condicionada:}
+%        \end{center}
+%        La probabilidad del suceso $A$ condicionada por el suceso $B$ se define así (y se supone que $P(B)\neq 0$.)
+%            \[P(A|B)=\dfrac{P(A\cap B)}{P(B)}.\]
+%        \end{minipage}}}
+%        \end{center}
+%
+%
+%\end{itemize}
+%
+%\subsection{Sucesos independientes.}
+%
+%\begin{itemize}
+%
+%    \item ¿Qué significado debería tener la frase {\em ``el suceso $A$ es independiente del suceso $B$''}\,? Parece evidente que, si los suceso son independientes, el hecho de saber que el suceso $B$ ha ocurrido no debería afectar para nada nuestro cálculo de la probabilidad de que ocurra $A$. Esta idea tiene una traducción inmediata en el lenguaje de la probabilidad condicionada, que es de hecho la definición de sucesos independientes:
+%        \vspace{-3mm}
+%        \begin{center}
+%        \fbox{\colorbox{Gris025}{\begin{minipage}{14cm}
+%        \begin{center}
+%        \vspace{2mm}
+%        {\bf Sucesos independientes:}
+%        \end{center}
+%        Los sucesos $A$ y $B$ son independientes si
+%            \[P(A|B)=P(A).\]
+%        Esto es equivalente a decir que
+%        \[P(A\cap B)=P(A)P(B).\]
+%        \end{minipage}}}
+%        \end{center}
+%
+%    \item En general los sucesos $A_1,\ldots,A_n$ son independientes cuando para {\em cualquier colección} que tomemos de ellos, la probabilidad de la intersección es el producto de las probabilidades.
+%
+%\end{itemize}
+%
+%
+%%\section{La regla de las probabilidad totales. Teorema de Bayes.}
+%%
+%%
+%%\subsection{Probabilidad condicionada.}
+%%
+%%\begin{itemize}
+%%
+%%    \item
+%%
+%%\end{itemize}
+%
+
+\section{Otras fórmulas combinatorias}
+
+\noindent{\textcolor{red}{\bf Atención:}
+Aunque las incluimos aquí para complementar la información de este capítulo, estas fórmulas son mucho menos importantes para nosotros que las de los números combinatorios.}
+
+
+\subsection{Permutaciones}
+
+\begin{itemize}
+\item {\bf Sin repetici\'on}
+
+Se trata de obtener las {\sf distintas formas de ordenar} los elementos de un conjunto de $n$ elementos. Hay $\mbox{Per}(n)=n!$ de ellas.
+\fobox{\operatorname{Per}(n)=n!}
+
+\item {\bf Con repetici\'on}
+
+El n\'umero de permutaciones (el orden es importante) que se pueden formar con $m$ objetos
+entre los cuales hay $n_1$ iguales entre s\'{\i}, otros $n_2$ iguales
+entre s\'{\i},\dots, y finalmente $n_k$ iguales entre s\'{\i}, es:
+\fobox{\operatorname{PerRep}(n_1,n_2,\dots,n_k)=\dfrac{m!}{n_1!n_2!\dots n_k!}
+\mbox{ con }n_1+n_2+\dots+n_k=m}
+
+\end{itemize}
+
+\subsection{Variaciones}
+
+\begin{itemize}
+
+\item {\bf Sin repetici\'on} Listas de $k$ elementos entre $n$ posibles, sin repetir
+elementos y considerando distintas dos listas si el orden de los elementos es distinto.
+\fobox{\operatorname{V}(n,k)=n\cdot(n-1)\cdot\dots\cdot(n-k+1)=\dfrac{n!}{(n-k)!}}
+
+\item {\bf Con repetici\'on}
+
+Si se permite que cada elemento aparezca tantas veces como se quiera, entonces tenemos simplemente:
+\fobox{\operatorname{VRep}(n,k)=n^k}
+
+\end{itemize}
+
+\subsection{Combinaciones con repetici\'on}
+
+
+\begin{itemize}
+
+\item Selecciones de $k$ elementos entre $n$ posibles, admitiendo la repetici\'on de elementos, pero sin tener en cuenta el orden de la selecci\'on.
+\fobox{\operatorname{CRep}(n,k)=\binom{n+k-1}{k}}
+
+\end{itemize}
+
+
+
+%\section*{Tareas asignadas para esta sesión.}
+%
+%\begin{enumerate}
+%    \item Supongamos ahora que lanzamos un dado cuatro veces y nos preguntamos por la probabilidad de sacar exactamente dos seises. Esto es similar al problema del Caballero De Mere, que vimos en la sesión 7 y recuerda mucho al Ejemplo \ref{ejem:probabilidadLanzamientoMonedas}, hasta el punto de que es razonable preguntarse si la respuesta es la misma. Usa las ideas de esta sesión para obtener la respuesta. Escribe esa respuesta y el razonamiento que te conduce a ella en Moodle.
+%%    \item Está claro que si en una habitación hay 367 personas, entonces hay al menos dos de ellas que cumplen años el mismo día, ¿verdad? ¿Cuál es el número mínimo de personas que debe haber en esa habitación para que la probabilidad sea superior al 50\%? Escribe tu respuesta y el razonamiento que te conduce a ella en Moodle.
+%\end{enumerate}
+
+
+%\section*{Recomendaciones.}
+%
+%\begin{enumerate}
+%   \item El \link{http://www.ine.es/}{INE (Instituto Nacional de Estadística)} es el organismo oficial encargado, entre otras cosas del censo electoral, la elaboración del IPC (índice de precios de consumo), la EPA (encuesta de población activa), el PIB (producto interior bruto) etc. El instituto ofrece una enorme colección de datos estadísticos accesibles para cualquiera a través de la red (sistema INEbase). Además, tiene alojado en su página web un \link{http://www.ine.es/explica/explica.htm}{portal de divulgación estadística} en el que se pueden ver vídeos sobre estos y otros temas, que tal vez os interesen.
+%\end{enumerate}
+
+%\section*{\fbox{\colorbox{Gris025}{{Sesión 11. Probabilidad.}}}}
+%
+%\subsection*{\fbox{\colorbox{Gris025}{{Combinatoria.}}}}
+%\subsection*{Fecha: Viernes, 21/10/2011, 14h.}
+%
+%\noindent{\bf Atención:
+%En esta sesión vamos a ver también la regla de la probabilidad total y el teorema de Bayes, que aparecen en el resumen de la sesión del Jueves 13/10.
+%}
+%
+%%\subsection*{\fbox{1. Ejemplos preliminares }}
+%\setcounter{tocdepth}{1}
+%%\tableofcontents
+%\section*{Lectura recomendada}
+%
+%Las mismas de la sesión anterior.
+%
+%\section{Combinaciones}
+%
+%
+%\subsection{Introducción.}
+%
+%\begin{itemize}
+%
+%    \item La Combinatoria es una parte de las matemáticas que estudia técnicas de recuento. En particular, estudia las posibles formas de seleccionar listas o subconjuntos de elementos de un conjunto dado siguiendo ciertos criterios (ordenados o no, con repetición o no, etcétera). Por esa razón es de mucha utilidad para el cálculo de probabilidades. La Combinatoria, no obstante, puede ser muy complicada, y en este curso vamos a concentrarnos en los resultados que necesitamos.
+%
+%    \item En particular estamos interesados en este problema. Dado un conjunto de $n$ elementos
+%    \[A=\{x_1,x_2,\ldots,x_n\}\]
+%    y un número $k$ con $0\leq k\leq n$, ¿cuántos subconjuntos distintos de $k$ elementos podemos formar con los elementos de $A$? Al usar la palabra subconjunto estamos diciendo que:
+%    \begin{enumerate}
+%        \item el {\sf orden de los elementos es irrelevante}. El subconjunto $\{x_1,x_2,x_3\}$ es el mismo que el subconjunto $\{x_3,x_1,x_2\}$.
+%        \item los elementos del subconjunto {\sf no se repiten}.
+%    \end{enumerate}
+%    El número de subconjuntos posibles es el número de {\sf combinaciones de $n$ elementos tomados de $k$ en $k$} (cada uno de los subconjuntos es una combinación).
+%    \begin{Ejemplo}\label{ejem:combinacionesCuatroDosEnDos}
+%    Por ejemplo, en un conjunto de 4 elementos $A=\{a,b,c,d\}$, hay seis combinaciones distintas de elementos tomados de dos en dos :
+%    \[\{a,b\},\{a,c\},\{a,d\},\{b,c\},\{b,d\},\{c,d\}\]
+%    \qed
+%    \end{Ejemplo}
+%\end{itemize}
+%
+%\subsection{Números combinatorios}
+%
+%\begin{itemize}
+%
+%    \item Para calcular probabilidades de forma eficaz muchas veces necesitamos una manera de calcular el número de combinaciones posibles. El {\sf número combinatorio} $\binom{n}{k}$ es el número de combinaciones de $n$ elementos tomados de $k$ en $k$.
+%
+%    \item Para calcular ese número necesitamos el concepto de {\sf factorial}. El factorial del número $n$ es el producto
+%        \[\fbox{$n!=n\cdot(n-1)\cdot(n-2)\cdot\,\ldots\,\cdot3\cdot 2\cdot 1.$}\]
+%        Es decir, el producto de todos los números entre $1$ y $n$. Además definimos \fbox{$0!=1$}. Por ejemplo, se tiene:
+%        \[6!=6\cdot 5\cdot 4\cdot 3\cdot 2\cdot 1=720.\]
+%        La propiedad más importante del factorial es su crecimiento extremadamente rápido. Por ejemplo, $100!$ es del orden de $10^{57}$.
+%
+%    \item La fórmula de los números combinatorios es esta:
+%    \\[3mm]
+%        \fbox{\colorbox{Gris025}{\begin{minipage}{14cm}
+%        \begin{center}
+%        \vspace{2mm}
+%        {\bf Números combinatorios:}
+%        \end{center}
+%        \[\binom{n}{k}=\dfrac{n!}{k!(n-k)!}\mbox{, \quad para $0\leq k\leq n$, y $n=0,1,2\ldots$ cualquier número natural}\]
+%        \quad
+%        \end{minipage}}}\\[3mm]
+%        Por ejemplo, el número de combinaciones del Ejemplo \ref{ejem:combinacionesCuatroDosEnDos} es
+%        \[\binom{4}{2}=\dfrac{4!}{2!(4-2)!}=\dfrac{24}{2\cdot 2}=6,\]
+%        como era de esperar.
+%
+%    \item Hay dos observaciones que facilitan bastante el trabajo con estos números combinatorios.
+%    \begin{enumerate}
+%        \item Los números combinatorios se pueden representar en esta tabla de forma triangular, llamada el {\sf Triángulo de Pascal}:
+%        \[
+%        \begin{array}{l|llcccccccccccccc}
+%        n=0&&&&&&&&&1\\
+%        n=1&&&&&&&&1&&1\\
+%        n=2&&&&&&&1&&2&&1\\
+%        n=3&&&&&&1&&3&&3&&1\\
+%        n=4&&&&&1&&4&&6&&4&&1\\
+%        n=5&&&&1&&5&&10&&10&&5&&1\\
+%        n=6&&&1&&6&&15&&20&&15&&6&&1\\
+%        \vdots&&& &&\vdots&& &&\vdots&& &&\vdots&&
+%        \end{array}
+%        \]
+%        El número $\binom{n}{k}$ ocupa la fila $n$ posición $k$ (se cuenta desde $0$). Por ejemplo en la $4$ fila, posición $2$ está nuestro viejo conocido $\binom{4}{2}=6$. ¿Cuánto vale $\binom{5}{3}$?
+%
+%        Los puntos suspensivos de la parte inferior están ahí para indicarnos qué podríamos seguir, y a la vez para servir de desafío. ¿Qué viene a continuación? ¿Qué hay en la línea $n=15$? Pues parece claro que empezará y acabará con un $1$. También parece claro que el segundo y el penúltimo  número valen $7$. ¿Pero y el resto? Lo que hace especial a esta tabla es que {\sf cada número que aparece en el interior de la tabla es la suma de los dos situados a su izquierda y derecha en la fila inmediatamente superior.} Por ejemplo, el $10$ que aparece en tercer lugar en la fila de $n=5$  es la suma del $4$ y el $6$ situados sobre él en la  segunda y tercera posiciones de la fila para $n=4$. Con esta información, podemos         obtener la séptima fila de la tabla, a partir de la sexta sumado según indican las flechas en este esquema:
+%        \[
+%        \begin{array}{l|llcccccccccccccccc}
+%        n=6&&&&1&&6&&15&&20&&15&&6&&1\\
+%           &&&&\swarrow\searrow&&\swarrow\searrow&&\swarrow\searrow&&\swarrow\searrow&&\swarrow\searrow&&
+%           \swarrow\searrow&&\swarrow\searrow\\
+%        n=7&&&1&&7&&21&&35&&35&&21&&7&&1
+%        \end{array}
+%        \]
+%        \item La segunda observación importante sobre los números quedará más clara con un ejemplo:
+%        \[
+%        \binom{12}{7}=\dfrac{12!}{7!(12-7)!}=\dfrac{12!}{7!5!}.
+%        \]
+%        Ahora observamos que $12!=(12\cdot 11\cdot\cdots\cdot 6)\cdot(5\cdot\cdots\cdot 2\cdot 1)$, y los paréntesis muestran que esto
+%        es igual a $(12\cdot 11\cdot\cdots\cdot 6)\cdot 5!$. Este factorial de $5$ se cancela con el del denominador y tenemos
+%        \[
+%        \binom{12}{7}=\dfrac{\overbrace{12\cdot 11\cdot 10\cdot 9\cdot 8\cdot 7\cdot 6}^{6\mbox{ factores}}}{7!}=792.
+%        \]
+%        Generalizando esta observación sobre la cancelación de factoriales, la forma en la que vamos a expresar los coeficientes binomiales será finalmente esta:
+%        \begin{equation}\label{cap03:ecu:expresionPseudoFactorialCoeficientesBinomiales}
+%        \dbinom{n}{k}=\frac{\overbrace{n\left( n-1\right) \left( n-2\right) \cdots \left( n-k+1\right) }^{k\mbox{ factores}}}{k!}
+%        \end{equation}
+%        Y, como hemos indicado, lo que caracteriza este esta expresión es que tanto el numerador como el denominador tienen $k$ factores.
+%    \end{enumerate}
+%
+%    \item Los números combinatorios son importantes en muchos problemas de probabilidad. Veamos un par de ejemplos:
+%        \begin{Ejemplo}
+%        Tenemos una caja de 10 bombillas y sabemos que tres están fundidas. Si sacamos al azar tres bombillas de la caja\footnote{``al azar'' aquí significa que todos los subconjuntos de tres bombillas son equiprobables.}, ¿Cuál es la probabilidad de que hayamos sacado las tres que están fundidas?\\[2mm]
+%        En este caso, al tratar de aplicar la Regla de Laplace, usamos los números combinatorios para establecer el número de casos posibles. ¿Cuántas formas distintas hay de seleccionar tres bombillas de un conjunto de 10? Evidentemente hay $\binom{10}{3}$ formas posibles. Este número es:
+%        \[\binom{10}{3}=\dfrac{10\cdot 9\cdot 8}{3\cdot 2\cdot 1}=120.\]
+%        Estos son los casos posibles. Está claro además que sólo hay un caso favorable, cuando elegimos las tres bombillas defectuosas. Así pues, la probabilidad pedida es:
+%        \[\dfrac{1}{120}.\]
+%        \qed
+%        \end{Ejemplo}
+%        El siguiente ejemplo es extremadamente importante para el resto del curso, porque nos abre la puerta que nos conducirá a la distribución binomial y a algunos de los resultados más profundos de la Estadística.
+%        \begin{Ejemplo}\label{ejem:probabilidadLanzamientoMonedas}
+%        Lanzamos una moneda al aire cuatro veces, y contamos el número de caras obtenidas en esos lanzamientos. ¿Cuál es la probabilidad de obtener exactamente dos caras en total?\\
+%        Vamos a pensar en cuál es el espacio muestral. Se trata de listas de cuatro símbolos cara o cruz. Por ejemplo,
+%        \[\smiley\smiley\dagger\smiley\]
+%        es un resultado posible, con tres caras y una cruz. ¿Cuántas de estas listas de cara y cruz con cuatro símbolos hay? Enseguida se ve que hay $2^4$, así que ese es el número de casos posibles. ¿Y cuál es el número de casos favorables? Aquí es donde los números combinatorios. Podemos pensar así en los sucesos favorables: tenemos cuatro fichas, dos caras y dos cruces $\smiley,\smiley,\dagger,\dagger,$ y un casillero con cuatro casillas
+%        \begin{center}
+%        \begin{tabular}{|c|c|c|c|}
+%        \hline
+%         \rule{0cm}{0.5cm}\rule{1cm}{0cm}&\rule{1cm}{0cm}&\rule{1cm}{0cm} &\rule{1cm}{0cm}\\
+%         \hline
+%         \end{tabular}
+%         \end{center}
+%         en las que tenemos que colocar esas cuatro fichas. Cada manera de colocarlas corresponde a un suceso favorable. Y entonces está claro que lo que tenemos que hacer es elegir, de entre esas cuatro casillas, cuáles dos llevarán una cara (las restantes dos llevarán una cruz). Es decir, hay que elegir dos de entre cuatro. Y ya sabemos que la respuesta es $\binom{4}{2}=6$. Por lo tanto la probabilidad pedida es:
+%         \[p(2 \mbox{ caras} )=\dfrac{\binom{4}{2}}{2^4}=\binom{4}{2}\left(\dfrac{1}{2}\right)^4=\dfrac{6}{16}.\]
+%         Supongamos ahora que lanzamos la moneda $n$ veces y queremos saber cuál es la probabilidad de obtener $k$ veces cara. Un razonamiento similar produce la fórmula:
+%        \[p(k \mbox{ caras})=\binom{n}{k}\left(\dfrac{1}{2}\right)^n.\]
+%        \qed
+%        \end{Ejemplo}
+%
+%        \item No podemos dejar de mencionar que los números combinatorios son también importantes en relación con el Teorema del Binomio, y que por eso se los conoce también como {\sf coeficientes binomiales}. En concreto, se tiene, para $a,b\in\R$, y $n\in\N$ esta {\sf Fórmula del Binomio}:
+%             \[
+%             (a+b)^n=\binom{n}{0}a^n+\binom{n}{1}a^{n-1}b+\binom{n}{2}a^{n-2}b^2+\cdots+\binom{n}{n-1}ab^{n-1}+\binom{n}{n}b^n
+%              \]
+%\end{itemize}
+%
+%
+%
+%\newpage
+%\section{Otras fórmulas combinatorias}
+%
+%\noindent{\textcolor{red}{\bf Atención:}
+%Aunque las incluimos aquí para complementar la información de la sesión de hoy, estas fórmulas son mucho menos importantes para nosotros que las de los números combinatorios.}
+%
+%
+%\subsection{Permutaciones}
+%
+%\begin{itemize}
+%\item {\bf Sin repetici\'on}
+%
+%Se trata de obtener las {\sf distintas formas de ordenar} los elementos de un conjunto de $n$ elementos. Hay $\mbox{Per}(n)=n!$ de ellas.
+%\fobox{\operatorname{Per}(n)=n!}
+%
+%\item {\bf Con repetici\'on}
+%
+%El n\'umero de permutaciones (el orden es importante) que se pueden formar con $m$ objetos
+%entre los cuales hay $n_1$ iguales entre s\'{\i}, otros $n_2$ iguales
+%entre s\'{\i},\dots, y finalmente $n_k$ iguales entre s\'{\i}, es:
+%\fobox{\operatorname{PerRep}(n_1,n_2,\dots,n_k)=\dfrac{m!}{n_1!n_2!\dots n_k!}
+%\mbox{ con }n_1+n_2+\dots+n_k=m}
+%
+%\end{itemize}
+%
+%\subsection{Variaciones}
+%
+%\begin{itemize}
+%
+%\item {\bf Sin repetici\'on} Listas de $k$ elementos entre $n$ posibles, sin repetir
+%elementos y considerando distintas dos listas si el orden de los elementos es distinto.
+%\fobox{\operatorname{V}(n,k)=n\cdot(n-1)\cdot\dots\cdot(n-k+1)=\dfrac{n!}{(n-k)!}}
+%
+%\item {\bf Con repetici\'on}
+%
+%Si se permite que cada elemento aparezca tantas veces como se quiera, entonces tenemos simplemente:
+%\fobox{\operatorname{VRep}(n,k)=n^k}
+%
+%\end{itemize}
+%
+%\subsection{Combinaciones con repetici\'on}
+%
+%
+%\begin{itemize}
+%
+%\item Selecciones de $k$ elementos entre $n$ posibles, admitiendo la repetici\'on de elementos, pero sin tener en cuenta el orden de la selecci\'on.
+%\fobox{\operatorname{CRep}(n,k)=\binom{n+k-1}{k}}
+%
+%\end{itemize}
+
+
+
+

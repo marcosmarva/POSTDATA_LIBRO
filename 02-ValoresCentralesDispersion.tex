@@ -1,0 +1,426 @@
+% !Mode:: "Tex:UTF-8"
+
+%\setcounter{section}{0}
+%\section*{\fbox{\colorbox{Gris025}{{Sesión 3. Estadística descriptiva.}}}}
+%
+%\subsection*{\fbox{\colorbox{Gris025}{{Valores centrales: la media aritmética .}}}}
+%
+%\subsection*{Fecha: Viernes, 23/09/2011, 14h.}
+%
+%\noindent{\bf Atención:
+%\begin{enumerate}
+%\item \textcolor{red}{En la última sesión llegamos hasta el final de la Sección 2 (Estadística descriptiva. Tipos de Variables.) La sección 3, así como las tareas 3 y 4 de aquella sesión, corresponden a esta sesión del viernes.}
+%\item Este fichero pdf lleva adjuntos los ficheros de datos necesarios para la clase de hoy, que se abren usando los enlaces que contiene.
+%\end{enumerate}
+%}
+%
+%%\subsection*{\fbox{1. Ejemplos preliminares }}
+%\setcounter{tocdepth}{1}
+%%\tableofcontents
+
+\section{La media aritmética (y otros conceptos de media).}
+
+\subsection*{Contenido:}
+\begin{itemize}
+ \item Definición de la media aritmética.
+ \item La media aritmética a partir de una tabla de frecuencias.
+\end{itemize}
+
+\subsection{Definición de la media aritmética.}
+\begin{itemize}
+    \item La idea de media aritmética apenas necesita presentación. Dados $n$ valores de una {\sf variable cuantitativa}, sean $x_1,x_2,\ldots,x_n$, su {\sf media aritmética} es:
+        \[\fbox{$\bar x=\dfrac{x_1+\cdots+x_n}{n}=\dfrac{\displaystyle\sum_{i=1}^nx_i}{n}.$}\]
+
+        Algunos comentarios sobre la notación. El símbolo $\bar x$ refleja la notación establecida en Estadística: la media de una variable se representa con una barra sobre el nombre de esa variable. Y el símbolo $\displaystyle\sum_{i=1}^n$, que espero que ya conozcáis, es un {\sf sumatorio}, y representa en forma abreviada, la frase ``suma todos estos valores $x_i$ donde $i$ es un número que va desde 1 hasta $n$''.
+    \item Insistimos en esto: la {\bf media aritmética sólo tiene sentido para variables cuantitativas} (discretas o continuas). Aunque una variable cualitativa se represente numéricamente, la media
+        aritmética de esos números seguramente sea una cantidad sin ningún significado estadístico.
+    \item Las Hojas de cálculo incluyen normalmente una función {\tt PROMEDIO()} que calcula la media aritmética de un rango de celdas de la hoja. Además suelen incluir otras funciones promedio, que suponen pequeñas modificaciones sobre esta función, y que es bueno conocer.
+
+        Para practicar esto, en el \textattachfile{Grullas01.ods}{\textcolor{blue}{fichero adjunto}} se han recogido unos datos (ficticios) sobre los tamaños de los grupos de Grulla Común que se han visto abandonando el dormidero de la Laguna de Gallocanta por la mañana\footnote{Si vives en España y no sabes de que va esto de las grullas de Gallocanta, creeme que te estás perdiendo algo}. ¿Cuál es el tamaño medio del grupo?
+\end{itemize}
+
+
+\subsection{La media aritmética a partir de una tabla de frecuencias.}
+
+\begin{itemize}
+    \item Supongamos que queremos calcular la {\sf media a partir de la tabla de frecuencias de una variable cuantitativa}, como esta:
+   \begin{center}
+        \begin{tabular}{|c|c|}
+        \hline
+        \rule{0cm}{4mm}{\bf Intervalo}&{\bf Frecuencia}\\ \hline
+        \rule{0cm}{4mm}$x_1$&$f_1$\\[2mm] \hline
+        \rule{0cm}{4mm}$x_2$&$f_2$\\[2mm] \hline
+        $\vdots$&$\vdots$\\[2mm] \hline
+        \rule{0cm}{4mm}$x_k$&$f_k$\\[2mm] \hline
+        \end{tabular}
+        \end{center}
+        Aquí los valores {\em distintos} de la variable\footnote{Acuérdate de que tenemos $n$ observaciones de la variable, pero puede haber valores repetidos. Aquí estamos usando el número de valores distintos, sin repeticiones, y ese número es $k$.} son $x_1,\ldots,x_k$ y sus frecuencias absolutas respectivas son $f_1,f_2,\ldots,f_k$. Está claro entonces que:
+        \[f_1+f_2+\cdots+f_k=(\mbox{nro. de observ. de }x_k)+\cdots+(\mbox{nro. de observ. del valor }x_k)= \]
+        \[=(\mbox{suma del número de observaciones de todos los valores distintos})=n\]
+        Recordemos que para calcular la media tenemos que sumar el valor de todas (las $n$ observaciones). Y como el valor $x_i$ se ha observado $f_i$ veces, su contribución a la suma es
+        \[x_i\cdot f_i=x_i+x_i+\cdots+x_i\quad (\mbox{sumamos $f_i$ veces})\]
+        Teniendo en cuenta entonces la contribución cada uno de los $k$ valores distintos, vemos que
+        para calcular la media debemos hacer:
+        \[\fbox{$
+        \bar x=\dfrac{x_1\cdot f_1+x_2\cdot f_2+\cdots+x_k\cdot f_k}{f_1+f_2+\cdots+f_k}=
+        \dfrac{\displaystyle\sum_{i=1}^k x_i\cdot f_i}{\displaystyle\sum_{i=1}^k f_i}$}
+        \]
+        {\sf Ejemplo:} en una instalación deportiva el precio de la entrada para adultos es de \EUR{10} y de \EUR{4} para menores. Hoy han visitado esa instalación $230$ adultos y $45$ menores. ¿Cuál es el ingreso medio por visitante que recibe esa instalación?\\
+        Tenemos dos posibles valores de la variable $x=${\em precio de la entrada}, que son $x_1=10$ y $x_2=4$. Además sabemos las frecuencias correspondientes: $f_1=230$ y $f_2=45$. Por lo tanto:
+        \[\bar x=\dfrac{x_1\cdot f_1+x_2\cdot f_2}{f_1+f_2}=\dfrac{10\cdot 230+4\cdot 45}{230+45}=9.02\]
+        El ingreso medio es de \EUR{9.02} por visitante.$\Box$
+
+    \item Si lo que queremos es calcular la {\sf media aritmética a partir de la tabla de frecuencias agrupadas por intervalos de una variable cuantitativa}, las cosas son --sólo un poco-- más complicadas. En este caso vamos a tener una tabla de frecuencias por intervalos\footnote{los intervalos a veces se llaman también {\sf clases}.} como esta:
+        \begin{center}
+        \begin{tabular}{|c|c|}
+        \hline
+        \rule{0cm}{4mm}{\bf Intervalo}&{\bf Frecuencia}\\ \hline
+        \rule{0cm}{4mm}$[a_1,b_1)$&$f_1$\\[2mm] \hline
+        \rule{0cm}{4mm}$[a_2,b_2)$&$f_2$\\[2mm] \hline
+        $\vdots$&$\vdots$\\[2mm] \hline
+        \rule{0cm}{4mm}$[a_k,b_k)$&$f_k$\\[2mm] \hline
+        \end{tabular}
+        \end{center}
+        Comparando esta tabla con el caso anterior está claro que lo que nos falta son los valores $x_1,\ldots,x_k$ y, en su lugar, tenemos los intervalos $[a_1,b_1),\ldots,[a_k,b_k)$. Lo que hacemos en estos casos es {\em fabricar} unos valores $x_i$ a partir de los intervalos. Se toma como valor $x_i$ el punto medio del intervalo $[a_i,b_i)$; es decir:
+        \[\fbox{$x_i=\dfrac{a_i+b_i}{2}$,\quad para $i=1,\ldots,n.$}\]
+        Estos valores $x_i$ se denominan {\sf marcas de clase} (o marcas de intervalo). Una vez calculadas las marcas de clase, podemos usar la misma fórmula que en el caso anterior.
+
+        Para practicar, aquí tienes un \textattachfile{Spiegel-p073.ods}{\textcolor{blue}{fichero Calc}}  en el que aparecen datos sobre la altura (en pulgadas) de los estudiantes de un instituto americano.  El fichero contiene la tabla de frecuencias agrupadas por intervalo de la variable altura, y a partir de ella debemos calcular las marcas de clase y la media. Aquí tienes \textattachfile{Spiegel-p073-Solucion.ods}{\textcolor{blue}{la solución}}.
+\end{itemize}
+
+
+%\section*{Tareas asignadas para esta sesión.}
+%
+%\begin{enumerate}
+% \item \textcolor{red}{Las tareas que aparecían como 3 y 4 en la anterior sesión se han desplazado a esta sesión.}
+% \item Completa el cuestionario sobre medias aritméticas que encontrarás en Moodle, en el apartado correspondiente a esta sesión.
+% \item Ya está disponible la primera hoja de Ejercicios, y la semana que viene empezamos las prácticas. Hay una probabilidad muy alta (para eso estamos en Estadística) de que sea conveniente ir a la clase de prácticas habiendo pensado cómo se hacen los ejercicios de esta hoja.
+%\end{enumerate}
+
+
+%\section*{\fbox{\colorbox{Gris025}{{Sesión 4. Estadística descriptiva.}}}}
+%
+%\subsection*{\fbox{\colorbox{Gris025}{{Más valores centrales. Medidas de dispersión, primera parte.}}}}
+%\subsection*{Fecha: Martes, 27/09/2011, 14h.}
+%
+%\noindent{\bf Atención:
+%\begin{enumerate}
+%\item \textcolor{red}{En la última sesión llegamos hasta el final del resumen, pero nos falta practicar algunos ejemplos de cálculo de medias aritméticas para datos agrupados. Empezaremos con esto.}
+%\item Este fichero pdf lleva adjuntos los ficheros de datos necesarios.
+%\end{enumerate}
+%}
+%
+%%\subsection*{\fbox{1. Ejemplos preliminares }}
+%\setcounter{tocdepth}{1}
+%%\tableofcontents
+%\section*{Lectura recomendada\footnote{Además de la parte restante de la anterior sesión.}}
+
+%Al menos uno de los siguientes:
+%    \begin{itemize}
+%    \item Capítulo 2 de "La estadística en Comic" (hasta el final).
+%    \item Capítulo 2 de Head First Statistics (pág. 53 al final) y Capítulo 3.
+%    \item Tema 2 de Bioestadística: Métodos y Aplicaciones, Univ. de Málaga (cubre aspectos que nosotros apenas vamos a tratar).
+%    \item Apuntes de la segunda sesión del Curso 2010-2011, apartado 4 (desde la pág. 10 hasta el final) y tercera sesión hasta la página 20.
+%
+%    \end{itemize}
+
+\section{Otros valores centrales. Mediana, percentiles, moda.}
+
+\subsection*{Contenido:}
+\begin{itemize}
+ \item Mediana.
+ \item Moda
+ %\item Opcional. Otras medias: media geométrica, armónica, etcétera.
+\end{itemize}
+
+
+\subsection{Mediana. }
+
+\begin{itemize}
+    \item Como en el caso de la media aritmética, vamos a suponer que tenemos $n$ observaciones de una variable cuantitativa:
+        \[x_1,x_2,\ldots,x_n.\]
+        Antes de seguir: la variable ha de ser cuantitativa, y estamos suponiendo que los datos no están agrupados en una tabla de frecuencia. Más abajo veremos el caso de datos agrupados.
+
+        Como los $x_i$ son números, vamos a suponer que los hemos ordenado de menor a mayor:
+        \[x_1\leq x_2\leq\cdots\leq x_{n-1}\leq x_n.\]
+        Entonces, la {\sf mediana} (inglés: median) de ese conjunto de datos es el {\em valor central} de esa serie ordenada. Es decir:
+        \begin{itemize}
+            \item[]{\bf Caso impar:} si tenemos una cantidad impar de datos, sólo hay un valor central, y ese es la mediana. Por ejemplo, para siete datos:
+                \[
+                \begin{array}{rcl}
+                \underbrace{x_1\leq x_2\leq x_3}_{\mbox{mitad izda.}}\leq &\hspace{-7mm}\textcolor{red}{x_4}&\hspace{-7mm}\leq
+                \underbrace{x_5\leq x_6\leq x_7}_{\mbox{mitad dcha.}}\\[-5mm]
+                &\hspace{-7mm}\textcolor{red}{\uparrow}&\\
+                &\hspace{-7mm}\textcolor{red}{\mbox{\small mediana}}&
+                \end{array}
+                \]
+            \item[]{\bf Caso par:} Por contra, si el número de datos es par, entonces tomamos el valor máximo de la mitad izquierda, y el valor mínimo de la mitad derecha y hacemos la media. Por ejemplo, para seis datos:
+                \[
+                \begin{array}{rcl}
+                \underbrace{x_1\leq x_2\leq x_3}_{\mbox{mitad izda.}}\leq &\hspace{0mm}\textcolor{red}{\dfrac{x_3+x_4}{2}}&\hspace{0mm}\leq
+                \underbrace{x_4\leq x_5\leq x_6}_{\mbox{mitad dcha.}}\\[-3mm]
+                &\hspace{0mm}\textcolor{red}{\uparrow}&\\
+                &\hspace{0mm}\textcolor{red}{\mbox{\small mediana}}&
+                \end{array}
+                \]
+        \end{itemize}
+        En el caso de un número impar de datos la mediana siempre coincide con uno de los datos originales. Pero en el caso de un número par de datos la mediana pueden darse los dos casos. Por ejemplo, si tenemos estos seis datos ordenados:
+        \[
+        2\leq 5\leq 6\leq 7\leq 11\leq 15,
+        \]
+        Entonces la mediana es $6.5$
+        \[
+        2\leq 5\leq 6\leq\textcolor{red}{\mbox{\Large\bf 6.5}}\leq 7\leq 11\leq 15,
+        \]
+        que no aparecía en el conjunto original (fíjate en particular en que, como pasaba con la media aritmética, aunque todos los datos originales sean enteros, la mediana puede no serlo). Mientras que si tenemos estos seis datos, con los dos datos centrales iguales:
+        \[
+        2\leq 5\leq 6\leq 6\leq 11\leq 15,
+        \]
+        Entonces la mediana es $6$, que ya estaba (repetido) entre los datos originales.
+        \[
+        2\leq 5\leq 6\leq\textcolor{red}{\mbox{\Large\bf 6}}\leq 8\leq 11\leq 15,
+        \]
+
+        \item ¿Qué {\sf ventajas} aporta la mediana frente a la media aritmética? Fundamentalmente, la mediana se comporta mejor cuando el conjunto de datos contiene {\sf datos atípicos} (inglés: outliers). Es decir, datos cuyo valor se aleja {\em mucho} de la media. Todavía no podemos precisar esto porque para hacerlo necesitamos la noción de medidas de dispersión que vamos a ver en la próxima sección. Pero la idea intuitiva es que si tenemos un conjunto de datos, e introducimos un dato adicional que se aleja mucho de la media aritmética inicial, entonces en el nuevo conjunto de datos podemos tener una media aritmética bastante distinta de la inicial. En cambio la mediana sufre modificaciones mucho menores frente a esos datos atípicos.
+
+            Para observar este comportamiento podéis abrir el \textattachfile{MediaMedianaOutliers.html}{\textcolor{blue}{fichero html adjunto}} (se abre en el navegador, y requiere Java), y experimentar con él.
+
+            \item En el caso de que queramos {\sf calcular la mediana a partir de la tabla de frecuencias para los distintos valores de una variable cuantitativa discreta}, construimos la tabla de frecuencias relativas acumuladas (f.r.a.):
+                \begin{center}
+                    \begin{tabular}{|c|c|c|}
+                    \hline
+                    \rule{0cm}{4mm}{\bf Intervalo}&{\bf Frecuencia}&\textcolor{red}{\bf F.r.a.}\\ \hline
+                    \rule{0cm}{4mm}$x_1$&$f_1$&$\textcolor{red}{g_1}$\\[2mm] \hline
+                    \rule{0cm}{4mm}$x_2$&$f_2$&$\textcolor{red}{g_2}$\\[2mm] \hline
+                    $\vdots$&$\vdots$&$\textcolor{red}{\vdots}$\\[2mm] \hline
+                    \rule{0cm}{4mm}$x_k$&$f_k$&$\textcolor{red}{g_k=1}$\\[2mm] \hline
+                    \end{tabular}
+                \end{center}
+            ¿Qué que es eso de las frecuencias relativas acumuladas? En definitiva, se trata de los {\em tantos por uno acumulados}: es decir, que para cada uno de los valores $x_1,\ldots, x_n$ vamos sumando las frecuencias de ese valor y {\sf de todos los que le preceden}. En fórmulas:
+            \[g_1=\dfrac{f_1}{n},\quad g_2=\dfrac{f_1+f_2}{n},\quad g_3=\dfrac{f_1+f_2+f_3}{n},\quad\mbox{etc.}\]
+            En el \textattachfile{Mediana-TablaFrecRelAcum.ods}{\textcolor{blue}{fichero adjunto}} puedes ver cómo se hace se cálculo para ua tabla de frecuencias (de valores  aleatorios). Cada vez que se abre el fichero genera un conjunto de datos distinto, así que puedes recargarlo varias veces para ver ejemplos variados.
+
+        \item ¿Y si lo que necesitamos es {\sf calcular la mediana a partir de la tabla de frecuencias de una variable cuantitativa}, pero agrupada en intervalos? En este caso las cosas se complican un poco. Si hemos entendido la idea de histograma, esta forma de verlo nos puede ayudar: la mediana es el valor de la variable (por lo tanto es el punto del eje horizontal) que divide el histograma en dos mitades con el mismo área. Existen fórmulas para calcular la mediana en estos casos (usando interpolación). Pero aquí no nos vamos a entretener.
+
+\end{itemize}
+
+\subsection{Moda.}
+
+\begin{itemize}
+    \item La media aritmética y la mediana se utilizan para variables cuantitativas. La moda en cambio puede utilizarse además con variables de tipo cualitativo (y es, de los que vamos a ver, el único tipo de valor promedio que puede usarse con variables cualitativas). {\sf La moda de una serie de valores agrupados en una tabla de frecuencias es el valor con la frecuencia más alta.}
+
+    \item Puesto que puede haber dos o más valores que tengan la misma frecuencia, hay conjuntos de datos que tienen más de una moda.
+
+    \item El cálculo de la moda (o modas) es inmediato a partir de las tablas de frecuencias. Aquí tienes \textattachfile{titanic.csv}{\textcolor{blue}{adjunto un fichero}} con datos de viajeros del Titanic (tomado de los ejemplos que acompañan al libro {\em Estadística Básica con R y R–Commander} de la Univ. de Cadiz). Para practicar podéis calcular la moda de todas las variables que aparecen en él (aunque algunas modas son evidentes por simple inspección de los datos: la mayoría de los viajeros eran adultos, por ejemplo).
+\end{itemize}
+
+
+%\subsection{Opcional. Otras medias: media geométrica, armónica, etcétera.}
+%\begin{itemize}
+%    \item La {\sf media geométrica} de los números $x_1,x_2,\ldots,x_n$ es la raíz n-ésima del producto de esos números:
+%    \[\sqrt[n]{x_1\cdot x_2\cdot\cdots\cdot x_n}=\sqrt[n]{\prod_{i=1}^n{x_i}}\]
+%    (El símbolo $\prod$ dentro de la segunda raíz es un {\sf productorio}, el análogo del sumatorio para el producto.)
+%    El logaritmo de la media geométrica es igual a la media aritmética de los logaritmos de los valores de la variable.
+%
+%    Ventajas: considera todos los valores de la distribución y es menos sensible que la media aritmética a los valores extremos.
+%
+%    Desventajas: es de significado estadístico menos intuitivo que la media aritmética, su cálculo es más difícil y
+%        en ocasiones no queda determinada; por ejemplo, si un valor es nulo, entonces la media geométrica se anula. Solo es relevante la media geométrica si todos los números son positivos.
+%
+%\end{itemize}
+
+\section{Medidas de dispersión. Primera parte}
+
+\subsection*{Introducción}
+
+Hasta ahora hemos estado calculando valores que nos sirvieran como representantes de una colección de datos. Sin embargo, es fácil entender que un mismo valor de la media aritmética o de la mediana, etcétera, puede corresponder a muchas colecciones de datos distintas. {\sf No sólo necesitamos un valor representativo, además necesitamos una forma de medir la calidad de ese representante.} ¿Cómo podemos hacer esto? La idea que vamos a utilizar es la de {\sf dispersión}. Una colección de números es poco dispersa cuando los datos están muy concentrados alrededor de la media. Pero tenemos que concretar más ¿cómo podemos pedir eso? En esta sección vamos a introducir varios métodos de medir la dispersión de una colección de datos.
+
+\subsection{Rango, Cuartiles y Percentiles.}
+
+\begin{itemize}
+
+    \item La idea más elemental de dispersión es el {\sf rango}, que ya hemos encontrado al pensar en las representaciones gráficas. El rango es simplemente la diferencia entre el máximo y el mínimo de los valores. Es una manera rápida, pero excesivamente simple de analizar la dispersión de los datos, porque depende exclusivamente de dos valores (el máximo y el mínimo), que pueden ser casos muy excepcionales.
+
+    \item Hemos visto que la mediana es el valor que deja a la mitad de los datos a cada lado. Esta idea se puede generalizar fácilmente: el valor que deja al primer cuarto a su izquierda es el {\sf primer cuartil} del conjunto de datos. Dicho de otra forma: la mediana divide a los datos en dos mitades, la mitad izquierda y la mitad derecha. Pues entonces el primer cuartil es la mediana de la mitad izquierda. Y de la misma forma el {\sf tercer cuartil} es la mediana de la mitad derecha. Y por tanto es el valor que deja a su derecha al último cuarto de los datos\footnote{ Por si te lo estás preguntando, sí, la mediana es el segundo cuartil, pero nadie la llama así, claro.}.
+
+    \item La mediana y los cuartiles son los valores que señalan la posición del $25\%$, el $50\%$ y el $75\%$ de los datos. Se pueden utilizar los cuartiles  para medir la dispersión de los datos, calculando el {\sf rango intercuartílico} (en inglés interquartile range, IQR), que es la diferencia entre el tercer y el primer cuartil.
+
+    \item El {\sf cálculo de los cuartiles} se basa en los mismos principio que el de la mediana (porque como hemos visto se trata de medianas).
+
+    \item Los datos que son mucho menores que el primer cuartil o mucho mayores que el tercer cuartil se consideran atípicos. ¿Cómo de lejos tienen que estar de los cuartiles para considerarlos {\em raros o excepcionales}? La forma habitual de proceder es considerar que {\sf un valor mayor que el tercer cuartil, y cuya diferencia con ese cuartil es mayor que $1.5$ veces el rango intercuartílico es un valor atípico} (en inglés, outlier).  De la misma forma, también es un valor atípico aquel valor menor que el tercer cuartil, cuya diferencia con ese cuartil es mayor que $1.5\cdot$IQR.
+
+    \item La mediana, los cuartiles y el rango intercuartílico se utilizan para dibujar los diagramas llamados de {\sf caja y bigotes} (boxplot en inglés), como el que se muestra más abajo. En estos diagramas se dibuja una caja cuyos extremos son el primer y tercer cuartiles. Dentro de esa caja se dibuja el valor de la mediana. Los valores atípicos se suelen mostrar como puntos individuales (fuera de la caja, claro), y finalmente se dibujan segmentos que unen la caja con los datos más alejados que no son atípicos.
+         \begin{center}
+         \includegraphics[height=8cm]{2011_09_27_Figura01_BoxPlot.png}
+         \end{center}
+
+    \item La idea de los cuartiles se puede generalizar fácilmente. Como hemos dicho, el primer cuartil deja a su izquierda el $25\%$ de los datos. Si pensamos en el valor que deja a su izquierda el $10\%$ de los datos, estamos pensando en un {\sf percentil.} Los percentiles se suelen dar en porcentajes, pero también en tantos por uno, es decir en números comprendidos entre 0 y 1.
+
+    \item Las hojas de cálculo incluyen funciones para calcular la mediana, los cuartiles y los percentiles de un conjunto de datos. En este \textattachfile{CuartilesPercentiles.ods}{\textcolor{blue}{fichero Calc}} tienes una colección de datos aleatorios (serán distintos en cada apertura del fichero), y funciones para calcular su mediana, cuartiles y percentiles. Y, para irnos iniciando en el uso de R, aquí tienes un \textattachfile{DatosParaBoxPlot.csv}{\textcolor{blue}{fichero de datos}} y un \textattachfile{Sesion002.R}{\textcolor{blue}{fichero de instrucciones R}} con los que practicar el cálculo de medianas, cuartiles, percentiles y los diagramas de cajas.
+\end{itemize}
+
+
+%\subsection{Varianza.}
+%
+%\begin{itemize}
+%    \item
+%\end{itemize}
+%
+%\subsection{Desviación típica.}
+%
+%\begin{itemize}
+%    \item
+%\end{itemize}
+
+
+
+
+%\section*{Tareas asignadas para esta sesión.}
+%
+%\begin{enumerate}
+% \item Completa el cuestionario sobre medias, medianas, etcétera que encontrarás en Moodle, en la sesión de hoy.
+% \item Con el mismo fichero de datos que usaste para la Tarea 2 del viernes 23/09, usa R-Commander para dibujar un diagrama de cajas de la variable peso. Guarda ese diagrama como un fichero con el mismo nombre, pero con gráfico (con extension png o jpg; si no te aclaras, ya sabes, al foro a por ayuda).
+%\end{enumerate}
+%
+%
+%
+%
+%\section*{\fbox{\colorbox{Gris025}{{Sesión 4. Estadística descriptiva.}}}}
+%
+%\subsection*{\fbox{\colorbox{Gris025}{{Medidas de dispersión: varianza y desviación típica.}}}}
+%\subsection*{Fecha: Viernes, 30/09/2011, 14h.}
+%
+%\noindent{\bf Atención:
+%\begin{enumerate}
+%\item \textcolor{red}{Hemos llegado hasta el final del punto 1.1 (la mediana), pero no hemos visto la Moda. Ni los cuartiles, percentiles, etc. de la sección 2.}
+%\item \textcolor{red}{Aunque, en un momento de ofuscación, el profesor lo haya dicho en clase,\\ \underline{{\em recordad que es falso que la media de las medias sea la media}.}\\ Os pido disculpas por la metedura de pata.
+%Si tenemos una colección de $n_1$ valores con media $\bar x_1$, y otra colección de $n_2$ valores (de la misma variable, claro) con media $\bar{x}_2$, la media conjunta es:
+%\[\dfrac{n_1\bar x_1+n_2\bar x_2}{n_1+n_2}.\]
+%}
+%\item Este fichero pdf lleva adjuntos los ficheros de datos necesarios.
+%\end{enumerate}
+%}
+%
+%%\subsection*{\fbox{1. Ejemplos preliminares }}
+%\setcounter{tocdepth}{1}
+%%\tableofcontents
+%\section*{Lectura recomendada}
+%
+%La misma de la anterior sesión. Es decir, al menos uno de los siguientes:
+%    \begin{itemize}
+%    \item Capítulo 2 de "La estadística en Comic" (hasta el final).
+%    \item Capítulo 2 de Head First Statistics (pág. 53 al final) y Capítulo 3.
+%    \item Tema 2 de Bioestadística: Métodos y Aplicaciones, Univ. de Málaga (cubre aspectos que nosotros apenas vamos a tratar).
+%    \item Apuntes de la segunda sesión del Curso 2010-2011, apartado 4 (desde la pág. 10 hasta el final) y tercera sesión hasta la página 20.
+%
+%    \end{itemize}
+
+
+\section{Varianza y desviación típica.}
+
+
+\subsection{Varianza}
+
+\begin{itemize}
+
+    \item Las medidas de dispersión que hemos visto (el rango y el rango intercuartílico) se expresan en términos de cuartiles (o percentiles), y  por lo tanto tienen más que ver con la mediana que con la media aritmética. Sin embargo, uno de los objetivos más importantes -si no el más importante- de la Estadística es hacer inferencias desde una muestra a la población, como discutimos en la segunda sesión del curso. Y cuando se trata de hacer inferencias, vamos a utilizar de modo preferente la media aritmética como valor central o representativo de los datos. Por eso estas medidas de dispersión relacionadas con la mediana, y no con la media, no son las mejores para hacer inferencia. {\sf Necesitamos una medida de dispersión relacionada con la media aritmética.}
+
+    \item Tenemos, como siempre, un conjunto de $n$ datos,
+        \[x_1,x_2,\ldots,x_n\]
+        que corresponden a $n$ valores de una {\sf variable cuantitativa.}
+        La primera idea que se nos puede ocurrir es medir la diferencia entre cada uno de esos valores y la media (la {\em desviación individual} de cada uno de los valores):
+        \[x_1-\bar x, x_2-\bar x,\ldots, x_n-\bar x,\]
+        Y para tener en cuenta la contribución de todos los valores podríamos pensar en hacer la media de estas desviaciones individuales:
+        \[\dfrac{(x_1-\bar x)+(x_2-\bar x)+\cdots+(x_n-\bar x)}{n}.\]
+        El problema es que esta suma siempre vale cero. Vamos a fijarnos en el numerador (y recuerda la definición de media aritmética):
+        \[(x_1-\bar x)+(x_2-\bar x)+\cdots+(x_n-\bar x)=(x_1+x_2+\cdots+x_n)-n\cdot\bar x=0.\]
+        Está claro que tenemos que hacer algo más complicado, para evitar que el signo de unas desviaciones se compense con el de otras. A partir de aquí se nos abren dos posibilidades, usando dos operaciones matemáticas que eliminan el efecto de los signos. Podemos usar el valor absoluto de las desviaciones individuales:
+        \[\dfrac{|x_1-\bar x|+|x_2-\bar x|+\cdots+|x_n-\bar x|}{n},\]
+        o podemos elevarlas al cuadrado:
+        \[\dfrac{(x_1-\bar x)^2+(x_2-\bar x)^2+\cdots+(x_n-\bar x)^2}{n}.\]
+        Las razones para elegir entre una u otra alternativa son técnicas: vamos a usar la que mejor se comporte para hacer inferencias. Y esa resulta ser la opción que utiliza los cuadrados.
+
+    \item La {\sf varianza (o desviación cuadrática media)} del conjunto de datos $x_1,x_2,\ldots,x_n$ es:
+        \begin{equation}
+        \fbox{$v=\mbox{Var($x$)}=\dfrac{(x_1-\bar x)^2+(x_2-\bar x)^2+\cdots+(x_n-\bar x)^2}{n}=\dfrac{\displaystyle\sum_{i=1}^n(x_i-\bar x)^2}{n}.$}
+        \end{equation}
+
+    \item En muchos libros veréis que se presenta una cantidad llamada {\sf varianza muestral} mediante la fórmula
+            \[\fbox{$s^2=\dfrac{\displaystyle\sum_{i=1}^n(x_i-\bar x)^2}{\textcolor{red}{\bf n-1}}.$}\]
+            Este concepto será importante cuando hablemos de inferencia, y entonces entenderemos el papel que juega la varianza muestral, y su relación con la varianza tal como la hemos definido. Lo que sí es {\sf\large muy importante}, usando software o calculadoras, es que sepamos si el número que se obtiene es la varianza o la varianza muestral.
+
+     \item {\sf Método abreviado de cálculo:} desarrollando los cuadrados con la fórmula del binomio, y usando un poco de álgebra se puede obtener esta otra fórmula para la varianza:
+           \[v=\mbox{Var($x$)}=\dfrac{\displaystyle\sum_{i=1}^n x_i^2}{n}-(\bar x)^2\]
+           Esta fórmula es un poco más eficiente, y es mucho mejor cuando las cuentas se hacen con calculadoras no avanzadas (que no incluyen directamente el cálculo de la varianza de una colección de datos, pero sí saben calcular la suma de los cuadrados, por ejemplo). \\
+
+           De la misma forma, para la varianza muestral se obtiene una fórmula abreviada un poco más complicada:
+           \[s^2=\dfrac{\displaystyle\left(\sum_{i=1}^n x_i^2\right)-n(\bar x)^2}{n-1}.\]
+
+     \item ¿Tenemos que recordar estas fórmulas abreviadas? En realidad, no. Basta con recordar que existen, y saber donde buscarlas si llegaran a ser necesarias. En la mayor parte de los casos usaremos una hoja de cálculo (o software específico, como R) para esto. Lo más importante es, insistimos:
+            \begin{enumerate}
+            \item recordar la definición que aparece en la ecuación (1), y la diferencia entre esta y la varianza muestral
+            \item saber, cuando usamos una herramienta para calcular, si el valor que obtenemos es la varianza o la varianza muestral. Siempre se puede hacer un experimento con una pequeña colección de datos para salir de dudas.
+            \end{enumerate}
+           Para aclarar todo esto, vamos a usar \textattachfile{VarianzasConHojaCalculo-Plantilla.ods}{\textcolor{blue}{este fichero (plantilla en Calc)}} con 20 datos aleatorios para calcular su varianza usando la hoja de cálculo, directamente y usando funciones. Y en \textattachfile{VarianzasConHojaCalculo.ods}{\textcolor{blue}{este otro}}  un fichero con los cálculos ya incorporados (cuidado, son otros datos salvo que los copiemos sin cerrar el original).
+
+    \item Cuando lo que tenemos son datos descritos mediante una tabla de frecuencias, debemos proceder así:
+            \begin{enumerate}
+            \item la fórmula (1) se sustituye por:
+                 \[\fbox{$v=\mbox{Var($x$)}=\dfrac{\displaystyle\sum_{i=1}^k\textcolor{red}{\bf f_i\cdot}(x_i-\bar x)^2}{\textcolor{red}{\bf \displaystyle\sum_{i=1}^k f_i}}.$}\]
+                 donde, ahora, $x_1,\ldots,x_k$ son los valores {\em distintos} de la variable, y $f_1,\ldots,f_k$ son las correspondientes frecuencias.
+            \item en las fórmulas abreviadas, la suma de valores de la variable se sustituye por $\sum_{i=1}^kx_i\cdot f_i$, la suma de cuadrados por $\sum_{i=1}^kx_i^2\cdot f_i$ (cuidado: no hay que elevar la frecuencia al cuadrado), y debemos recordar que $n=\sum_{i=1}^k f_i$.
+            \item en el caso de datos agrupados por intervalos, los valores $x_i$ que utilizaremos serán las marcas de clase.\\
+            Podemos practicar esto con esta  \textattachfile{EjemploCalculoVarianza.csv}{\textcolor{blue}{tabla de datos (formato csv)}}. Y aquí tenemos una \textattachfile{EjemploCalculoVarianza-Plantilla.ods}{\textcolor{blue}{plantilla (Calc)}} para calcular la desviación típica paso a paso. En este otro fichero está la  \textattachfile{EjemploCalculoVarianza-Solucion.ods}{\textcolor{blue}{solución}}.
+            \end{enumerate}
+
+
+
+\end{itemize}
+
+
+\subsection{Desviación típica.}
+
+\begin{itemize}
+    \item La varianza, como medida de dispersión, tiene un grave inconveniente: puesto que hemos elevado al cuadrado, las unidades en las que se expresa son el cuadrado de las unidades originales en las que se medía la variable $x$. Y nos gustaría que una medida de dispersión nos diera una idea de, por ejemplo, cuantos metros se alejan de la media los valores de una variable medida en metros. Dar la dispersión en metros cuadrados es, cuando menos, extraño. Por esa razón, entre otras, vamos a necesitar una nueva definición.
+
+    \item La {\sf desviación típica} es la raíz cuadrada de la varianza:
+            \begin{equation}
+        \fbox{$\mbox{DT($x$)}=\sqrt{\mbox{Var($x$)}} =\sqrt{\dfrac{\displaystyle\sum_{i=1}^n(x_i-\bar x)^2}{n}}.$}
+        \end{equation}
+        También existe una {\sf desviación típica muestral}, calculada a partir de la varianza muestral.
+
+    \item El cálculo de la desviación típica tiene las mismas características que el de la varianza. Y, de nuevo, es {\sf\large muy importante}, usando software o calculadoras, es que sepamos si el número que se obtiene es la desviación típica o la desviación típica muestral.
+
+
+\end{itemize}
+
+
+%\section*{Lectura recomendada para este capítulo}
+%
+%Al menos uno de los siguientes:
+%    \begin{itemize}
+%    \item Capítulo 2 de "La estadística en Comic" (desde la pág 13 a la 18).
+%    \item Capítulo 2 de Head First Statistics.
+%    \item Tema 2 de Bioestadística: Métodos y Aplicaciones, Univ. de Málaga; es mejor esperar hasta el final de la próxima sesión, para poder leerlo sin saltos.
+%    \item Apuntes de la segunda sesión del Curso 2010-2011, apartado 4 (hasta la pág. 14).
+%    \item Capítulo 2 de "La estadística en Comic" (hasta el final).
+%    \item Capítulo 2 de Head First Statistics (pág. 53 al final) y Capítulo 3.
+%    \item Tema 2 de Bioestadística: Métodos y Aplicaciones, Univ. de Málaga (cubre aspectos que nosotros apenas vamos a tratar).
+%    \item Apuntes de la segunda sesión del Curso 2010-2011, apartado 4 (desde la pág. 10 hasta el final) y tercera sesión hasta la página 20.
+%    \end{itemize}
+
+
+
+
+%
+%\section*{Tareas asignadas para esta sesión.}
+%
+%\begin{enumerate}
+%%    \item Usa este \textattachfile{2011-09-30-Tarea1.ods}{\textcolor{blue}{este fichero (Calc)}} (y aquí la \textattachfile{2011-09-30-Tarea1.xls}{\textcolor{blue}{versión Excel}}) para obtener una lista de 50 números. Usando este fichero de instrucciones como plantilla, haz las modificaciones necesarias y usa R-Commander para dibujar un diagrama de cajas de esos datos. (\Pendiente{más detalles en Moodle}). Guarda ese diagrama como un fichero con el mismo nombre, pero con gráfico (con extension png o jpg; si no te aclaras, ya sabes, al foro a por ayuda).
+%     \item Completa el cuestionario sobre cuartiles, varianzas y desviaciones típicas que encontrarás en Moodle, en la sesión de hoy (hasta el 11/10/2011).
+%     \item Puede haber una tarea adicional para la sesión de hoy, compruébalo en Moodle.
+%%     \item IDEA 1: que hagan un ejercicio de la primera hoja, y que lo entreguen rápido.
+%%     \item IDEA 2: otro con ficheros y php de por medio :)
+%\end{enumerate}
+%
+%

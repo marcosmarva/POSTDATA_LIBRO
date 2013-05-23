@@ -1,0 +1,362 @@
+﻿% !Mode:: "Tex:UTF-8"
+
+Continuando con el tema de la relación entre dos variables, le llega el turno al caso C $\sim$ C, cuando tanto la variable respuesta como la explicativa son cualitativas (también llamadas categóricas, o factoriales). La técnica nueva que vamos a aprender en este capítulo se conoce habitualmente como test $\chi^2$ (léase {\em ji cuadrado o chi cuadrado}).
+
+
+
+\section{Tablas de contingencia}
+
+\subsection{El caso $2\times 2$}
+\begin{itemize}
+
+    \item El \link{http://www.cis.es/cis/opencms/ES/index.html}{{\em Barómetro} del CIS} (Centro de Investigaciones Sociológicas) permite, entre otras muchas cosas, obtener datos sobre las creencias religiosas de la población en España. Una pregunta que puede interesarnos es ¿hay alguna diferencia al respecto entre hombres y mujeres? Vamos a utilizar los datos del {\em Barómetro} para intentar contestar.
+
+        Por ejemplo, en el mes de enero de 2013 el {\em Barómetro} recoge las respuestas de $n=2452$ personas sobre sus creencias religiosas\footnote{En realidad son 2483, pero para simplificar vamos a eliminar de nuestra consideración a las 19 mujeres y a los 12 hombres que decidieron no contestar.}. Observa que, como de costumbre, vamos a usar $n$ para el número total de personas encuestadas. Agrupamos a todos los creyentes de distintas religiones por un lado y a los que se declaran no creyentes o ateos por otro. Y así tenemos una tabla de doble entrada:
+        \begin{center}
+        \begin{tabular}{|c|c|c|c|}
+          \hline
+          % after \\: \hline or \cline{col1-col2} \cline{col3-col4} ...
+           & Hombres & Mujeres & Total \\
+           \hline
+          Creyentes & ?? & ?? & 1864 \\
+          \hline
+          No creyentes & ?? & ?? & 588 \\
+          \hline
+          Total & 1205 & 1247 & 2452 \\
+          \hline
+        \end{tabular}
+        \end{center}
+        Los valores que aparecen aquí se denominan {\sf valores marginales} (porque aparecen en los márgenes de la tabla, claro).
+
+        Hemos dejado sin rellenar el resto de la tabla porque es el momento de hacerse una pregunta, que dará comienzo a nuestro trabajo de este capítulo: si {\em suponemos} que no hay diferencia entre hombres y mujeres, en lo referente a las creencias religiosas, ¿qué números {\em esperaríamos} ver en esa tabla? Si las creencias religiosas fuesen {\em independientes} del género, esperaríamos encontrar en el grupo de mujeres la misma proporción $p$ de creyentes que existe en la población en conjunto. Y tenemos una estimación muestral de esa proporción poblacional de creyentes declarados, que es:
+        \[\hat p=\dfrac{1864}{2452}\approx 0.7602\]
+        Así que podemos utilizar esto para rellenar una tabla de {\em valores esperados} (redondeados a enteros):
+        \begin{center}
+        \begin{tabular}{|c|c|c|c|}
+          \hline
+          % after \\: \hline or \cline{col1-col2} \cline{col3-col4} ...
+           & Hombres & Mujeres & Total \\
+           \hline
+          Creyentes & $e_{11}=916$ & $e_{12}=948$ & 1864 \\
+          \hline
+          No creyentes & $e_{21}=289$ & $e_{22}=299$ & 588 \\
+          \hline
+          Total & 1205 & 1247 & 2452 \\
+          \hline
+        \end{tabular}
+        \end{center}
+        Los valores que aparecen aquí se han calculado de la forma evidente. Por ejemplo, nuestra estimación del número de mujeres creyentes es:
+        \[e_{12}=1247\cdot\hat p=1247\cdot\dfrac{1864}{2452}\approx 948.\]
+        La notación $e_{ij}$ que hemos usado es la habitual en este tipo de situaciones. El valor $e_{ij}$ es el valor {\em esperado} en la fila $i$ y columna $j$.
+
+
+    \item Con esto estamos listos para ver los datos reales del {\em Barómetro}. Se obtuvo esta tabla:
+        \begin{center}
+        \begin{tabular}{|c|c|c|c|}
+          \hline
+          % after \\: \hline or \cline{col1-col2} \cline{col3-col4} ...
+           &{\bf Hombres }&{\bf Mujeres }& Total \\
+           \hline
+          {\bf Creyentes }& $o_{11}=849$ & $o_{12}=1015$ & 1864 \\
+          \hline
+          {\bf No creyentes }& $o_{21}=356$ & $o_{22}=232$ & 588 \\
+          \hline
+          Total & 1205 & 1247 & 2452 \\
+          \hline
+        \end{tabular}
+        \end{center}
+        De nuevo, la notación $o_{ij}$ es la que se utiliza habitualmente en estos casos para los {\em valores observados}. Y ahora que hemos visto varios ejemplos, podemos hacer oficial el nombre de este tipo de tablas. Las tablas que estamos viendo, que reflejan las frecuencias (observadas o esperadas) de las posibles combinaciones de dos variables cualitativas se llaman {\sf tablas de contingencia}. En particular, estamos trabajando contablas de contingencia $2\times 2$, porque ambas variables toman dos valores (hombres/mujeres, creyentes/no creyentes). Pronto veremos ejemplos más generales de tablas de contingencia con cualquier número de filas o columnas.
+
+    \item   A la vista de las dos tablas de valores $e_{ij}$ y $o_{ij}$, resulta evidente que los valores observados no coinciden con los esperados. De hecho, el número de hombres no creyentes es más alto de lo que habíamos estimado a partir de la población en conjunto (y, lógicamente, el número de mujeres no creyentes es más bajo que la estimación). Pero ese número de hombres no creyentes, ¿es {\sf significativamente} más alto?\\
+    La palabra {\em ``significativamente''}, a estas alturas del curso, debería ponernos en guardia. Claro, es que esta situación tiene todos los ingredientes de un contraste de hipótesis. Hay una hipótesis nula, que podemos describir así:
+        \[H_0=\{\mbox{Las creencias religiosas no dependen del género.} \}\]
+        o también
+        \[H_0=\left\{\mbox{Los valores esperados $e_{ij}$ describen correctamente la distribución de probabilidad.}\right\}\]
+        Y al obtener unos valores muestrales, distintos de los que predice la hipótesis nula, nos preguntamos si esos valores son tan distintos de los esperados como para que, a alguien que cree en la hipótesis nula, le resulte muy difícil aceptar que son fruto del azar.\\
+
+    \item Antes de seguir adelante, vamos a hacer un par de observaciones:
+        \begin{enumerate}
+            \item es posible que el lector haya pensado: ``están intentando liarme, cuando esto es mucho más sencillo: ¡nada de dos variables! Estamos estudiando una única variable (la creencia religiosa), con dos resultados posibles (cree/ no cree). Y estudiamos la proporción de creyentes en {\em dos poblaciones:} hombres y mujeres. Así que esto es un problema de inferencia con la Binomial, del tipo que ya hemos estudiado en el Capítulo \ref{cap:Inferencia2Poblaciones}.'' Si el lector ha pensado esto: enhorabuena. Es cierto. En el caso en el que tanto la variable respuesta como la variable explicativa son ambas categóricas y con dos valores posibles (tenemos una tabla $2\times 2$), el problema se puede abordar con los métodos del Capítulo \ref{cap:Inferencia2Poblaciones}, usando la Distribución Binomial y viendo los dos valores posibles de la variable explicativa como si correspondiesen a dos poblaciones. Y los resultados --en ese caso-- son equivalentes a los que vamos a obtener aquí. Y hemos empezado por este ejemplo, del caso más sencillo, precisamente para establecer esa conexión. Pero enseguida vamos a ocuparnos de casos en los que las variables toman más de dos valores, y se necesitan los métodos de este capítulo.
+
+            \item si la frase {\em distribución de probabilidad} te ha intrigado, enhorabuena otra vez. Este es uno de esos momentos sobre los que nos pusimos en guardia en la introducción de esta parte del curso (ver página \pageref{part04:intro}). Para entender con precisión lo que significa {\em distribución de probabilidad} en este contexto, necesitaríamos discutir la {\em distribución multinomial}; se trata de un análogo de la distribución binomial, cuando el experimento puede tener varios resultados, en lugar de sólo dos, como en los experimentos de Bernouilli que sirven de base a la binomial. En el último capítulo de esta parte del curso daremos algunos detalles más.
+
+        \end{enumerate}
+
+
+    \item Volvamos al asunto de cómo contrastar si las creencias religiosas dependen del género. Ya sabemos, por nuestra experiencia en capítulos previos, que para hacer un contrate de hipótesis, necesitamos un estadístico, y además, información sobre la distribución muestral de ese estadístico cuando $H_0$ es cierta. Como ya hemos anunciado, los detalles son, en este caso, demasiado técnicos para entrar a fondo en ellos; sin llegar al fondo de la cuestión, daremos algunas pistas más en un capítulo posterior. Por el momento, y para ayudar un poco a la intuición, vamos a recordar dos cosas:
+        \begin{itemize}
+          \item Bajo ciertas condiciones, se puede convertir una distribución relacionada con la binomial en una normal estándar mediante tipificación.
+          \item La suma de los cuadrados de varias normales estándar independientes da como resultado una variable de tipo $\chi^2$, con tanto s grados de libertad como normales independientes sumamos.
+        \end{itemize}
+        Con esas ideas en la cabeza, vamos a presentar el estadístico que usaremos para los datos del {\em Barómetro}:
+        \[X^2=\dfrac{(o_{11}-e_{11})^2}{e_{11}}+\dfrac{(o_{12}-e_{12})^2}{e_{12}}+\dfrac{(o_{21}-e_{21})^2}{e_{21}}+\dfrac{(o_{22}-e_{22})^2}{e_{22}}.\]
+        Como puede verse, hay un término por cada una de las cuatro celdas de la tabla de contingencia.  Y cada uno de esos términos es de la forma:
+        \[\dfrac{(o_{ij}-e_{ij})^2}{e_{ij}}\]
+        Para entender algo mejor este término, vamos a llamar $X_{12}$ a una variable aleatoria, que representa el valor de la posición $(1,2)$ (primera fila, segunda columna) de la tabla de contingencia. Naturalmente podríamos hacer lo mismo con las otras celdas de la tabla, y tendríamos cuatro variables $X_{ij}$ para $i,j=1,2$. Pero vamos a centrarnos en $X_{12}$ para fijar ideas. La variable $X_{12}$ toma un valor distinto en cada muestra de la población española. Si otras personas hubieran contestado a la encuesta para elaborar el {\em Barómetro} del CIS, obtendríamos números distintos. El valor que hemos llamado $o_{12}$ es el valor concreto de $X_{12}$ en una muestra concreta (la que se usó en el {\em Barómetro}). ¿Qué tipo de variable es $X_{12}$? Es decir, está claro que es discreta, pero ¿cuál es su distribución?  Podríamos verla como una variable de tipo binomial, donde {\em éxito} se define como {\em caer en la casilla (1,2) de la tabla}, y {\em fracaso} se define como {\em caer en cualquiera de las otras casillas}. La probabilidad de éxito, {\bf suponiendo que la hipótesis nula es correcta}, sería $p_{12}=\dfrac{e_{12}}{n}$. ¿Cuál sería la media $\mu(X_{12})$? Conviene recordar que otro nombre para la media es {\em valor esperado}. Así que no debería sorprendernos que el valor esperado de $X_{12}$ sea $e_{12}$.
+
+        Por lo tanto, si estuviéramos tipificando la variable $X_{12}$, esperaríamos ver algo como:
+        \[\dfrac{(o_{12}-e_{12})^2}{\sigma(X_{12})}.\]
+        El numerador del segundo término del estadísitico, el que corresponde a $X_{12}$, parece el cuadrado de la tipificación de esta variable. Como si, en efecto, estuviéramos tipificando y elevando al cuadrado. Pero el problema es que el denominador de ese término del estadístico es $e_{12}$, mientras que, pensando en una binomial, nosotros esperaríamos
+        \[\sigma^2(X_{12}=\left(\sqrt{n p_{12} q_{12}}\right)^2=e_{12} q_{12}.\]
+        {\em Si hubiera sido una tipificación,} ¿habríamos podido decir que el Estadístico es la suma de cuatro normales estándar y por lo tanto que es una $\chi^2_4$? ¡No! Porque se necesitan normales {\em independientes}. Y está bastante claro que las cuatro variables $X_{ij}$ no pueden ser independientes: sus sumas tienen que ser iguales a los valores marginales de la tabla.  Aún así, lo esencial de la idea es correcto: sumamos algo parecido (¡pero no igual!) a los cuadrados de la tipificación de unas binomiales, que {\em no son independientes}. Y el resultado es, en efecto, una distribución $\chi^2$, pero esa falta de independencia se traduce en que obtenemos menos grados de libertad de los que esperábamos. Concretamente:\\[3mm]
+        \fbox{\colorbox{Gris025}{\begin{minipage}{14cm}
+        \begin{center}
+        \vspace{2mm}
+        {\bf Estadístico $\chi^2$ para una tabla de contingencia $2\times 2$}
+        \end{center}
+        Dada una tabla de contingencia $2\times 2$, con valores esperados $e_{ij}$ y valores observados $o_{ij}$ (para $i,j=1,2$), definimos el estadístico:
+        \[X^2=\dfrac{(o_{11}-e_{11})^2}{e_{11}}+\dfrac{(o_{12}-e_{12})^2}{e_{12}}+\dfrac{(o_{21}-e_{21})^2}{e_{21}}+\dfrac{(o_{22}-e_{22})^2}{e_{22}}.\]
+        Entonces, {\sf mientras ninguno de los valores $e_{ij}$ sea menor de $5$}, el estadístico $X^2$ sigue una distribución $\chi^2_3$, con {\sf tres grados de libertad}.
+        \end{minipage}}}\\[3mm]
+        Llamamos la atención del lector sobre el hecho de que son tres grados de libertad, y que la razón para esto es la falta de independencia entre las variables que caracterizan al problema. Para justificar esto, con algo de rigor, necesitaríamos más detalles técnicos, y hablar de la distribución multinomial; dejamos esos detalles para otro momento. Lo que sí podemos hacer es justificar informalmente ese único grado de libertad. En general, un grado de libertad significa que sólo podemos elegir uno de los valores que describen el problema. En nuestro caso, volvamos a la tabla de contingencia inicial, vacía salvo por los valores marginales:
+        \begin{center}
+        \begin{tabular}{|c|c|c|c|}
+          \hline
+          % after \\: \hline or \cline{col1-col2} \cline{col3-col4} ...
+           & Hombres & Mujeres & Total \\
+           \hline
+          Creyentes & ?? & ?? & 1864 \\
+          \hline
+          No creyentes & ?? & ?? & 588 \\
+          \hline
+          Total & 1205 & 1247 & 2452 \\
+          \hline
+        \end{tabular}
+        \end{center}
+        Si escribimos uno cualquiera (y sólo uno) de los valores que faltan, enseguida nos daremos cuenta de que los tres valores restantes han quedado automáticamente determinados por esa primera elección. Es decir, que dados los valores marginales, sólo podemos elegir un número de la tabla. Eso indica que sólo hay un grado de libertad en este problema.
+
+
+    \item La información sobre la distribución del estadístico nos permite contestar a la pregunta que habíamos dejado pendiente:  ¿es el número de hombres no creyentes que refleja el {\em Barómetro} significativamente más alto de lo esperado? Más concretamente, la pregunta que vamos a responder es: ¿se alejan los valores observados significativamente de los esperados? Hacemos las cuentas de este ejemplo, calculando el valor del estadístico:
+        \[X^2=\dfrac{(o_{11}-e_{11})^2}{e_{11}}+\dfrac{(o_{12}-e_{12})^2}{e_{12}}+\dfrac{(o_{21}-e_{21})^2}{e_{21}}+\dfrac{(o_{22}-e_{22})^2}{e_{22}}=\]
+        \[=\dfrac{(849-916)^2}{916}+\dfrac{(1015-948)^2}{948}+\dfrac{(356-289)^2}{289}+\dfrac{(232-299)^2}{299}
+            \approx 40.18
+        \]
+        (Téngase en cuenta que los valores $e_{ij}$ que aparecen antes son aproximados; para esta cuenta hemos usado valores más precisos). Y como sabemos que el estadístico se comporta como $\chi^2$, usamos las herramientas habituales (R, Calc) para obtener el p-valor: $2.26\cdot 10^{-10}$. Este p-valor tan pequeño nos lleva a rechazar la hipótesis nula: tenemos razones para creer que la distribución de las creencias religiosas y el género están relacionados.
+
+    \item En \textattachfile{TablasContingencia-BarometroCIS.R}{\textcolor{blue}{este fichero de comandos R}} se pueden ver \Rlogo{las instrucciones} correspondientes a este ejemplo. La herramienta fundamental es la función {\tt chisq.test}. Esta \link{http://fernandosansegundo.wordpress.com/2013/05/13/tablas-de-contingencia-y-contraste-de-independencia-test-chi-cuadrado/}{entrada del blog} también se corresponde con la discusión de este apartado. Siguiendo con la conexión entre las tablas de contingencia $2\times 2$ y el contraste de dos proporciones binomiales, que hemos mencionado antes, es interesante comparar los resultados de {\tt chisq.test} con los de {\tt prop.test}.
+
+    \item Cuando se usa la función {\tt chisq.test} de R para el ejemplo del {\em Barómetro}, se obtiene un valor del estadístico igual $40.2253$ y un correspondiente p-valor igual a $2.263\cdot 10^{-10}$. Es decir, que los resultados son significativos; podemos rechazar la hipótesis nula, y decir que los datos apoyan la hipótesis alternativa de que las creencias religiosas están relacionadas con el género.
+
+
+\subsection{El caso general}
+
+    \item La generalización de lo anterior corresponde al caso en el que queremos contrastar la posible relación entre dos variables categóricas $A_1$ y $A_2$, con $n_1$ y $n_2$ niveles, respectivamente. Al considerar todas las combinaciones posibles de cada nivel de $A_1$ con cada uno de los niveles de $A_2$, obtendríamos entonces, para una muestra con $n$ observaciones,  una tabla de contingencia $n_1\times n_2$, con $n_1$ filas y $n_2$ columnas, como esta:
+
+        \begin{table}[h]
+        \begin{center}
+        \begin{tabular}{cccccc}
+           &
+           &
+          \multicolumn{3}{c}{\bf {\rule{0mm}{0.5cm}Variable $A_2$}}&
+          \\[3mm]
+          \cline{3-5}
+           &
+           &
+          \multicolumn{1}{|c}{$b_1$}&
+          $\cdots$ &
+          \multicolumn{1}{c|}{$b_{n_2}$} &
+          Total
+          \\
+          \cline{2-6}
+          \multicolumn{1}{c}{\multirow{3}{*}[-1em]{\bf \begin{tabular}{cc}Variable\\$A_2$\end{tabular}}}&
+          \multicolumn{1}{|c}{$a_{1}$ }&
+          \multicolumn{1}{|c}{$o_{11}$} &
+          $\cdots$ &
+          \multicolumn{1}{c|}{$o_{1n_2}$} &
+          $o_{1\bullet}$
+          \\
+           &
+          \multicolumn{1}{|c}{$\vdots$}&
+          \multicolumn{1}{|c}{ }&
+           $\ddots$ &
+          \multicolumn{1}{c|}{ }&
+            $\vdots$
+          \\
+          &
+          \multicolumn{1}{|c}{$a_{n_1}$}&
+          \multicolumn{1}{|c}{$o_{n_11}$}&
+          $\cdots$ &
+          \multicolumn{1}{c|}{$o_{1n_2}$}&
+          $o_{1\bullet}$
+          \\
+          \cline{2-6}
+           &
+          Total&
+          \multicolumn{1}{|c}{$o_{\bullet 1}$}&
+          $\cdots$ &
+          \multicolumn{1}{c|}{$o_{\bullet n_2}$}&
+          $o_{\bullet\bullet}$=n
+        \end{tabular}
+        \label{tabla:tablaContingenciaGeneral}\caption{Tabla de contingencia general}
+        \end{center}
+        \end{table}
+        Para escribir los valores marginales de la tabla hemos utilizado una notación similar a la que usamos para el ANOVA. Así, por ejemplo, $o_{\bullet 1}$ representa la suma de todos los elementos d ela primera columna de la tabla, y $o_{2\bullet}$ es la suma de la segunda fila.
+
+    \item Además, naturalmente, esta tabla va acompañada por la correspondiente tabla de valores esperados, $e_{ij}$, calculados de esta manera:
+        \[e_{ij}=\dfrac{o_{i\bullet}\cdot o_{\bullet j}}{o_{\bullet\bullet}}.\]
+        Es la misma receta que hemos usado en el caso de tablas $2\times 2$: primero se calcula la proporción que predice el valor marginal por columnas, que es:
+        \[\dfrac{o_{\bullet j}}{o_{\bullet\bullet}},\]
+        y se multiplica por el valor marginal por filas $o_{i\bullet}$ para obtener el valor esperado.
+
+    \item La hipótesis que queremos contrastar, en el caso general, es en realidad la misma que en el caso $2\times 2$:
+        \[H_0=\left\{\mbox{Los valores esperados $e_{ij}$ describen correctamente la distribución de probabilidad.}\right\}\]
+        Y ya tenemos todos los ingredientes necesarios para enunciar el principal resultado de esta sección:\\[3mm]
+        \fbox{\colorbox{Gris025}{\begin{minipage}{14cm}
+        \begin{center}
+        \vspace{2mm}
+        {\bf Estadístico $\chi^2$ para una tabla de contingencia $n_1\times n_2$}
+        \end{center}
+        Dada una tabla de contingencia $n_1\times n_2$, como la Tabla \ref{tabla:tablaContingenciaGeneral} (página \pageref{tabla:tablaContingenciaGeneral}), con valores observados $o_{ij}$, y valores esperados $e_{ij}$ (para $i,j=1,2$), definimos el estadístico:
+        \[X^2=\sum_{i=1}^{n_1}\sum_{j=1}^{n_2}\left(\dfrac{(o_{ij}-e_{ij})^2}{e_{ij}}\right).\]
+        Es decir, sumamos un término para cada casilla de la tabla. Entonces, {\sf mientras ninguno de los valores $e_{ij}$ sea menor de $5$}, el estadístico $X^2$ sigue una distribución $\chi^2_{n-1}$, con
+        \[k=(n_1-1)(n_2-1)\]
+        grados de libertad.
+        \end{minipage}}}\\[3mm]
+        Obsérvese que en el caso $2\times 2$ (es decir, $n_1=n_2=1$), el número de grados de libertad es $k=(2-1)\cdot(2-1)=1$. Para una tabla $3\times 4$ se tiene $k=(3-1)\cdot(4-1)=6$ grados de libertad. Este número de grados de libertad puede justificarse, informalmente al menos, con el mismo tipo de razonamiento que empleamos en el caso $2\times 2$. Por ejemplo, en esa tabla $3\times 4$, si escribimos los valores de las dos primeras filas y las tres primeras columnas (o en general, seis valores cualesquiera), los restantes seis valores se obtienen usando los valores marginales, con lo que en realidad tenemos sólo seis grados de libertad.
+
+
+
+
+
+
+
+
+
+%        Quedándonos muy en la superficie, vamos a recordar que las distribuciones muestrales que entendemos bien son las de las variables normales. Lo que vamos a hacer es enredar un poco con las fórmulas hasta conseguir que aparezcan las normales por algún sitio; cosa que ya hemos hecho antes, por otra parte. La ventaja con la que jugamos es que muchos tipos de variables se comportan en el límite como variables normales. Y a eso vamos a apelar, también en este caso.
+
+%        Volvamos al ejemplo de creyentes/no creyentes y empecemos representando los valores marginales mediante una notación parecida a la que usamos en el capítulo \ref{cap:IntroduccionANOVA} para el ANOVA:
+%        \[e_{1\bullet}=e_{11}+e_{12}=1864,\qquad e_{2\bullet}=e_{21}+e_{22}=588\]
+%        Es decir que $e_{1\bullet}$ y $e_{1\bullet}$ son las sumas por filas de la tabla de valores esperados, y en este ejemplo representan el total de creyentes y no creyentes, respectivamente, sin tener en cuenta el género
+%        Naturalmente, en la tabla de valores observados podemos definir $o_{1\bullet}$ y $o_{2\bullet}$ de la misma forma. Y debería estar claro que
+%        \[o_{1\bullet}=e_{1\bullet},\quad\mbox{ y también }\quad o_{2\bullet}=e_{2\bullet}.\]
+
+%        Para entender lo que sigue, vamos a llamar $X_{12}$ a una variable aleatoria, que representa el valor de la posición $(1,2)$ (primera fila, segunda columna) de la tabla de contingencia. Naturalmente podríamos hacer lo mismo con las otras celdas de la tabla, y tendríamos cuatro variables $X_{ij}$ para $i,j=1,2$. Pero vamos a centrarnos en $X_{12}$ para fijar ideas. La variable $X_{12}$ toma un valor distinto en cada muestra de la población española. Si otras personas hubieran contestado a la encuesta para elaborar el {\em Barómetro} del CIS, obtendríamos números distintos. El valor que hemos llamado $o_{12}$ es el valor concreto de $X_{12}$ en una muestra concreta (la que se usó en el {\em Barómetro}). ¿Qué tipo de variable es $X_{12}$? Es decir, está claro que es discreta, pero ¿cuál es su distribución?  Podríamos verla como una variable de tipo binomial, donde {\em éxito} se define como {\em caer en la casilla (1,2) de la tabla}, y {\em fracaso} se define como {\em caer en cualquiera de las otras casillas}. La probabilidad de éxito, {\bf suponiendo que la hipótesis nula es correcta}, sería $p_{12}=\dfrac{e_{12}}{n}$. ¿Cuál sería la media $\mu(X_{12})$? Conviene recordar que otro nombre para la media es {\em valor esperado}. Así que no debería sorprendernos que el valor esperado de $X_{12}$ sea $e_{12}$. Podemos verlo también usando la formula de la esperanza para una binomial: $n\cdot p_{12}=e_{12}$. ¿Cuál sería entonces la normal estándar que usaríamos para aproximar esta binomial? Esta:
+%        \[\dfrac{o_{12}-e_{12}}{\sqrt{n\cdot p_{12}\cdot q_{12}}}\]
+%        Podemos hacer lo mismo
+%
+
+
+        %Podríamos seguir adelante pensando en las variables $X_{12}, X_{12}, X_{21}, X_{22}$ como binomiales, para después aproximarlas por normales, y el resultado sería correcto. Pero además de correcto queremos que sea sencillo. Así que, para simplificar, vamos a intercalar un paso más: usando lo que aprendimos en el Capítulo \ref{cap:DistribucionesRelacionadasBinomial} vamos a aproximar cada una de esas binomiales por una distribución de Poisson, que luego aproximaremos por la correspondiente normal.
+
+
+        %¿Cuál es el estadístico más evidente? Está claro que la hipótesis nula se verá en un aprieto cuando las diferencias
+        %\[e_1-o_1,\ldots,e_6-o_6\]
+        %entre lo que observamos y lo que predice $H_0$ sean grandes. Y, como ya tenemos experiencia, no gastamos ni un segundo en explicarle al lector porque, en realidad, nos interesan las diferencias al cuadrado:
+        %\[(e_1-o_1)^2,\ldots,(e_6-o_6)^2.\]
+        %El siguiente paso en la construcción del estadístico es, no obstante, más delicado.
+
+
+
+
+
+\end{itemize}
+
+
+
+
+
+
+
+
+
+
+
+
+\section{¿Cómo podemos detectar un dado cargado? El test $\chi^2$ de homogeneidad.}
+
+\begin{itemize}
+    \item En \textattachfile{Cap13-dado5000.csv}{\textcolor{blue}{este fichero}} están almacenados los resultados de 5000 lanzamientos de un dado. La tabla de frecuencias observadas correspondiente a esos 5000 lanzamientos es esta:
+    \begin{center}
+    \begin{tabular}{|l|c|c|c|c|c|c|}
+      \hline
+      % after \\: \hline or \cline{col1-col2} \cline{col3-col4} ...
+      Resultado & 1 & 2 & 3 & 4 & 5 & 6 \\
+      \hline
+      Frecuencia & 811 & 805 & 869 & 927 & 772 & 816\\
+      \hline
+    \end{tabular}
+    \end{center}
+    %Vamos a llamar a estos seis números $o_1,o_2,\ldots,o_6$ (la o es por {\em observados}), que es la notación habitual en este tipo de discusiones.
+    ¿No hay demasiados cuatros? ¿Es un dado cargado? ¿Cómo podríamos averiguarlo?
+
+    Bueno, tenemos en la cabeza, desde luego un modelo {\sf teórico} de lo que esperamos , que corresponde con nuestra asignación de probabilidad $1/6$ para cada uno de los posibles resultados. Es, de hecho, la idea misma de un dado no cargado: es un dado que, al lanzarlo muchas veces, produce una tabla de frecuencias cada vez más parecida a la tabla ideal. ¿Y cuál es esa tabla ideal para 5000 lanzamientos de un dado no cargado?:
+    \begin{center}
+    \begin{tabular}{|l|c|c|c|c|c|c|}
+      \hline
+      % after \\: \hline or \cline{col1-col2} \cline{col3-col4} ...
+      Resultado & 1 & 2 & 3 & 4 & 5 & 6 \\
+      \hline
+      Frecuencia \rule{0cm}{0.6cm}& $\dfrac{5000}{6}$ & $\dfrac{5000}{6}$ & $\dfrac{5000}{6}$ & $\dfrac{5000}{6}$ & $\dfrac{5000}{6}$ & $\dfrac{5000}{6}$\\[2mm]
+      \hline
+    \end{tabular}
+    \end{center}
+    donde $\dfrac{5000}{6}\approx 833$.
+    %Llamaremos, a los seis números de esta segunda tabla, (que son todos iguales en este ejemplo) $e_1, e_2, \ldots, e_6$. Esa notación es, de nuevo, la que se usa habitualmente (la e es de {\em esperado}, o {\em  expected} en inglés)
+
+    \item La tabla de frecuencias que abre este capítulo no es, desde luego, ideal: hay demasiados cuatros y pocos cincos. ¿Pero son esas diferencias con el ideal suficientemente grandes para considerarlas {\sf significativas}?
+        La palabra {\em ``significativas''}, a estas alturas del curso, debería ponernos en guardia. Claro, es que esta situación tiene todos los ingredientes de un contraste de hipótesis. Hay una hipótesis nula, que podemos describir así:
+        \[H_0=\{\mbox{ el dado no está cargado.} \}\]
+        o también
+        \[H_0=\left\{\mbox{ la probabilidad de cada uno de los valores $1,2,\ldots,6$ es $\dfrac{1}{6}$} \right\}\]
+        Y al obtener unos valores muestrales, distintos de los que predice la hipótesis nula, nos preguntamos si esos valores son tan distintos de los esperados como para que, a alguien que cree en la hipótesis nula, le resulte muy difícil aceptar que son fruto del azar.
+
+    \item Naturalmente, si vamos a hacer un contrate de hipótesis, necesitamos un estadístico, y además, información sobre la distribución muestral de ese estadístico cuando $H_0$ es cierta.
+        %¿Cuál es el estadístico más evidente? Está claro que la hipótesis nula se verá en un aprieto cuando las diferencias
+        %\[e_1-o_1,\ldots,e_6-o_6\]
+        %entre lo que observamos y lo que predice $H_0$ sean grandes. Y, como ya tenemos experiencia, no gastamos ni un segundo en explicarle al lector porque, en realidad, nos interesan las diferencias al cuadrado:
+        %\[(e_1-o_1)^2,\ldots,(e_6-o_6)^2.\]
+        %El siguiente paso en la construcción del estadístico es, no obstante, más delicado.
+        Para entender lo que vamos a hacer hay que tener muy presente esa idea, de que necesitamos entender la distribución muestral del estadístico. Y como las distribuciones muestrales que entendemos bien son las de las variables normales, lo que vamos a hacer es enredar un poco con las fórmulas hasta conseguir que aparezcan las normales por algún sitio; cosa que ya hemos hecho antes, por otra parte. La ventaja con la que jugamos es que muchos tipos de variables se comportan en el límite como variables normales. Y a eso vamos a apelar, también en este caso.
+
+    \item Además, para simplificar aún más, y dado que en este ejemplo hay  ``demasiados cuatros'', vamos a darle al cuatro un papel estelar frente a los demás números. Es decir, que vamos a clasificar los resultados del lanzamiento del dado sólo en dos clases: ``cuatro'' y ``no cuatro''.  Y como este capítulo ha empezado con este ambiente de tahures y dados cargados, no queremos que el lector piense que esta elección del cuatro frente a los demás valores esconde alguna fullería. No se trata de eso. Si pudiéramos trabajar con los seis números individualmente y, a la vez, mantener las matemáticas necesarias dentro de lo elemental, lo haríamos. Pero no nos es posible, así que vamos a usar este truco para poder mantener la discusión dentro de un grado de dificultad aceptable. Y, desde luego, señalaremos cuál es el punto en el que las cosas se vuelven mucho más complicadas de argumentar, cuando se consideran los seis valores del dado por separado.
+
+    \item Para hacer esto, rehacemos la tabla inicial, la de los valores observados, agrupando en una columna todo lo que no son cuatros:
+            \begin{center}
+            \begin{tabular}{|l|c|c|}
+              \hline
+              % after \\: \hline or \cline{col1-col2} \cline{col3-col4} ...
+              Resultado & 4 & no es 4 \\
+              \hline
+              Frecuencia & 927 & 4073\\
+              \hline
+            \end{tabular}
+            \end{center}
+            Y llamaremos ahora $o_1=927$, $o_2=4073$ (la $o$ es de observados). Obsérvese que:
+            \[n=5000=o_1+o_2\]
+            La tabla ideal o teórica, por otra parte, se convierte en:
+            \begin{center}
+            \begin{tabular}{|l|c|c|c|c|c|c|}
+              \hline
+              % after \\: \hline or \cline{col1-col2} \cline{col3-col4} ...
+              Resultado & 4 & no es 4 \\
+              \hline
+              Frecuencia \rule{0cm}{0.6cm}& $\dfrac{5000}{6}\approx 833$ & $5000\cdot\dfrac{5}{6}\approx 4167$\\[2mm]
+              \hline
+            \end{tabular}
+            \end{center}
+            Y llamaremos a estos números:
+            \[e_1=833, e_2=4167.\]
+            Obsérvese que, de nuevo:
+            \[n=5000=e_1+e_2,\]
+            Para terminar de introducir toda la notación necesaria vamos a llamar $p_1$ a la probabilidad de obtener un cuatro si $H_0$ es cierta, que naturalmente es $1/6$, y llamaremos $q_1=1-p_1=5/6$ a la probabilidad de obtener un ``no 4''. Se cumple que:
+            \[e_1=n\, p,\quad e_2=n\,q,\]
+            y en seguida vamos a usar la relación:
+            \[o_1-n\cdot p=-(o_2-n\cdot q),\]
+            que se deduce de las anteriores. De hecho, la razón por la que hemos decidido tratar al cuatro frente a todos los demás valores es que, al reducir el problema a sólo dos posibles resultados, se cumplen todas estas relaciones que nos van a facilitar mucho las cosas. Si hubiéramos trabajado con los seis resultados posibles del dado en pie de igualdad, al llegar a este punto el número de relaciones aumentaría mucho, y las matemáticas se volverían muy complicadas.
+
+
+    \item Para entender lo que haremos vamos a dejar por un momento el dado y a pensar en un ejemplo todavía más simple: una moneda de la que queremos saber si está trucada. La discusión es muy parecida a la del dado, pero en este caso, al lanzar la moneda $n$ veces, sólo hay dos valores observados $o_1$ (número de caras), $o_2$ (número de cruces) y dos valores esperados $e_1,e_2$. La hipótesis nula es
+        \[H_0=\left\{\mbox{ la probabilidad de obtener cara es $\dfrac{1}{2}$} \right\}\]
+        Para llegar a una variable normal, vamos a pensar en la cantidad $o_1$, el número de caras. Podemos verla como uno de los valores posibles de la variable aleatoria:
+        \[O_1=\{\mbox{número de caras obtenidas al lanzar $n$ veces la moneda.}\}\]
+
+
+        Para llegar hasta ahí, vamos a pensar en la cantidad $o_1$. Podemos verla como uno de los valores posibles de la variable aleatoria:
+        \[O_1=\{\mbox{número de unos obtenidos al lanzar 5000 veces el dado.}\}\]
+        Y, {\em si suponemos que la hipótesis nula es cierta} (como hacemos siempre en los contrastes), entonces $O_1$ es una variable aleatoria binomial de tipo $B(n,p)$ donde $n=5000$ y $p=\dfrac{1}{6}$. ¿Por qué es bueno habernos dado cuenta de esto? Porque estamos buscando variables normales, y sabemos (Capítulo ) que una binomial $B(n,p)$ con $n$ grande (y $n\cdot p$ no demasiado pequeño) se aproximará mucho a la normal $N(\mu,\sigma)$, siendo $\mu=n\,p$ y $\sigma^2=n\,p\,q$.
+
+
+        El lector estará pensando, tal vez, ``y ahora haremos la media de las diferencias...''. Sí, pero ¿en qué sentido hacemos ``la media''? Para que el problema resulte más evidente. Supongamos que la proporción de no creyentes en la población (en conjunto, hombres y mujeres) fuera realmente muy baja, de un cinco por ciento. Entonces los números  $e_{11}$ y $o_{11}$ (ambos números se refieren a hombres creyentes) serían mucho más grandes que los correspondientes $e_{21}$ y $o_{21}$ (ambos se refieren a hombres no creyentes, de los que habría muchos menos). Por lo tanto la diferencia al cuadrado $(e_{11}-o{11})^2$ podría ser mucho, mucho más grande que $(e_{21}-o{21})^2$, hasta el punto de hacer inapreciable el valor de esta segunda diferencia en la ``media''. Y sin embargo, puede que ese sea precisamente el valor interesante. Los no creyentes pueden ser pocos, y {\em a la vez}, podría ocurrir que el número de mujeres no creyentes fuera el doble que el de hombres no creyentes, por ejemplo. Pero una ``media'' hecha sin criterio eliminaría esa información.
+
+
+\end{itemize}

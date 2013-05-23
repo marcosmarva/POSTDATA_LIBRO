@@ -1,0 +1,496 @@
+﻿% !Mode:: "Tex:UTF-8"
+
+%\section*{\fbox{\colorbox{Gris025}{{Sesión 26. Inferencia estadística.}}}}
+%
+%\subsection*{\fbox{\colorbox{Gris025}{{Inferencia en la regresión lineal.}}}}
+%\subsection*{Fecha: Martes, 20/12/2011, 14h.}
+%
+%\noindent{\bf Atención: este fichero pdf lleva adjuntos los ficheros de datos necesarios.}
+%
+%%\subsection*{\fbox{1. Ejemplos preliminares }}
+%\setcounter{tocdepth}{1}
+%%\tableofcontents
+
+\section{Variables correlacionadas}
+
+\begin{itemize}
+
+    \item Por ejemplo, en el \textattachfile{p0470-p0478-Herrerillos.pdf}{\textcolor{blue}{artículo adjunto}} (ver la figura 5, de la página 473\footnote{{\em The effect of temperature and clutch size on the energetic cost of incubation in a free-living Blue Tit (Parus Caeruleus)}. S. Haftorn, R. E. Reinertsen. The Auk (102), pp.470-478, 1985.}), los investigadores estudian --entre otras cosas-- la relación entre el consumo de oxígeno y la temperatura del aire en una hembra de Herrerillo común (Parus Caeruleus), tanto cuando está incubando, como cuando no lo está.
+        \begin{center}
+        \includegraphics[width=12cm]{2011_12_16_Herrerillo.jpg}
+        \end{center}
+        Como puede verse en esa gráfica, tenemos una serie (muestra) de {\sf parejas} de datos
+        \[(x_1,y_1),(x_2,y_2),(x_3,y_3),\ldots,(x_n,y_n),\]
+        donde cada uno de los datos corresponde a una de las dos variables, $X$ para la coordenada horizontal, e $Y$ para la coordenada vertical. En este ejemplo $X$ representa la temperatura del aire, e $Y$ el consumo de oxígeno. Al investigador le interesa estudiar si hay alguna relación entre ambas variables. A primera vista, parece evidente que a menor temperatura, mayor consumo de oxígeno. Pero querríamos disponer de una herramienta más precisa. Algo que nos permitiera hacer predicciones. Algo como una fórmula, en la que introducir la temperatura del aire, y poder calcular el consumo de oxígeno. No se trata de hacer muchas, muchísimas medidas hasta tener cubiertas todas las temperaturas posibles, sino de usar las medidas que tenemos para establecer la relación entre esas dos variables.
+
+
+    \item En matemáticas, el ejemplo más común de una relación entre dos variables $x$ e $y$ es una función $y=f(x)$, de las que en primer curso se han estudiado numerosos ejemplos: funciones polinómicas, funciones r racionales, exponenciales, logaritmos, trigonométricas, etcétera. Una de estas funciones, como por ejemplo,
+        \[y=f(x)=x^2/(1+x^4)\]
+        representa una relación exacta entre las variables $x$ e $y$. Este tipo de relaciones exactas se utilizan, en las aplicaciones de las matemáticas, como modelos teóricos. El modelo clásico son las leyes de la Física, como las leyes de Newton, Maxwell, etcétera. Si queremos calcular la fuerza de atracción gravitatoria $F$ entre dos cuerpos de masas $m_1$ y $m_2$, situados a distancia $r$, sabemos que, con las unidades correctas, esta fuerza viene dada por la ley de Newton:
+        \[F(r)=G\dfrac{m_1\cdot m_2}{r^2}\]
+        Es decir, que sustituimos aquí un valor de $r$ y obtenemos un valor de $F$, en principio -teóricamente- con toda la precisión que queramos. Pero, claro está, esa visión es una simplificación, un modelo teórico. Cuando vayamos al mundo real y tratemos de aplicar esta fórmula, surgen varios inconvenientes:
+        \begin{enumerate}
+            \item Ni las masas, ni las distancias, se pueden medir con una precisión infinita. (Y no es sólo porque haya errores experimentales de medida, es que además hay límites teóricos a la precisión de las medidas.)
+            \item Incluso aceptando como correctas las leyes de Newton, en nuestro modelo estamos introduciendo muchas simplificaciones. Estamos considerando que esos dos cuerpos que se atraen se pueden considerar como partículas puntuales (Porque, de otra forma ¿cómo se define la distancia entre ellos? ¿cómo se define su masa?).
+            \item Y además, ahora sabemos que la ley de la gravedad de Newton sólo es precisa dentro de un determinado rango de valores de los parámetros. Para escalas espaciales muy grandes o muy pequeñas, o para objetos enormemente masivos (agujeros negros, por ejemplo) o extremadamente ligeros (partículas subatómicas), sus predicciones son incorrectas, y tenemos que usar las correcciones que hizo Einstein, o las últimas teorías de gravedad cuántica, si queremos resultados precisos.
+        \end{enumerate}
+
+        Por --entre otras-- estas razones, sabemos que estas leyes son modelos teóricos, y no esperamos que sus predicciones se cumplan con precisión absoluta. Ni siquiera lo esperábamos cuando el modelo predominante en ciencia era el determinismo de Newton y Laplace
+        %(nota al final, pág. \pageref{sec:notaSobreDeterminismo})
+        . No es realista esperar que las observaciones se correspondan exactamente con un modelo teórico como el que refleja una ecuación del tipo $y=f(x)$. En el caso de la Biología, que estudia fenómenos y procesos muy complejos, a menudo no posible aislar las variables bajo estudio de su entorno, sin perturbar irremediablemente el propio objeto de estudio. Así que tenemos que aceptar como un hecho que la relación entre variables, en Biología, nunca es tan nítida como sucede con muchos ejemplos de la Física o la Química.
+
+    \item Volvamos al problema, tenemos una lista de parejas de datos,
+    \[(x_1,y_1),(x_2,y_2),(x_3,y_3),\ldots,(x_n,y_n),\]
+    como los de la figura:
+    \begin{center}
+    \includegraphics[height=6cm]{2011-12-16-Regresion01.png}
+    \end{center}
+
+    que se corresponden con $n$ puntos del plano, y nos preguntamos si podemos utilizar esos puntos para establecer una relación $y=f(x)$.  Si somos capaces de hacer esto, cuando nos llegue otro valor de la variable $x$, podremos utilizar esa relación para predecir el correspondiente valor de la $y$.
+
+    \item Naturalmente, fórmulas (es decir, funciones) hay muchas... y los matemáticos saben fabricar fórmulas distintas para distintas necesidades. Por ejemplo, usando un procedimiento que se llama interpolación, podemos fabricar un polinomio que pase por todos y cada uno de los puntos\footnote{Hay un detalle técnico: no debe haber dos puntos con la misma coordenada $x$}. Puedes ver el resultado, aplicado a la colección de puntos de la figura anterior, en este \textattachfile{Cap11_Regresion01.html}{\textcolor{blue}{documento html}} (se abre en el navegador, requiere Java). Pero si juegas un poco con esa idea, enseguida descubrirás que:
+        \begin{enumerate}
+        \item[(a)] la fórmula es demasiado complicada, y el grado del polinomio aumenta demasiado rápido.
+        \item[(b)] peor aún: la capacidad de predicción de esta fórmula es {\em nula}: si añadimos un punto más, la curva que produce la fórmula cambia por completo, y los valores que predice no tienen nada que ver con los anteriores. Ese comportamiento es claramente indeseable. Querríamos una fórmula que fuese bastante estable al añadir o quitar un punto.
+        \end{enumerate}
+         ¿Cómo podemos elegir una buena fórmula? Una que, a la vez, sea sencilla, estable, y que represente bien al conjunto de puntos. Para obtener algo sencillo, conviene empezar con cosas sencillas. Así que nos preguntamos ¿cuáles son las funciones más sencillas de todas? Dejando de lado las constantes --que se pasan de sencillez-- está claro que las rectas son las funciones con las gráficas, y las ecuaciones, más simples de todas. Una recta es una función de la forma:
+         \[y=a+b\cdot x\]
+         donde $a$ y $b$ son dos números, la {\sf ordenada en el origen} y la  {\sf pendiente} respectivamente, cuyo significado geométrico puedes recordar en este \textattachfile{Cap11_EcuacionRectaPendienteOrdenadaOrigen.html}{\textcolor{blue}{documento html}}. Cambiando los valores de $m$ y $n$ podemos obtener todas las rectas del plano (salvo las verticales, que no necesitaremos). Y entonces podemos hacer la siguiente pregunta: de entre todas esas infinitas rectas, ¿cuál es la que mejor representa a nuestro conjunto de puntos (desde el punto de vista de la Estadística)? En esta figura
+         \begin{center}
+         \includegraphics[width=15cm]{2011_12_16_Regresion02.png}
+         \end{center}
+         puedes ver dos intentos de ajustar una recta a los datos, con bastante acierto a la izquierda, y considerablemente peor a la derecha. Y en este \textattachfile{Cap11_Regresion02a.html}{\textcolor{blue}{documento html}} puedes mover los puntos $M$ y $N$ para tratar de intuir cual es la mejor recta. Después, puedes ver la respuesta que proporciona la Estadística, y ver si has acertado:
+
+    \item Antes de enfrascarnos en los detalles técnicos de esa pregunta, un momento de reflexión. ¿Por qué usamos rectas? Desde luego, porque son sencillas. En segundo lugar, porque hay muchas otras situaciones en las que podemos hacer un cambio de variable, y resolver el problema en las nuevas variables usando una recta. Para que se entienda mejor, si tenemos una función de la forma:
+        \[y=4\cdot e^{3x+2}\]
+        y pasamos el $4$ al miembro izquierdo y tomamos logaritmos, se convierte en:
+        \[\ln\left(\dfrac{y}{4}\right)=3x+2\]
+        Y si ahora hacemos el cambio de variables \[u=\ln\frac{y}{4},\]
+        obtenemos
+        \[u=3x+2\]
+        que es una recta en las nuevas variables $x,u$. Hay muchas funciones --pero no todas-- que se pueden convertir en rectas mediante trucos de cambio de variable similares a este. Y hay otra propiedad de las rectas que las hace especialmente importantes. Fíjate en lo que sucede en este \textattachfile{Cap11_Regresion02.html}{\textcolor{blue}{documento html}}, y haz zoom para ver cada vez más lejos la ``presunta'' recta. ¿Sorprendido? Lo que sucede aquí es algo que deberíamos haber aprendido en Cálculo: las funciones ``razonables'', vistas de cerca (como si las mirásemos a través de un microscopio) se parecen cada vez más y más a una recta (su recta tangente en el punto en el que aplicamos el microscopio, claro). Cuando se estudia la dependencia entre dos variables, en un rango reducido de valores, lo previsible es encontrar una recta. Pero también es importante aprender la lección inversa: lo que a cierta escala parece una recta, puede ser sólo una visión demasiado local, demasiado limitada, de la relación entre las dos variables.
+    \end{itemize}
+
+\section{Error cuadrático medio, recta de regresión, correlación.}
+
+    \begin{itemize}
+    \item Vamos, entonces, a concretar. La pregunta es: de entre todas las rectas $y=a\cdot x+b$, ¿cuál es la que mejor representa --estadísticamente-- a nuestro conjunto de puntos? Para entender la respuesta, tenemos que reflexionar un poco sobre el uso que pensamos darle a la recta que vamos a obtener. El objetivo es que, una vez que tengamos la ecuación
+        \[y=a+b\cdot x,\]
+        cada vez que obtengamos un valor de la variable $x$ podemos utilizar esta ecuación para {\sf predecir el valor de $y$ sin medirlo}. Y esto es interesante porque, en muchos casos, pensamos en la variable $x$ como la variable {\em fácil} de medir, mientras que $y$ puede ser complicada. En el ejemplo de la hembra de herrerillo incubando, es muy fácil medir la temperatura del aire, basta con usar un termómetro, y esa medida perturba muy poco los restantes parámetros del experimento. En cambio, medir el consumo de oxígeno del pobre pajarillo obliga a colocarle algún tipo de aparato de medida. Esa operación no sólo es laboriosa, sino que debe realizarse con mucho esmero para que el propio diseño experimental no perturbe los propios parámetros que estamos tratando de medir. En resumidas cuentas, medir $y$ no es fácil, y preferiríamos poder predecirla a a partir de $x$. Por eso vamos a llamar a $x$ la {\sf variable independiente}, {\sf variable predictora}, o {\sf regresora}, mientras que $y$ es la {\sf variable dependiente} o {\sf respuesta}.
+
+        Con esta reflexión podemos avanzar un poco más en la determinación de la recta. Lo que esperamos de esa recta es que sea buena prediciendo los valores de $y$. Nosotros la obtenemos a partir del conjunto de puntos
+        \[(x_1,y_1),(x_2,y_2),(x_3,y_3),\ldots,(x_n,y_n),\]
+        Pero si consideramos {\em por separado} los valores de la coordenada $x$, que son:
+        \[x_1, x_2,\ldots, x_n,\]
+        y los sustituimos en la ecuación de la recta, obtendremos una colección de {\em valores predichos}:
+        \[\hat y_1,\hat y_2,\ldots,\hat y_n,\]
+        donde, por supuesto,
+        \[\hat y_i=a+b\cdot x_i,\quad\mbox{ para }i=1,\ldots,n.\]
+        Y ahora podemos precisar lo que queremos: la recta será la mejor posible si estos valores predichos se parecen lo más posible a los valores iniciales de la coordenada $y$
+        \[y_1, y_2,\ldots, y_n.\]
+        Estamos en terreno conocido: para medir cómo se parecen esos dos conjuntos de valores consideramos las diferencias o {\sf residuos}:
+        \[y_1-\hat y_1,y_2-\hat y_2,\ldots,y_n-\hat y_n,\]
+        Y ¿qué hacemos, las promediamos? No, a estas alturas ya sabemos que promediar diferencias, sin más, no es una buena idea, {\em porque las diferencias positivas muy grandes pueden compensarse con diferencias negativas muy grandes, y engañarnos}. Para conseguir una información fiable, tenemos que pagar el peaje de elevar al cuadrado las diferencias, y entonces promediar:\\[3mm]
+        \fbox{\colorbox{Gris025}{\begin{minipage}{14cm}
+         \begin{center}
+         \vspace{2mm}
+         {\bf Error cuadrático medio}\\
+         \end{center}
+         Dado el conjunto de puntos
+         \[(x_1,y_1),(x_2,y_2),(x_3,y_3),\ldots,(x_n,y_n),\]
+         si consideramos
+         \[\hat y_1,\hat y_2,\ldots,\hat y_n,\]
+         siendo,
+        \[\hat y_i=a+b\cdot x_i,\quad\mbox{ para }i=1,\ldots,n.\]
+        entonces el {\sf error cuadrático medio} de la recta $y=a\cdot x+b$ es:
+        \[\mbox{ECM}(y=a+b\cdot x)=\dfrac{1}{n}\sum_{i=1}^n(y_i-\hat y_i)^2=\dfrac{1}{n}\sum_{i=1}^n(y_i-a-b\cdot x_i)^2.\]
+         \end{minipage}}}\\[3mm]
+         El error cuadrático medio depende de los puntos $(x_i,y_i)$, y por supuesto, de la recta que se utilice. En este \textattachfile{Cap11_Regresion03.html}{\textcolor{blue}{documento html}} puedes visualizar el significado del error cuadrático medio.
+
+
+    \item Una vez definido el error cuadrático medio, la búsqueda de la mejor recta se puede formular de una manera mucho más precisa: ¿cuáles son los valores $a$ y $b$ para los que la recta
+    \[y=a+b\cdot x\]
+    produce el valor mínimo posible de $ECM(y=a+b\cdot x)$? Una vez fijados los puntos $(x_i,y_i)$, el error ECM depende sólo de $a$ y de $b$. Así que este es un problema de máximos y mínimos, como los que se estudian en Cálculo, para una función de dos variables. Y, conociendo las herramientas necesarias, es muy fácil de resolver: se calcula un par de derivadas parciales, se igualan a cero, se resuelve el sistema, y --básicamente-- ya está. Para entender mejor la expresión de la recta que se obtiene, es conveniente introducir primero un poco de notación. Si pensamos {\em por separado} en los valores de la coordenada $x$,
+    \[x_1, x_2,\ldots, x_n,\]
+    y en los valores iniciales de la coordenada $y$:
+    \[y_1, y_2,\ldots, y_n.\]
+    podemos definir sus medias y varianzas. Para $x$ es\footnote{Usamos el símbolo $\operatorname{Var}_n$ para indicar que se divide por $n$, no por $n-1$.}:
+    \[\bar x=\dfrac{\displaystyle\sum_{i=1}{n}x_i}{n},\qquad {\operatorname{Var}_n}(x)=\dfrac{\displaystyle\sum_{i=1}^{n}(x_i-\bar x)^2}{n}\]
+    Y, análogamente, para la $y$ se tiene:
+    \[\bar y=\dfrac{\displaystyle\sum_{i=1}{n}y_i}{n},\qquad {\operatorname{Var}_n}(y)=\dfrac{\displaystyle\sum_{i=1}^{n}(y_i-\bar y)^2}{n}\]
+    Vamos a utilizar estos valores para escribir la solución del problema. Pero queremos empezar por señalar que con ellos se puede construir un punto interesante, el que tiene por coordenadas $(\bar x,\bar y)$, las medias por separado. Si $\bar x$ es un buen representante de las coordenadas $x$, y $\bar y$ es un buen representante de las coordenadas $\bar y$, ¿será verdad que la mejor recta posible tiene que pasar por ese punto $(\bar x,\bar y)$? Como vamos a ver la respuesta es afirmativa:\\[3mm]
+    \fbox{\colorbox{Gris025}{\begin{minipage}{14cm}
+    \begin{center}
+    \vspace{2mm}
+    {\bf Recta de regresión (o de mínimos cuadrados. Covarianza)}\\
+    \end{center}
+    Dado el conjunto de puntos
+    \[(x_1,y_1),(x_2,y_2),(x_3,y_3),\ldots,(x_n,y_n),\]
+    la {\sf recta de regresión o de mínimos cuadrados} es la recta que minimiza el error cuadrático medio ECM. Esa recta puede escribirse en la forma:
+    \[(y-\bar y)=\dfrac{\textcolor{red}{\operatorname{cov}(x,y)}}{{\operatorname{Var}_n}(x)}(x-\bar x)\]
+    siendo
+    \[\operatorname{cov}(x,y)=\dfrac{\displaystyle\sum_{i=1}^{n}(x_i-\bar x)(y_i-\bar y)}{n}\]
+    una nueva cantidad, que llamaremos la {\sf covarianza} de $x$ e $y$.
+    \end{minipage}}}\\[3mm]
+    Como no podía ser de otra manera, Calc y Excel incluyen funciones para obtener los valores necesarios. En concreto, aparte de {\tt PROMEDIO} y {\tt VARP} que ya conocemos, disponemos de las funciones\footnote{En inglés son respectivamente {\tt COVAR}, {\tt SLOPE}, {\tt INTERCEPT},}:
+    \begin{enumerate}
+    \item {\tt COVAR(Datos1;Datos2)}, que calcula la covarianza del conjunto de puntos.
+    \item {\tt PENDIENTE(Datos\_y;Datos\_x)}, que calcula la pendiente de la recta de regresión. {\em ¡Atención al orden de las variables!}
+    \item {\tt INTERSECCION.EJE(Datos\_y;Datos\_x)}, que calcula la pendiente de la recta de regresión. {\em ¡Atención al orden de las variables!}
+    \end{enumerate}
+    En esta \textattachfile{Cap11_RectaRegresion.ods}{\textcolor{blue}{hoja Calc}} puedes ver como se aplican todos esos cálculos a una colección aleatoria de datos, y modificándola ligeramente puedes utilizarla para otros ejemplos. También puedes usar este \textattachfile{Cap11_Wiris_RegresionLineal.html}{\textcolor{blue}{documento html con Wiris}}, en el que se calcula la recta de regresión, covarianza y correlación para los mismos datos. Y, finalmente, aquí tienes un \textattachfile{Cap11_RegresionLinealConR.R}{\textcolor{blue}{documento de instrucciones R}}
+     para realizar los mismos cálculos.
+
+
+
+
+
+\end{itemize}
+
+
+\section{Análisis de la varianza. Coeficiente $r$ de correlación lineal de Pearson.}\label{sec:Anova}
+
+    \begin{itemize}
+
+    \item Ahora que ya sabemos obtener la recta, es obligatorio que empecemos a hacernos preguntas sobre la calidad de los resultados que hemos obtenido. La recta de regresión siempre se puede calcular, pero hay conjuntos de puntos para los que, incluso la mejor recta es bastante mala. ¿Cómo podemos estar seguros de que el ajuste de la recta a los datos es de buena calidad? Naturalmente, tenemos que tener en cuenta el error cuadrático medio ECM que hemos usado para definir la recta. Si ese error es pequeño, la recta será buena...¿ves la dificultad?  Ya nos hemos tropezado con situaciones parecidas. Es un problema de escala ¿pequeño comparado con qué? El tamaño absoluto del ECM depende de las unidades de medida que se estén utilizando, y por eso es difícil usarlo directamente como un indicador fiable de calidad. Queremos obtener un indicador de calidad que no dependa de la escala. Para eso vamos a hacer un análisis más detallado del error cuadrático medio.
+
+    \item Recordemos que el objetivo básico es medir la diferencia entre los valores iniciales de la coordenada $y$:
+    \[y_1, y_2,\ldots, y_n,\]
+    y los valores que predice la recta de regresión:
+    \[\hat y_1,\hat y_2,\ldots,\hat y_n,\]
+    Además, tenemos la media $\bar y$ de los valores iniciales. Con esta media podemos calcular la varianza de $y$:
+    \[{\operatorname{Var}_n}(y)=\dfrac{1}{n}\displaystyle\sum_{i=1}^{n}(y_i-\bar y)^2\]
+    y al ver esta fórmula, nos damos cuenta de que recuerda bastante al ECM:
+    \[\mbox{ECM}(y=a+b\cdot x)=\dfrac{1}{n}\sum_{i=1}^n(y_i-\hat y_i)^2\]
+    De hecho, al compararlas está claro que podemos escribir una tercera fórmula, en la que comparamos la media con los valores que predice la regresión:
+    \[\dfrac{1}{n}\sum_{i=1}^n(\bar y_i-\hat y_i)^2\]
+    Con esta tercera fórmula, estamos en condiciones de hacer una descomposición o Análisis de la Varianza de $y$ (en inglés, ANalysis Of VAriance, abreviado ANOVA). Se puede demostrar (no es difícil) que siempre se cumple.
+    \[{\operatorname{Var}_n}(y)=\mbox{ECM}+\dfrac{1}{n}\sum_{i=1}^n(\bar y_i-\hat y_i)^2\]
+    Y ahora, para obtener una estimación de calidad, independiente de la escala, dividimos por la varianza de $y$ ambos miembros, obteniendo:
+    \[1=\dfrac{\mbox{ECM}}{{\operatorname{Var}_n}(y)}+\dfrac{\dfrac{1}{n}\sum_{i=1}^n(\bar y_i-\hat y_i)^2}{{\operatorname{Var}_n}(y)}\]
+    Sustituyendo aquí, en  $\bar y_i-\hat y_i$, la expresión de la recta de regresión, se obtiene:
+    \[1=\dfrac{\mbox{ECM}}{{\operatorname{Var}_n}(y)}+r^2\]
+    donde $r$ es el:\\[3mm]
+        \fbox{\colorbox{Gris025}{\begin{minipage}{14cm}
+         \begin{center}
+         \vspace{2mm}
+         {\bf Coeficiente de correlación lineal de Pearson}\\
+         \end{center}
+         Es el valor $r$ que cumple:
+         \[r=\dfrac{\operatorname{cov}(x,y)}{\sqrt{{\operatorname{Var}_n}(x)\cdot{\operatorname{Var}_n}(y)}}\]
+         Recuerda que $\operatorname{cov}(x,y)$ es la covarianza de $x$ e $y$.
+         \end{minipage}}}\\[3mm]
+
+    Por lo tanto, la ecuación que regula la calidad del ajuste se puede escribir:
+    \[\dfrac{\mbox{ECM}}{{\operatorname{Var}_n}(y)}=1-r^2\]
+    Y ahora es fácil interpretar $r$. Es un número, entre $-1$ y $1$, que tiene la propiedad de que {\sf cuanto más cerca de 1 está $r^2$, mejor es el ajuste de la recta de regresión a los datos. Por contra, si $r=0$, el ajuste es muy malo.} El signo de $r$ se corresponde con el de la pendiente de la recta de regresión, y tiene la misma interpretación.
+
+    \end{itemize}
+
+\section{Regresión lineal y muestreo}
+
+\begin{itemize}
+
+    \item Empecemos recordando que la recta de regresión $y=a+b\cdot x$ que hemos localizado en la anterior sección es,
+    \[(y-\bar y)=\dfrac{{\operatorname{cov}(x,y)}}{V_x}(x-\bar x), \quad\mbox{siendo }\operatorname{cov}(x,y)=\dfrac{\displaystyle\sum_{i=1}^{n}(x_i-\bar x)(y_i-\bar y)}{n}.\]
+    En esta sección,
+    \[V_x=\dfrac{1}{n}\sum_{i=1}^n(x_i-\bar x)^2,\qquad V_y=\dfrac{1}{n}\sum_{i=1}^n(y_i-\bar y)^2\]
+    (se usa la definición poblacional). Por lo tanto,\\[3mm]
+    \fbox{\colorbox{Gris025}{\begin{minipage}{14cm}
+    \begin{center}
+    \vspace{2mm}
+    {\bf Coeficientes $a$ y $b$, y relación con $r$}\\
+    \end{center}
+    Los coeficientes $a$ y $b$ de la recta de regresión son:
+    \begin{equation}\label{ec:coeficientesRectaRegresion}
+    b=\dfrac{{\operatorname{cov}(x,y)}}{V_x},\qquad a=\bar y-b\bar x.
+    \end{equation}
+    y en particular,
+    \[r^2=b^2\dfrac{V_x}{V_y}\]
+    de donde
+    \[r=b\dfrac{s_x}{s_y}\]
+    (aquí hay truco; recuerda que $s_x$ y $s_y$ proceden de fórmulas que usan $n-1$ en el denominador).
+    \end{minipage}}}\\[3mm]
+    Como hemos visto, esta recta es, de entre todas las rectas posibles, la que mejor representa, desde el punto de vista estadístico, al conjunto de $n$ puntos del plano:
+    \[(x_1,y_1),(x_2,y_2),(x_3,y_3),\ldots,(x_n,y_n),\]
+    Y hemos aprendido a medir la calidad de esa recta, {\sf para describir esos $n$ puntos}. Pero, naturalmente, eso es sólo un primer paso. Es fácil comprender que, en general, esos $n$ puntos serán sólo una muestra, tomada de una población que nos interesa estudiar. Y, como cabe suponer, cada muestra diferente que tomemos producirá una recta distinta.  En la siguiente figura pueden verse dos muestras de una misma población (una representada por los puntos azules redondos, y otra por las cruces rojas) y las correspondientes rectas de regresión (azul, trazo continuo la de la primera población, y rojo discontinua la de la segunda). Y en este \textattachfile{Cap11_InferenciaMuestreoRegresion.html}{\textcolor{blue}{documento html}} puedes comprobar como distintas muestras producen rectas distintas
+    \begin{center}
+    \includegraphics[width=14cm]{2011_12_20_RegresionDosMuestras.png}
+    \end{center}
+    En general, cada una de esas rectas es distinta de las demás, y además {\em distinta de la {\sf recta teórica}, que de momento podemos pensar que es la que obtendríamos si pudiéramos usar todos los datos de la población.} Vamos a llamar
+    \[y=\alpha +\beta\cdot x\]
+    a esa recta teórica. Como es habitual, usamos letras griegas para referirnos a los parámetros poblacionales, para distinguirlos de los parámetros $a$ y $b$ que corresponden a la muestra.
+
+    \textcolor{red}{\underline{ATENCIÓN:}} Ya hemos advertido en otras ocasiones de lo {\em decepcionante} que resulta la notación que se usa en Estadística. Aquí vamos a usar $\alpha$ porque es lo que hacen todos los libros de Estadística, pero esa notación resulta confusa porque vamos a usar también $\alpha$ para el nivel de confianza en contrastes de hipótesis e intervalos de confianza.
+
+    \item A la vista de estas reflexiones, parece evidente que nos debemos hacer --para empezar, entre otras-- estas preguntas: ¿Podemos usar la teoría de muestreo para contrastar la existencia de una relación lineal entre $x$ e $y$? Y si suponemos que esa relación existe, ¿podemos usar $a$ y $b$ para estimar $\alpha$ y $\beta$ (es decir, obtener intervalos de confianza)?
+%        \begin{enumerate}
+%            \item Una pregunta que hemos dejado pendiente de la anterior sesión. Si nos dan un nuevo valor de $x$, y usamos la recta de regresión para calcular $y$, ¿cómo de buena es esa estimación del valor de $y$?
+%            \item
+%        \end{enumerate}
+
+    \item En capítulos anteriores, para realizar estimaciones por inferencia, siempre hemos tenido que hacer alguna suposición sobre la distribución de la población, y a partir de aquí, obteníamos información sobre la distribución muestral del estadístico adecuado a cada problema. La situación en la que estamos ahora es análoga, pero hay algunas diferencias. Y de hecho, hay varias opciones disponibles para continuar. Pero algunas de ellas utilizan el concepto de {\sf variable aleatoria continua bidimensional}, que no hemos estudiado.
+
+
+    \item Vamos a quedarnos, por tanto con un modelo muy básico, pero aún así útil. Vamos a interpretar los parámetros $\alpha$ y $\beta$ así: supondremos que para cada valor fijo $x_0$ de la variable $x$ tenemos una variable aleatoria normal $Y_{x_0}$ de tipo $N(\alpha+\beta\cdot x,\sigma)$, donde $\sigma$ es la misma, independientemente de $x_0$ (esto desde luego, es una simplificación) . Y entonces interpretamos el punto        $(x_1,y_1)$ suponiendo que $y_1$ es una observación de $Y_{x_1}$, el punto $(x_2,y_2)$ suponiendo que $y_2$ es una observación de $Y_{x_2}$,etcétera, hasta el punto $(x_n,y_n)$, para el que suponemos igualmente que $y_n$ es una observación de $Y_{x_n}$. Esto es equivalente a suponer que nuestras observaciones se explican mediante este modelo:
+        \[y=\alpha +\beta\cdot x+\epsilon,\quad\mbox{ siendo }\epsilon\sim N(0,\sigma).\]
+        La siguiente figura ilustra la forma en la que se suele entender esto. Como se ve en la figura, para cada valor $x_0$ hay asociada una copia local de la normal $N(0,\sigma)$, que permite calcular las probabilidades condicionadas del tipo
+        \[P(Y\leq y|x=x_0)\]
+        En este modelo, $a$ y $b$ son, evidentemente, estimadores de los parámetros $\alpha$ y $\beta$ de la distribución teórica.
+        \begin{center}
+        \includegraphics[width=14.5cm]{2011-12-20-RegresionDistribucionesNormalesMarginales.png}
+        \end{center}
+
+    \subsection*{}\label{sec:anova}
+    \item Vamos a recordar el ANOVA (análisis de la varianza) que hicimos en la sección anterior. Justo antes de la definición del coeficiente de correlación de Pearson habíamos obtenido:
+        \[1=\dfrac{\mbox{ECM}}{V_y}+r^2\]
+        o, lo que es lo mismo (recuerda que $\operatorname{Var}(y)=V_y$):
+        \[V_y=\mbox{ECM}+r^2V_y\]
+        Y como
+        \[r^2=\dfrac{(\operatorname{cov}(x,y))^2}{V_x\cdot V_y}\]
+        esto es:
+        \[V_y=\mbox{ECM}+\dfrac{(\operatorname{cov}(x,y))^2}{V_x}=\mbox{ECM}+b\cdot\operatorname{cov}(x,y),\]
+        donde $b$ es la pendiente de la recta de regresión (recuerda la Ecuación \ref{ec:coeficientesRectaRegresion}, página \pageref{ec:coeficientesRectaRegresion}). Conceptualmente, hemos descompuesto $V_y$, que mide la dispersión total de los valores de $y$, de esta forma:
+        \[
+        \underbrace{\left(\mbox{dispersión total de }y\right)}_{V_y}=
+        \underbrace{\left(\mbox{dispersión aleatoria }N(0,\sigma)\right)}_{\mbox{ECM}}+
+        \underbrace{\left(\mbox{dispersión debida a la regresión}\right)}_{b\cdot\operatorname{cov}(x,y)}
+        \]
+        Esta ecuación nos va a servir para entender la forma en la que se contrasta la existencia de una relación lineal entre $x$ e $y$. Si esa relación no existe, entonces al obtener una muestra de puntos
+        \[(x_1,y_1),(x_2,y_2),(x_3,y_3),\ldots,(x_n,y_n),\]
+        prácticamente toda la variabilidad que observemos se puede achacar al término aleatorio $\mbox{ECM}$, y el término $b\cdot\operatorname{cov}(x,y)$ prácticamente no existe. Es decir, que si alguien sostiene (como {\em hipótesis nula}) que no existe relación lineal entre las variables $x$ e $y$, eso es equivalente a afirmar que $b$ está muy próximo a $0$, que a su vez es equivalente a afirmar que $\operatorname{cov}(x,y)$ es prácticamente $0$. Sólo nos falta recordar que, en este modelo, $b$ es en realidad un estimador de $\beta$, la pendiente de la recta teórica. Decir que no existe dependencia lineal entre $x$ e $y$ equivale a decir que $\beta=0$.
+
+    \item Ahora el plan está claro. Usamos la hipótesis nula:
+    \[H_0=\{\beta=0\}\]
+    y necesitamos un estadístico que nos permita estimar $\beta$. Si la muestra produce un valor del estadístico muy alejado de cero (es decir, un valor muy improbable), podremos rechazar la hipótesis nula. El estadístico que se utiliza es una especie de tipificación\footnote{Puedes ver los detalles en el capítulo 12 de {\em Estadística Aplicada}, de J. de la Horra, o en el capítulo 17 de {\em Estadística básica para estudiantes de ciencias}, de Gorgas, Cardiel y Zamorano.} de $b$, que conduce a:\\[3mm]
+    \fbox{\colorbox{Gris025}{\begin{minipage}{14cm}
+    \begin{center}
+    \vspace{2mm}
+    {\bf Contraste de hipótesis nula $\beta=0$ para la existencia de una dependencia lineal entre $x$ e $y$}\\
+    \end{center}
+    Si se cumple la hipótesis nula $H_0=\{\beta=0\}$, entonces el estadístico:
+    \[\dfrac{\operatorname{cov}(x,y)}{\sqrt{\dfrac{V_x V_y-\operatorname{cov}^2(x,y)}{n-2}}}\]
+    sigue una distribución $t$ de Student con \textcolor{red}{$n-2$ grados de libertad.} Por lo tanto, al realizar el contraste, rechazaremos la hipótesis nula si en la muestra obtenida se cumple que:
+    \[\left|\dfrac{\operatorname{cov}(x,y)}{\sqrt{\dfrac{V_x V_y-\operatorname{cov}^2(x,y)}{n-2}}}\right|>t_{n-2;\alpha/2}.\]
+    \end{minipage}}}\\[3mm]
+    Más adelante, cuando hayamos aprendido algo sobre el método ANOVA, podremos volver sobre el resultado de este contraste y expresarlo en términos de ese método. Allí usaremos la distribución F de Fisher que ya concoemos, y veremos la relación entre ambos planteamientos.
+
+    \item Supongamos que hemos rechazado la hipótesis nula, y por lo tanto trabajamos con la hipótesis de que, en efecto, existe un modelo lineal $y=\alpha+x\cdot\beta$ como el que hemos descrito, que relaciona los valores de $x$ e $y$. Hemos dicho que $a$ y $b$ son estimadores de $\alpha$ y $\beta$. Por lo tanto es razonable usarlos para obtener intervalos de confianza sobre esos parámetros, Las cuentas son parecidas a las que hemos presentado para el contraste de hipótesis (y los detalles se pueden consultar en las mismas fuentes), y se obtienen estos intervalos:\\[3mm]
+        \fbox{\colorbox{Gris025}{\begin{minipage}{14cm}
+        \begin{center}
+        \vspace{2mm}
+        {\bf Intervalos de confianza (nivel $(1-\alpha)$) para los parámetros $\alpha$ y $\beta$ del modelo de dependencia lineal}\\
+        \end{center}
+        La recta del modelo es $y=\alpha+\beta\cdot x$. Para el parámetro $\beta$ se tiene este intervalo de confianza:
+        \[\beta=
+%        b\pm t_{n-2;\alpha/2}\left(\sqrt{\dfrac{1}{n-2}\cdot\dfrac{SS_y-b\cdot SS_{xy}}{SS_x}}\right)
+%        =
+        b\pm t_{n-2;\alpha/2}\sqrt{\dfrac{1}{n-2}\cdot\dfrac{V_y-b\cdot\operatorname{cov}_{xy}}{V_x}}
+        .\]
+%        donde:
+%        \[
+%        \begin{cases}
+%        SS_x=\sum_{i=1}^n(x_i-\bar x)^2=n V_x\\[3mm]
+%        SS_y=\sum_{i=1}^n(y_i-\bar y)^2=n V_y\\[3mm]
+%        SS_{xy}=\sum_{i=1}^n(x_i-\bar x)(y_i-\bar y)=n \operatorname{cov}(x,y)
+%        \end{cases}
+%        \]
+        Para el parámetro $\alpha$ se obtiene una expresión algo más complicada:
+        \[\alpha=a\pm t_{n-2;\alpha/2}
+        \sqrt{        \left(\dfrac{1}{n-2}\cdot\dfrac{V_y-b\cdot\operatorname{cov}_{xy}}{V_x}\right)\cdot
+        \left(V_x+\bar x^2\right)
+        },\]
+        Como ya hemos advertido, hay que tener cuidado porque el mismo símbolo $\alpha$ aparece aquí \underline{representando dos cosas distintas}.
+        \end{minipage}}}\\[3mm]
+
+
+
+
+
+    \end{itemize}
+
+
+%\section{Verificando la calidad del ajuste lineal *}
+%
+%
+%\begin{itemize}
+%
+%    \item Las condiciones descritas al comienzo de la sección sobre inferencia hay que verificarlas.
+%    \item Residuos
+%    \item Ver la sección 6.2 de Daalgard
+%    \item Q-Q plots
+%
+%
+%
+%    \end{itemize}
+%
+%\section{Regresión no lineal (unidimensional) *}
+%\begin{itemize}
+%
+%    \item
+%
+%
+%    \end{itemize}
+%
+
+%\section*{Tareas asignadas para esta sesión.}
+%No hay tareas asignadas para esta sesión.
+%
+%\section*{Lectura recomendada}
+%
+%Las mismas de la anterior sesión.
+%
+%
+%
+%\section*{\fbox{\colorbox{Gris025}{{Sesión 26. Inferencia estadística.}}}}
+%
+%\subsection*{\fbox{\colorbox{Gris025}{{Inferencia en la regresión lineal.}}}}
+%\subsection*{Fecha: Martes, 20/12/2011, 14h.}
+%
+%\noindent{\bf Atención: este fichero pdf lleva adjuntos los ficheros de datos necesarios.}
+%
+%%\subsection*{\fbox{1. Ejemplos preliminares }}
+%\setcounter{tocdepth}{1}
+%%\tableofcontents
+
+%\section{Regresión lineal y muestreo}
+%
+%\begin{itemize}
+%
+%    \item Empecemos recordando que la recta de regresión $y=a+b\cdot x$ que hemos localizado en la anterior sesión es,
+%    \[(y-\bar y)=\dfrac{{\operatorname{cov}(x,y)}}{V_x}(x-\bar x), \quad\mbox{siendo }\operatorname{cov}(x,y)=\dfrac{\displaystyle\sum_{i=1}^{n}(x_i-\bar x)(y_i-\bar y)}{n}.\]
+%    En esta sesión,
+%    \[V_x=\dfrac{1}{n}\sum_{i=1}^n(x_i-\bar x)^2,\qquad V_y=\dfrac{1}{n}\sum_{i=1}^n(y_i-\bar y)^2\]
+%    (se usa la definición poblacional). Por lo tanto,\\[3mm]
+%    \fbox{\colorbox{Gris025}{\begin{minipage}{14cm}
+%    \begin{center}
+%    \vspace{2mm}
+%    {\bf Coeficientes $a$ y $b$, y relación con $r$}\\
+%    \end{center}
+%    Los coeficientes $a$ y $b$ de la recta de regresión son:
+%    \begin{equation}\label{ec:coeficientesRectaRegresion}
+%    b=\dfrac{{\operatorname{cov}(x,y)}}{V_x},\qquad a=\bar y-b\bar x.
+%    \end{equation}
+%    y en particular,
+%    \[r^2=b^2\dfrac{V_x}{V_y}\]
+%    de donde
+%    \[r=b\dfrac{s_x}{s_y}\]
+%    (aquí hay truco; recuerda que $s_x$ y $s_y$ proceden de fórmulas que usan $n-1$ en el denominador).
+%    \end{minipage}}}\\[3mm]
+%    Como hemos visto, esta recta es, de entre todas las rectas posibles, la que mejor representa, desde el punto de vista estadístico, al conjunto de $n$ puntos del plano:
+%    \[(x_1,y_1),(x_2,y_2),(x_3,y_3),\ldots,(x_n,y_n),\]
+%    Y hemos aprendido a medir la calidad de esa recta, {\sf para describir esos $n$ puntos}. Pero, naturalmente, eso es sólo un primer paso. Es fácil comprender que, en general, esos $n$ puntos serán sólo una muestra, tomada de una población que nos interesa estudiar. Y, como cabe suponer, cada muestra diferente que tomemos producirá una recta distinta.  En la siguiente figura pueden verse dos muestras de una misma población (una representada por los puntos azules redondos, y otra por las cruces rojas) y las correspondientes rectas de regresión (azul, trazo continuo la de la primera población, y rojo discontinua la de la segunda). Y en este \textattachfile{2011_12_20_InferenciaMuestreoRegresion.html}{\textcolor{blue}{documento html}} puedes comprobar como distintas muestras producen rectas distintas
+%    \begin{center}
+%    \includegraphics[width=14cm]{2011_12_20_RegresionDosMuestras.png}
+%    \end{center}
+%    En general, cada una de esas rectas es distinta de las demás, y además {\em distinta de la {\sf recta teórica}, que de momento podemos pensar que es la que obtendríamos si pudiéramos usar todos los datos de la población.} Vamos a llamar
+%    \[y=\alpha +\beta\cdot x\]
+%    a esa recta teórica. Como es habitual, usamos letras griegas para referirnos a los parámetros poblacionales, para distinguirlos de los parámetros $a$ y $b$ que corresponden a la muestra.
+%
+%    \textcolor{red}{\underline{ATENCIÓN:}} Ya hemos advertido en otras ocasiones de lo {\em decepcionante} que resulta la notación que se usa en Estadística. Aquí vamos a usar $\alpha$ porque es lo que hacen todos los libros de Estadística, pero esa notación resulta confusa porque vamos a usar también $\alpha$ para el nivel de confianza en contrastes de hipótesis e intervalos de confianza.
+%
+%    \item A la vista de estas reflexiones, parece evidente que nos debemos hacer --para empezar, entre otras-- estas preguntas: ¿Podemos usar la teoría de muestreo para contrastar la existencia de una relación lineal entre $x$ e $y$? Y si suponemos que esa relación existe, ¿podemos usar $a$ y $b$ para estimar $\alpha$ y $\beta$ (es decir, obtener intervalos de confianza)?
+%%        \begin{enumerate}
+%%            \item Una pregunta que hemos dejado pendiente de la anterior sesión. Si nos dan un nuevo valor de $x$, y usamos la recta de regresión para calcular $y$, ¿cómo de buena es esa estimación del valor de $y$?
+%%            \item
+%%        \end{enumerate}
+%
+%    \item En sesiones anteriores, para realizar estimaciones por inferencia, siempre hemos tenido que hacer alguna suposición sobre la distribución de la población, y a partir de aquí, obteníamos información sobre la distribución muestral del estadístico adecuado a cada problema. La situación en la que estamos ahora es análoga, pero hay algunas diferencias. Y de hecho, hay varias opciones disponibles para continuar. Pero algunas de ellas utilizan el concepto de {\sf variable aleatoria continua bidimensional}, que no hemos estudiado.
+%
+%
+%    \item Vamos a quedarnos, por tanto con un modelo muy básico, pero aún así útil. Vamos a interpretar los parámetros $\alpha$ y $\beta$ así: supondremos que para cada valor fijo $x_0$ de la variable $x$ tenemos una variable aleatoria normal $Y_{x_0}$ de tipo $N(\alpha+\beta\cdot x,\sigma)$, donde $\sigma$ es la misma, independientemente de $x_0$ (esto desde luego, es una simplificación) . Y entonces interpretamos el punto        $(x_1,y_1)$ suponiendo que $y_1$ es una observación de $Y_{x_1}$, el punto $(x_2,y_2)$ suponiendo que $y_2$ es una observación de $Y_{x_2}$,etcétera, hasta el punto $(x_n,y_n)$, para el que suponemos igualmente que $y_n$ es una observación de $Y_{x_n}$. Esto es equivalente a suponer que nuestras observaciones se explican mediante este modelo:
+%        \[y=\alpha +\beta\cdot x+\epsilon,\quad\mbox{ siendo }\epsilon\sim N(0,\sigma).\]
+%        La siguiente figura ilustra la forma en la que se suele entender esto. Como se ve en la figura, para cada valor $x_0$ hay asociada una copia local de la normal $N(0,\sigma)$, que permite calcular las probabilidades condicionadas del tipo
+%        \[P(Y\leq y|x=x_0)\]
+%        En este modelo, $a$ y $b$ son, evidentemente, estimadores de los parámetros $\alpha$ y $\beta$ de la distribución teórica.
+%        \begin{center}
+%        \includegraphics[width=14.5cm]{2011-12-20-RegresionDistribucionesNormalesMarginales.png}
+%        \end{center}
+%
+%    \subsection*{}\label{sec:anova}
+%    \item Vamos a recordar el ANOVA (análisis de la varianza) que hicimos en la sesión anterior. Justo antes de la definición del coeficiente de correlación de Pearson habíamos obtenido:
+%        \[1=\dfrac{\mbox{ECM}}{V_y}+r^2\]
+%        o, lo que es lo mismo (recuerda que $\operatorname{Var}(y)=V_y$):
+%        \[V_y=\mbox{ECM}+r^2V_y\]
+%        Y como
+%        \[r^2=\dfrac{(\operatorname{cov}(x,y))^2}{V_x\cdot V_y}\]
+%        esto es:
+%        \[V_y=\mbox{ECM}+\dfrac{(\operatorname{cov}(x,y))^2}{V_x}=\mbox{ECM}+b\cdot\operatorname{cov}(x,y),\]
+%        donde $b$ es la pendiente de la recta de regresión (recuerda la Ecuación \ref{ec:coeficientesRectaRegresion}, página \pageref{ec:coeficientesRectaRegresion}). Conceptualmente, hemos descompuesto $V_y$, que mide la dispersión total de los valores de $y$, de esta forma:
+%        \[
+%        \underbrace{\left(\mbox{dispersión total de }y\right)}_{V_y}=
+%        \underbrace{\left(\mbox{dispersión aleatoria }N(0,\sigma)\right)}_{\mbox{ECM}}+
+%        \underbrace{\left(\mbox{dispersión debida a la regresión}\right)}_{b\cdot\operatorname{cov}(x,y)}
+%        \]
+%        Esta ecuación nos va a servir para entender la forma en la que se contrasta la existencia de una relación lineal entre $x$ e $y$. Si esa relación no existe, entonces al obtener una muestra de puntos
+%        \[(x_1,y_1),(x_2,y_2),(x_3,y_3),\ldots,(x_n,y_n),\]
+%        prácticamente toda la variabilidad que observemos se puede achacar al término aleatorio $\mbox{ECM}$, y el término $b\cdot\operatorname{cov}(x,y)$ prácticamente no existe. Es decir, que si alguien sostiene (como {\em hipótesis nula}) que no existe relación lineal entre las variables $x$ e $y$, eso es equivalente a afirmar que $b$ está muy próximo a $0$, que a su vez es equivalente a afirmar que $\operatorname{cov}(x,y)$ es prácticamente $0$. Sólo nos falta recordar que, en este modelo, $b$ es en realidad un estimador de $\beta$, la pendiente de la recta teórica. Decir que no existe dependencia lineal entre $x$ e $y$ equivale a decir que $\beta=0$.
+%
+%    \item Ahora el plan está claro. Usamos la hipótesis nula:
+%    \[H_0=\{\beta=0\}\]
+%    y necesitamos un estadístico que nos permita estimar $\beta$. Si la muestra produce un valor del estadístico muy alejado de cero (es decir, un valor muy improbable), podremos rechazar la hipótesis nula. El estadístico que se utiliza es una especie de tipificación\footnote{Puedes ver los detalles en el capítulo 12 de {\em Estadística Aplicada}, de J. de la Horra, o en el capítulo 17 de {\em Estadística básica para estudiantes de ciencias}, de Gorgas, Cardiel y Zamorano.} de $b$, que conduce a:\\[3mm]
+%    \fbox{\colorbox{Gris025}{\begin{minipage}{14cm}
+%    \begin{center}
+%    \vspace{2mm}
+%    {\bf Contraste de hipótesis nula $\beta=0$ para la existencia de una dependencia lineal entre $x$ e $y$}\\
+%    \end{center}
+%    Si se cumple la hipótesis nula $H_0=\{\beta=0\}$, entonces el estadístico:
+%    \[\dfrac{\operatorname{cov}(x,y)}{\sqrt{\dfrac{V_x V_y-\operatorname{cov}^2(x,y)}{n-2}}}\]
+%    sigue una distribución $t$ de Student con \textcolor{red}{$n-2$ grados de libertad.} Por lo tanto, al realizar el contraste, rechazaremos la hipótesis nula si en la muestra obtenida se cumple que:
+%    \[\left|\dfrac{\operatorname{cov}(x,y)}{\sqrt{\dfrac{V_x V_y-\operatorname{cov}^2(x,y)}{n-2}}}\right|>t_{n-2;\alpha/2}.\]
+%    \end{minipage}}}\\[3mm]
+%
+%    \item Supongamos que hemos rechazado la hipótesis nula, y por lo tanto trabajamos con la hipótesis de que, en efecto, existe una modelo lineal $y=\alpha+\cdot\beta$ como el que hemos descrito, que relaciona los valores de $x$ e $y$. Hemos dicho que $a$ y $b$ son estimadores de $\alpha$ y $beta$. Por lo tanto es razonable usarlos para obtener intervalos de confianza sobre esos parámetros, Las cuentas son parecidas a las que hemos presentado para el contraste de hipótesis (y los detalles se pueden consultar en las mismas fuentes), y se obtienen estos intervalos:\\[3mm]
+%        \fbox{\colorbox{Gris025}{\begin{minipage}{14cm}
+%        \begin{center}
+%        \vspace{2mm}
+%        {\bf Intervalos de confianza (nivel $(1-\alpha)$) para los parámetros $\alpha$ y $\beta$ del modelo de dependencia lineal}\\
+%        \end{center}
+%        La recta del modelo es $y=\alpha+\beta\cdot x$. Para el parámetro $\beta$ se tiene este intervalo de confianza:
+%        \[\beta=
+%%        b\pm t_{n-2;\alpha/2}\left(\sqrt{\dfrac{1}{n-2}\cdot\dfrac{SS_y-b\cdot SS_{xy}}{SS_x}}\right)
+%%        =
+%        b\pm t_{n-2;\alpha/2}\sqrt{\dfrac{1}{n-2}\cdot\dfrac{V_y-b\cdot\operatorname{cov}_{xy}}{V_x}}
+%        .\]
+%%        donde:
+%%        \[
+%%        \begin{cases}
+%%        SS_x=\sum_{i=1}^n(x_i-\bar x)^2=n V_x\\[3mm]
+%%        SS_y=\sum_{i=1}^n(y_i-\bar y)^2=n V_y\\[3mm]
+%%        SS_{xy}=\sum_{i=1}^n(x_i-\bar x)(y_i-\bar y)=n \operatorname{cov}(x,y)
+%%        \end{cases}
+%%        \]
+%        Para el parámetro $\alpha$ se obtiene una expresión algo más complicada:
+%        \[\alpha=a\pm t_{n-2;\alpha/2}
+%        \sqrt{        \left(\dfrac{1}{n-2}\cdot\dfrac{V_y-b\cdot\operatorname{cov}_{xy}}{V_x}\right)\cdot
+%        \left(V_x+\bar x^2\right)
+%        },\]
+%        Como ya hemos advertido, hay que tener cuidado porque el mismo símbolo $\alpha$ aparece aquí \underline{representando dos cosas distintas}.
+%        \end{minipage}}}\\[3mm]
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%    \end{itemize}
+
+
+
+    %\section{Otros modelos de regresión. (*)}
+    %\begin{itemize}
+    %
+    %    \item Modelo de regresión lineal múltiple:
+    %    \[y=c_0+c_1x_1+c_2x_2+\cdots+c_kx_k\]
+    %
+    %    \item El esquema de la pág. 85 de Estadística II para dummies.
+    %
+    %    \item Residuos.
+    %
+    %\end{itemize}
+    %
+    %Pendiente

@@ -1,0 +1,224 @@
+% !Mode:: "Tex:UTF-8"
+\section{El lenguaje del contraste de hipótesis}
+
+\begin{itemize}
+
+    \item En los próximos capítulos del curso vamos a ver cómo obtener intervalos de confianza para otros parámetros y distribuciones. El Contraste de Hipótesis, que vamos a conocer en este capítulo, está íntimamente relacionado con los intervalos de confianza, de manera que podemos decir que, por cada nuevo intervalo de confianza que aprendamos a calcular, habrá un contraste de hipótesis asociado. En este capítulo vamos a centrarnos en contrastes de hipótesis asociados con los intervalos de confianza que ya hemos estudiado (para la media, y en poblaciones normales).
+\end{itemize}
+
+
+
+\subsection*{Hipótesis nula y alternativa.}
+
+\begin{itemize}
+
+    \item Con el cálculo de intervalos de confianza hemos empezado a utilizar la Estadística para hacer predicciones sobre la población a partir de la muestra. Ahora estamos en condiciones de hacer afirmaciones como {\em ``con una fiabilidad del 95\%, la media de la población está en el intervalo $(a,b)$''}. ¿Cómo se usan estas afirmaciones en el trabajo científico?
+        Recordemos el esquema básico del trabajo científico. Como siempre sucede en estos casos, es {\em
+        realmente esquemático}, y la realidad es muchas veces algo más compleja, pero como guión inicial sirve a nuestros propósitos:
+        \begin{enumerate}
+        \item un científico propone una {\sf hipótesis}. Por ejemplo: ``Hemos desarrollado un nuevo medicamento, {\em Pildorín Complex}, para tratar la depresión severa en el \link{http://es.wikipedia.org/wiki/Canguro_rojo}{canguro rojo australiano}\marginpar{\includegraphics*[scale=1,width=1.5cm,keepaspectratio=true]{2011-11-22-Canguro.png}}. Y sostenemos que el medicamento es tan bueno, que después de administrárselo, los pacientes darán saltos de alegría. De hecho, afirmamos que la altura de esos saltos será mucho mayor de lo que era, antes del tratamiento''.
+        \item Esa afirmación debe probarse mediante unos experimentos, de los cuales se extrae una colección de datos, una {\em muestra}.  En esta fase es importante que el diseño del experimento sea cuidadoso, de manera que la muestra sea representativa de la población, y útil para el análisis estadístico. En  el ejemplo, entre otras cosas, está claro que habrá que seleccionar minuciosamente un grupo de canguros depresivos, a los que se administrará el medicamento, y se medirá con cuidado la altura de sus saltos, antes y después de tratarlos. Hacia el final del curso hablaremos algo más sobre esta fase (habrá que hacer grupos de control, probar placebos, etc.)
+        \item Y a continuación, viene la fase de {\sf análisis estadístico}. El objetivo es usar la estadística para ver si los datos avalan nuestras afirmaciones, nuestra hipótesis de que ``la altura media de los saltos es significativamente mayor que antes del tratamiento.''. Porque el laboratorio de la competencia (que lleva años vendiendo su medicamento {\em Saltaplus}), enseguida dirá que nuestro medicamento no tiene efectos, y que los saltos que hemos observado en nuestros canguros depresivos son, simplemente, sus saltos habituales, que los canguros a veces saltan más y a veces menos, y que nuestras medidas son {\sf fruto del  azar}.
+        \end{enumerate}
+        La última frase es esencial. Porque es verdad que los canguros ya daban saltos, aleatoriamente más o menos altos, antes de tomar nuestro medicamento. ¿Podemos usar la estadística para demostrar que el uso de {\em {\em Pildorín Complex}} ha tenido realmente un efecto sobre la altura de los saltos de los canguros depresivos? Bueno, naturalmente necesitamos saber algo sobre la altura típica de los saltos de los canguros depresivos (sin medicar). Así que le preguntamos a un experto independiente, ¿cuánto saltan los canguros depresivos? Vamos a suponer que el experto dice que la altura (en metros) de los saltos se puede representar mediante una variable aleatoria que sigue una distribución normal, con media $\mu_0=2.5$ (en metros). Nosotros hemos observado en nuestra muestra de 100 canguros depresivos tratados con {\em {\em Pildorín Complex}} una altura de salto media $\bar X=2.65$ (en metros), con desviación típica muestral $s=0.5$. Esto podría ser fruto del azar, claro está. Pero la pregunta es ¿cómo de sorprendente, cómo de rara o excepcional le parece esa muestra al experto? Para exagerarlo: si después de darles el tratamiento los canguros dieran saltos de 10m en promedio, al experto --y a la competencia-- le costaría mucho decir ``bueno, será cosa del azar''.
+
+    \item El objetivo del contraste de hipótesis consiste, en una explicación informal, en establecer cómo de sorprendentes,  inesperados  o inexplicables le parecen los resultados de la muestra a alguien {\em que no acepta, o no se cree, nuestra hipótesis de trabajo}. Así pues, para entender lo que supone el contraste de hipótesis, nos servirá de ayuda pensar en una confrontación, en la que, por un lado, estamos nosotros con la hipótesis que defendemos y enfrente se sitúa un escéptico, que no se cree nuestra hipótesis y que por tanto defiende la hipótesis contraria. Empecemos por la terminología:
+        \begin{enumerate}
+        \item La hipótesis que defiende el escéptico (la competencia) es la {\sf hipótesis nula}, y se representa con $H_0$.
+        \item Nuestra hipótesis, la que defendemos, se llamará {\sf hipótesis alternativa}, y se representa $H_a$.
+        \end{enumerate}
+        Veámoslo en el ejemplo de los canguros depresivos:
+        \begin{ejemplo}
+        En este caso las hipótesis son:
+        \begin{enumerate}
+        \item {\bf Hipótesis nula \boldmath $H_0$:} la altura media de los saltos de los canguros depresivos tratados con {\em Pildorín Complex} no es mayor que la de los canguros sin tratar. Es decir, la altura media de esos saltos no es mayor que $2.5$.  Esta hipótesis equivale a decir que nuestro tratamiento no ha tenido el efecto deseado, o que ha tenido un {\sc efecto nulo} sobre los canguros depresivos.
+        \item {\bf Hipótesis alternativa \boldmath $H_a$:} la altura media de los saltos de los canguros tratados con {\em Pildorín Complex} es mayor que la de los canguros sin tratar. Es decir, nuestra hipótesis es que la variable aleatoria {\em altura de los saltos} sigue una distribución normal $N(\mu,0.5)$, donde {\sf la media $\mu$ es mayor que $\mu_0$}.
+        \end{enumerate}
+        \qed
+        \end{ejemplo}
+
+
+
+%     Afortunadamente, alguien buscó la respuesta para nosotros, estudiando el comportamiento de la variable $Y_2$ para $n$ pequeño.\\[3mm]
+%     \fbox{\begin{minipage}{14cm}
+%       \begin{center}
+%       \vspace{2mm}
+%       {\bf DISTRIBUCIÓN $t$ DE STUDENT}\\
+%       \end{center}
+%       Sea $X$ una variable aleatoria normal, de tipo $N(\mu_X,\sigma_X)$, y sea $\bar X$ la media muestral de $X$ en muestras de tamaño $n$. Entonces, la distribución de la variable aleatoria
+%        \[\dfrac{\bar X-\mu_X}{\dfrac{s}{\sqrt{n}}},\]
+%        recibe el nombre de {\sf distribución $t$ de Student con $k=n-1$ grados de libertad.}
+%       \end{minipage}}\\[3mm]
+%       Esta distribución fue estudiada por \link{http://en.wikipedia.org/wiki/William_Sealy_Gosset}{William S. Gosset}, que trabajaba para la fábrica de cerveza Guinness y que firmaba sus trabajos científicos bajo el pseudónimo de Student. Entre otras cosas, Student obtuvo la función de densidad de esta variable aleatoria continua, que para $k=n-1$ grados de libertad es:
+%       \[f(x)=\dfrac{1}{\sqrt{k}\cdot\beta(\frac{1}{2},\frac{k}{2})}\left(1+\dfrac{x^2}{k}\right)^{-\frac{k+1}{2}}.\]
+%       (Aquí $\beta$ es la \link{http://en.wikipedia.org/wiki/Beta_function}{función beta}, una función que se usa a menudo en matemáticas y que recuerda un poco a los números combinatorios.)
+%
+%       {\em ¡No hay ninguna necesidad de que te aprendas esta función de densidad!} La escribimos aquí sólo para recordarte que la distribución de Student, como cualquier variable aleatoria continua, viene caracterizada por su función de densidad. Es mucho más interesante comparar los gráficos de la función de densidad de la normal estándar y la $t$ de Student para distintos valores de $k$. Eso es lo que se ha hecho en este \textattachfile{2011_11_15_StudentVsNormalEstandar.html}{\textcolor{blue}{documento html}} (se abre en el navegador, requiere Java). Como puedes comprobar, la distribución $t$ de Student tiene una forma de campana que recuerda a la normal, pero es más abierta. A medida que el valor de $k$ aumenta, no obstante, la $t$ se parece cada vez más a la normal estándar, de manera que para $k>30$ son esencialmente iguales.
+    \end{itemize}
+
+    \subsection*{Errores de tipo I y tipo II.}
+
+
+
+    \begin{itemize}
+
+    \item En la próxima sección veremos como se utilizan los resultados experimentales (los valores muestrales) para decidir entre las dos hipótesis. Pero antes de hacer esto, y todavía en el terreno de la terminología, vamos a pensar un poco en la decisión que debemos tomar, y en las consecuencias de esa decisión: tenemos que decidir entre la hipótesis nula y la hipótesis alternativa. Como se trata de variables aleatorias, y sólo disponemos de datos muestrales, tomemos la decisión que tomemos, podemos estar equivocándonos. En seguida nos daremos cuenta de que, puesto que hay dos hipótesis enfrentadas, pueden darse estas cuatro situaciones:
+        \begin{center}
+        \begin{tabular}{cccc}
+        \cline{3-4}
+        &&\multicolumn{2}{|c|}{\bf ¿Qué hipótesis es correcta?}\\[3mm]
+        \cline{3-4}
+                                                      &&\multicolumn{1}{|c|}{\bf $H_0$ (nula) es correcta}&\multicolumn{1}{|c|}{\bf $H_a$ (alternativa) es correcta}\\[3mm]
+        \cline{2-4}
+                                        &\multicolumn{1}{|c|}{\bf Rechazar $H_0$}&\multicolumn{1}{|c|}{\bf Error tipo I}&\multicolumn{1}{|c|}{\bf Decisión correcta}\\[3mm]
+        \cline{2-4}
+                                        &\multicolumn{1}{|c|}{\bf Rechazar $H_a$}&\multicolumn{1}{|c|}{\bf Decisión correcta}&\multicolumn{1}{|c|}{\bf Error tipo II}\\[3mm]
+        \cline{2-4}
+        \end{tabular}
+        \end{center}
+        \item Un {\sf error de tipo I} significa que la hipótesis nula se rechaza, {\em a pesar de que es cierta}, y la hipótesis alternativa (la que nosotros defendemos) se acepta en su lugar. En  muchos casos, este es el tipo de error que se considera más grave (puedes pensarlo así: el error tiene agravante, porque encima de ser un error favorece a nuestra hipótesis.)
+
+        \item El {\sf error de tipo II} significa que la hipótesis alternativa (la que defendemos) se rechaza, {\em a pesar de ser cierta}. Es también, naturalmente, un error, aunque como hemos dicho, en algunos casos se considera el mal menor, frente al error de tipo I. La importancia relativa de esos errores, sin embargo, depende mucho del contexto, y del significado (¡y la valoración de los riesgos!) que tenga para nosotros aceptar o rechazar cada una  de las hipótesis. Volveremos sobre esto en breve.
+
+        \item Más adelante nos interesarán estas preguntas: ¿cuál es la probabilidad de cometer un error de tipo I? ¿Y un error de tipo II? Por el momento, nos conformamos con subrayar que ambas preguntas se pueden formular en términos de probabilidades condicionadas. En este sentido, a probabilidad de cometer un error de tipo I es:
+            \[P(\mbox{error tipo I})=P(\mbox{rechazar $H_0$}|\mbox{$H_0$ es correcta})\]
+            Mientras que para el tipo II es:
+            \[P(\mbox{error tipo II})=P(\mbox{rechazar $H_a$}|\mbox{$H_a$ es correcta})\]
+
+        \item Si esta terminología te recuerda a la de las pruebas diagnósticas (sensibilidad y especificidad) es porque, en efecto, una prueba diagnóstica es, hablando en general, un cierto tipo de contraste de hipótesis.
+
+    \end{itemize}
+
+    \section{Un contraste de hipótesis, paso a paso. Región de rechazo y p-valor.}
+
+    \begin{itemize}
+
+     \item La decisión de rechazar la hipótesis nula  se basa en los mismos métodos de cálculo que ya hemos conocido al obtener intervalos de confianza. El esquema básico de los contrastes de hipótesis que vamos a realizar se puede resumir así:
+         \begin{enumerate}
+         \item Definimos claramente lo que significan las hipótesis nula $H_0$, y alternativa $H_a$. El significado será una cierta igualdad o desigualdad sobre un parámetro de la distribución de una variable aleatoria en la población; por ejemplo, como hipótesis nula podemos decir que la media de la variable es menor o igual que $\mu_0$. En este caso la media de la población es el parámetro elegido.
+
+         \item  Debemos elegir un estadístico que permita estimar ese parámetro. Es decir, elegir un número que podamos calcular a partir de las muestras que tomemos de la población, y que nos permita hacer estimaciones de probabilidad sobre el parámetro que hemos elegido en el paso anterior. Por ejemplo, si hemos elegido la media, y estamos en un ejemplo en el que las muestras son grandes, y conocemos la varianza poblacional, podemos tomar como estadístico el valor
+             \[\dfrac{\bar X-\mu_0}{\frac{\sigma}{\sqrt{n}}},\]
+             que sabemos que sigue una distribución normal estándar $N(0,1)$, \textcolor{red}{\sf siempre que la hipótesis nula sea cierta} (esta frase es la clave del proceso).
+         \item Fijamos un nivel de significación $1-\alpha$ (típicamente al $90\%$, $95\%$ o $99\%$; es decir que $\alpha$ es $0.1$, $0.05$ o $0.01$), con una interpretación similar a la que vimos para los intervalos de confianza. De hecho, como veremos más abajo, $\alpha$ es la máxima probabilidad que estamos dispuestos a tolerar de cometer un error de tipo I .
+         \item Obtenemos una muestra de la población y calculamos el valor del estadístico del segundo paso en esa muestra.
+         \item Usando lo que sabemos de su distribución muestral, calculamos la probabilidad de obtener ese valor del estadístico, \textcolor{red}{\sf suponiendo que la hipótesis nula sea cierta}. Los cálculos de estos dos últimos pasos (este y el anterior) son esencialmente los mismos que para realizar un intervalo de confianza (y son los únicos necesarios para el contraste). El valor de probabilidad que obtenemos en este paso se conoce como el {\sf p-valor del contraste}, y es independiente de $\alpha$.
+         \item Si esa probabilidad, el p-valor, es menor que $\alpha$, concluimos que los datos apuntan a que la hipótesis nula es falsa y la {\sf rechazamos}. En este caso se dice que hemos obtenido un {\sf resultado significativo}  (a favor de la hipótesis alternativa).
+        \item Si, por el contrario, el p-valor es mayor que $\alpha$, diremos que los datos no permiten rechazar la hipótesis nula. En este caso se dice que hemos obtenido un {\sf resultado no significativo}.
+         \end{enumerate}
+
+         Antes de seguir, vamos a ver en detalle como se lleva a cabo cada uno de estos pasos del contraste de hipótesis en el ejemplo de los canguros.
+
+       \begin{ejemplo}
+
+         \begin{enumerate}
+         \item[]
+         \item En este ejemplo, tanto la competencia como nosotros estamos de acuerdo en que la variable aleatoria
+         \[X=\mbox{\{\em altura de los saltos de los canguros depresivos, tratados con {\em Pildorín Complex}\}}\]
+         sigue una distribución del tipo normal con media $\mu$. Nuestra discrepancia se refiere al valor de la media:
+             \begin{itemize}
+             \item La hipótesis nula, que defiende la competencia, es $H_0=\{\mu\leq 2.5\}$
+             \item La hipótesis alternativa, que defendemos nosotros, es $H_a=\{\mu>2.5\}$.
+             \end{itemize}
+            El valor que aparece en ambas hipótesis y que marca la frontera entre lo que afirma la competencia y lo que afirmamos nosotros es el que llamamos $\mu_0$, y en este ejemplo es $\mu_0=2.5$. Por cierto, el igual en la desigualdad siempre está del lado de la hipótesis nula.
+         \item  Puesto que el tamaño de las muestras ($n=100$) es bastante grande, y {\em no conocemos la desviación típica de la población}, revisamos lo que hemos aprendido sobre la distribución muestral de la media, y concluimos que un estadístico apropiado para este problema es:
+             \[\dfrac{\bar X-\mu_0}{\frac{s}{\sqrt{n}}}.\]
+             La utilidad de este estadístico para el contraste es que {\sf si la hipótesis nula es cierta}, su distribución será una normal $N(0,1)$. Nuestro objetivo, en tanto que partidarios de la hipótesis alternativa, es demostrar que los datos de la muestra no encajan con esa predicción, son {\em demasiado raros}, más allá de las dudas razonables.
+         \item Elegimos el  nivel de significación $1-\alpha=95\%$.
+         \item Ya hemos dicho que en nuestra muestra de la población es $\bar X=2.65$ y $s=0.5$, y que la muestra se compone de 100 observaciones. Calculamos el valor del estadístico, como si la hipótesis nula ($\mu=2.5$) fuera cierta :
+         \[\dfrac{\bar X-\mu_0}{\frac{s}{\sqrt{n}}}=\dfrac{2.65-2.5}{\frac{0.5}{\sqrt{100}}}=3.\]
+         \item Usando lo que sabemos de la distribución estándar, calculamos la probabilidad de obtener este valor $3$ (o uno mayor), en una variable de tipo $N(0,1)$. Se obtiene:
+          \[P(Z\geq 3)\approx 0.001350\]
+          Esta probabilidad es el \textcolor{red}{p-valor} del contraste.
+         \item Puesto que $0.001350<0.05=\alpha$, el resultado es significativo al nivel de confianza elegido, y por eso {\sf rechazamos la hipótesis nula}, dando por probada experimentalmente la eficacia de {\em Pildorín Complex}.
+         \end{enumerate}\qed
+       \end{ejemplo}
+
+     \item Vamos a fijarnos en el quinto y sexto pasos de este ejemplo, porque ahí se concentra el núcleo de la decisión que tomamos. Hemos calculado el p-valor:
+          \[P(Z\geq 3)\approx 0.001350<\alpha\]
+          y por otro lado sabemos que $1-\alpha=P(Z\leq z_{\alpha})$, es decir, $\alpha=P(Z\geq z_{\alpha})$. Combinando estas dos últimas expresiones se tiene
+          \[P(Z\geq 3)<P(Z\geq z_{\alpha}),\]
+          siendo $z_{\alpha}=z_{0.10}=1.645$
+          Y una forma razonable de leer esto es diciendo que hemos rechazado la hipótesis nula $H_0$, porque el valor $3$ del estadístico obtenido a partir de la muestra es mayor que $z_{\alpha}$ para el nivel de confianza que habíamos fijado. Al verlo así queda claro que habríamos rechazado la hipótesis nula para cualquier valor del estadístico mayor que $z_{\alpha}$. Eso nos permite decir que los valores $z$ que cumplen $z>z_{\alpha}$ forman la {\sf región de rechazo} de la hipótesis nula.
+
+     \item La región de rechazo se define con independencia de que la hipótesis nula $H_0$ sea cierta o no. Pero si además sabemos que $H_0$ es cierta, entonces la distribución del estadístico
+     \[\dfrac{\bar X-\mu_0}{\frac{s}{\sqrt{n}}}\]
+     es realmente la normal estándar. En ese caso, si obtenemos un valor de este estadístico en la región de rechazo, habremos rechazado la hipótesis nula, {\em a pesar de que es cierta}. Es decir, habremos cometido un error de tipo I. Y puesto que la probabilidad de obtener uno de esos valores es $\alpha$\footnote{aquí, en esta frase es donde precisamente usamos el hecho de que $H_0$ es cierta.}, comprobamos que, como habíamos anunciado:
+     \[\alpha=P(\mbox{cometer un error de tipo I})\]
+
+     \item Análogamente, se puede definir un valor
+     \[\beta=P(\mbox{cometer un error de tipo II})\]
+     que es la probabilidad de la región de rechazo de la hipótesis alternativa. Los dos tipos de errores van fuertemente emparejados. A primera vista podríamos pensar que lo mejor es tratar de hacer ambos errores pequeños simultáneamente. Pero esto es, en general, inviable, porque al disminuir la probabilidad de cometer un error de tipo I (al disminuir $\alpha$) estamos aumentando la probabilidad de cometer uno de tipo II (aumentamos $\beta$). Esta relación entre ambos tipos de errores, se ilustra en este \textattachfile{Cap07_ContrasteHipotesis_TiposDeError.html}{\textcolor{blue}{documento html}} para el caso de un contraste sobre el valor de la media. Como hemos dicho, la decisión depende mucho del contexto: los errores de tipo I se consideran más relevantes cuando, como en nuestro ejemplo, se está estudiando un nuevo procedimiento terapéutico o se propone una nueva teoría. Sin embargo, en otras aplicaciones, como por ejemplo en control de calidad, en seguridad alimentaria, o en los estudios medioambientales para detectar niveles altos de sustancias contaminantes, los errores de tipo II son los más preocupantes, porque cometer uno de estos errores significaría no detectar una situación potencialmente peligrosa.
+    \end{itemize}
+
+    \section{Contrastes de una y dos colas}
+
+    \begin{itemize}
+
+    \item En la discusión anterior hemos presentado los elementos básicos del lenguaje del contraste de hipótesis, tomando siempre como referencia un ejemplo sobre la media, en el que la hipótesis alternativa era
+        \[H_a=\{\mu>\mu_0\},\quad \mbox{(en el ejemplo era }\mu_0=2.5).\]
+        y la hipótesis nula era de la forma
+        \[H_0=\{\mu\leq \mu_0\}.\]
+        Y elegíamos esta hipótesis nula porque nuestra intención era mostrar que el tratamiento {\em aumentaba} el valor de la media. La región de rechazo de la hipótesis nula tiene el aspecto que se muestra en la figura:
+        \begin{center}
+        \includegraphics[width=15cm]{2011-11-22-ContrasteHipotesis-ColaDerecha.png}
+        \end{center}
+        En el caso del contraste de hipótesis para la media que hemos visto, para muestras grandes con varianza desconocida, eso quiere decir que la región de rechazo $R$ es de la forma:
+        \[R=\left\{\dfrac{\bar X-\mu_0}{\frac{s}{\sqrt{n}}}>z_{\alpha}\right\},\]
+        siendo $z_{\alpha}$ el valor crítico que, en la normal estándar  $N(0,1)$ deja una probabilidad $1-\alpha$ a su izquierda (y por tanto $\alpha$ a la derecha como queremos).
+
+
+    \item En otros problemas, sin embargo, puede que nuestra hipótesis sea distinta. Evidentemente, habrá ocasiones en que lo que queremos analizar el si el tratamiento ha disminuido la media. Y en ese caso la hipótesis nula (que siempre es lo contrario de lo que queremos probar) será de la forma:
+        \[H_0=\{\mu\geq \mu_0\},\quad \mbox{(mientras que  } H_a=\{\mu<\mu_0\}.\]
+        Ahora la región de rechazo de la hipótesis nula tiene este aspecto:
+        \begin{center}
+        \includegraphics[width=15cm]{2011-11-22-ContrasteHipotesis-ColaIzda.png}
+        \end{center}
+        Y la región de rechazo $R$ es de la forma:
+        \[R=\left\{\dfrac{\bar X-\mu_0}{\frac{s}{\sqrt{n}}}<z_{1-\alpha}\right\},\]
+        siendo $z_{1-\alpha}=-z_{\alpha}$ el valor crítico que, en la normal estándar  $N(0,1)$ deja una probabilidad $\alpha$ a su izquierda.
+
+    \item En ambos casos, la región de rechazo es una de las colas de la distribución (a derecha o a izquierda). Sin embargo, no siempre será así. Es posible que pensemos que el tratamiento tiene algún efecto, pero no sepamos a priori si ese efecto va a hacer que la media sea más alta o más baja. En este caso, nuestra hipótesis alternativa es de la forma:
+        \[H_a=\{\mu\neq\mu_0\}.\]
+        y la hipótesis nula es:
+        \[H_0=\{\mu=\mu_0\}.\]
+        A diferencia de los dos casos anteriores, ahora la región de rechazo de la hipótesis nula la forman dos colas de la distribución. En concreto, la región de rechazo $R$ es de la forma:
+        \[R=\left\{\left|\dfrac{\bar X-\mu_0}{\frac{s}{\sqrt{n}}}\right|>z_{\alpha/2}\right\},\]
+        siendo $z_{\alpha/2}$ el valor crítico que, en la normal estándar  $N(0,1)$ deja una probabilidad $1-\alpha/2$ a su izquierda (y por lo tanto, cada cola tiene probabilidad $\alpha/2$, como queremos).
+        \begin{center}
+        \includegraphics[width=15cm]{2011-11-22-ContrasteHipotesis-DosColas.png}
+        \end{center}
+        Este último caso es el que más recuerda a los intervalos de confianza, porque la región de rechazo es exactamente el exterior del intervalo de confianza para la media al nivel $1-\alpha$.
+
+
+    \end{itemize}
+
+       \section{Contraste de hipótesis para $\mu$ con muestras pequeñas y varianza desconocida.}\label{subsec:contrasteHipotesisMediaMuestrasPequennasVarianzaDesconocida}
+
+       \begin{itemize}
+
+
+       \item Al igual que sucedía con los intervalos de confianza, si el tamaño de la muestra es pequeño (recordemos, $n<30$), los contrasted de hipótesis son similares, pero utilizando la distribución $t$ de Student para calcular los valores críticos. Se obtienen estos resultados:
+        \begin{enumerate}
+        \item Hipótesis alternativa: $H_a=\{\mu>\mu_0\}$, hipótesis nula: $H_0=\{\mu\leq \mu_0\}.$.\\[3mm]
+            Región de rechazo $R$ de la forma:
+            \[R=\left\{\dfrac{\bar X-\mu_0}{\frac{s}{\sqrt{n}}}>t_{k;\alpha}\right\},\]
+            siendo $t_{k;\alpha}$ el valor crítico para la distribución $t$ de Student con $k=n-1$ grados de libertad, que deja una probabilidad $1-\alpha$ a su izquierda (y por tanto $\alpha$ a la derecha).
+
+
+    \item Hipótesis alternativa: $H_a=\{\mu<\mu_0\}$, hipótesis nula: $H_0=\{\mu\geq \mu_0\}.$.\\[3mm]
+            Región de rechazo $R$ de la forma:
+            \[R=\left\{\dfrac{\bar X-\mu_0}{\frac{s}{\sqrt{n}}}<t_{k;1-\alpha}\right\},\]
+            siendo $t_{k;1-\alpha}=-t_{k;\alpha}$ el valor crítico para la distribución $t$ de Student con $k=n-1$ grados de libertad, que deja una probabilidad $\alpha$ a su izquierda.
+
+
+
+    \item Hipótesis alternativa: $H_a=\{\mu\neq\mu_0\}$, hipótesis nula: $H_0=\{\mu=\mu_0\}.$.\\[3mm]
+            Región de rechazo $R$ de la forma:
+        \[R=\left\{\left|\dfrac{\bar X-\mu_0}{\frac{s}{\sqrt{n}}}\right|>t_{k;\alpha/2}\right\},\]
+        siendo $t_{k;\alpha/2}$ el valor crítico para la distribución $t$ de Student con $k=n-1$ grados de libertad, que deja una probabilidad $1-\alpha/2$ a su izquierda (y por lo tanto, cada cola tiene probabilidad $\alpha/2$).
+
+    \end{enumerate}
+
+       \end{itemize}
+

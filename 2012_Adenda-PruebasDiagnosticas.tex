@@ -1,0 +1,330 @@
+% !Mode:: "Tex:UTF-8"
+\documentclass[10pt,a4paper]{article}
+\usepackage{makeidx}
+\newcommand{\idioma}{spanish}
+\newcommand{\opcionesIdioma}{,es-nodecimaldot}
+\input{definiciones}
+%\input{sahp}
+\includecomment{com}
+%\excludecomment{com}
+%\usepackage[dvips]{hyperref}
+%\usepackage{pstricks}
+\usepackage{attachfile}
+
+\textwidth=150mm \textheight=260mm
+\hoffset=-1cm
+\voffset=-25mm
+%\textwidth=160mm \textheight=240mm \hoffset=-20mm \voffset=-20mm \parskip=0mm \marginparsep=-25mm
+
+\setlength{\parindent}{0pt}
+\newcounter {cont01}
+
+%\externaldocument{010-a-UnCuentoSobreNumeros}
+
+\begin{document}
+\includecomment{pdf}
+%\excludecomment{pdf}
+%\includecomment{dvi}
+\excludecomment{dvi}
+%\includecomment{com}
+\excludecomment{com}
+
+\paragraph{Univ. de Alcal\'{a}. \link{http://www.uah.es/biologia}{Fac. de Biología}\hspace{2.2cm}Grados en Biología y Biología Sanitaria\\[2mm]
+%Página Web Facultad:\link{http://www.uah.es/biologia}{ http://www.uah.es/biologia}\hspace{9.2cm}\quad\\[2mm]
+\link{http://www2.uah.es/matema}{Dpto. de Matem\'{a}ticas}\hspace{9.2cm}Estadística
+}
+\noindent\hrule
+
+\setcounter{section}{0}
+\section*{\hspace{-0.1cm}\fbox{\colorbox{Gris025}{
+\begin{minipage}{14.5cm}
+Adenda:\\ El lenguaje de la probabilidad en las pruebas diagnósticas.
+\end{minipage}
+}}}
+
+%\subsection*{\fbox{1. Ejemplos preliminares }}
+\setcounter{tocdepth}{1}
+%\tableofcontents
+
+%\noindent{\bf Atención: este fichero pdf lleva adjuntos algunos de los ficheros de datos necesarios.}
+
+%\section*{El lenguaje de la probabilidad en las pruebas diagnósticas}
+
+\subsection*{Prevalencia}
+El modelo clásico de prueba diagnóstica consiste  en algún tipo de procedimiento que permite detectar la presencia o ausencia de una cierta enfermedad. O, más en general, de cualquier otra circunstancia; una prueba de embarazo es una prueba diagnóstica en este sentido. Simplificando, en estas notas vamos a hablar de {\em enfermedad} en cualquier caso. Para aplicar el lenguaje de la Probabilidad en este contexto, empezamos por llamar {\sf prevalencia} de la enfermedad a la probabilidad de que un individuo, tomado al azar de la población que nos interesa, esté enfermo. En inglés enfermedad es {\em disease}, y por eso vamos a utilizar el símbolo
+\[P(D)\]
+para referirnos a la prevalencia.
+
+
+\subsection*{Falsos positivos y falsos negativos}
+
+Cuando se utiliza una prueba diagnóstica, hay dos situaciones indeseables que pueden producirse:\\[3mm]
+    \fbox{\colorbox{Gris025}{\begin{minipage}{14cm}
+         \begin{itemize}
+            \item Un {\sf falso positivo} significa que la prueba indica la presencia de la enfermedad, cuando en realidad no es así (el individuo está, de hecho, sano). La probabilidad de que ocurra este error se suele representar por $\alpha$, y es una probabilidad condicionada:
+                \[\alpha=P(\mbox{test positivo}|\mbox{individuo sano}).\]
+
+            \item Un {\sf falso negativo} significa que la prueba indica la ausencia de la enfermedad, cuando en realidad no es así (el individuo está, de hecho, enfermo). La probabilidad de este error se suele representar por $\beta$, y es también una probabilidad condicionada:
+                \[\beta=P(\mbox{test negativo}|\mbox{individuo enfermo}).\]
+         \end{itemize}
+    \end{minipage}}}\\[3mm]
+
+
+\subsection*{Sensibilidad y especificidad. Coeficientes de verosimilitud.}
+
+Naturalmente, hay otros dos casos en los que la prueba funciona bien (postivos y negativos verdaderos). Pero los dos errores anteriores pueden tener consecuencias graves (incluso un falso positivo, que puede derivar en la aplicación de un tratamiento agresivo, que era innecesario). Para analizar la calidad de una prueba diagnóstica se emplean habitualmente dos nociones, paralelas a las anteriores:\\[3mm]
+    \fbox{\colorbox{Gris025}{\begin{minipage}{14cm}
+     \begin{itemize}
+        \item La {\sf sensibilidad} de la prueba es la probabilidad (condicionada) de que la prueba sea positiva  (indique la presencia de la enfermedad), sabiendo que el individuo está enfermo. Es decir:
+            \[\mbox{sensibilidad}=P(\mbox{test positivo}|\mbox{individuo enfermo}).\]
+            También lo representaremos mediante $P(+|D)$ (la $D$ es por {\em disease}, enfermedad en inglés.) Y en la literatura inglesa se habla a menudo de {\em PID=positive in disease.}
+
+        \item La {\sf especificidad} de la prueba es la probabilidad (condicionada) de que la prueba sea negativa  (indique la ausencia de la enfermedad), sabiendo que el individuo está sano. Es decir:
+            \[\mbox{especificidad}=P(\mbox{test negativo}|\mbox{individuo sano}).\]
+            También lo representaremos mediante $P(-|D^c)$. A menudo, en inglés, {\em NIH=negative in health.}
+     \end{itemize}
+     \end{minipage}}}\\[3mm]
+
+Con esta notación es $\alpha=P(+|D^c)$, y $\beta=P(-|D)$. Además, obsérvese que
+\begin{center}
+\fbox{\colorbox{Gris025}{\begin{minipage}{7cm}
+\[1=P(+|D)+P(-|D)=\mbox{sensibilidad}+\beta\]
+\end{minipage}}}
+\end{center}
+mientras que:
+\begin{center}
+\fbox{\colorbox{Gris025}{\begin{minipage}{7cm}
+\[1=P(+|D^c)+P(-|D^c)=\alpha+\mbox{especificidad}.\]
+\end{minipage}}}
+\end{center}
+
+
+A partir de la sensibilidad y especificidad de la prueba se definen los llamados coeficientes (o razones) de verosimilitud de esa prueba. Son\\[3mm]
+    \fbox{\colorbox{Gris025}{\begin{minipage}{14cm}
+     \begin{itemize}
+        \item El {\sf cociente (o razón) de verosimilitud diagnóstica positiva} de la prueba es
+        \[RVP=\dfrac{P(+|D)}{P(+|D^c)}\]
+        En la literatura en inglés se usa el nombre $DLR_+$ (diagnostic likelihood ratio). Obsérvese que, por definición:
+        \[
+        RVP=\dfrac{\mbox{sensibilidad}}{\alpha}=\dfrac{\mbox{sensibilidad}}{1-\mbox{especificidad}}
+        \]
+        Así que es fácil calcular $RVP$ a partir de la sensibilidad y la especificidad de la prueba.
+
+
+        \item El {\sf cociente (o razón) de verosimilitud diagnóstica negativa} de la prueba es
+        \[RVN=\dfrac{P(-|D)}{P(-|D^c)}\]
+        En inglés se usa $DLR_-$. En este caso se cumple:
+        \[
+        RVN=\dfrac{\beta}{\mbox{especificidad}}=\dfrac{1-\mbox{sensibilidad }}{\mbox{especificidad}}
+        \]
+     \end{itemize}
+     \end{minipage}}}\\[3mm]
+
+
+\subsection*{Valores predictivos de la prueba.}
+
+Hasta ahora hemos puesto nombre a estas cuatro probabilidades condicionadas.
+\[P(+|D),\quad P(-|D),\quad P(-|D^c),\quad P(+|D^c)\]
+Si vamos a aplicar la fórmula de Bayes, que hemos visto en clase, al análisis de una prueba diagnóstica, a menudo nos encontraremos con las probabilidades condicionadas simétricas de estas cuatro. En particular, son de especial interés dos de ellas:\\[3mm]
+    \fbox{\colorbox{Gris025}{\begin{minipage}{14cm}
+     \begin{itemize}
+        \item El {\sf valor predictivo positivo} de la prueba es
+        \[VPP=P(D|+).\]
+        Es decir, la probabilidad condicionada de que el individuo esté enfermo, sabiendo que la prueba ha resultado positiva.
+
+        \item El {\sf valor predictivo negativo} de la prueba es
+        \[VPN=P(D^c|-).\]
+        Es decir, la probabilidad condicionada de que el individuo esté sano, sabiendo que la prueba ha resultado negativa.
+     \end{itemize}
+     \end{minipage}}}\\[3mm]
+
+\subsection*{Proporciones (odds)}
+
+En la literatura sobre pruebas diagnósticas se usa muy a menudo la idea que, en inglés, se denomina {\em odds}. Ese término inglés {\em odds}, en el sentido en que lo vamos a usar aquí, no tiene una buena traducción al español, aunque {\em proporciones} es seguramente la idea que más se acerca. Este uso de la palabra odds tiene su origen en el mundo de las apuestas, y es en ejemplos de ese mundo donde mejor se entiende lo que queremos decir. Los aficionados a las apuestas comprenden de forma natural la idea de que una apuesta {\em se paga 10 a uno}. Es decir, que por cada euro que yo apuesto me pagarán 10 euros si mi apuesta resulta ganadora. En este contexto un apostador diría que los odds o proporciones de la apuesta son de 10 a 1.
+
+¿Qué relación hay entre estas proporciones y las probabilidades? La clave es entender la idea de {\em media o valor esperado}. En principio, una apuesta sólo se puede ganar o perder. Por lo tanto, se basa en una variable aleatoria de tipo Bernouilli (llamémosla $A$), con probabilidad $p$ de perder (de que yo pierda el dinero que he apostado) y $q=1-p$ de ganar. Supongamos que las proporciones para esta apuesta son de $k$ euros a 1. Es decir, si gano recibo $k$ euros por cada euro apostado (mientras que si pierdo, pierdo el euro que aposté, naturalmente). ¿Cuál es entonces el valor medio, o valor esperado de $A$? Pues sería
+\[\mu_A=q\cdot k+p\cdot(-1)\]
+El valor $-1$ en el segundo sumando corresponde a mis pérdidas (1 euro), si la suerte no me favorece.
+
+Dado este cálculo, ¿cuándo estamos ante una apuesta justa? Pues cuando mis ganancias esperadas son de cero euros (es decir, ni pierdo ni gano). Una apuesta justa debe cumplir:
+\[\mu_A=0\]
+Despejando de aquí, obtenemos una receta para calcular el valor $k$ que debería pagarnos el corredor de apuestas, una vez conocida la probabilidad $p$ de que yo gane la apuesta. En efecto, de
+\[0=q\cdot k+p\cdot(-1)\]
+se deduce
+\[
+k=\dfrac{p}{q}=\dfrac{p}{1-p}
+\]
+Esta relación entre proporciones (la cantidad $k$) y probabilidades no es del todo evidente. Por ejemplo, si la probabilidad de que yo pierda es del $80\%$ (es decir, $p=0.8$ y $q=0.2$) entonces, cuando gano, el corredor de apuestas debería pagarme
+\[
+k=\dfrac{0.8}{0.2}=4.
+\]
+euros por cada euro. Es una apuesta 4 a 1 si ha de ser justa. ¿Cuál debería ser el valor de $p$ para que la apuesta sea 10 a 1 (Calcúlalo; pero atención, {\sf no es el 90\%})?
+
+
+¿Qué tiene que ver toda esta terminología de apuestas con las pruebas diagnósticas? Supongo que el origen de todo es el hecho de que muchas personas (pacientes y/o personal sanitario) tienen problemas para entender el concepto de probabilidad. En cambio, la noción de proporciones (odds) en una apuesta es más conocida y familiar, para muchas de esas personas.
+
+La propia noción de prevalencia de una enfermedad se puede expresar, para ayudar a visualizarla, en términos de odds. Por ejemplo, si decimos que hay un enfermo de diabetes por cada 20 individuos sanos, {\bf no} estamos diciendo que la probabilidad sea
+\[\dfrac{1}{20}.\]
+Este número no es la probabilidad (prevalencia), sino la proporción. La prevalencia, es decir, la probabilidad, de hecho es (ahora debería ser evidente):
+\[\dfrac{1}{21}.\]
+Como vemos, la noción de odds o proporciones es simplemente otra forma de expresar la relación entre el número de enfermos y el total de la población.
+
+\subsection*{Odds pre y post diagnóstico}
+
+Una vez entendida la idea de odds o proporciones, apliquémosla a las pruebas diagnósticas. Antes de realizar una prueba diagnóstica, ¿cuánto valen las proporciones de que el individuo esté enfermo? Esto es fácil, se tiene:
+\begin{center}
+\fbox{\colorbox{Gris025}{\begin{minipage}{7cm}
+\[\mbox{pre-test odds}=\dfrac{P(D)}{1-P(D)}=\dfrac{P(D)}{P(D^c)}\]
+\end{minipage}}}
+\end{center}
+¿Y si ya hemos hecho la prueba, y el resultado ha sido positivo? ¿Cómo han cambiado los odds? Ahora tenemos que comparar $P(D|+)$ con $P(D^c|+)$ (estos dos valores también suman 1). Es decir, que tenemos:
+\begin{center}
+\fbox{\colorbox{Gris025}{\begin{minipage}{7cm}
+\[\mbox{post-test odds}=\dfrac{P(D|+)}{P(D^c|+)}\]
+\end{minipage}}}
+\end{center}
+
+
+
+Las proporciones pre y post prueba diagnóstica se pueden relacionar de forma sencilla con los coeficientes de verosimilitud. Aquí es donde, por fin, entra en acción el Teorema de Bayes. Por un lado, ese teorema nos dice que:
+\[
+P(D|+)=\dfrac{P(+|D)P(D)}{P(+|D)P(D)+P(+|D^c)P(D^c)}
+\]
+Y otra aplicación del teorema produce:
+\[
+P(D^c|+)=\dfrac{P(+|D^c)P(D^c)}{P(+|D^c)P(D^c)+P(+|D)P(D)}
+\]
+Ahora hay que darse cuenta de que, aunque el orden es distinto, los denominadores son iguales. Dividiendo las dos fracciones esos denominadores se cancelan y obtenemos (organizando un poco el resultado):
+\[
+\dfrac{P(D|+)}{P(D^c|+)}=\dfrac{P(+|D)}{P(+|D^c)}\cdot\dfrac{P(D)}{P(D^c)}.
+\]
+Bien mirado, y teniendo en cuenta la terminología que hemos ido introduciendo, esto significa que:
+\begin{center}
+\fbox{\colorbox{Gris025}{\begin{minipage}{12cm}
+\[\mbox{post-test odds de enfermedad para prueba positiva}=RVP\cdot \mbox{pre-test odds}\]
+\end{minipage}}}
+\end{center}
+donde $RVP$ es, recordemos, la razón de verosimilitud positiva de la prueba.
+
+Por un razonamiento análogo, se obtiene:
+\begin{center}
+\fbox{\colorbox{Gris025}{\begin{minipage}{12cm}
+\[\mbox{post-test odds de enfermedad para prueba negativa}=RVN\cdot \mbox{pre-test odds}\]
+\end{minipage}}}
+\end{center}
+
+
+\section{Ejercicios para practicar estas ideas}
+
+
+\begin{enumerate}
+
+    \item  En un estudio en el que se incluyen 1000 pacientes enfermos y 100 no enfermos, una prueba diagnostica clasifica como positivos al 70\% de los enfermos, y como negativos al 95\% de los no enfermos. Calcular la sensibilidad y la especificidad de la prueba.
+
+    \item  La sensibilidad de una prueba diagnóstica es $0.95$ y su especificidad es $0.85$. Si la prevalencia de la enfermedad es $0.002$, ¿cuál es el valor predictivo positivo del test?
+
+    \item En la información que describe un test de embarazo se puede leer ``Cuando los usuarios del test son mujeres que recogen y ensayan sus propias muestras, la sensibilidad del test es del 75\%. La especificidad también es baja, de entre un 52\% y un 75\%.'' Aceptando el valor más bajo para la especificidad, ¿cuánto vale la razón de verosimilitud diagnóstica negativa de este test? Vamos a suponer que una mujer ha obtenido un resultado negativo en el test. Sabiendo que un 30\% de las mujeres que realizan pruebas de embarazo están de hecho embarazadas, ¿cuál es la probabilidad de que esta mujer lo esté?
+
+    \item Un estudio que compara la eficacia de varias pruebas diagnósticas del VIH describe un experimento en el que se obtuvo que los test de anticuerpos del VIH tienen una sensibilidad del 99.7\% y una especificidad del 98.5\%. Supongamos queun individuo, dentro de una población con una prevalencia del 0.1\%  de VIH, obtiene un resultado positivo en uno de estos test de anticuerpos. ¿Cuál es la probabilidad de que realmente tenga el VIH? ¿Cuál es el valor predictivo positivo de este test?
+
+    \item La siguiente tabla muestra los resultados de un test de diagnóstico que se utilizó con dos muestras independientes de 650 sujetos enfermos y 1200 sujetos sanos.
+
+        \begin{center}
+            \begin{tabular}{llccc}
+            &&\multicolumn{3}{c}{\underline{\bf Estado real}}\\
+
+                                  &          & Enfermos & Sanos& \\
+            \hline
+  \underline{\bf Resultado del test}          & Positivo & 490 & 70   &   \\
+                                              & Negativo & 160 & 1130 &   \\
+            \hline
+                                              &          &     &     &    \\
+            \hline
+            \end{tabular}
+        \end{center}
+        Calcular la sensibilidad y la especificidad del test. Si la prevalencia de la enfermedad es $0.002$, ¿cuál es el valor predictivo positivo del test?
+
+
+    \item Los resultados de la siguiente tabla se obtuvieron en un estudio diseñado para averiguar la capacidad de un cirujano anatomopatólogo para clasificar correctamente biopsias quirúrgicas en malignas o benignas. Aproximar $\alpha$ y $\beta$ a partir de estos datos.
+
+        \begin{center}
+            \begin{tabular}{llccc}
+            &&\multicolumn{3}{c}{\underline{\bf Estado real}}\\
+
+                                  &          & Benigno (-)& Maligno (+)& Total\\
+            \hline
+  \underline{\bf Informe del anatomopatólogo} & Positivo & 7 & 79   &   \\
+                                              & Negativo & 395  & 19 &   \\
+            \hline
+                                              &          &     &     & 500  \\
+            \hline
+            \end{tabular}
+        \end{center}
+
+    \item Se está ensayando un nuevo método para detectar enfermedades renales en pacientes con hipertensión. Se aplica el nuevo procedimiento a 137 pacientes hipertensos. Y a continuación, a esos mismos pacientes se les aplica un método anterior, bien contrastado, para comprobar la presencia o ausencia de enfermedad renal. Los datos obtenidos se recogen en la tabla. Utilizando estos datos, calcular aproximadamente la probabilidad de falso positivo y la de falso negativo del nuevo método. Aproximar asimismo el valor predictivo positivo y el valor predictivo negativo del nuevo método.
+
+        \begin{center}
+            \begin{tabular}{llccc}
+            &&\multicolumn{3}{c}{\underline{\bf Estado real (método clásico)}}\\
+
+                                  &          & Sano (-)& Enfermo (+)& Total\\
+            \hline
+            \underline{\bf Nuevo método}     & Enfermo (+) & 23  & 44 &   \\
+                                             & Sano (-) & 60  & 10 &   \\
+            \hline
+                                              &          &     &     & 137  \\
+            \hline
+            \end{tabular}
+        \end{center}
+
+\item En la siguiente tabla se muestran los resultados de un estudio para evaluar la utilidad de una tira reactiva para el diagnóstico de infección urinaria.
+        \begin{center}
+            \begin{tabular}{llccc}
+            &&\multicolumn{3}{c}{\underline{\bf Estado real}}\\
+
+                                  &          & Con infección& Sin infección&\\
+            \hline
+            \underline{\bf Tira reactiva}     & Positivo & 60  & 80 &   \\
+                                             & Negativo & 10  & 200 &   \\
+            \hline
+                                              &          &     &     & 350  \\
+            \hline
+            \end{tabular}
+        \end{center}
+        Calcular e interpretar sensibilidad y especificidad, y los valores predictivos positivo y negativo. Si conocemos que la prevalencia de la infección en la población de interés es del 2\%, ¿cómo se verían afectados los valores predictivos? ¿Es esta tira reactiva una buena prueba diagnóstica?
+
+\end{enumerate}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%\section*{Otras lecturas recomendadas}
+%
+%Al menos uno de los siguientes:
+%    \begin{itemize}
+%    \item Capítulo 1 y Capítulo 2 de {\em La estadística en Comic} (hasta la pág 13).
+%    \item Capítulo 1 de {\em Head First Statistics}.
+%    \item El Tema 1 de {\em Bioestadística: Métodos y Aplicaciones}, Univ. de Málaga (podéis ver el vídeo asociado, con las explicaciones del profesor).
+%    \end{itemize}
+%
+%\section{Tareas asignadas para esta sesión.}
+%
+%\begin{enumerate}
+%\item Si no lo has hecho aún, \textcolor{red}{¡matriculate en el curso Moodle de esta asignatura!}
+%\item Descarga e instala R-commander en tu ordenador. Si tienes problemas, pregunta en el foro de Moodle.
+%\
+%%\item En Moodle tienes un enlace para descargarte un fichero aleatorio personalizado (uno distinto para cada uno de vosotros), con datos de los alumnos de una clase ficiticia. Abre el fichero con una hoja de cálculo, calcula el peso medio y la edad media de los alumnos, y dibuja un diagrama de barras de la variable edad. (¿Qué opinas de ese diagrama?) Los resultados deben aparecer en la propia hoja de cálculo. Después usa el enlace que aparece en las tareas de Moodle para hoy, para subir el fichero modificado con tus resultados (no cambies el nombre del fichero).
+%\end{enumerate}
+%
+
+\end{document}

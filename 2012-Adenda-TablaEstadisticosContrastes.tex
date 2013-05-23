@@ -1,0 +1,91 @@
+% !Mode:: "Tex:UTF-8"
+\documentclass[10pt,a4paper]{article}
+\usepackage{makeidx}
+\newcommand{\idioma}{spanish}
+\newcommand{\opcionesIdioma}{,es-nodecimaldot}
+\input{definiciones}
+%\input{sahp}
+\includecomment{com}
+%\excludecomment{com}
+%\usepackage[dvips]{hyperref}
+%\usepackage{pstricks}
+\usepackage{attachfile}
+
+\textwidth=150mm \textheight=260mm
+\hoffset=-3cm
+\voffset=-30mm
+%\textwidth=160mm \textheight=240mm \hoffset=-20mm \voffset=-20mm \parskip=0mm \marginparsep=-25mm
+
+\setlength{\parindent}{0pt}
+\newcounter {cont01}
+
+%\externaldocument{010-a-UnCuentoSobreNumeros}
+
+\pagestyle{empty}
+\begin{document}
+\includecomment{pdf}
+%\excludecomment{pdf}
+%\includecomment{dvi}
+\excludecomment{dvi}
+%\includecomment{com}
+\excludecomment{com}
+
+\paragraph{Univ. de Alcal\'{a}. \link{http://www.uah.es/biologia}{Fac. de Biología}\hspace{2.2cm}Grados en Biología y Biología Sanitaria\\[2mm]
+%Página Web Facultad:\link{http://www.uah.es/biologia}{ http://www.uah.es/biologia}\hspace{9.2cm}\quad\\[2mm]
+\link{http://www2.uah.es/matema}{Dpto. de Matem\'{a}ticas}\hspace{9.2cm}Estadística
+}
+\noindent\hrule
+
+\setcounter{section}{0}
+\section*{\hspace{-0.1cm}\fbox{\colorbox{Gris025}{
+\begin{minipage}{14.5cm}
+Adenda: Tabla resumen de estadísticos de contraste.
+\end{minipage}
+}}}
+
+%\subsection*{\fbox{1. Ejemplos preliminares }}
+\setcounter{tocdepth}{1}
+%\tableofcontents
+
+\begin{center}
+\begin{tabular}{|l|c|c|}
+\hline
+{\bf Contraste }&{\bf  Estadístico }&{\bf  Distribución}\\
+\hline
+\rule{0cm}{1cm}\begin{minipage}{5cm}$\mu$, población normal,\\ $\sigma$ conocido. \end{minipage}& $\dfrac{\bar X-\mu_0}{\dfrac{\sigma}{\sqrt{n}}}$ & $Z$ (normal $N(0,1)$)\\[8mm]
+\hline
+\rule{0cm}{1cm}\begin{minipage}{5cm}$\mu$, población normal,\\ $\sigma$ desconocido, $n>30$. \end{minipage}& $\dfrac{\bar X-\mu_0}{\dfrac{s}{\sqrt{n}}}$ & $Z$ (normal $N(0,1)$)\\[8mm]
+\hline
+\rule{0cm}{1cm}\begin{minipage}{5cm}$\mu$, población normal,\\ $\sigma$ desconocido, $n\leq 30$. \end{minipage}& $\dfrac{\bar X-\mu_0}{\dfrac{s}{\sqrt{n}}}$ & $T_k$ ($t$ de Student, $k=n-1$)\\[8mm]
+\hline
+\hline
+\rule{0cm}{1cm}\begin{minipage}{5cm}$\sigma^2$, población normal\\ (¡Atención al cuadrado!).\end{minipage}& $\dfrac{(n-1) s^2}{\sigma_0^2}$ & $\chi^2_k$ (donde $k=n-1$)\\[8mm]
+\hline
+\hline
+\rule{0cm}{1cm}\begin{minipage}{5cm}proporción $p$,\\ población normal, $n>30$. \end{minipage}& $\dfrac{\hat p-p_0}{\sqrt{\dfrac{p_0\cdot q_0}{{n}}}}$ & $Z$ (normal $N(0,1)$)\\[8mm]
+\hline
+\hline
+\rule{0cm}{1cm}\begin{minipage}{5cm}diferencia de medias $\mu_1-\mu_2$,\\ poblaciones normales,\\ $\sigma_1, \sigma_2$ conocidas.\end{minipage}& $\dfrac{\bar x_1-\bar x_2}{\sqrt{\dfrac{\sigma_1^2}{n_1}+\dfrac{\sigma_2^2}{n_2}}}$ & $Z$ (normal $N(0,1)$)\\[8mm]
+\hline
+\rule{0cm}{1cm}\begin{minipage}{5cm}diferencia de medias $\mu_1-\mu_2$,\\ poblaciones normales,\\ $\sigma_1, \sigma_2$ desconocidas,\\ muestras grandes $n_1,n_2>30$.\end{minipage}& $\dfrac{\bar x_1-\bar x_2}{\sqrt{\dfrac{s_1^2}{n_1}+\dfrac{s_2^2}{n_2}}}$ & $Z$ (normal $N(0,1)$)\\[8mm]
+\hline
+\rule{0cm}{1cm}\begin{minipage}{5cm}diferencia de medias $\mu_1-\mu_2$,\\ poblaciones normales,\\ muestras pequeñas,\\ $\sigma_1, \sigma_2$ desconocidas pero iguales.\end{minipage}& $\dfrac{\bar x_1-\bar x_2}{\scriptsize{\sqrt{\left(\dfrac{(n_1-1)s_1^2+(n_2-1)s_2^2}{n_1+n_2-2}\right)\left(\dfrac{1}{n_1}+\dfrac{1}{n_2}\right)}}}$ & $T_{n_1+n_2-2}$ ($t$ de Student)\\[8mm]
+\hline
+\rule{0cm}{1.2cm}\begin{minipage}{5cm}diferencia de medias $\mu_1-\mu_2$,\\ poblaciones normales,\\ muestras pequeñas,\\ $\sigma_1, \sigma_2$ desconocidas distintas.\end{minipage}& $\dfrac{\bar x_1-\bar x_2}{\scriptsize{\sqrt{\dfrac{s_1^2}{n_1}+\dfrac{s_2^2}{n_2}}}}$ &\begin{minipage}{5cm} $T_f$ ($t$ de Student,\\ $f$ es el entero más cercano a:\\
+    \scriptsize{$\dfrac{\left(\dfrac{s_1^2}{n_1}+\dfrac{s_2^2}{n_2}\right)^2}{\dfrac{(s_1^2/n_1)^2}{n_1+1}+\dfrac{(s_2^2/n2)^2}{n_2+1}}-2.$}\end{minipage}
+\\[8mm]
+\hline
+\hline
+\rule{0cm}{1cm}\begin{minipage}{5cm}Cociente de varianzas $\dfrac{\sigma_1}{\sigma_2}$,\\ poblaciones normales.\end{minipage}& $\dfrac{s_1^2}{s_2^2}$ & $F_{k_1,k_2}$ ($F$ de Fisher, $k_i=n_i-1$).\\[8mm]
+\hline
+\hline
+\rule{0cm}{1cm}\begin{minipage}{5cm}dif.de proporciones $p_1-p_2$,\\ muestras grandes con\\ $n_1\cdot\hat p_1>5, n_1\cdot\hat q_1>5$,\\ $n_2\cdot\hat p_2>5,n_2\cdot\hat q_2>5$.\end{minipage}& $\dfrac{\hat p_1-\hat p_2}{\scriptsize{\sqrt{\hat p\hat q\left(\dfrac{1}{n_1}+\dfrac{1}{n_2}\right)}}}$ & \begin{minipage}{5cm}$Z$ (normal $N(0,1)$) con\\ $\hat p=\dfrac{n_1\hat p_1+n_2\hat p_2}{n_1+n_2},\quad \hat q=1-\hat p$ \end{minipage}\\[8mm]
+\hline
+
+
+\end{tabular}
+\end{center}
+
+
+
+\end{document}
