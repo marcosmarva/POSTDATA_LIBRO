@@ -1,0 +1,204 @@
+% !Mode:: "Tex:UTF-8"
+
+%\setcounter{section}{0}
+%\section*{\fbox{\colorbox{Gris025}{{Sesión 2 (21/09/2011). Estadística descriptiva}}}}
+
+%\noindent{\bf Atención: este fichero pdf lleva adjuntos los ficheros de datos necesarios para la clase de hoy, que se abren usando los enlaces que contiene.}
+
+%\subsection*{\fbox{1. Ejemplos preliminares }}
+%\setcounter{tocdepth}{1}
+%\tableofcontents
+\setcounter{section}{1}
+
+\section{Población y muestra.}
+
+\begin{itemize}
+    \item La estadística se divide habitualmente en varios temas relacionados. Esa división resulta evidente mirando el programa de esta asignatura, o la división por capítulos de cualquiera de los manuales que aparecen en la bibliografía. Algunos de los temas habituales en cualquier curso de introduccion a la Estadística son
+        \begin{center}
+        $
+        \mbox{Estadística }=\begin{cases}
+        \mbox{Estadística Descriptiva}\\
+        \mbox{Distribuciones de Probabilidad}\\
+        \mbox{Inferencia Estadística}\\
+        \mbox{Diseño de Experimentos}\\
+        \mbox{Regresión}\\
+        \mbox{...}
+        \end{cases}
+        $
+        \end{center}
+
+    \item Cuando tenemos un conjunto de datos y queremos describirlos, representarlos o  visualizarlos, utilizamos técnicas que corresponden a la {\sf Estadística Descriptiva}. Así que la Estadística Descriptiva se encarga del trabajo con los {\em datos que de hecho tenemos}, y con los que podemos hacer operaciones. Es el tema con el que vamos a empezar el curso.
+
+    \item En muchas ocasiones esos datos corresponden a una {\sf muestra}, es decir, a un subconjunto (más o menos pequeño), de una {\sf población} (más o menos grande), que nos gustaría estudiar. El problema es que estudiar toda la población puede ser demasiado difícil o directamente imposible. En ese caso surge la pregunta ¿hasta qué punto los datos de la muestra son representativos de la población? Es decir, ¿podemos usar los datos de la muestra para {\em inferir} los datos de la población completa? La {\sf Inferencia Estadística} se encarga de dar sentido y formalizar estas preguntas.
+
+    \item La razón por la que la inferencia, que es la esencia de la Estadística, funciona es porque muchos casos (ya discutiremos cuales), cualquier muestra {\em bien elegida} (ya veremos lo que significa esto) es bastante representativa de la población. Dicho de otra manera, si pensamos en el conjunto de todas las posibles muestras bien elegidas que podríamos tomar, la inmensa mayoría de ellas serán representativas de la población. Así que si tomamos una al azar, casi con seguridad habremos tomado una muestra representativa. Puesto que hemos mencionado el azar, parece evidente que la manera de hacer que estas frases un poco imprecisas se conviertan en afirmaciones rigurosas y medibles es utilizar el lenguaje de la {\sf Probabilidad}. Por esa razón necesitamos hablar en ese lenguaje para poder hacer Estadística rigurosa.
+
+    \item Las técnicas de {\sf muestreo} y las de {\sf diseño de experimentos} también forman parte de la Estadística, para garantizar el buen funcionamiento de las técnicas que hemos descrito.
+
+
+\end{itemize}
+
+\section{Estadística descriptiva. Tipos de Variables.}
+
+\subsection*{Contenido:}
+\begin{itemize}
+ \item Variables cualitativas y cuantitativas.
+ \item Variables cuantitativas discretas y continuas.
+ \item Notación para las variables. Frecuencia.
+\end{itemize}
+
+
+\subsection{Variables cualitativas y cuantitativas}
+
+\begin{itemize}
+    \item A veces se dice que las variables cuantitativas son las variables numéricas, y las cualitativas las no numéricas. La diferencia es, en realidad, un poco más sutil. Una variable es {\sf cualitativa nominal} cuando {\sf sólo} se utiliza para establecer categorías, y {\em no para hacer operaciones con ella}. Es decir, para poner nombres, crear clases o especies dentro de los individuos que estamos estudiando. Por ejemplo, cuando clasificamos a los seres vivos en especies, no estamos {\em midiendo nada}. Podemos {\em representar} esas especies mediante números, naturalmente, pero en este caso la utilidad de ese número se acaba en la propia representación, y en la clasificación que los números permiten. Pero no utilizamos las propiedades de los números (las operaciones aritméticas, suma, resta, etc.). Volviendo al ejemplo de las especies, no tiene sentido sumar especies de seres vivos.
+
+    \item Una {\sf variable cuantitativa}, por el contrario, tiene un valor numérico, y las operaciones matemáticas que se pueden hacer con ese número son importantes para nosotros. Por ejemplo, podemos medir la presión arterial de un animal y utilizar fórmulas de la mecánica de fluidos para estudiar el flujo sanguíneo.
+
+    \item En la frontera, entre las variables cuantitativas y las cualitativas, se incluyen las {\sf cualitativas ordenadas}. En este caso existe una ordenación dentro de los valores de la variable. Por ejemplo, la gravedad del pronóstico de un enfermo ingresado en un hospital. Pero no tiene sentido hacer otras operaciones con esos valores: no podemos sumar grave con leve. Como ya hemos dicho, se pueden codificar mediante números de manera que el orden se corresponda con el de los códigos numéricos\footnote{¿Dónde encaja el {\em pronóstico reservado} en esta escala?}:
+        \begin{center}
+        \begin{tabular}{|c|c|}
+        \hline
+        {\em Pronóstico}&{\em Código}\\
+        \hline
+        Leve&1\\
+        \hline
+        Moderado&2\\
+        \hline
+        Grave&3\\
+        \hline
+        \end{tabular}
+        \end{center}
+        En este caso es especialmente importante no usar esos números para operaciones estadísticas que pueden no tener significado (por ejemplo, calcular la media).
+\end{itemize}
+
+\subsection{Variables cuantitativas discretas y continuas.}
+
+\begin{itemize}
+    \item A su vez, las variables cuantitativas se dividen en {\sf discretas} y {\sf continuas}. Puesto que se trata de números, y queremos hacer operaciones con ellos, la clasificación depende de las operaciones matemáticas que vamos a realizar.
+    \item Cuando utilizamos los {\sf números enteros} ($\mathbb Z$) o un subconjunto de ellos como modelo, la variable es discreta. Y entonces con esos números podemos sumar, restar, multiplicar --pero no siempre dividir.
+    \item Por el contrario, si usamos {\sf los números reales} ($\mathbb R$), entonces la variable aleatoria es continua. La diferencia entre un tipo de datos y el otro se corresponde en general con la diferencia entre digital y analógico, o con la diferencia entre ecuaciones en diferencias y ecuaciones diferenciales.
+    \item Es importante entender que la diferencia entre discreto y continuo es, en general, una diferencia que establecemos nosotros al crear un {\sf modelo} con el que estudiar un fenómeno, y que la elección correcta determina la utilidad del modelo.
+\end{itemize}
+
+\subsection{Notación para las variables. Tablas de frecuencia. Datos agrupados}
+
+\begin{itemize}
+
+    \item En cualquier caso, vamos a tener siempre una serie de valores (observaciones, medidas) de una variable, que representaremos con símbolos como
+    \[x_1,x_2,\ldots,x_n\]
+    El {\sf número $n$} se utiliza habitualmente en Estadística para referirse al {\sf número total de valores} de los que se dispone).
+    Por ejemplo, en el fichero \textattachfile{GonickSmith-p009-GeneroPesoEdad.csv}{\textcolor{blue}{GonickSmith-p009-GeneroPesoEdad.csv}}
+    (\textattachfile{GonickSmith-p009-GeneroPesoEdad.ods}{\textcolor{blue}{Calc}} y versión \textattachfile{GonickSmith-p009-GeneroPesoEdad.xls}{\textcolor{blue}{Excel}}) tenemos los pesos (en libras) de los $n=92$ alumnos de una clase de Universidad de los Estados Unidos\footnote{Tomado de 'La Estadística en Comic', capítulo 2.} (los datos llegan a la fila 93, pero la primera fila es el nombre de las variables).
+
+    Si utilizamos $p_1,p_2,\ldots,p_{92}$ para referirnos a estos datos de peso, entonces $p_1$ es el dato en la segunda fila, $p_2$ el dato en la tercera, y $p_{35}$ el dato de la fila $36$. En estos casos puede ser una buena idea introducir una columna adicional con el índice $i$ que corresponde a $p_i$ ($i$ es el número de la observación). Porque, como ya veremos, puede ser cómodo conservar los nombres de las variables en la primera fila de la hoja de cálculo.
+
+    \item Un mismo valor de la variable puede aparecer repetido varias veces en la serie de observaciones. En el fichero de los alumnos de nuestra clase, la variable género sólo toma dos valores, Hombre o Mujer. Pero cada uno de esos valores aparece repetido bastantes veces. En concreto en la clase hay 35 alumnas y 57 alumnos. Este {\sf número de repeticiones de un valor} es lo que llamamos la {\sf frecuencia} de ese valor.
+
+    \item El número de repeticiones de un valor, del que hemos hablado en el anterior párrafo, se llama {\sf frecuencia absoluta}, para distinguirlo de la {\sf frecuencia relativa}, que se obtiene dividiendo la frecuencia absoluta por $n$ (el total de observaciones).
+
+        También se pueden utilizar {\sf porcentajes} en lugar de frecuencias relativas (la frecuencia relativa es el tanto por uno, y el porcentaje el tanto por ciento).
+
+    \item Cuando tratamos con variables cualitativas o con variables discretas, muchas veces, en lugar del valor de cada observación la información que tenemos es la de las frecuencias de cada uno de los posibles valores distintos de esas variables. Esto es lo que se conoce como una {\sf tabla de frecuencias}. Vamos a ver como se obtiene (usando la función {\tt FRECUENCIA()}) la tabla de frecuencias de la variable género en el ejemplo de la clase que acabamos de ver (el resultado está en estos ficheros \textattachfile{GonickSmith-p009-frecuenciasGenero.ods}{\textcolor{blue}{Calc}} y \textattachfile{GonickSmith-p009-frecuenciasGenero.xls}{\textcolor{blue}{Excel}}).
+
+    \item ¿Qué sucede en este ejemplo con la variable peso? ¿Podemos calcular una tabla de frecuencias? Sí, en principio, podemos. Pero hay demasiados valores distintos, y la información presentada así no es útil. De hecho, como el peso {\em es una variable continua}, si nos dieran los pesos de los alumnos con, por ejemplo, dos cifras decimales, {\em es muy posible que no haya dos valores iguales de la variable} peso. Por otra parte, si los pesos de dos alumnos se diferencian en unas décimas, seguramente preferiremos representarlos todos por un valor común. En el caso de variables continuas, lo habitual es {\em dividir el rango de posibles valores de esa variable continua en intervalos}. La {\sf tabla de frecuencia por intervalos} mide, para estas variables, cuantos de los valores observados caen dentro de cada uno de los intervalos.
+
+    En el ejemplo que estamos utilizando, podemos dividir arbitrariamente los valores del peso en intervalos de 10 libras, desde 85 hasta 215, y obtenemos esta tabla de frecuencias:
+    \begin{center}
+    \begin{tabular}{|c|c|c|}
+    \hline
+    {\bf Intervalo}&{\bf Significado}&{\bf Frecuencia}\\ \hline
+    (75,85]&Peso$<$85&0\\ \hline
+    (85,95]&85$<$Peso$\leq$95&1\\ \hline
+    (95,105]&95$<$Peso$\leq$105&1\\ \hline
+    (105,115]&105$<$Peso$\leq$115&7\\ \hline
+    (115,125]&115$<$Peso$\leq$125&15\\ \hline
+    (125,135]&125$<$Peso$\leq$135&10\\ \hline
+    (135,145]&135$<$Peso$\leq$145&13\\ \hline
+    (145,155]&145$<$Peso$\leq$155&22\\ \hline
+    (155,165]&155$<$Peso$\leq$165&7\\ \hline
+    (165,175]&165$<$Peso$\leq$175&6\\ \hline
+    (175,185]&175$<$Peso$\leq$185&4\\ \hline
+    (185,195]&185$<$Peso$\leq$195&5\\ \hline
+    (195,205]&195$<$Peso$\leq$205&0\\ \hline
+    (205,215]&205$<$Peso$\leq$215&1\\ \hline
+    (215,225]&210$<$Peso&0\\ \hline
+    \end{tabular}
+    \end{center}
+    Y aquí están los correspondientes ficheros \textattachfile{GonickSmith-p009-frecuenciasPesos.ods}{\textcolor{blue}{Calc}} y \textattachfile{GonickSmith-p009-frecuenciasPesos.xls}{\textcolor{blue}{Excel}}.
+
+    Los intervalos, insistimos, se han elegido de manera arbitraria en este ejemplo. ¿Piensas que eso afecta de alguna manera a la información de la tabla de frecuencias?
+
+    \item En cualquier caso, conviene recordar que una tabla de frecuencias es una forma de resumir la información, y que al pasar del conjunto de datos inicial a las tablas de frecuencias de Peso y Género se pierde información.
+
+    \item Cuando los valores de una variable continua se presentan en forma de tabla de frecuencias por intervalos hablaremos de {\sf datos agrupados}.
+
+\end{itemize}
+
+\section{Tablas y visualización gráfica de datos.}
+
+\subsection*{Contenido:}
+
+\begin{enumerate}
+ \item Diagramas de líneas, sectores y barras
+ \item Histogramas
+\end{enumerate}
+
+\subsection{Diagramas de líneas, sectores y barras}
+
+\begin{itemize}
+     \item Los {\sf diagramas de líneas} se utilizan para mostrar tendencias temporales. Como el que se muestra en este fichero \textattachfile{HeadFirst-p003.ods}{\textcolor{blue}{Calc}} (versión \textattachfile{HeadFirst-p003.xls}{\textcolor{blue}{Excel}})
+
+     \item Los diagramas de sectores y barras se utilizan cuando queremos mostrar frecuencias (o porcentajes, recuentos, etcétera). Se pueden utilizar para ilustrar las frecuencias de variables tanto cualitativas como cuantitativas.
+
+     \item Los diagramas de {\sf sectores circulares} son útiles para mostrar proporciones cuando los valores son bastante distintos entre sí. Pero en muchas ocasiones pueden resultar confusos o poco precisos. Hay un ejemplo en este fichero \textattachfile{HeadFirst-p008.ods}{\textcolor{blue}{Calc}} (versión \textattachfile{HeadFirst-p008.xls}{\textcolor{blue}{Excel}}).
+         \begin{center}
+         \includegraphics[height=6cm]{2011_09_21_Figura01.PNG}
+         \end{center}
+    \item Los {\sf diagramas de barras} tienen, en general más precisión que los de sectores. Además se pueden utilizar para mostrar varios conjuntos de datos simultáneamente. Ver un ejemplo en este fichero \textattachfile{HeadFirst-p010.ods}{\textcolor{blue}{Calc}} (versión \textattachfile{HeadFirst-p010.xls}{\textcolor{blue}{Excel}}).
+        \begin{center}
+        \includegraphics[height=7cm]{2011_09_21_Figura02.PNG}
+        \end{center}
+
+
+\end{itemize}
+
+\subsection{Histogramas}
+
+\begin{itemize}
+
+    \item Un {\sf histograma} es un tipo especial de diagrama de barras que se utiliza para variables cualitativas agrupadas en intervalos. Las dos propiedades que definen el histograma son:
+        \begin{enumerate}
+            \item Las {\em bases de cada una de las barras se corresponden con los intervalos} en los que hemos dividido el rango de valores de la variable continua.
+            \item El {\em área de cada barra es proporcional a la frecuencia correspondiente a ese intervalo.}
+        \end{enumerate}
+         \begin{center}
+         \includegraphics[height=7cm]{2011_09_21_Figura03.PNG}
+         \end{center}
+
+    \item Dos observaciones adicionales: en primer lugar, puesto que los intervalos deben cubrir todo el recorrido de la variable, en un histograma no hay espacio entre las barras. Y, como práctica recomendable, para que la visualización sea efectiva, no es conveniente utilizar un histograma con más de 10 o 12 intervalos como máximo.
+
+    \item En el caso de {\sf variables cuantitativas discretas}, normalmente los intervalos se extienden a valores intermedios (que la variable no puede alcanzar) para que no quede espacio entre las barras del histograma.
+
+    \item Los pasos para obtener el histograma son estos:
+        \begin{enumerate}
+            \item Si no nos lo dan hecho, debemos empezar determinar los intervalos. Para ello podemos localizar el valor máximo y el mínimo de los valores, restarlos y obtenemos el {\em rango}.
+            \item Dividimos el rango entre el número de intervalos deseados, para obtener la longitud de cada uno de los intervalos. Construimos los intervalos y la tabla de frecuencias correspondiente.
+            \item Calculamos la altura de cada barra, teniendo en cuenta que área=base $\cdot$ altura, y que el área (¡no la altura!) es proporcional a la frecuencia. Por lo tanto podemos usar:
+                \[\fbox{$\mbox{altura}=\dfrac{\mbox{frecuencia}}{\mbox{base}}=\dfrac{\mbox{frecuencia del intervalo}}{\mbox{anchura del intervalo}.}$}\]
+                para calcular la altura de cada una de las barras.
+        \end{enumerate}
+
+    \item Pronto aprenderemos a obtener muchos de los resultados de la clase de hoy usando R. Como aperitivo, aquí tenemos un \textattachfile{Sesion001.R}{\textcolor{blue}{fichero}} de instrucciones para el ejemplo que hemos usado hoy.
+
+\end{itemize}
+
+%\section*{Tareas asignadas para esta sesión.}
+%
+%\begin{enumerate}
+% \item Si todavía no lo has hecho, inscríbete en Moodle y completa la tarea de ayer.
+% \item Descarga e instala R y R-commander en tu ordenador. Si tienes problemas, pregunta en el foro de Moodle.
+% \item En clase no hemos discutido el concepto de frecuencias acumuladas. Búsca su significado en alguna de las fuentes bibliográficas, y trata de obtener tablas de frecuencias acumuladas para algunos de los ejemplos que hemos visto en clase.
+% \item En Moodle tienes un enlace para descargarte un fichero aleatorio personalizado (uno distinto para cada uno de vosotros), con datos de los alumnos de una clase ficiticia. Abre el fichero con una hoja de cálculo, calcula el peso medio y la edad media de los alumnos, y dibuja un diagrama de barras de la variable edad. (¿Qué opinas de ese diagrama?) Los resultados deben aparecer en la propia hoja de cálculo (tendrás que grabarla con otra extensión; si tienes dudas, ya sabes: al foro de Moodle). Después usa el enlace que aparece en las tareas de Moodle para hoy, para subir el fichero modificado con tus resultados (no cambies el nombre del fichero).
+%\end{enumerate}
+
